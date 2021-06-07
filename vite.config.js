@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  // server: {
-  //   https: true
-  // }
+  server: {
+    // https: true,
+    host: '192.168.1.27'
+  }
 })
