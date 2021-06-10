@@ -25,25 +25,8 @@
       return {}
     },
     mounted() {
-var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "text/plain");
-
-        var raw = "{\"method\":\"step1\"}";
-
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
-        };
-
-        fetch("https://allridey-rcm-app.herokuapp.com/signRequest.php", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-
-
-      
+      data = {"method":"step1"}
+      signRequest(data)     
     },
     methods: {
 
