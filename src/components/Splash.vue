@@ -25,7 +25,7 @@
       return {}
     },
     mounted() {
-      fetch('/.netlify/functions/sign')
+      
     },
     methods() {
 
