@@ -25,13 +25,11 @@
       return {}
     },
     mounted() {
-      
-    },
-    methods: {
 
-        
-      
     },
+    methods() {
+
+    }
   }
 </script>
 
