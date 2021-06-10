@@ -25,8 +25,7 @@
       return {}
     },
     mounted() {
-      data = {"method":"step1"}
-      signRequest(data)     
+      
     },
     methods: {
 
