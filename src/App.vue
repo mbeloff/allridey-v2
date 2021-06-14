@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper h-screen w-screen grid">
+<div class="wrapper min-h-screen max-w-screen grid">
   <Nav />
   <div class=" z-0 main-content">
      <router-view />

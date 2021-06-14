@@ -1,6 +1,6 @@
 <template>
-  <div class="h-8 bg-gray-200 grid place-items-center">
-      <p class="text-gray-500">© Allridey | All rights reserved</p>
+  <div class="h-5 bg-gray-200 grid place-items-center">
+      <p class="text-gray-500 text-xs">© Allridey | All rights reserved</p>
     </div>
 </template>
 

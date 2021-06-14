@@ -23,7 +23,9 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      scale: ['active', 'group-hover'],
+    },
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),

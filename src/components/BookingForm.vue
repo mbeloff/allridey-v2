@@ -1,22 +1,22 @@
 <template>
   <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
     <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
-    <div v-if="!loading" class="text-left">
+    <div v-if="!loading" class="text-left ">
       <div class="grid gap-2">
         <div class="flex flex-col lg:flex-row">
-          <div class="flex flex-col flex-grow">
-            <label class="text-xs mb-1">Pickup Location</label>
+          <div class="flex flex-col flex-grow group">
+            <label class="text-xs mb-1 group-hover:text-yellow-500">Pickup Location</label>
             <div class="flex flex-row place-items-center">
-              <i class="fal fa-map-marker fa-fw text-blue-500"></i>
+              <i class="fal fa-map-marker fa-fw text-blue-500 group-hover:text-yellow-500"></i>
               <select class="border h-10  flex-1" v-model="this.formData.pickuplocationid" @change="update()">
                 <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
               </select>
             </div>
           </div>
-          <div class="flex flex-col flex-grow">
-            <label class="text-xs mb-1">Dropoff Location</label>
+          <div class="flex flex-col flex-grow group">
+            <label class="text-xs mb-1 group-hover:text-yellow-500">Dropoff Location</label>
             <div class="flex flex-row place-items-center">
-              <i class="fal fa-map-marker fa-fw text-blue-500"></i>
+              <i class="fal fa-map-marker fa-fw text-blue-500 group-hover:text-yellow-500"></i>
               <select class="border h-10  flex-1" v-model="this.formData.dropofflocationid" @change="update()">
                 <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
               </select>
@@ -30,18 +30,18 @@
 
               <div class="flex flex-col sm:flex-row items-center gap-x-1">
                 <div class="flex flex-col md:flex-row flex-1 w-full">
-                  <div class="flex flex-col flex-1">
-                    <label for="" class="text-xs mb-1">Pickup Date</label>
+                  <div class="flex flex-col flex-1 group">
+                    <label for="" class="text-xs mb-1 group-hover:text-yellow-500">Pickup Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="fal fa-calendar fa-fw text-blue-500"></i>
+                      <i class="fal fa-calendar fa-fw text-blue-500 group-hover:text-yellow-500"></i>
                       <input class="border h-10  flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
                     </div>
                   </div>
 
-                  <div class="flex flex-col flex-1">
-                    <label class="text-xs mb-1" for="">Pickup Time</label>
+                  <div class="flex flex-col flex-1 group">
+                    <label class="text-xs mb-1 group-hover:text-yellow-500" for="">Pickup Time</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="fal fa-clock fa-fw text-blue-500"></i>
+                      <i class="fal fa-clock fa-fw text-blue-500 group-hover:text-yellow-500"></i>
                       <select name="" id="" class="h-10  border flex-1" v-model="formData.pickuptime">
                         <option v-for="(time, i) in putimearray" :key="i" :value="time">{{converttime(time)}}</option>
                         <option v-if="pumaxtime == '00:00'" value="" disabled>Unavailable</option>
@@ -51,19 +51,19 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row flex-1 w-full">
-                  <div class="flex flex-col flex-1">
-                    <label for="" class="text-xs mb-1">Dropoff Date</label>
+                  <div class="flex flex-col flex-1 group">
+                    <label for="" class="text-xs mb-1 group-hover:text-yellow-500">Dropoff Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="fal fa-calendar fa-fw text-blue-500"></i>
+                      <i class="fal fa-calendar fa-fw text-blue-500 group-hover:text-yellow-500"></i>
                       <input class="border h-10  flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
                     </div>
                   </div>
                 
 
-                <div class="flex flex-col flex-1">
-                  <label class="text-xs mb-1" for="">Dropoff Time</label>
+                <div class="flex flex-col flex-1 group">
+                  <label class="text-xs mb-1 group-hover:text-yellow-500" for="">Dropoff Time</label>
                   <div class="flex flex-row place-items-center">
-                    <i class="fal fa-clock fa-fw text-blue-500"></i>
+                    <i class="fal fa-clock fa-fw text-blue-500 group-hover:text-yellow-500"></i>
                     <select name="" id="" class="h-10  border flex-1" v-model="formData.dropofftime">
                       <option v-for="(time, i) in dotimearray" :key="i" :value="time">{{converttime(time)}}</option>
                       <option v-if="domaxtime == '00:00'" value="" disabled>Unavailable</option>
