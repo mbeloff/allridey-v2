@@ -5,7 +5,7 @@
         <router-link to="/" class="left w-24 flex">
       <img src="https://res.cloudinary.com/dg5ybbkbh/image/upload/v1582172019/allridey/allridey-logo.svg" class="object-contain" alt="">
     </router-link>
-    <router-link class="nav-item" exact-active-class="text-blue-500" to="/">HOME</router-link>
+    <!-- <router-link class="nav-item" exact-active-class="text-blue-500" to="/">HOME</router-link> -->
     <router-link class="nav-item" exact-active-class="text-blue-500" to="/search">SEARCH</router-link>
       </div>
       

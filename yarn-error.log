@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add cryptoJS
+  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/cryptoJS: Not found
-      at Request.params.callback [as _callback] (C:\Program Files\Git\usr\local\node_modules\yarn\lib\cli.js:66988:18)
-      at Request.self.callback (C:\Program Files\Git\usr\local\node_modules\yarn\lib\cli.js:140662:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (C:\Program Files\Git\usr\local\node_modules\yarn\lib\cli.js:141634:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (C:\Program Files\Git\usr\local\node_modules\yarn\lib\cli.js:141556:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1241:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\mikey\Desktop\Webdev\allridey-new\node_modules\esbuild\esbuild.exe'
 
 npm manifest: 
   {
@@ -37,6 +27,7 @@ npm manifest:
     },
     "dependencies": {
       "@tailwindcss/aspect-ratio": "^0.2.0",
+      "v-calendar": "^3.0.0-alpha.4",
       "vue": "^3.0.5",
       "vue-router": "4"
     },
@@ -108,6 +99,11 @@ Lockfile:
     version "0.2.0"
     resolved "https://registry.yarnpkg.com/@tailwindcss/aspect-ratio/-/aspect-ratio-0.2.0.tgz#bebd32b7d0756b695294d4db1ae658796ff72a2c"
     integrity sha512-v5LyHkwXj/4lI74B06zUrmWEdmSqS43+jw717pkt3fAXqb7ALwu77A8t7j+Bej+ZbdlIIqNMYheGN7wSGV1A6w==
+  
+  "@types/lodash@^4.14.165":
+    version "4.14.170"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.170.tgz#0d67711d4bf7f4ca5147e9091b847479b87925d6"
+    integrity sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==
   
   "@vitejs/plugin-vue@^1.2.2":
     version "1.2.2"
@@ -410,6 +406,11 @@ Lockfile:
     dependencies:
       bluebird "^3.7.2"
   
+  core-js@^3.7.0:
+    version "3.14.0"
+    resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.14.0.tgz#62322b98c71cc2018b027971a69419e2425c2a6c"
+    integrity sha512-3s+ed8er9ahK+zJpp9ZtuVcDoFzHNiZsPbNAAE4KXgrRHbjSqqNN6xGSXq6bq7TZIbKj4NLrLb6bJ5i+vSVjHA==
+  
   css-unit-converter@^1.1.1:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/css-unit-converter/-/css-unit-converter-1.1.2.tgz#4c77f5a1954e6dbff60695ecb214e3270436ab21"
@@ -424,6 +425,16 @@ Lockfile:
     version "2.6.17"
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.17.tgz#4cf30eb87e1d1a005d8b6510f95292413f6a1c0e"
     integrity sha512-u1wmTI1jJGzCJzWndZo8mk4wnPTZd1eOIYTYvuEyOQGfmDl3TrabCCfKnOC86FZwW/9djqTl933UF/cS425i9A==
+  
+  date-fns-tz@^1.0.12:
+    version "1.1.4"
+    resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.1.4.tgz#38282c2bfab08946a4e9bb89d733451e5525048b"
+    integrity sha512-lQ+FF7xUxxRuRqIY7H/lagnT3PhhSnnvtGHzjE5WZKwRyLU7glJfLys05SZ7zHlEr6RXWiqkmgWq4nCkcElR+g==
+  
+  date-fns@^2.16.1:
+    version "2.22.1"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
+    integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
   
   defined@^1.0.0:
     version "1.0.0"
@@ -724,7 +735,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
     integrity sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=
   
-  lodash@^4.17.21:
+  lodash@^4.17.20, lodash@^4.17.21:
     version "4.17.21"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
     integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -1115,6 +1126,17 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
     integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
   
+  v-calendar@^3.0.0-alpha.4:
+    version "3.0.0-alpha.4"
+    resolved "https://registry.yarnpkg.com/v-calendar/-/v-calendar-3.0.0-alpha.4.tgz#1e03d2df2827d713c77ca11a9dbf84c15c44ebf6"
+    integrity sha512-i3dNvDbRTIiFQQepi69hekRKSsWXxBwL7J4l2x7LAnwp1s1C/eCsA7nroOWTqXtR5yCL+iK14rjA6KSpYeNsNQ==
+    dependencies:
+      "@types/lodash" "^4.14.165"
+      core-js "^3.7.0"
+      date-fns "^2.16.1"
+      date-fns-tz "^1.0.12"
+      lodash "^4.17.20"
+  
   vite@^2.3.3:
     version "2.3.3"
     resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.3.tgz#7e88a71abd03985c647789938d784cce0ee3b0fd"
@@ -1133,6 +1155,11 @@ Lockfile:
     integrity sha512-42mWSQaH7CCBQDspQTHv63f34VEnZC20g9QNK4WJ/zW8SdIUeT6TQ2i/78fjF/pVBUPLBWrGhvB7uDnaz7O/pA==
     dependencies:
       "@vue/devtools-api" "^6.0.0-beta.10"
+  
+  vue2-timepicker@^1.1.6:
+    version "1.1.6"
+    resolved "https://registry.yarnpkg.com/vue2-timepicker/-/vue2-timepicker-1.1.6.tgz#d74df71e3992c7073aa503d3e71d729d114be3da"
+    integrity sha512-DhO2UH4CTer/lMWxg+jqxn/+h6g2vZrsM6vCe9u7/Ie+Pej9yA+8mQA3C3VPApZ+LauKc43WxCspOXb6SGBOTw==
   
   vue@^3.0.5:
     version "3.0.11"

@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Splash from './components/Splash.vue'
-import Search from './components/Search.vue'
+import Splash from './views/Splash.vue'
+import Search from './views/Search.vue'
 const history = createWebHistory();
 
 const routes = [

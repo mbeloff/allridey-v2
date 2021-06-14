@@ -1,0 +1,294 @@
+<template>
+  <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
+    <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
+    <div v-if="!loading" class="text-left">
+      <div class="grid gap-2">
+        <div class="flex flex-col lg:flex-row">
+          <div class="flex flex-col flex-grow">
+            <label class="text-xs mb-1">Pickup Location</label>
+            <div class="flex flex-row place-items-center">
+              <i class="fal fa-map-marker fa-fw text-blue-500"></i>
+              <select class="border h-10  flex-1" v-model="this.formData.pickuplocationid" @change="update()">
+                <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex flex-col flex-grow">
+            <label class="text-xs mb-1">Dropoff Location</label>
+            <div class="flex flex-row place-items-center">
+              <i class="fal fa-map-marker fa-fw text-blue-500"></i>
+              <select class="border h-10  flex-1" v-model="this.formData.dropofflocationid" @change="update()">
+                <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-6">
+          <date-picker v-model="range" mode="date" is-range :min-date="new Date()">
+            <template v-slot="{ inputValue, inputEvents, isDragging }">
+
+              <div class="flex flex-col sm:flex-row items-center gap-x-1">
+                <div class="flex flex-col md:flex-row flex-1 w-full">
+                  <div class="flex flex-col flex-1">
+                    <label for="" class="text-xs mb-1">Pickup Date</label>
+                    <div class="flex flex-row place-items-center">
+                      <i class="fal fa-calendar fa-fw text-blue-500"></i>
+                      <input class="border h-10  flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col flex-1">
+                    <label class="text-xs mb-1" for="">Pickup Time</label>
+                    <div class="flex flex-row place-items-center">
+                      <i class="fal fa-clock fa-fw text-blue-500"></i>
+                      <select name="" id="" class="h-10  border flex-1" v-model="formData.pickuptime">
+                        <option v-for="(time, i) in putimearray" :key="i" :value="time">{{converttime(time)}}</option>
+                        <option v-if="pumaxtime == '00:00'" value="" disabled>Unavailable</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row flex-1 w-full">
+                  <div class="flex flex-col flex-1">
+                    <label for="" class="text-xs mb-1">Dropoff Date</label>
+                    <div class="flex flex-row place-items-center">
+                      <i class="fal fa-calendar fa-fw text-blue-500"></i>
+                      <input class="border h-10  flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
+                    </div>
+                  </div>
+                
+
+                <div class="flex flex-col flex-1">
+                  <label class="text-xs mb-1" for="">Dropoff Time</label>
+                  <div class="flex flex-row place-items-center">
+                    <i class="fal fa-clock fa-fw text-blue-500"></i>
+                    <select name="" id="" class="h-10  border flex-1" v-model="formData.dropofftime">
+                      <option v-for="(time, i) in dotimearray" :key="i" :value="time">{{converttime(time)}}</option>
+                      <option v-if="domaxtime == '00:00'" value="" disabled>Unavailable</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+</div>
+
+            </template>
+          </date-picker>
+        </div>
+      </div>
+      <div class="text-right">
+        <a href="" class="border border-blue-500 bg-white px-6 py-2 rounded text-blue-500 hover:bg-blue-500 hover:text-white">SEARCH <i class="fal fa-search"></i></a>
+      </div>
+      
+    </div>
+  </div>
+</template>
+
+<script>
+  import {
+    DatePicker
+  } from 'v-calendar';
+  export default {
+    components: {
+      DatePicker
+    },
+    data() {
+      return {
+        alltimes: [
+          '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
+        ],
+        selectedpulocation: {},
+        selecteddolocation: {},
+        range: this.tomorrow,
+        pumintime: "10:00",
+        pumaxtime: "16:30",
+        putimearray: [],
+        domintime: "10:00",
+        domaxtime: "16:30",
+        dotimearray: [],
+        step1: {},
+        loading: true,
+        formData: {
+          method: 'step2',
+          vehiclecategorytypeid: '0',
+          pickuplocationid: 3,
+          // pickupdate: new Date(),
+          pickuptime: "10:00",
+          dropofflocationid: 3,
+          // dropoffdate: "09/07/2021",
+          dropofftime: "10:00",
+          ageid: 9
+        },
+      }
+    },
+    watch: {
+      "range.start": function () {
+        this.update()
+      }
+    },
+    computed: {
+
+    },
+    mounted() {
+      var step1 = JSON.stringify({
+        'method': 'step1'
+      })
+      this.apiCall(step1)
+    },
+    methods: {
+      update() {
+        this.updatepulocation()
+        this.updatedolocation()
+        this.updateputimes()
+        this.updatedotimes()
+      },
+      initDates() {
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setHours(10);
+        tomorrow.setMinutes(0);
+        tomorrow.setSeconds(0);
+        tomorrow.setMilliseconds(0);
+        var week = new Date();
+        week.setDate(tomorrow.getDate() + 7);
+        week.setHours(10);
+        week.setMinutes(0);
+        week.setSeconds(0);
+        week.setMilliseconds(0);
+        this.range = {
+          start: tomorrow,
+          end: week,
+        }
+      },
+      converttime(time) {
+        // Check correct time format and split into components
+        time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+        if (time.length > 1) { // If time format correct
+          time = time.slice(1); // Remove full string match value
+          time[5] = +time[0] < 12 ? 'am' : 'pm'; // Set AM/PM
+          time[0] = +time[0] % 12 || 12; // Adjust hours
+        }
+        return time.join(''); // return adjusted time or original string
+      },
+      updateputimes() {
+        let id = this.formData.pickuplocationid
+        let pudate = this.range.start
+        let start = this.pumintime
+        let end = this.pumaxtime
+        let arr = this.alltimes
+        if (pudate.getDay() + 1 == 1 || pudate.getDay() + 1 == 7) {
+          this.step1.officetimes.forEach(function (el) {
+            if (
+              el.locationid == id &&
+              el.dayofweek == pudate.getDay() + 1
+            ) {
+              start = el.openingtime
+              end = el.closingtime
+            }
+          })
+        } else {
+          start = this.selectedpulocation.officeopeningtime
+          end = this.selectedpulocation.officeclosingtime
+        }
+        this.pumintime = start
+        if (this.pumintime == '') {
+          this.pumintime = this.selectedpulocation.officeopeningtime
+        }
+        this.pumaxtime = end
+        this.putimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
+      },
+      updatedotimes() {
+        let id = this.formData.dropofflocationid
+        let dodate = this.range.end
+        let start = this.domintime
+        let end = this.domaxtime
+        let arr = this.alltimes
+        if (dodate.getDay() + 1 == 1 || dodate.getDay() + 1 == 7) {
+          this.step1.officetimes.forEach(function (el) {
+            if (
+              el.locationid == id &&
+              el.dayofweek == dodate.getDay() + 1
+            ) {
+              start = el.openingtime
+              end = el.closingtime
+            }
+          })
+        } else {
+          start = this.selecteddolocation.officeopeningtime
+          end = this.selecteddolocation.officeclosingtime
+        }
+        this.domintime = start
+        if (this.domintime == '') {
+          this.domintime = this.selecteddolocation.officeopeningtime
+        }
+        this.domaxtime = end
+        this.dotimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
+      },
+      updatepulocation() {
+        let id = this.formData.pickuplocationid
+        let data = {}
+        this.step1.locations.forEach(function (loc) {
+          if (loc.id == id) {
+            data = loc
+          }
+        })
+        this.selectedpulocation = data
+      },
+      updatedolocation() {
+        let id = this.formData.dropofflocationid
+        let data = {}
+        this.step1.locations.forEach(function (loc) {
+          if (loc.id == id) {
+            data = loc
+          }
+        })
+        this.selecteddolocation = data
+      },
+      async signRequest(payload) {
+        let signString = await fetch("http://localhost:3000/signRequest.php", {
+            method: 'POST',
+            headers: {
+              "content-Type": "text/plain"
+            },
+            body: payload,
+          })
+          .then(response => response.text())
+          .then(data => {
+            return JSON.parse(data).signature;
+          })
+        // console.log(signString)
+        return signString
+      },
+
+      async apiCall(payload) {
+        let signString = await this.signRequest(payload);
+        let formdata = new FormData();
+        formdata.append("request", payload);
+        formdata.append("signature", signString);
+        let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
+            method: "POST",
+            body: formdata,
+          })
+          .then(response => response.text())
+          .then(result => {
+            return JSON.parse(result)
+          })
+        this.step1 = responseData.results
+        this.initDates()
+        this.updatepulocation()
+        this.updatedolocation()
+        this.updateputimes()
+        this.loading = false
+      }
+    },
+  }
+</script>
+
+<style>
+label {
+  color: rgb(14, 165, 233);
+  font-weight: bold
+}
+</style>

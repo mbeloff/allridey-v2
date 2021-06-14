@@ -5,17 +5,13 @@
      <router-view />
   </div>
    
-  <Footer>
-    <div class="h-8 bg-gray-200 grid place-items-center">
-      <p class="text-gray-500">© Allridey | All rights reserved</p>
-    </div>
-  </Footer>
+  <Footer />
 </div>
 </template>
 
 <script setup>
 import Nav from './components/Navbar.vue'
-
+import Footer from './components/Footer.vue'
 // This starter template is using Vue 3 experimental <script setup> SFCs
 // Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
 </script>
