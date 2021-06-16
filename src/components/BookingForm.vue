@@ -85,7 +85,7 @@
     </div>
   </div>
   <div v-if="this.apiResponse && this.searching == false" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
-    <search-results :results="this.apiResponse" :key="count" :step2="formData"></search-results>
+    <search-results :results="this.apiResponse" :key="count" :step2="submittedParams"></search-results>
   </div>
   <div v-if="this.searching == true" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
     <p class="font-xl">SEARCHING...</p>
@@ -104,6 +104,7 @@ import SearchResults from './SearchResults.vue'
     },
     data() {
       return {
+        submittedParams: "",
         searching: false,
         count: 1,
         alltimes: [
@@ -151,6 +152,7 @@ import SearchResults from './SearchResults.vue'
         this.searching = true    
         this.convertdates()        
         var params = JSON.stringify(this.formData)
+        this.submittedParams = this.formData
         let data = await this.apiCall(params)
         this.apiResponse = await data
         this.count++
