@@ -55,7 +55,7 @@
       data: Object,
       manfees: Object,
       allData: Object,
-      step2: Object
+      submittedParams: Object
     },
     computed: {
       // puloc() {
@@ -97,12 +97,12 @@
         var params = await JSON.stringify({
           'method': 'step3',
           'vehiclecategorytypeid': this.data.vehiclecategorytypeid,
-          'pickuplocationid': this.step2.pickuplocationid,
-          'pickupdate': this.step2.pickupdate,
-          'pickuptime': this.step2.pickuptime,
-          'dropofflocationid': this.step2.dropofflocationid,
-          'dropoffdate': this.step2.dropoffdate,
-          'dropofftime': this.step2.dropofftime,
+          'pickuplocationid': this.submittedParams.pickuplocationid,
+          'pickupdate': this.submittedParams.pickupdate,
+          'pickuptime': this.submittedParams.pickuptime,
+          'dropofflocationid': this.submittedParams.dropofflocationid,
+          'dropoffdate': this.submittedParams.dropoffdate,
+          'dropofftime': this.submittedParams.dropofftime,
           'ageid': 9,
           'vehiclecategoryid': this.data.vehiclecategoryid
         })

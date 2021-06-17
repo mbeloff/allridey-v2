@@ -3,8 +3,8 @@
   <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
     <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
     <div v-if="!loading" class="text-left ">
-      <div class="grid gap-2 mb-6">
-        <div class="flex flex-col lg:flex-row gap-2">
+      <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
+        <div class="flex flex-col  gap-2">
           <div class="flex flex-col flex-grow group">
             <label class="text-xs mb-1 group-hover:text-yellow-500">Pickup Location</label>
             <div class="flex flex-row place-items-center">
@@ -29,7 +29,7 @@
           <date-picker v-model="daterange" mode="date" is-range :min-date="new Date()">
             <template v-slot="{ inputValue, inputEvents, isDragging }">
 
-              <div class="flex flex-col sm:flex-row items-center gap-2">
+              <div class="flex flex-col  items-center gap-2">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
                     <label for="" class="text-xs mb-1 group-hover:text-yellow-500">Pickup Date</label>
@@ -84,23 +84,23 @@
 
     </div>
   </div>
-  <div v-if="this.apiResponse && this.searching == false" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
-    <search-results :results="this.apiResponse" :key="count" :step2="submittedParams"></search-results>
+  <!-- <div v-if="this.searchResults && this.searching == false" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
+    <search-results :results="this.searchResults" :key="count" :submittedParams="submittedParams"></search-results>
   </div>
   <div v-if="this.searching == true" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
     <p class="font-xl">SEARCHING...</p>
-  </div>
+  </div> -->
 </div>
 </template>
 
 <script>
-import SearchResults from './SearchResults.vue'
+// import SearchResults from './SearchResults.vue'
   import {
     DatePicker
   } from 'v-calendar';
   export default {
     components: {
-      DatePicker, SearchResults
+      DatePicker
     },
     data() {
       return {
@@ -110,7 +110,7 @@ import SearchResults from './SearchResults.vue'
         alltimes: [
           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
         ],
-        apiResponse: undefined,
+        searchResults: undefined,
         selectedpulocation: {},
         selecteddolocation: {},
         daterange: this.tomorrow,
@@ -146,17 +146,18 @@ import SearchResults from './SearchResults.vue'
     mounted() {
       this.getStep1()
     },
-    methods: {
-      
+    methods: {      
       async getStep2() {
         this.searching = true    
         this.convertdates()        
         var params = JSON.stringify(this.formData)
         this.submittedParams = this.formData
         let data = await this.apiCall(params)
-        this.apiResponse = await data
+        this.searchResults = await data
         this.count++
         this.searching = false
+        this.$emit('updateStatus', 2)
+        this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
       },  
       async getStep1() {
          var step1 = JSON.stringify({

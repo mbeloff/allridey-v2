@@ -1,10 +1,10 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Splash from './views/Splash.vue'
+import Home from './views/Home.vue'
 import Search from './views/Search.vue'
 const history = createWebHistory();
 
 const routes = [
-  { name: "Home", path: "/", component: Splash },
+  { name: "Home", path: "/", component: Home },
   { name: "Search", path: "/search", component: Search, props: true }
 ];
 
