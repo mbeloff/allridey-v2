@@ -6,7 +6,7 @@
       <div class="flex bg-gray-600 text-white px-2">
         <p>{{cat.vehiclecategorytype}}</p>
       </div>
-      <search-result v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="results" :submittedParams="submittedParams">
+      <search-result @select-vehicle="selectVehicle" v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="results" :submittedParams="submittedParams">
       </search-result>
     </div>
   </div>
@@ -37,6 +37,9 @@
       this.categories = arr
     },
     methods: {
+      selectVehicle(data, step) {
+        this.$emit('select-vehicle', data, step)
+      },
       getCats(catids) {
         let arr = []
         let all = this.results.categorytypes

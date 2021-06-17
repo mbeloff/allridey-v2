@@ -2,7 +2,7 @@
 <div>
   <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
     <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
-    <div v-if="!loading" class="text-left ">
+    <div  class="text-left ">
       <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
         <div class="flex flex-col  gap-2">
           <div class="flex flex-col flex-grow group">
@@ -84,17 +84,10 @@
 
     </div>
   </div>
-  <!-- <div v-if="this.searchResults && this.searching == false" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
-    <search-results :results="this.searchResults" :key="count" :submittedParams="submittedParams"></search-results>
-  </div>
-  <div v-if="this.searching == true" class="bg-white py-10 mt-10 px-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
-    <p class="font-xl">SEARCHING...</p>
-  </div> -->
 </div>
 </template>
 
 <script>
-// import SearchResults from './SearchResults.vue'
   import {
     DatePicker
   } from 'v-calendar';
@@ -105,7 +98,7 @@
     data() {
       return {
         submittedParams: "",
-        searching: false,
+        // searching: false,
         count: 1,
         alltimes: [
           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
@@ -121,7 +114,6 @@
         domaxtime: "16:30",
         dotimearray: [],
         step1: {},
-        loading: true,
         formData: {
           method: 'step2',
           vehiclecategorytypeid: '0',
@@ -148,14 +140,14 @@
     },
     methods: {      
       async getStep2() {
-        this.searching = true    
+        this.$emit('searching', true)  
         this.convertdates()        
         var params = JSON.stringify(this.formData)
         this.submittedParams = this.formData
         let data = await this.apiCall(params)
         this.searchResults = await data
         this.count++
-        this.searching = false
+        this.$emit('searching', false)
         this.$emit('updateStatus', 2)
         this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
       },  
@@ -167,7 +159,6 @@
         this.step1 = await data
         this.initDates()
         this.update()
-        this.loading = false
       }, 
       convertdates() {
         this.formData.pickupdate = this.daterange.start.toLocaleDateString()

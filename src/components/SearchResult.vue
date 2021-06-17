@@ -58,26 +58,6 @@
       submittedParams: Object
     },
     computed: {
-      // puloc() {
-      //   let location
-      //   let typeid = this.data.vehiclecategorytypeid
-      //   this.allData.locationfees.forEach(function(el){
-      //     if (el.vehiclecategorytypeid == typeid && el.loctype == 'pickup') {
-      //       location = el
-      //     }
-      //   })
-      //   return location
-      // },
-      // doloc() {
-      //   let location
-      //   let typeid = this.data.vehiclecategorytypeid
-      //   this.allData.locationfees.forEach(function(el){
-      //     if (el.vehiclecategorytypeid == typeid && el.loctype == 'dropoff') {
-      //       location = el
-      //     }
-      //   })
-      //   return location
-      // },
       total() {
         let sum = this.data.totalrateafterdiscount
         this.manfees.forEach(function(el){
@@ -108,6 +88,7 @@
         })
         let data = await this.apiCall(params)
         this.step3 = data
+        this.$emit("select-vehicle", data, 3)
       },
       async signRequest(method) {
         let signString = await fetch("http://localhost:3000/signRequest.php", {

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-col divide-x">
-    <button @click="changeStep(1)" class="py-6" :class="btnStatus(1)">
+    <button @click="changeStep(1)" class="py-6 rounded-l" :class="btnStatus(1)">
       <i class="" :class="iStatus(1)"></i> Search
     </button>
     <button @click="changeStep(2)" class="py-6" :class="btnStatus(2)">
@@ -12,7 +12,7 @@
     <button @click="changeStep(4)" class="py-6" :class="btnStatus(4)">
       <i class="" :class="iStatus(4)"></i> Payment
     </button>
-    <button @click="changeStep(5)" class="py-6" :class="btnStatus(5)">
+    <button @click="changeStep(5)" class="py-6 rounded-r" :class="btnStatus(5)">
       <i class="" :class="iStatus(5)"></i> Summary
     </button>
   </div>
@@ -42,13 +42,16 @@ export default {
       } else if (step < this.status) {
         return 'completed'
       } else {
-        return 'bg-gray-200 text-gray-400'
+        return 'bg-gray-200 text-gray-400 disabled'
       }
     }
   }
 }
 </script>
 <style lang="postcss">
+.disabled {
+  pointer-events: none
+}
 @layer components {
     .completed {
       @apply bg-gray-200 text-current
