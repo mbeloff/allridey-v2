@@ -124,6 +124,7 @@
             </div>
           </div>
         </div>
+        <button @click="calcTotal()" class="text-lg">update total</button>
       </div>
     </div>
   </div>
@@ -136,10 +137,12 @@
         insurance: 0,
         extrakmsid: 0,
         selectedExtras: [],
+        total: {}
       }
     },
     props: {
-      step3: Object
+      step3: Object,
+      submittedParams: Object
     },
     computed: {
       car() {
@@ -171,7 +174,25 @@
           }
         })
         return arr
-      }
+      },
+      calcTotal() {
+        // 
+        let params = JSON.stringify({
+          "method": "calctotal",
+          "pickuplocationid": this.submittedParams.pickuplocationid,
+          "pickupdate": this.submittedParams.pickupdate,
+          "vehiclecategoryid": this.step3.availablecars[0].vehiclecategoryid,
+          "numberofdays": this.step3.availablecars[0].numberofdays,
+          "totalrateafterdiscount": this.step3.availablecars[0].totalrateafterdiscount,
+          "freedaysamount": this.step3.availablecars[0].freedaysamount,
+          "insuranceid": this.insurance,
+          "extrakmsid": this.extrakmsid,
+          "mandatoryfees": this.mandatoryfees,
+          "optionalfees": this.optionalfees
+        })
+        this.apiCall(params)
+
+      },
     },
     mounted() {
       let insuranceid
@@ -199,24 +220,38 @@
         })
         return arr
       },
-      calcTotal() {
-        let params = {
-          "method": "calctotal",
-          "pickuplocationid": this.submittedParams.pickuplocationid,
-          "pickupdate": this.submittedParams.pickupdate,
-          "vehiclecategoryid": this.step3.availablecars[0].vehiclecategoryid,
-          "numberofdays": this.step3.availablecars[0].numberofdays,
-          "totalrateafterdiscount": this.step3.availablecars[0].totalrateafterdiscount,
-          "freedaysamount": this.step3.availablecars[0].freedaysamount,
-          "insuranceid": this.insurance,
-          "extrakmsid": this.extrakmsid,
-          "mandatoryfees": this.mandatoryfees,
-          "optionalfees": this.optionalfees
-        }
-        this.$emit('calcTotal', params)
+      
+      async signRequest(method) {
+        let signString = await fetch("http://localhost:3000/signRequest.php", {
+            method: 'POST',
+            headers: {
+              "content-Type": "text/plain"
+            },
+            body: method,
+          })
+          .then(response => response.text())
+          .then(data => {
+            return JSON.parse(data).signature;
+          })
+        return signString
+      },
+      async apiCall(method) {
+        let signString = await this.signRequest(method);
+        let formdata = new FormData();
+        formdata.append("request", method);
+        formdata.append("signature", signString);
+        let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
+            method: "POST",
+            body: formdata,
+          })
+          .then(response => response.text())
+          .then(result => {
+            return JSON.parse(result)
+          })
+        return responseData.results
       }
     }
-  }
+  } 
 </script>
 
 <style lang="postcss">
