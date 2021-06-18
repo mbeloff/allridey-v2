@@ -4,7 +4,7 @@ import Search from './views/Search.vue'
 const history = createWebHistory();
 
 const routes = [
-  { name: "Home", path: "/", component: Home },
+  { name: "Home", path: "/", component: Search, props: true },
   { name: "Search", path: "/search", component: Search, props: true }
 ];
 
