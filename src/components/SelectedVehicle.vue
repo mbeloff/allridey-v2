@@ -5,13 +5,13 @@
 
       <!-- Vehicle Image -->
       <div class="w-full md:w-2/5 md:pr-1">
-        <img :src="car.imageurl" alt="" class="w-full">
+        <img :src="this.step3.availablecars[0].imageurl" alt="" class="w-full">
       </div>
 
       <!-- Vehicle and Trip Details -->
       <div class="flex flex-col md:w-3/5 justify-center shadow-xl bg-gray-200">
         <div class="flex-shrink pt-4">
-          <p class="text-center text-blue-700 font-bold">{{car.categoryfriendlydescription}}</p>
+          <p class="text-center text-blue-700 font-bold">{{this.step3.availablecars[0].categoryfriendlydescription}}</p>
         </div>
 
         <div class="w-full flex gap-3 items-center text-sm text-gray-500 py-4">
@@ -43,38 +43,56 @@
     </div>
 
     <!-- Mandatory Fees and Total Rate -->
-    <div class="flex flex-col md:flex-row gap-3 items-start justify-items-start h-screen">
-      <div class="w-full md:w-2/5 text-left p-1 px-2 border text-sm bg-white shadow-xl">
-        <p class="font-bold">Daily Rental Rate:</p>
-        <div class="flex justify-between py-2">
-          <span>
-            {{ this.step3.seasonalrates[0].numberofdays + " days @ $" + this.step3.seasonalrates[0].dailyrateafterdiscount}}
-          </span>
-          <span class="w-12 font-bold">{{"$" + this.step3.seasonalrates[0].ratesubtotal }}</span>
-        </div>
-        <p class="font-bold">Extra Fees:</p>
-        <div class="py-2">
-          <div v-for="(fee, i) in getFeeOfType('Daily')" :key="i" class="flex justify-between">
-            <span><i class='fas fa-plus-circle '></i>
-              {{fee["name"] + " @ " + currencysymbol + parseFloat(fee["fees"]).toFixed(0) + " per day"}}</span>
-            <span class="w-12 font-bold">{{currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0)}}</span>
-          </div>
-          <div v-for="(fee, i) in getFeeOfType('Fixed')" :key="i" class="flex justify-between">
-            <span><i class='fas fa-plus-circle '></i>
-              {{ fee["name"]}}</span>
-            <span class="w-12 font-bold">{{ currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0)}}</span>
-          </div>
-          <div v-for="(fee, i) in getFeeOfType('Percentage')" :key="i" class="flex justify-between">
+    <div class="flex flex-col md:flex-row gap-3 items-start justify-items-start">
+      <div class="w-full md:w-2/5 text-left border text-sm shadow-xl">
+        <div class="bg-white px-2 py-1">
+          <p class="font-bold">Daily Rental Rate:</p>
+          <div class="flex justify-between py-2">
             <span>
-              <i class='fas fa-plus-circle '></i>
-              {{  fee["name"]}}
+              {{ this.step3.seasonalrates[0].numberofdays + " days @ " + currencysymbol + this.step3.seasonalrates[0].dailyrateafterdiscount}}
             </span>
-            <span class="w-12 font-bold">{{currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0)}}</span>
+            <span class="w-14 font-bold">{{currencysymbol + this.step3.seasonalrates[0].ratesubtotal.toFixed(2) }}</span>
+          </div>
+
+          <!-- EXTRAS -->
+          <div >
+            <div v-if="totals.mandatory.length || totals.optional.length">
+              <p class="font-bold">Fees:</p>
+              <div v-for="fee in totals.optional" class="flex justify-between">
+                <span>{{fee.name}}</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
+              </div>
+              
+              <div v-for="fee in totals.damage" class="flex justify-between">
+                <span>Damage Cover</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
+              </div>
+              <div v-for="fee in totals.kms" class="flex justify-between">
+                <span>Km Charges</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
+              </div>
+              <div v-for="fee in totals.mandatory" class="flex justify-between">
+                <span>{{fee.name}}</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
+              </div>
+              <br><br>
+            </div>
+          </div>
+        </div>
+
+        <!-- CALCULATED TOTAL -->
+        <div v-if="totals.all.length > 0" class="bg-gray-200 p-2">
+          <div class="flex justify-end text-lg mb-2">
+            <span class="font-bold">TOTAL: </span>
+            <span v-if="calculating" class="w-24 text-right grid place-items-center justify-items-end">
+              <spinner></spinner>
+            </span>
+            <span v-else class="w-24 text-right">{{currencysymbol + totals.all[totals.all.findIndex(el => el.name === "TOTAL")].total}}</span>
+
+          </div>
+          <div class="text-right italic">
+            <span>includes GST of:</span><span>{{' ' + currencysymbol + totals.all[totals.all.findIndex(el => el.name === "include GST")].total}}</span>
           </div>
         </div>
       </div>
 
-      <!-- Optional Fees -->
+      <!-- RIGHT SIDE -->
       <div class="w-full md:w-3/5 border bg-white shadow-xl text-left p-1 px-2 text-sm">
         <!-- Damage Cover -->
         <p class="font-bold">Damage Cover:</p>
@@ -85,7 +103,7 @@
               <label :for="'damage' + damage.id" class="">
                 <div class="flex justify-between">
                   <span>{{damage.name}}</span>
-                  <p class="font-bold">{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
+                  <p class="font-bold price">{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
                 </div>
                 <p v-if="damage.feedescription" class="">{{damage.feedescription}}</p>
               </label>
@@ -102,8 +120,8 @@
               <label :for="'extra' + extra.id" class="">
                 <div class="flex justify-between">
                   <span>{{extra.name}}</span>
-                  <p class="font-bold" v-if="extra.type == 'Percentage'">{{ currencysymbol + extra.totalfeeamount }}</p>
-                  <p v-else class="font-bold"><span>{{currencysymbol + extra.fees}}</span><span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span></p>
+                  <p class="font-bold price" v-if="extra.type == 'Percentage'">{{ currencysymbol + extra.totalfeeamount }}</p>
+                  <p v-else class="font-bold price"><span>{{currencysymbol + extra.fees}}</span><span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span></p>
                 </div>
                 <p v-if="extra.feedescription" class="">{{extra.feedescription}}</p>
               </label>
@@ -112,32 +130,52 @@
         </div>
 
         <!-- Kilometres -->
-        <p class="font-bold">Included Kilometre:</p>
+        <p class="font-bold">Kilometre Inclusions:</p>
         <div class="py-3">
           <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" v-for="km in this.step3.kmcharges" :class="{'selected': km.id == extrakmsid}">
             <div class="flex items-center">
               <input type="radio" :checked="km.isdefault" class="mr-1 hidden" :value="km.id" v-model="extrakmsid" :id="'km' + km.id">
               <label :for="'km' + km.id" class="flex flex-grow justify-between">
                 <span>{{km.description}}</span>
-                <span class="font-bold">{{currencysymbol + km.totalamount}}</span>
+                <span class="font-bold price">{{currencysymbol + km.totalamount}}</span>
               </label>
             </div>
           </div>
         </div>
-        <button @click="calcTotal()" class="text-lg">update total</button>
+        
       </div>
     </div>
+    <book-or-quote></book-or-quote>
   </div>
 </template>
 
 <script>
+  import Spinner from './Spinner.vue'
+  import BookOrQuote from './BookOrQuote.vue'
   export default {
+    components: {
+      Spinner, BookOrQuote
+    },
     data() {
       return {
+        calculating: true,
         insurance: 0,
         extrakmsid: 0,
         selectedExtras: [],
-        total: {}
+        totals: {
+          all: [],
+          daily: [],
+          mandatory: [],
+          optional: [],
+          damage: [],
+          kms: [],
+          total: [],
+        }
+      }
+    },
+    watch: {
+      'totalParams': function() {
+        this.getTotals()
       }
     },
     props: {
@@ -145,9 +183,6 @@
       submittedParams: Object
     },
     computed: {
-      car() {
-        return this.step3.availablecars[0]
-      },
       currencysymbol() {
         return this.step3.locationfees[0].currencysymbol
       },
@@ -175,9 +210,8 @@
         })
         return arr
       },
-      calcTotal() {
-        // 
-        let params = JSON.stringify({
+      totalParams() {
+        return {
           "method": "calctotal",
           "pickuplocationid": this.submittedParams.pickuplocationid,
           "pickupdate": this.submittedParams.pickupdate,
@@ -189,10 +223,8 @@
           "extrakmsid": this.extrakmsid,
           "mandatoryfees": this.mandatoryfees,
           "optionalfees": this.optionalfees
-        })
-        this.apiCall(params)
-
-      },
+        }
+      },      
     },
     mounted() {
       let insuranceid
@@ -211,16 +243,27 @@
       this.extrakmsid = kmid
     },
     methods: {
-      getFeeOfType(type) {
+      getTotals() {
+        this.calculating = true
+        this.apiCall(JSON.stringify(this.totalParams)).then(res => {
+          this.totals.all = res.totals
+          this.totals.daily = this.getTotalOfType(res.totals, 'total rate')
+          this.totals.mandatory = this.getTotalOfType(res.totals, 'mandatory')
+          this.totals.optional = this.getTotalOfType(res.totals, 'optional')
+          this.totals.damage = this.getTotalOfType(res.totals, 'insurance')
+          this.totals.kms = this.getTotalOfType(res.totals, 'kmsrate')
+          this.calculating = false
+        })
+      },
+      getTotalOfType(list, type) {
         let arr = []
-        this.step3.mandatoryfees.forEach(function (el) {
+        list.forEach(function (el) {
           if (el.type == type) {
             arr.push(el)
           }
         })
         return arr
       },
-      
       async signRequest(method) {
         let signString = await fetch("http://localhost:3000/signRequest.php", {
             method: 'POST',
@@ -251,13 +294,21 @@
         return responseData.results
       }
     }
-  } 
+  }
 </script>
 
 <style lang="postcss">
   @layer components {
     .selected {
-      @apply border-opacity-100 bg-gray-200 text-gray-700
+      @apply border-opacity-100 bg-gray-200 text-blue-900
     }
+  }
+
+  .price {
+    opacity: .5
+  }
+
+  .selected .price {
+    opacity: 1
   }
 </style>

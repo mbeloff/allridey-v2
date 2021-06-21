@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-col divide-x">
+  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-col divide-x mb-10 ">
     <button @click="changeStep(1)" class="py-6 rounded-l" :class="btnStatus(1)">
       <i class="" :class="iStatus(1)"></i> Search
     </button>

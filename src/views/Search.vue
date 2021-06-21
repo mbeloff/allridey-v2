@@ -6,7 +6,11 @@
       <booking-form v-if="status < 3" @update-status="updateStatus" @searching="searching" @update-search-results="updateSearchResults"></booking-form>
     </keep-alive>
 
-    <spinner v-if="this.loading"></spinner>
+<div v-if="this.loading"  class="bg-white rounded bg-opacity-90 shadow-xl w-full py-5 flex place-items-center justify-center">
+  <spinner></spinner>
+  <p>loading...</p>
+  </div>
+    
 
     <search-results @select-vehicle="selectVehicle" v-if="status == 2 && this.searchResults && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
 
