@@ -30,7 +30,6 @@
               {{ currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0) + ' FOR ' + fee["name"]}}
             </p>
           </div>
-          <p class="mt-auto text-blue-800" :class="{'text-red-600': isAvailable() == 'Not available due to incomplete rates.'}">{{isAvailable()}}</p>
         </div>
         <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1">
           <p class="text-xs">initial estimate:</p>
@@ -45,6 +44,7 @@
 </template>
 
 <script>
+import Mixins from '../Mixins'
   export default {
     data() {
       return {
@@ -72,6 +72,7 @@
         return this.allData.locationfees[0].currencysymbol
       },
     },
+    mixins: [Mixins],
     methods: {
       async getStep3() {
         var params = await JSON.stringify({
@@ -83,41 +84,12 @@
           'dropofflocationid': this.submittedParams.dropofflocationid,
           'dropoffdate': this.submittedParams.dropoffdate,
           'dropofftime': this.submittedParams.dropofftime,
-          'ageid': 9,
+          'ageid': this.submittedParams.ageid,
           'vehiclecategoryid': this.data.vehiclecategoryid
         })
-        let data = await this.apiCall(params)
+        let data = await Mixins.methods.apiCall(params)
         this.step3 = data
         this.$emit("select-vehicle", data, 3)
-      },
-      async signRequest(method) {
-        let signString = await fetch("http://localhost:3000/signRequest.php", {
-            method: 'POST',
-            headers: {
-              "content-Type": "text/plain"
-            },
-            body: method,
-          })
-          .then(response => response.text())
-          .then(data => {
-            return JSON.parse(data).signature;
-          })
-        return signString
-      },
-      async apiCall(method) {
-        let signString = await this.signRequest(method);
-        let formdata = new FormData();
-        formdata.append("request", method);
-        formdata.append("signature", signString);
-        let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
-            method: "POST",
-            body: formdata,
-          })
-          .then(response => response.text())
-          .then(result => {
-            return JSON.parse(result)
-          })
-        return responseData.results
       },
       getFeeOfType(type) {
         let arr = []

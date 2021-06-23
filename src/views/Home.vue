@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import BookingForm from '../components/BookingForm.vue'
+import BookingForm from '../components/FormSearch.vue'
   export default {
     components: {BookingForm},
     data() {

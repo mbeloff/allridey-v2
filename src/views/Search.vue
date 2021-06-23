@@ -19,7 +19,7 @@
 
 </template>
 <script>
-  import BookingForm from '../components/BookingForm.vue'
+  import BookingForm from '../components/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
   import SearchResults from '../components/SearchResults.vue'
   import SelectedVehicle from '../components/SelectedVehicle.vue'

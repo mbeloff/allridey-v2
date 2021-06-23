@@ -5,7 +5,7 @@
 
       <!-- Vehicle Image -->
       <div class="w-full md:w-2/5 md:pr-1">
-        <img :src="this.step3.availablecars[0].imageurl" alt="" class="w-full">
+        <img :src="this.step3.availablecars[0].imageurl" alt="" class="m-auto">
       </div>
 
       <!-- Vehicle and Trip Details -->
@@ -86,8 +86,8 @@
             <span v-else class="w-24 text-right">{{currencysymbol + totals.all[totals.all.findIndex(el => el.name === "TOTAL")].total}}</span>
 
           </div>
-          <div class="text-right italic">
-            <span>includes GST of:</span><span>{{' ' + currencysymbol + totals.all[totals.all.findIndex(el => el.name === "include GST")].total}}</span>
+          <div class="text-right italic" v-if="totals.tax[0].total">
+            <span>includes GST of:</span><span>{{' ' + currencysymbol + totals.tax[0].total}}</span>
           </div>
         </div>
       </div>
@@ -145,19 +145,21 @@
         
       </div>
     </div>
-    <book-or-quote></book-or-quote>
+    <make-booking @submitBooking="submitBooking" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals"></make-booking>
   </div>
 </template>
 
 <script>
+import Mixins from '../Mixins'
   import Spinner from './Spinner.vue'
-  import BookOrQuote from './BookOrQuote.vue'
+  import MakeBooking from './MakeBooking.vue'
   export default {
     components: {
-      Spinner, BookOrQuote
+      Spinner, MakeBooking
     },
     data() {
       return {
+        count: 1,
         calculating: true,
         insurance: 0,
         extrakmsid: 0,
@@ -170,18 +172,21 @@
           damage: [],
           kms: [],
           total: [],
+          tax: [],
         }
       }
     },
     watch: {
-      'totalParams': function() {
+      'calcTotals': function() {
         this.getTotals()
+        this.count++
       }
     },
     props: {
       step3: Object,
       submittedParams: Object
     },
+    mixins: [Mixins],
     computed: {
       currencysymbol() {
         return this.step3.locationfees[0].currencysymbol
@@ -210,7 +215,7 @@
         })
         return arr
       },
-      totalParams() {
+      calcTotals() {
         return {
           "method": "calctotal",
           "pickuplocationid": this.submittedParams.pickuplocationid,
@@ -227,12 +232,13 @@
       },      
     },
     mounted() {
-      let insuranceid
-      this.step3.insuranceoptions.forEach(function (el) {
+      let insuranceid = this.step3.insuranceoptions[0].id    
+        this.step3.insuranceoptions.forEach(function (el) {
         if (el.isdefault) {
           insuranceid = el.id
         }
-      })
+      })        
+      
       this.insurance = insuranceid
       let kmid
       this.step3.kmcharges.forEach(function (el) {
@@ -243,15 +249,21 @@
       this.extrakmsid = kmid
     },
     methods: {
+      submitBooking(e) {
+        Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
+          console.log(res)
+        })
+      },
       getTotals() {
         this.calculating = true
-        this.apiCall(JSON.stringify(this.totalParams)).then(res => {
+        Mixins.methods.apiCall(JSON.stringify(this.calcTotals)).then(res => {
           this.totals.all = res.totals
           this.totals.daily = this.getTotalOfType(res.totals, 'total rate')
           this.totals.mandatory = this.getTotalOfType(res.totals, 'mandatory')
           this.totals.optional = this.getTotalOfType(res.totals, 'optional')
           this.totals.damage = this.getTotalOfType(res.totals, 'insurance')
           this.totals.kms = this.getTotalOfType(res.totals, 'kmsrate')
+          this.totals.tax = this.getTotalOfType(res.totals, 'country tax')
           this.calculating = false
         })
       },
@@ -264,35 +276,6 @@
         })
         return arr
       },
-      async signRequest(method) {
-        let signString = await fetch("http://localhost:3000/signRequest.php", {
-            method: 'POST',
-            headers: {
-              "content-Type": "text/plain"
-            },
-            body: method,
-          })
-          .then(response => response.text())
-          .then(data => {
-            return JSON.parse(data).signature;
-          })
-        return signString
-      },
-      async apiCall(method) {
-        let signString = await this.signRequest(method);
-        let formdata = new FormData();
-        formdata.append("request", method);
-        formdata.append("signature", signString);
-        let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
-            method: "POST",
-            body: formdata,
-          })
-          .then(response => response.text())
-          .then(result => {
-            return JSON.parse(result)
-          })
-        return responseData.results
-      }
     }
   }
 </script>

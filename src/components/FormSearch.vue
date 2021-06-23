@@ -6,19 +6,19 @@
       <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
         <div class="flex flex-col  gap-2">
           <div class="flex flex-col flex-grow group">
-            <label class="text-xs mb-1 group-hover:text-yellow-500 my-label">Pickup Location</label>
+            <label class="my-label">Pickup Location</label>
             <div class="flex flex-row place-items-center">
-              <i class="mr-2 fal fa-map-marker fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-              <select class="border h-10  flex-1" v-model="this.formData.pickuplocationid" @change="update()">
+              <i class="mr-2 fal fa-map-marker fa-fw"></i>
+              <select class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
                 <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
               </select>
             </div>
           </div>
           <div class="flex flex-col flex-grow group">
-            <label class="text-xs mb-1 group-hover:text-yellow-500 my-label">Dropoff Location</label>
+            <label class="my-label">Dropoff Location</label>
             <div class="flex flex-row place-items-center">
-              <i class="mr-2 fal fa-map-marker fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-              <select class="border h-10  flex-1" v-model="this.formData.dropofflocationid" @change="update()">
+              <i class="mr-2 fal fa-map-marker fa-fw"></i>
+              <select class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
                 <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
               </select>
             </div>
@@ -26,24 +26,22 @@
         </div>
 
         <div class="flex flex-col">
-          <date-picker v-model="daterange" mode="date" is-range :min-date="new Date()">
+          <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" is-range :min-date="new Date()">
             <template v-slot="{ inputValue, inputEvents, isDragging }">
-
-              <div class="flex flex-col  items-center gap-2">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
-                    <label for="" class="text-xs mb-1 group-hover:text-yellow-500 my-label">Pickup Date</label>
+                    <label for="" class="my-label">Pickup Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-calendar fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-                      <input class="border h-10 pl-1 flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
+                      <i class="mr-2 fal fa-calendar fa-fw"></i>
+                      <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
                     </div>
                   </div>
 
                   <div class="flex flex-col flex-1 group">
-                    <label class="text-xs mb-1 group-hover:text-yellow-500 my-label" for="">Pickup Time</label>
+                    <label class="my-label" for="">Pickup Time</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-clock fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-                      <select name="" id="" class="h-10  border flex-1" v-model="formData.pickuptime">
+                      <i class="mr-2 fal fa-clock fa-fw"></i>
+                      <select name="" id="" class="my-input" v-model="formData.pickuptime">
                         <option v-for="(time, i) in putimearray" :key="i" :value="time">
                           {{to12hr(time)}}
                         </option>
@@ -55,25 +53,24 @@
 
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
-                    <label for="" class="text-xs mb-1 group-hover:text-yellow-500 my-label">Dropoff Date</label>
+                    <label for="" class="my-label">Dropoff Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-calendar fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-                      <input class="border h-10 pl-1 flex-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
+                      <i class="mr-2 fal fa-calendar fa-fw"></i>
+                      <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
                     </div>
                   </div>
 
                   <div class="flex flex-col flex-1 group">
-                    <label class="text-xs mb-1 group-hover:text-yellow-500 my-label" for="">Dropoff Time</label>
+                    <label class="my-label" for="">Dropoff Time</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-clock fa-fw text-blue-500 group-hover:text-yellow-500"></i>
-                      <select name="" id="" class="h-10  border flex-1" v-model="formData.dropofftime">
+                      <i class="mr-2 fal fa-clock fa-fw"></i>
+                      <select name="" id="" class="my-input" v-model="formData.dropofftime">
                         <option v-for="(time, i) in dotimearray" :key="i" :value="time">{{to12hr(time)}}</option>
                         <option v-if="domaxtime == '00:00'" value="" disabled>Closed</option>
                       </select>
                     </div>
                   </div>
                 </div>
-              </div>
             </template>
           </date-picker>
         </div>
@@ -88,17 +85,11 @@
 </template>
 
 <script>
-  import {
-    DatePicker
-  } from 'v-calendar';
+import Mixins from '../Mixins'
   export default {
-    components: {
-      DatePicker
-    },
     data() {
       return {
         submittedParams: "",
-        // searching: false,
         count: 1,
         alltimes: [
           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
@@ -138,13 +129,14 @@
     mounted() {
       this.getStep1()
     },
+    mixins: [Mixins],
     methods: {      
       async getStep2() {
         this.$emit('searching', true)  
         this.convertdates()      
         var params = JSON.stringify(this.formData)
         this.submittedParams = this.formData
-        let data = await this.apiCall(params)
+        let data = await Mixins.methods.apiCall(params)
         this.searchResults = await data
         this.count++
         this.$emit('searching', false)
@@ -155,7 +147,7 @@
          var step1 = JSON.stringify({
         'method': 'step1'
         })
-        let data = await this.apiCall(step1)
+        let data = await Mixins.methods.apiCall(step1)
         this.step1 = await data
         this.initDates()
         this.update()
@@ -270,42 +262,26 @@
         })
         this.selecteddolocation = data
       },
-      async signRequest(method) {
-        let signString = await fetch("http://localhost:3000/signRequest.php", {
-            method: 'POST',
-            headers: {
-              "content-Type": "text/plain"
-            },
-            body: method,
-          })
-          .then(response => response.text())
-          .then(data => {
-            return JSON.parse(data).signature;
-          })
-        return signString
-      },
-      async apiCall(method) {
-        let signString = await this.signRequest(method);
-        let formdata = new FormData();
-        formdata.append("request", method);
-        formdata.append("signature", signString);
-        let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
-            method: "POST",
-            body: formdata,
-          })
-          .then(response => response.text())
-          .then(result => {
-            return JSON.parse(result)
-          })
-        return responseData.results
-      }
     },
   }
 </script>
 
-<style>
- .my-label {
-    color: rgb(14, 165, 233);
-    font-weight: bold
-  }
+<style lang="postcss">
+@layer components {
+    .my-label {
+      @apply text-blue-800 font-bold text-xs mb-1 pl-7
+    }
+
+    .group:hover .my-label {
+      @apply text-yellow-500
+    }
+
+    .group:hover i {
+      @apply text-yellow-500
+    }
+
+    .my-input {
+      @apply h-8 border flex-1 pl-1 bg-gray-100
+    }
+}
 </style>
