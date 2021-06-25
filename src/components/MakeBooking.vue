@@ -5,7 +5,7 @@
       <button @click="setMode(2)" class="bg-green-500 px-4 py-1 mr-auto">Make Booking</button>
     </div>
     <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
-    <form-optional :parameters="parameters" v-if="mode == 2"></form-optional>
+    <form-optional :step3="step3" :parameters="parameters" v-if="mode == 2"></form-optional>
     <button v-if="mode" @click="submitBooking" class="bg-green-500  px-4 py-1 ml-auto mt-5">{{ btnText }}</button>
   </div>
 </template>
@@ -21,7 +21,8 @@
     props: {
       optionalfees: Object,
       calcTotals: Object,
-      submittedParams: Object
+      submittedParams: Object,
+      step3: Object
     },
     watch: {},
     data() {
@@ -39,26 +40,29 @@
           ageid: 0,
           vehiclecategoryid: 0,
           bookingtype: 1,
-          insuranceid: 0,
-          extrakmsid: 0,
+          insuranceid: "",
+          extrakmsid: "",
           transmission: 0,
-          numbertravelling: 1,
+          numbertravelling: "",
           customer: {
             firstname: "",
             lastname: "",
-            dateofbirth: new Date(),
+            dateofbirth: new Date().toLocaleDateString(),
             licenseno: "",
+            licenseissued: 7, // Default country id (Australia)
+            licenseexpires: "",
             email: "",
             phone: "",
             state: "",
             city: "",
             postcode: "",
-            address: ""
+            address: "",
+            countryid: 7, // Default country id (Australia)
           },
           emailoption: 1,
           foundusid: 63,
           remark: "",
-          areaofuseid: 0,
+          areaofuseid: "",
           newsletter: true,
           refno: "",
           optionalfees: []

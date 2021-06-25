@@ -155,7 +155,7 @@
 
       </div>
     </div>
-    <make-booking @submitBooking="submitBooking" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals"></make-booking>
+    <make-booking @submitBooking="submitBooking" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
   </div>
 </template>
 

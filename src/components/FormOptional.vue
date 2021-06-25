@@ -1,70 +1,130 @@
 <template>
-  <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full text-left md:max-w-screen-lg mx-auto">
-    <p class="font-bold text-lg mb-3">Optional Details</p>
-    <div class="flex flex-col md:flex-row gap-3 mb-2">
+  <div class="bg-white p-2 rounded bg-opacity-90 mt-5 shadow-xl w-full text-left md:max-w-screen-lg mx-auto">
+    <p class="font-bold text-lg mb-3 mt-5">License <span class="font-normal text-gray-400">optional</span></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">
-        <label for="" class="text-xs mb-1 my-label">asd</label>
+        <label for="licenseno" class="text-xs my-label">License #</label>
         <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-user fa-fw"></i>
-          <input type="text" id="" class="my-input">
+          <input type="text" id="licenseno" class="my-input" v-model="parameters.customer.licenseno">
         </div>
       </div>
       <div class="flex flex-col flex-grow group">
-        <label for="" class="text-xs mb-1 my-label">dfg</label>
+        <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
         <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-user fa-fw invisible"></i>
-          <input type="text" id="" class="my-input">
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col md:flex-row gap-3">
-      <div class="flex flex-col flex-grow group">
-        <label for="" class="text-xs mb-1 my-label">hjk</label>
-        <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-at fa-fw"></i>
-          <input type="text" id="" class="my-input">
-        </div>
-      </div>
-      <div class="flex flex-col flex-grow group">
-        <label for="" class="text-xs mb-1 my-label">Pqwe</label>
-        <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-phone fa-fw"></i>
-          <input type="text" id="" class="my-input">
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col md:flex-row gap-3">
-      
-      <div class="flex flex-col md:w-1/2">
-      <label for="travellers" class="text-xs mb-1 my-label">How Many Travelling?</label>
-        <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-users fa-fw"></i>
-          <select id="travellers" class="my-input">
-            <option value=""></option>
+          <select id="licenseissued" class="my-input" v-model="parameters.customer.licenseissued">
+            <option v-for="country in step3.countries" :value="country.id">{{country.country}}</option>
           </select>
         </div>
       </div>
-      <div class="flex flex-col md:w-1/2"></div>
-      </div>
-      <div class="flex flex-col md:flex-row gap-3">
-        <div class="flex flex-col md:w-1/2">
-        <label for="" class="text-xs mb-1 my-label">Pqwe</label>
+      <date-picker v-model="licenseexpires" :min-date="new Date()" class="flex flex-col flex-grow group">
+        <template v-slot="{ inputValue, inputEvents }">
+          <label for="" class="my-label">License Expiry</label>
+          <div class="flex flex-row place-items-center">
+            <i class="mr-2 fal fa-calendar fa-fw"></i>
+            <input class="my-input" :value="inputValue" v-on="inputEvents" />
+          </div>
+        </template>
+      </date-picker>
+    </div>
+
+    <p class="font-bold text-lg mb-3 mt-5">Address <span class="font-normal text-gray-400">optional</span></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
+      <div class="flex flex-col flex-grow group">
+        <label for="" class="text-xs my-label">Street Address</label>
         <div class="flex flex-row place-items-center">
-          <i class="mr-2 fal fa-phone fa-fw"></i>
+          <input type="text" id="address" class="my-input" v-model="parameters.customer.address">
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow group">
+        <label for="" class="text-xs my-label">City</label>
+        <div class="flex flex-row place-items-center">
+          <input type="text" id="city" class="my-input" v-model="parameters.customer.city">
+        </div>
+      </div>
+      <div class="flex flex-col group">
+        <label for="postcode" class=" my-label">State</label>
+        <div class="flex flex-row place-items-center">
+          <input type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
+        </div>
+      </div>
+      <div class="flex flex-col group">
+        <label for="country" class=" my-label">Country</label>
+        <div class="flex flex-row place-items-center">
+          <select id="country" class="my-input" v-model="parameters.customer.countryid">
+            <option v-for="country in step3.countries" :value="country.id">{{country.country}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow group">
+        <label for="postcode" class=" my-label">Postcode</label>
+        <div class="flex flex-row place-items-center">
+          <input type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow group">
+        <label for="" class=" my-label">Pqwe</label>
+        <div class="flex flex-row place-items-center">
           <input type="text" id="" class="my-input">
         </div>
-        </div>
-        <div class="flex flex-col md:w-1/2"></div>
       </div>
-      
     </div>
+
+
+    <p class="font-bold text-lg mb-3 mt-5">Trip Details <span class="font-normal text-gray-400">optional</span></p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
+      <div class="flex flex-col flex-grow group">
+        <label for="travellers" class=" my-label">How Many Travelling?</label>
+        <div class="flex flex-row place-items-center">
+          <select id="travellers" class="my-input" v-model="parameters.numbertravelling">
+            <option selected disabled value="">number of people travelling</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6+">6+</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow group">
+        <label for="transmission" class=" my-label">Transmission</label>
+        <div class="flex flex-row place-items-center">
+          <select id="transmission" class="my-input">
+            <option value="0">No Preference</option>
+            <option value="1">Automatic</option>
+            <option value="2">Manual</option>
+            </select>
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow group">
+        <label for="areaofuse" class=" my-label">Area of Use</label>
+        <div class="flex flex-row place-items-center">
+          <input type="text" id="areaofuse" class="my-input">
+        </div>
+        <p class="italic text-sm text-gray-500">e.g: Brisbane to Sydney via Byron Bay and Coffs Harbour.</p>
+      </div>
+    </div>
+
+
+  </div>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        licenseexpires: ""
+      }
+    },
     props: {
-      parameters: Object
-    }
+      parameters: Object,
+      step3: Object
+    },
+    watch: {
+      'licenseexpires': function () {
+        this.parameters.customer.licenseexpires = this.licenseexpires.toLocaleDateString()
+      }
+    },
   }
 </script>
 

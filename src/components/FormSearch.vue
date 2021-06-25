@@ -269,7 +269,7 @@ import Mixins from '../Mixins'
 <style lang="postcss">
 @layer components {
     .my-label {
-      @apply text-blue-800 font-bold text-xs mb-1 pl-7
+      @apply text-blue-800 font-bold text-xs mb-0.5
     }
 
     .group:hover .my-label {
