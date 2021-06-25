@@ -55,13 +55,13 @@
           </div>
 
           <!-- EXTRAS -->
-          <div >
+          <div>
             <div v-if="totals.mandatory.length || totals.optional.length">
               <p class="font-bold">Fees:</p>
               <div v-for="fee in totals.optional" class="flex justify-between">
                 <span>{{fee.name}}</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
               </div>
-              
+
               <div v-for="fee in totals.damage" class="flex justify-between">
                 <span>Damage Cover</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
               </div>
@@ -112,16 +112,26 @@
         </div>
 
         <!-- Extras -->
-        <p v-if="step3.optionalfees.length > 0" class="font-bold">Extras:</p>
-        <div v-if="step3.optionalfees.length > 0" class="py-3">
-          <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" v-for="extra in step3.optionalfees" :class="{'selected': selectedExtras.indexOf(extra.id) != -1}">
-            <div class="">
-              <input type="checkbox" class="mr-1 hidden" :value="extra.id" v-model="selectedExtras" :id="'extra' + extra.id">
+        
+        <div v-if="optionalfees.length > 0" class="pb-3">
+          <p class="font-bold pb-3">Extras:</p>
+          <div class="flex mb-1" v-for="extra in optionalfees">
+            <div v-if="extra.sel && extra.qtyapply" class="flex flex-col justify-around items-center w-8">
+              <i @click="incQty(extra)" class="far fa-plus py-1"></i>
+              <input type="text" disabled v-model="extra.qty" class="w-6 text-center">
+              <i @click="decQty(extra)" class="far fa-minus py-1"></i>
+            </div>
+            <div class="flex flex-col flex-grow p-1 border border-opacity-0 rounded" :class="{'selected': extra.sel == true}">
+              <input type="checkbox" class="mr-1 hidden" v-model="extra.sel" :id="'extra' + extra.id">
               <label :for="'extra' + extra.id" class="">
                 <div class="flex justify-between">
                   <span>{{extra.name}}</span>
+
                   <p class="font-bold price" v-if="extra.type == 'Percentage'">{{ currencysymbol + extra.totalfeeamount }}</p>
-                  <p v-else class="font-bold price"><span>{{currencysymbol + extra.fees}}</span><span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span></p>
+                  <div v-else class="font-bold price">
+                    <span>{{currencysymbol + extra.fees*extra.qty}}</span>
+                    <span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span>
+                  </div>
                 </div>
                 <p v-if="extra.feedescription" class="">{{extra.feedescription}}</p>
               </label>
@@ -142,7 +152,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
     <make-booking @submitBooking="submitBooking" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals"></make-booking>
@@ -150,12 +160,13 @@
 </template>
 
 <script>
-import Mixins from '../Mixins'
+  import Mixins from '../Mixins'
   import Spinner from './Spinner.vue'
   import MakeBooking from './MakeBooking.vue'
   export default {
     components: {
-      Spinner, MakeBooking
+      Spinner,
+      MakeBooking
     },
     data() {
       return {
@@ -163,7 +174,7 @@ import Mixins from '../Mixins'
         calculating: true,
         insurance: 0,
         extrakmsid: 0,
-        selectedExtras: [],
+        optionalfees: [],
         totals: {
           all: [],
           daily: [],
@@ -177,7 +188,7 @@ import Mixins from '../Mixins'
       }
     },
     watch: {
-      'calcTotals': function() {
+      'calcTotals': function () {
         this.getTotals()
         this.count++
       }
@@ -200,16 +211,14 @@ import Mixins from '../Mixins'
           })
         })
         return arr
-      },
-      optionalfees() {
+      },     
+      selectedExtras() {
         let arr = []
-        let selected = this.selectedExtras
-        this.step3.optionalfees.forEach(function (el) {
-          if (selected.indexOf(el.id) >= 0) {
-            // TODO implement quantity for optional fees
+        this.optionalfees.forEach(function (el) {
+          if (el.sel) {
             arr.push({
               'id': el.id,
-              'qty': 1
+              'qty': el.qty
             })
           }
         })
@@ -227,18 +236,18 @@ import Mixins from '../Mixins'
           "insuranceid": this.insurance,
           "extrakmsid": this.extrakmsid,
           "mandatoryfees": this.mandatoryfees,
-          "optionalfees": this.optionalfees
+          "optionalfees": this.selectedExtras
         }
-      },      
+      },
     },
     mounted() {
-      let insuranceid = this.step3.insuranceoptions[0].id    
-        this.step3.insuranceoptions.forEach(function (el) {
+      let insuranceid = this.step3.insuranceoptions[0].id
+      this.step3.insuranceoptions.forEach(function (el) {
         if (el.isdefault) {
           insuranceid = el.id
         }
-      })        
-      
+      })
+
       this.insurance = insuranceid
       let kmid
       this.step3.kmcharges.forEach(function (el) {
@@ -247,8 +256,28 @@ import Mixins from '../Mixins'
         }
       })
       this.extrakmsid = kmid
+
+        let arr = []
+        this.step3.optionalfees.forEach(function(el){
+          let obj = el
+          obj.sel
+          obj.qty = 1
+          arr.push(obj)
+        })
+        this.optionalfees = arr
     },
     methods: {
+      incQty(el) {
+        let max = 10
+        if (el.qty < max) {
+          el.qty++
+        }
+      },
+      decQty(el){
+        if (el.qty > 1) {
+          el.qty--
+        }
+      },
       submitBooking(e) {
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
           console.log(res)
