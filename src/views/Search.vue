@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-lg mx-auto grid gap-5 py-10">
+  <div class="max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
     <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
 
     <keep-alive>
@@ -14,7 +14,10 @@
 
     <search-results @select-vehicle="selectVehicle" v-if="status == 2 && this.searchResults && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
 
-    <selected-vehicle v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
+    <selected-vehicle @submit-booking="getVault" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
+
+    <form-payment v-if="status == 4" :reservation="reservationInfo"></form-payment>
+
   </div>
 
 </template>
@@ -24,22 +27,25 @@
   import SearchResults from '../components/SearchResults.vue'
   import SelectedVehicle from '../components/SelectedVehicle.vue'
   import Spinner from '../components/Spinner.vue'
+  import FormPayment from '../components/FormPayment.vue'
   export default {
     components: {
       BookingForm,
       BookingNav,
       SearchResults,
       SelectedVehicle,
-      Spinner
+      Spinner,
+      FormPayment
     },
     data() {
       return {
-        status: 1,
+        status: 4,
         submittedParams: {},
         searchResults: {},
         count: 0,
         vehicle: {},
-        loading: false
+        loading: false,
+        reservationInfo: {}
       }
     },
     methods: {
@@ -66,6 +72,16 @@
         this.updateStatus(step)
         this.step3 = data
       },
+      getVault(e) {
+        this.status = 4
+        console.log(e)
+        this.reservationInfo = e
+      },
+      showSummary(e) {
+        this.status = 5
+        console.log(e)
+        this.reservationInfo = e
+      }
     }
   }
 </script>

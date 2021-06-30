@@ -6,7 +6,7 @@
     </div>
     <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
     <form-optional :step3="step3" :parameters="parameters" v-if="mode == 2"></form-optional>
-    <button v-if="mode" @click="submitBooking" class="bg-green-500  px-4 py-1 ml-auto mt-5">{{ btnText }}</button>
+    <button v-if="mode" @click="submitBooking(mode)" class="bg-green-500  px-4 py-1 ml-auto mt-5">{{ btnText }}</button>
   </div>
 </template>
 
@@ -71,8 +71,12 @@
       }
     },
     methods: {
-      submitBooking() {
-        this.$emit('submitBooking', this.parameters)
+      submitBooking(mode) {
+        if (mode == 1) {
+          this.$emit('submitQuote', this.parameters)
+        } else if (mode == 2) {
+          this.$emit('submitBooking', this.parameters)
+        }        
       },
       setMode(mode) {
         this.mode = mode

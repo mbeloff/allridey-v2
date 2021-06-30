@@ -3,9 +3,9 @@
     <p class="text-center" v-if="categories.length > 0">search results</p>
     <p class="text-center" v-else>No results found</p>
     <div v-for="(cat, i) in getCats(categories)" class="my-2">
-      <div class="flex bg-gray-600 text-white px-2">
+      <!-- <div class="flex bg-gray-600 text-white px-2">
         <p>{{cat.vehiclecategorytype}}</p>
-      </div>
+      </div> -->
       <search-result @select-vehicle="selectVehicle" v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="results" :submittedParams="submittedParams">
       </search-result>
     </div>
@@ -20,21 +20,21 @@
     },
     data() {
       return {
-        categories: []
+        categories: [],
       }
     },
     props: {
-      results: Object,
+      results: Object | String,
       submittedParams: Object
     },
     mounted() {
       let arr = []
-      this.results.availablecars.forEach(function (el) {
+        this.results.availablecars.forEach(function (el) {
         if (arr.indexOf(el.vehiclecategorytypeid) < 0 && el.availablemessage != 'Not available due to incomplete rates.') {
           arr.push(el.vehiclecategorytypeid)
         }
       })
-      this.categories = arr
+      this.categories = arr          
     },
     methods: {
       selectVehicle(data, step) {

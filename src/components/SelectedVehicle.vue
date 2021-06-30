@@ -1,15 +1,15 @@
 <template>
 
-  <div class=" rounded bg-opacity-90 w-full p-1 flex flex-col gap-3">
+  <div class="rounded bg-opacity-90 w-full p-1 flex flex-col gap-3">
     <div class="flex flex-col md:flex-row  gap-3">
 
       <!-- Vehicle Image -->
-      <div class="w-full md:w-2/5 md:pr-1">
+      <div class="w-full md:w-2/6 md:pr-1">
         <img :src="this.step3.availablecars[0].imageurl" alt="" class="m-auto">
       </div>
 
       <!-- Vehicle and Trip Details -->
-      <div class="flex flex-col md:w-3/5 justify-center shadow-xl bg-gray-200">
+      <div class="flex flex-col md:w-4/6 justify-center shadow-xl bg-gray-200">
         <div class="flex-shrink pt-4">
           <p class="text-center text-blue-700 font-bold">{{this.step3.availablecars[0].categoryfriendlydescription}}</p>
         </div>
@@ -44,8 +44,8 @@
 
     <!-- Mandatory Fees and Total Rate -->
     <div class="flex flex-col md:flex-row gap-3 items-start justify-items-start">
-      <div class="w-full md:w-2/5 text-left border text-sm shadow-xl">
-        <div class="bg-white px-2 py-1">
+      <div class="w-full md:w-2/6 text-left border text-sm shadow-xl">
+        <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>
           <div class="flex justify-between py-2">
             <span>
@@ -55,7 +55,7 @@
           </div>
 
           <!-- EXTRAS -->
-          <div>
+          <div class="">
             <div v-if="totals.mandatory.length || totals.optional.length">
               <p class="font-bold">Fees:</p>
               <div v-for="fee in totals.optional" class="flex justify-between">
@@ -71,13 +71,13 @@
               <div v-for="fee in totals.mandatory" class="flex justify-between">
                 <span>{{fee.name}}</span><span class="font-bold w-14">{{currencysymbol + fee.total.toFixed(2)}}</span>
               </div>
-              <br><br>
+              <br>
             </div>
           </div>
         </div>
 
         <!-- CALCULATED TOTAL -->
-        <div v-if="totals.all.length > 0" class="bg-gray-200 p-2">
+        <div v-if="totals.all.length > 0" class="bg-blue-900 text-white p-2">
           <div class="flex justify-end text-lg mb-2">
             <span class="font-bold">TOTAL: </span>
             <span v-if="calculating" class="w-24 text-right grid place-items-center justify-items-end">
@@ -93,17 +93,17 @@
       </div>
 
       <!-- RIGHT SIDE -->
-      <div class="w-full md:w-3/5 border bg-white shadow-xl text-left p-1 px-2 text-sm">
+      <div class="w-full md:w-4/6 border bg-white shadow-xl text-left p-1 px-2 md:px-4 text-sm pt-3">
         <!-- Damage Cover -->
-        <p class="font-bold">Damage Cover:</p>
+        <p class="font-bold text-xl">Damage Cover:</p>
         <div class="py-3">
           <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" :class="{'selected': damage.id == insurance}" v-for="damage in this.step3.insuranceoptions">
             <div class="">
               <input type="radio" :checked="damage.isdefault" class="mr-1 hidden" :value="damage.id" v-model="insurance" :id="'damage' + damage.id">
               <label :for="'damage' + damage.id" class="">
                 <div class="flex justify-between">
-                  <span>{{damage.name}}</span>
-                  <p class="font-bold price">{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
+                  <span class="fee-name">{{damage.name}}</span>
+                  <p class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
                 </div>
                 <p v-if="damage.feedescription" class="">{{damage.feedescription}}</p>
               </label>
@@ -112,9 +112,9 @@
         </div>
 
         <!-- Extras -->
-        
+
         <div v-if="optionalfees.length > 0" class="pb-3">
-          <p class="font-bold pb-3">Extras:</p>
+          <p class="font-bold pb-3 text-xl">Extras:</p>
           <div class="flex mb-1" v-for="extra in optionalfees">
             <div v-if="extra.sel && extra.qtyapply" class="flex flex-col justify-around items-center w-8">
               <i @click="incQty(extra)" class="far fa-plus py-1"></i>
@@ -125,11 +125,11 @@
               <input type="checkbox" class="mr-1 hidden" v-model="extra.sel" :id="'extra' + extra.id">
               <label :for="'extra' + extra.id" class="">
                 <div class="flex justify-between">
-                  <span>{{extra.name}}</span>
+                  <span class="fee-name">{{extra.name}}</span>
 
                   <p class="font-bold price" v-if="extra.type == 'Percentage'">{{ currencysymbol + extra.totalfeeamount }}</p>
                   <div v-else class="font-bold price">
-                    <span>{{currencysymbol + extra.fees*extra.qty}}</span>
+                    <span><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + extra.fees*extra.qty}}</span>
                     <span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span>
                   </div>
                 </div>
@@ -140,14 +140,14 @@
         </div>
 
         <!-- Kilometres -->
-        <p class="font-bold">Kilometre Inclusions:</p>
+        <p class="font-bold text-xl">Kilometre Inclusions:</p>
         <div class="py-3">
           <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" v-for="km in this.step3.kmcharges" :class="{'selected': km.id == extrakmsid}">
             <div class="flex items-center">
               <input type="radio" :checked="km.isdefault" class="mr-1 hidden" :value="km.id" v-model="extrakmsid" :id="'km' + km.id">
               <label :for="'km' + km.id" class="flex flex-grow justify-between">
-                <span>{{km.description}}</span>
-                <span class="font-bold price">{{currencysymbol + km.totalamount}}</span>
+                <span class="fee-name">{{km.description}}</span>
+                <span class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + km.totalamount}}</span>
               </label>
             </div>
           </div>
@@ -155,7 +155,7 @@
 
       </div>
     </div>
-    <make-booking @submitBooking="submitBooking" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
+    <make-booking @submitBooking="submitBooking" @submitQuote="submitQuote" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
   </div>
 </template>
 
@@ -211,7 +211,7 @@
           })
         })
         return arr
-      },     
+      },
       selectedExtras() {
         let arr = []
         this.optionalfees.forEach(function (el) {
@@ -257,14 +257,14 @@
       })
       this.extrakmsid = kmid
 
-        let arr = []
-        this.step3.optionalfees.forEach(function(el){
-          let obj = el
-          obj.sel
-          obj.qty = 1
-          arr.push(obj)
-        })
-        this.optionalfees = arr
+      let arr = []
+      this.step3.optionalfees.forEach(function (el) {
+        let obj = el
+        obj.sel
+        obj.qty = 1
+        arr.push(obj)
+      })
+      this.optionalfees = arr
     },
     methods: {
       incQty(el) {
@@ -273,14 +273,21 @@
           el.qty++
         }
       },
-      decQty(el){
+      decQty(el) {
         if (el.qty > 1) {
           el.qty--
         }
       },
       submitBooking(e) {
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          console.log(res)
+          console.log('booking: ' + res)
+          this.$emit('submitBooking', res)
+        })
+      },
+      submitQuote(e) {
+        Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
+          console.log('quote: ' + res)
+          this.$emit('submitQuote', res)
         })
       },
       getTotals() {
@@ -313,6 +320,14 @@
   @layer components {
     .selected {
       @apply border-opacity-100 bg-gray-200 text-blue-900
+    }
+
+    .fee-name {
+      @apply py-1
+    }
+
+    .price {
+      @apply py-1
     }
   }
 
