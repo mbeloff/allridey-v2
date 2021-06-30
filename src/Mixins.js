@@ -19,6 +19,7 @@ export default {
       let formdata = new FormData();
       formdata.append("request", method);
       formdata.append("signature", signString);
+      let apierror = undefined
       let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
           method: "POST",
           body: formdata,
@@ -27,12 +28,25 @@ export default {
         .then(result => {
           let data = JSON.parse(result)
           if (data.status == 'OK') {
+            if (data.issues.length > 0) {
+              console.log('issues: ' + data.issues)
+            }
+            console.log('received ' + method + ' response')
             return data
           } else {
+            apierror = data.error
             throw new Error(data.error)
           }
         }).catch((error)=>{alert(error)})
-      return responseData.results
+
+        if(responseData) {
+          console.log('assigning api response')
+          return responseData.results 
+        } else {
+          console.log('returning error:' + apierror)
+          return apierror
+        }
+             
     }
   }
 }
