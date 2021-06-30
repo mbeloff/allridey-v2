@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-col divide-x mb-10 ">
+  <div class="bg-white h-16 rounded bg-opacity-90 shadow-xl w-full grid grid-flow-col divide-x mb-10 ">
     <button @click="changeStep(1)" class="py-6 rounded-l" :class="btnStatus(1)">
       <i class="" :class="iStatus(1)"></i> Search
     </button>
@@ -10,7 +10,7 @@
       <i class="" :class="iStatus(3)"></i> Extras
     </button>
     <button @click="changeStep(4)" class="py-6" :class="btnStatus(4)">
-      <i class="" :class="iStatus(4)"></i> Payment
+      <i class="" :class="iStatus(4)"></i> Pay
     </button>
     <button @click="changeStep(5)" class="py-6 rounded-r" :class="btnStatus(5)">
       <i class="" :class="iStatus(5)"></i> Summary
