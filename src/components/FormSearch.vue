@@ -1,33 +1,33 @@
 <template>
-<div>
-  <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
-    <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
-    <div  class="text-left ">
-      <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
-        <div class="flex flex-col  gap-2">
-          <div class="flex flex-col flex-grow group">
-            <label class="my-label">Pickup Location</label>
-            <div class="flex flex-row place-items-center">
-              <i class="mr-2 fal fa-map-marker fa-fw"></i>
-              <select class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
-                <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
-              </select>
+  <div>
+    <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
+      <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
+      <div class="text-left ">
+        <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
+          <div class="flex flex-col  gap-2">
+            <div class="flex flex-col flex-grow group">
+              <label class="my-label">Pickup Location</label>
+              <div class="flex flex-row place-items-center">
+                <i class="mr-2 fal fa-map-marker fa-fw"></i>
+                <select class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
+                  <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex flex-col flex-grow group">
+              <label class="my-label">Dropoff Location</label>
+              <div class="flex flex-row place-items-center">
+                <i class="mr-2 fal fa-map-marker fa-fw"></i>
+                <select class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
+                  <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="flex flex-col flex-grow group">
-            <label class="my-label">Dropoff Location</label>
-            <div class="flex flex-row place-items-center">
-              <i class="mr-2 fal fa-map-marker fa-fw"></i>
-              <select class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
-                <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
 
-        <div class="flex flex-col">
-          <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" is-range :min-date="new Date()">
-            <template v-slot="{ inputValue, inputEvents, isDragging }">
+          <div class="flex flex-col">
+            <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" is-range :min-date="new Date()">
+              <template v-slot="{ inputValue, inputEvents, isDragging }">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
                     <label for="" class="my-label">Pickup Date</label>
@@ -71,21 +71,21 @@
                     </div>
                   </div>
                 </div>
-            </template>
-          </date-picker>
+              </template>
+            </date-picker>
+          </div>
         </div>
-      </div>
-      <div class="text-right flex justify-end">
-        <button @click="getStep2()" class="border border-blue-500 bg-white px-6 py-2 rounded text-blue-500 hover:bg-blue-500 hover:text-white">SEARCH <i class="mr-2 fal fa-search"></i></button>
-      </div>
+        <div class="text-right flex justify-end">
+          <button @click="getStep2()" class="border border-blue-500 bg-white px-6 py-2 rounded text-blue-500 hover:bg-blue-500 hover:text-white">SEARCH <i class="mr-2 fal fa-search"></i></button>
+        </div>
 
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import Mixins from '../Mixins'
+  import Mixins from '../Mixins'
   export default {
     data() {
       return {
@@ -130,28 +130,29 @@ import Mixins from '../Mixins'
       this.getStep1()
     },
     mixins: [Mixins],
-    methods: {      
+    methods: {
       async getStep2() {
-        this.$emit('searching', true)  
-        this.convertdates()      
+        this.$emit('searching', true)
+        this.convertdates()
         var params = JSON.stringify(this.formData)
         this.submittedParams = this.formData
         let data = await Mixins.methods.apiCall(params)
+          .catch(this.$emit('searching', false))
         this.searchResults = await data
         this.count++
         this.$emit('searching', false)
         this.$emit('updateStatus', 2)
         this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
-      },  
+      },
       async getStep1() {
-         var step1 = JSON.stringify({
-        'method': 'step1'
+        var step1 = JSON.stringify({
+          'method': 'step1'
         })
         let data = await Mixins.methods.apiCall(step1)
         this.step1 = await data
         this.initDates()
         this.update()
-      }, 
+      },
       convertdates() {
         this.formData.pickupdate = this.daterange.start.toLocaleDateString()
         this.formData.dropoffdate = this.daterange.end.toLocaleDateString()
@@ -170,7 +171,7 @@ import Mixins from '../Mixins'
         tomorrow.setSeconds(0);
         tomorrow.setMilliseconds(0);
         var week = new Date();
-        week.setDate(tomorrow.getDate() + 7);
+        week.setDate(week.getDate() + 7);
         week.setHours(10);
         week.setMinutes(0);
         week.setSeconds(0);
@@ -241,6 +242,7 @@ import Mixins from '../Mixins'
         }
         this.domaxtime = end
         this.dotimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
+
       },
       updatepulocation() {
         let id = this.formData.pickuplocationid
@@ -267,7 +269,7 @@ import Mixins from '../Mixins'
 </script>
 
 <style lang="postcss">
-@layer components {
+  @layer components {
     .my-label {
       @apply text-blue-800 font-bold text-xs mb-0.5
     }
@@ -283,5 +285,5 @@ import Mixins from '../Mixins'
     .my-input {
       @apply h-8 border flex-1 pl-1 bg-gray-100
     }
-}
+  }
 </style>
