@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white p-2 rounded bg-opacity-90 mt-5 shadow-xl w-full text-left md:max-w-screen-lg mx-auto">
+    <p>Make the pickup/collection process quick and easy by filling in the following details.</p>
     <p class="font-bold text-lg mb-3 mt-5">License <span class="font-normal text-gray-400">optional</span></p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">
@@ -42,9 +43,9 @@
         </div>
       </div>
       <div class="flex flex-col group">
-        <label for="postcode" class=" my-label">State</label>
+        <label for="state" class=" my-label">State</label>
         <div class="flex flex-row place-items-center">
-          <input type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
+          <input type="text" id="state" class="my-input" v-model="parameters.customer.state">
         </div>
       </div>
       <div class="flex flex-col group">
@@ -59,12 +60,6 @@
         <label for="postcode" class=" my-label">Postcode</label>
         <div class="flex flex-row place-items-center">
           <input type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
-        </div>
-      </div>
-      <div class="flex flex-col flex-grow group">
-        <label for="" class=" my-label">Pqwe</label>
-        <div class="flex flex-row place-items-center">
-          <input type="text" id="" class="my-input">
         </div>
       </div>
     </div>
@@ -89,7 +84,7 @@
       <div class="flex flex-col flex-grow group">
         <label for="transmission" class=" my-label">Transmission</label>
         <div class="flex flex-row place-items-center">
-          <select id="transmission" class="my-input">
+          <select id="transmission" class="my-input" v-model="parameters.transmission">
             <option value="0">No Preference</option>
             <option value="1">Automatic</option>
             <option value="2">Manual</option>
@@ -97,11 +92,10 @@
         </div>
       </div>
       <div class="flex flex-col flex-grow group">
-        <label for="areaofuse" class=" my-label">Area of Use</label>
+        <label for="remark" class=" my-label">Comments/Requests</label>
         <div class="flex flex-row place-items-center">
-          <input type="text" id="areaofuse" class="my-input">
+          <textarea rows="3" id="remark" class="my-input" v-model="parameters.remark"></textarea>
         </div>
-        <p class="italic text-sm text-gray-500">e.g: Brisbane to Sydney via Byron Bay and Coffs Harbour.</p>
       </div>
     </div>
 
