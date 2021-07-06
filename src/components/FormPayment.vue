@@ -1,46 +1,135 @@
 <template>
-  <div class="rounded bg-opacity-90 w-full h-full p-1 flex flex-col gap-3">
-    <p class="font-bold text-center">Payment</p>
-
-    <div class="flex-grow flex flex-col">
-      <iframe :src="url" frameborder="0" class="flex-grow"></iframe>
-      <p>{{vaultnote}}</p>
+  <div class="w-full h-full p-1">
+    <div class="wrapper mx-auto flex flex-col gap-3" style="max-width: 371px">
+      <p class="font-bold text-center">Payment</p>
+    <div v-if="bookinginfo" class="container max-w-md mx-auto">
+      <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
     </div>
+    <div class=" relative mx-auto grid place-items-center" style="width: 371px">
+      <div v-if="!frameLoad" class="absolute grid place-items-center">
+        <spinner class=" text-blue-500" ></spinner>
+        <p>Please wait...</p>
+      </div>
+      
+      <iframe ref="vault" :src="url" frameborder="0" class="vault" height="243" width="371"></iframe>
+      <div v-if="frameLoad" class="">
+        <div class="flex items-center gap-2">
+          <i class="fab fa-cc-visa fa-2x"></i>
+          <i class="fab fa-cc-mastercard fa-2x"></i>
+          <img class="w-1/2" src="../assets/wcave.svg" alt="Windcave Footer Logo" title="Windcave Footer Logo">
+        </div>
+        <p class="text-sm">{{vaultnote}}</p>
+      </div>
+      
+    </div>
+    </div>
+    
   </div>
 </template>
 
 <script>
+// TODO: get props from search params
 import Mixins from '../Mixins'
+import Spinner from '../components/Spinner.vue'
 export default {
+  components: {Spinner},
   props: {
     reservation: Object
   },
   data() {
     return {
+      frameLoad: false,
       url: "",
       vaultnote: "",
+      vaultresponse: "",
+      bookinginfo: "",
     }
   },
   mounted() {
+   
     this.getVaultUrl()
+    let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent"
+    let eventer = window[eventMethod]
+    let messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message'
+
+    // listen to message from child window needed for vault page
+    let _comp = this
+    eventer (messageEvent, function myFunction(e){
+      var key = e.message ? "message" : "data"
+      var data = e[key]
+      // run function
+      if (data.length > 4) {
+        var split = data.split(',')
+        if (split[5] == 'ADD') {
+        _comp.vaultresponse = data
+        _comp.$forceUpdate()
+        _comp.vaultEntry()
+        window.removeEventListener(messageEvent, myFunction)
+      }
+      }
+    }, false)
+
+
+    // check iframe loaded
+    var _this = this
+    const iframe = this.$refs.vault
+    // handle compatible line problem
+    if (iframe.attachEvent) {
+      iframe.attachEvent('onload', function () {
+                _this.setframeloaded()
+      })
+    } else {
+      iframe.onload = function () {
+                 _this.setframeloaded()
+      }
+    }
+     this.getBookingInfo()
   },
   mixins: [Mixins],
+  computed: {
+
+  },
   methods: {
+    setframeloaded(){
+      this.frameLoad = true
+    },
+    getBookingInfo() {
+      let params = JSON.stringify({
+        "method":"bookinginfo",
+        "reservationref":this.reservation.reservationref
+      })
+      Mixins.methods.apiCall(params).then(res => {
+        this.bookinginfo = res
+      })
+    },
+    vaultEntry() {
+      let params = JSON.stringify({
+        "method":"vaultentry",
+        "reservationref":this.reservation.reservationref,
+        "data":btoa(this.vaultresponse),
+        "payscenario":1,
+        // ! set email option
+        "emailoption":0
+      })
+      Mixins.methods.apiCall(params).then(res => {
+        console.log(res)
+        if(res.paymentsaved == true) {
+          this.$emit('paymentSaved', this.bookinginfo)
+        }
+      })
+    },
     getVaultUrl(){
       let params = JSON.stringify(
-        // {"method":"getvaulturl","reservationref":this.reservation.reservationref}
-        {"method":"getvaulturl","reservationref":'000023BD26C6D21'}
+        {"method":"getvaulturl","reservationref":this.reservation.reservationref}
       )
       Mixins.methods.apiCall(params).then(res => {
-        console.log(res),
         this.vaultnote = res.vaultnote
         this.url = atob(res.url)
         })
-    }
+    },
   }
 }
 </script>
 
-<style>
-
+<style lang="postcss">
 </style>

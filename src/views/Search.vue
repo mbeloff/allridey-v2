@@ -1,6 +1,7 @@
 <template>
-  <div class="max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
-    <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
+  <div class="bg-gray-100 h-full">
+    <div class="main-content max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
+      <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
 
     <keep-alive>
       <booking-form v-if="status < 3" @update-status="updateStatus" @searching="searching" @update-search-results="updateSearchResults"></booking-form>
@@ -16,18 +17,24 @@
 
     <selected-vehicle @submit-booking="getVault" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
 
-    <form-payment v-if="status == 4" :reservation="reservationInfo"></form-payment>
+    <form-payment v-if="status == 4" :reservation="reservationinfo" @payment-saved="showSummary"></form-payment>
+
+    <summary-page v-if="status == 5 && bookinginfo" :bookinginfo="bookinginfo"></summary-page>
+    </div>
+    
 
   </div>
 
 </template>
 <script>
+  import Mixins from '../Mixins'
   import BookingForm from '../components/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
   import SearchResults from '../components/SearchResults.vue'
   import SelectedVehicle from '../components/SelectedVehicle.vue'
   import Spinner from '../components/Spinner.vue'
   import FormPayment from '../components/FormPayment.vue'
+  import SummaryPage from '../components/Summary.vue'
   export default {
     components: {
       BookingForm,
@@ -35,17 +42,19 @@
       SearchResults,
       SelectedVehicle,
       Spinner,
-      FormPayment
+      FormPayment,
+      SummaryPage
     },
     data() {
       return {
-        status: 4,
+        status: 1,
         submittedParams: {},
         searchResults: {},
         count: 0,
         vehicle: {},
         loading: false,
-        reservationInfo: {}
+        reservationinfo: {},
+        bookinginfo: {}
       }
     },
     methods: {
@@ -75,13 +84,22 @@
       getVault(e) {
         this.status = 4
         console.log(e)
-        this.reservationInfo = e
+        this.reservationinfo = e
       },
       showSummary(e) {
         this.status = 5
         console.log(e)
-        this.reservationInfo = e
-      }
+        this.getBookingInfo(e.reservationref)
+      },
+      getBookingInfo(ref) {
+      let params = JSON.stringify({
+        "method":"bookinginfo",
+        "reservationref":ref
+      })
+      Mixins.methods.apiCall(params).then(res => {
+        this.bookinginfo = res
+      })
+      },
     }
   }
 </script>

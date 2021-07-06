@@ -2,9 +2,11 @@
   <div class="w-full h-20 shadow-lg bg-white z-10">
     <div class="flex justify-between container h-full mx-auto px-2"> 
       <div class="left flex content-center items-center gap-x-4">
-        <router-link to="/" class="left w-16 flex">
-      <img src="https://res.cloudinary.com/dg5ybbkbh/image/upload/v1582172019/allridey/allridey-logo.svg" class="object-contain" alt="">
-    </router-link>
+        <router-link to="/" class="left flex">
+          <img src="../assets/allridey_text_outline.svg" alt="" class="flex-grow w-32 md:w-64">
+          <!-- <img src="https://res.cloudinary.com/dg5ybbkbh/image/upload/v1582172019/allridey/allridey-logo.svg" class="object-contain" alt=""> -->
+        </router-link>
+        
     <!-- <router-link class="nav-item" exact-active-class="text-blue-500" to="/">HOME</router-link> -->
     <!-- <route r-link class="nav-item" exact-active-class="text-blue-500" to="/search">SEARCH</route> -->
       </div>

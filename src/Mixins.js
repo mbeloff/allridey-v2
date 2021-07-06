@@ -40,7 +40,6 @@ export default {
         }).catch((error)=>{alert(error)})
 
         if(responseData) {
-          console.log('assigning api response')
           return responseData.results 
         } else {
           console.log('returning error:' + apierror)

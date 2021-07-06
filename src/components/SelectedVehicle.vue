@@ -286,7 +286,7 @@
       },
       submitQuote(e) {
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          console.log('quote: ' + res)
+          console.log('quote: ' + JSON.stringify(res))
           this.$emit('submitQuote', res)
         })
       },
