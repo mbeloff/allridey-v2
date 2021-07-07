@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="grid grid-flow-col place-items-center gap-2 mt-10">
-      <button @click="setMode(1)" class="bg-green-500 px-4 py-1 ml-auto">Email Quote</button>
-      <button @click="setMode(2)" class="bg-green-500 px-4 py-1 mr-auto">Make Booking</button>
+      <button @click="setMode(1)" class="btn btn-secondary ml-auto">Email Quote</button>
+      <button @click="setMode(2)" class="btn btn-secondary mr-auto">Make Booking</button>
     </div>
     <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
     <form-optional :step3="step3" :parameters="parameters" v-if="mode == 2"></form-optional>
-    <button v-if="mode" @click="submitBooking(mode)" class="bg-green-500  px-4 py-1 ml-auto mt-5">{{ btnText }}</button>
+    <button v-if="mode" @click="submitBooking(mode)" class="btn btn-primary mt-5">{{ btnText }}</button>
   </div>
 </template>
 

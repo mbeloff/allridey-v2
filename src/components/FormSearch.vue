@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="text-right flex justify-end">
-          <button @click="getStep2()" class="border border-blue-500 bg-white px-6 py-2 rounded text-blue-500 hover:bg-blue-500 hover:text-white">SEARCH <i class="mr-2 fal fa-search"></i></button>
+          <button @click="getStep2()" class="btn btn-primary pl-6">SEARCH <i class="mr-2 fal fa-search"></i></button>
         </div>
 
       </div>

@@ -102,10 +102,10 @@
               <input type="radio" :checked="damage.isdefault" class="mr-1 hidden" :value="damage.id" v-model="insurance" :id="'damage' + damage.id">
               <label :for="'damage' + damage.id" class="">
                 <div class="flex justify-between">
-                  <span class="fee-name">{{damage.name}}</span>
+                  <span class="fee-name">{{damage.feedescription3}}</span>
                   <p class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
                 </div>
-                <p v-if="damage.feedescription" class="">{{damage.feedescription}}</p>
+                <p v-if="damage.feedescription" class="">{{damage.name}}</p>
               </label>
             </div>
           </div>
@@ -285,9 +285,11 @@
         })
       },
       submitQuote(e) {
+        console.log('event from makebooking' + JSON.stringify(e))
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          console.log('quote: ' + JSON.stringify(res))
-          this.$emit('submitQuote', res)
+          let string = JSON.stringify(res)
+          console.log('submitquote response::::: ' + string)
+          this.$emit('submitQuote', string)
         })
       },
       getTotals() {

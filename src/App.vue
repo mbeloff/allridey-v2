@@ -18,7 +18,7 @@ import Footer from './components/Footer.vue'
 
 </script>
 
-<style>
+<style lang="postcss">
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 #app {
   font-family: 'open Sans', Helvetica, Arial, sans-serif;
@@ -30,5 +30,26 @@ import Footer from './components/Footer.vue'
 .wrapper {
   display: grid;
   grid-template-rows: auto 1fr auto
+}
+
+@layer components {
+.btn {
+  @apply px-4 py-2 font-bold rounded shadow
+}
+
+  .btn-primary {
+    @apply bg-gradient-to-tr from-blue-400 to-blue-600   text-white 
+  }
+
+  .btn-primary:hover {
+    @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
+  }
+  .btn-secondary {
+    @apply bg-white text-blue-600 rounded 
+  }
+
+  .btn-secondary:hover {
+    @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white
+  }
 }
 </style>

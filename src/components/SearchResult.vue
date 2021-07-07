@@ -34,7 +34,7 @@
         <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1">
           <p class="text-xs">initial estimate:</p>
           <p class="text-blue-900 font-bold text-lg">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
-          <button class="bg-blue-500 text-white px-8 py-1" @click="getStep3()">Book Now</button>
+          <button class="btn btn-secondary bg-gray-200" @click="getStep3()">Book Now</button>
         </div>
       </div>
 

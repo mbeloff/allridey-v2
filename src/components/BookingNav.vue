@@ -37,6 +37,9 @@ export default {
       }
     },
     btnStatus(step) {
+      if ((step == 4 || step == 3 || step == 2) && this.status == 5) {
+        return 'bg-gray-200 text-gray-400 disabled hidden'
+      }
       if (step == this.status ) {
         return "active"
       } else if (step < this.status) {

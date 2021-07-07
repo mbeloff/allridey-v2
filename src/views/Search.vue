@@ -1,5 +1,6 @@
 <template>
   <div class="bg-gray-100 h-full">
+    <button @click="getBookingInfo">gotosummary</button>
     <div class="main-content max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
 
@@ -19,7 +20,7 @@
 
     <form-payment v-if="status == 4" :reservation="reservationinfo" @payment-saved="showSummary"></form-payment>
 
-    <summary-page v-if="status == 5 && bookinginfo" :bookinginfo="bookinginfo"></summary-page>
+    <summary-page v-if="status == 5 && bookinginfo.bookinginfo" :bookinginfo="bookinginfo"></summary-page>
     </div>
     
 
@@ -86,17 +87,20 @@
         console.log(e)
         this.reservationinfo = e
       },
+      // ! after payment passing res ref only
       showSummary(e) {
         this.status = 5
-        console.log(e)
-        this.getBookingInfo(e.reservationref)
+        this.getBookingInfo(JSON.parse(e).reservationref)
+        this.$forceUpdate()
       },
       getBookingInfo(ref) {
       let params = JSON.stringify({
         "method":"bookinginfo",
         "reservationref":ref
       })
+      console.log(params)
       Mixins.methods.apiCall(params).then(res => {
+        console.log('getBookingInfo::::' + JSON.stringify(res))
         this.bookinginfo = res
       })
       },

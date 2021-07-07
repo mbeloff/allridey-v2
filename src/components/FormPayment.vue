@@ -114,7 +114,7 @@ export default {
       Mixins.methods.apiCall(params).then(res => {
         console.log(res)
         if(res.paymentsaved == true) {
-          this.$emit('paymentSaved', this.bookinginfo)
+          this.$emit('paymentSaved', JSON.stringify(this.reservation))
         }
       })
     },
