@@ -1,6 +1,11 @@
 <template>
-  <div class="bg-gray-100 h-full">
-    <button @click="getBookingInfo">gotosummary</button>
+  <div class="bg-gray-100 h-full bg-center bg-cover" style="background-image: url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')">
+    <div class="w-full flex px-4 py-1 bg-red-500 gap-4">
+      <span class="text-white">dev panel:</span>
+      <button class="text-red rounded border bg-white" @click="getBookingInfo('239E41C9223'), status = 5">gotosummary</button>
+      <button class="text-red rounded border bg-white" @click="getVault(testreservationinfo), status = 4">gotopayment</button>
+    </div>
+    
     <div class="main-content max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
 
@@ -28,6 +33,7 @@
 
 </template>
 <script>
+  import CryptoJS from 'crypto-js/crypto-js'
   import Mixins from '../Mixins'
   import BookingForm from '../components/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
@@ -54,9 +60,25 @@
         count: 0,
         vehicle: {},
         loading: false,
+        // ! test res info
         reservationinfo: {},
+        testreservationinfo: {
+          reservationref: "239E41C9223", 
+          reservationno: 873, 
+          customerid: 23},
         bookinginfo: {}
       }
+    },
+    mounted() {
+      // if (this.$route.query.ref && this.$route.query.step) {
+      //   this.getBookingInfo(this.$route.query.ref)
+      //   this.reservationinfo = {
+      //     reservationref: this.bookinginfo.bookinginfo[0].reservationref,
+      //     reservationno: this.bookinginfo.bookinginfo[0].reservationno,
+      //     customerid: this.bookinginfo.customerinfo[0].customerid
+      //   }
+      //   this.status = this.$route.query.step
+      // }
     },
     methods: {
       searching(e) {
@@ -94,15 +116,15 @@
         this.$forceUpdate()
       },
       getBookingInfo(ref) {
-      let params = JSON.stringify({
-        "method":"bookinginfo",
-        "reservationref":ref
-      })
-      console.log(params)
-      Mixins.methods.apiCall(params).then(res => {
-        console.log('getBookingInfo::::' + JSON.stringify(res))
-        this.bookinginfo = res
-      })
+        let params = JSON.stringify({
+          "method":"bookinginfo",
+          "reservationref":ref
+        })
+        console.log(params)
+        Mixins.methods.apiCall(params).then(res => {
+          console.log('getBookingInfo::::' + JSON.stringify(res))
+          this.bookinginfo = res
+        })
       },
     }
   }

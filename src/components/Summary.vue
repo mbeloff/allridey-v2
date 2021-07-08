@@ -1,6 +1,6 @@
 <template>
   <div class="text-left p-2">
-    <div v-if="booking.isquotation" class="rounded bg-opacity-90 w-full p-2 flex flex-col gap-3">
+    <div class="rounded bg-opacity-90 w-full p-2 flex flex-col gap-3">
       <div class="flex flex-col md:flex-row gap-3 items-start">
 
         <!--LEFT SIDE -->
@@ -13,7 +13,7 @@
                 Pickup:
               </span>
               <div class="grid font-bold">
-                <span>{{booking.pickuplocationname}}</span>
+                <span class="text-right">{{booking.pickuplocationname}}</span>
                 <span>{{tConvert(booking.pickuptime)}} - {{booking.pickupdate}}</span>
               </div>              
             </div>
@@ -22,7 +22,7 @@
                 Dropoff:
               </span>
               <div class="grid font-bold">
-                <span>{{booking.dropofflocationname}}</span>
+                <span class="text-right">{{booking.dropofflocationname}}</span>
                 <span>{{tConvert(booking.dropofftime)}} - {{booking.dropoffdate}}</span>
               </div>              
             </div>
@@ -41,9 +41,13 @@
                 <span> {{fee.name}} </span><span class="font-bold">{{booking.currencysymbol + fee.totalfeeamount.toFixed(2)}}</span>
               </div>
               <div class="flex justify-between">
-                <span> {{booking.kmcharges_description}} </span><span class="font-bold">{{booking.currencysymbol + booking.kmcharges_totalfordailyrate.toFixed(2)}}</span>
+                <span> {{booking.kmcharges_description}} </span><span class="font-bold ml-5">{{booking.currencysymbol + booking.kmcharges_totalfordailyrate.toFixed(2)}}</span>
               </div>
               <br>
+            </div>
+
+            <div v-if="booking.payment" class="flex justify-end">
+              <span>Payment received:</span><span>{{booking.currencysymbol + booking.payment}}</span>
             </div>
           </div>
 
@@ -51,7 +55,7 @@
           <div class="bg-blue-800 text-blue-100 p-2">
             <div class="flex justify-end mb-2">
               <span class="font-bold mr-2 ">TOTAL BALANCE DUE: </span>
-              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol + booking.balancedue}}</span>
+              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol + booking.balancedue.toFixed(2)}}</span>
             </div>
             <div class="text-right italic text-xs">
               <span>includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }}</span>
@@ -60,10 +64,11 @@
         </div>
 
         <!-- RIGHT SIDE -->
-        <div class="flex flex-col md:w-4/6 flex-shrink order-1 md:order-2 items-center">
+        <div class="flex flex-col md:w-4/6 flex-shrink order-1 md:order-2">
         <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5">
-          <p class='text-xl font-bold'>Thank you for requesting a quote with All Ridey</p>
-          <p class="text-sm">We've sent you an email for your records. You can convert this quote into a booking by clicking the button below, or via the link in the email.</p>
+          <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with All Ridey</p>
+          <p else class='text-xl font-bold'>Thanks you for your booking with All Ridey</p>
+          <p class="text-sm">We've sent you an email for your records. <span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below, or via the link in the email.</span></p>
           <div class="grid grid-cols-2 text-sm">
             <span class="font-bold">Quote number:</span>
             <span class="font-bold">{{ booking.reservationdocumentno }}</span>
@@ -74,7 +79,7 @@
           </div>
           
         </div>
-        <a :href="booking.quoteconversionurl" class="btn btn-primary ">Convert to Booking</a>
+        <a v-if="booking.isquotation" :href="booking.quoteconversionurl" class="btn btn-primary ">Convert to Booking</a>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ export default {
       }
     },
     btnStatus(step) {
-      if ((step == 4 || step == 3 || step == 2) && this.status == 5) {
+      if ((step == 4 || step == 3) && this.status == 5) {
         return 'bg-gray-200 text-gray-400 disabled hidden'
       }
       if (step == this.status ) {

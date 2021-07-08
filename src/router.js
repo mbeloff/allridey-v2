@@ -5,7 +5,8 @@ const history = createWebHistory();
 
 const routes = [
   { name: "Home", path: "/", component: Search, props: true },
-  { name: "Search", path: "/search", component: Search, props: true }
+  { name: "Search", path: "/search", component: Search, props: true },
+  { name: "Search", path: "/pay", component: Search, props: true }
 ];
 
 const router = createRouter({ history, routes });

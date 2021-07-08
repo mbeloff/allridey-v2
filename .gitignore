@@ -4,6 +4,6 @@ dist
 dist-ssr
 *.local
 .env
-test.js
+getHmac.js
 # Local Netlify folder
 .netlify
