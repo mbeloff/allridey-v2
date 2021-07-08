@@ -14,7 +14,8 @@ export default {
       };
       console.log(method)
       let _this = this
-      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest?", requestOptions)
+      // ! update functions dir on deploy
+      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
           let sig = JSON.parse(result).signature
