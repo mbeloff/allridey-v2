@@ -1,19 +1,37 @@
 export default {
   methods: {
-    async signRequest(method) {
-      let signString = await fetch("http://localhost:3000/signRequest.php", {
-          method: 'POST',
-          headers: {
-            "content-Type": "text/plain"
-          },
-          body: method,
-        })
+    signRequest() {
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+
+      fetch("http://localhost:8888/.netlify/functions/signRequest?", requestOptions)
         .then(response => response.text())
-        .then(data => {
-          return JSON.parse(data).signature;
+        .then(result => {
+          // console.log(result)
+          this.response = JSON.parse(result)
+          this.$forceUpdate()
         })
-      return signString
+        .catch(error => {console.log('Couldn\'t get token!', error)
+        this.gettingToken = false
+        this.tokenFailed = true});
     },
+    // ORIGINAL (working) signRequest
+    // async signRequest(method) {
+    //   let signString = await fetch("http://localhost:3000/signRequest.php", {
+    //       method: 'POST',
+    //       headers: {
+    //         "content-Type": "text/plain"
+    //       },
+    //       body: method,
+    //     })
+    //     .then(response => response.text())
+    //     .then(data => {
+    //       return JSON.parse(data).signature;
+    //     })
+    //   return signString
+    // },
     async apiCall(method) {
       let signString = await this.signRequest(method);
       let formdata = new FormData();
