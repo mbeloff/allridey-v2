@@ -1,30 +1,30 @@
 export default {
   methods: {
-    signRequest(method) {
+    async signRequest(method) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
-      var raw = JSON.stringify({
-        "method": "step1"
-      });
+      var raw = method;
       console.log(raw)
       var requestOptions = {
-        method: 'GET',
+        method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
       };
       console.log(method)
       let _this = this
-      fetch("http://localhost:8888/.netlify/functions/signRequest?", requestOptions)
+      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest?", requestOptions)
         .then(response => response.text())
         .then(result => {
-          console.log(result)
-          // _this.response = result
+          let sig = JSON.parse(result).signature
+          console.log(sig)
+          return sig
         })
         .catch(error => {console.log('Couldn\'t get token!', error)
         _this.gettingToken = false
         _this.tokenFailed = true});
+        return sign
     },
     // ORIGINAL (working) signRequest
     // async signRequest(method) {
@@ -42,7 +42,6 @@ export default {
     //   return signString
     // },
     async apiCall(method) {
-      console.log('fuck')
       let signString = await this.signRequest(method);
       let formdata = new FormData();
       formdata.append("request", method);
