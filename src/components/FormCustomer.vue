@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full text-left md:max-w-screen-lg mx-auto mt-5">
+  <div class="bg-white p-2 rounded shadow-xl py-8 w-full text-left md:max-w-screen-lg mx-auto mt-5">
     <p class="font-bold text-lg mb-3">Required Details</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">

@@ -33,7 +33,6 @@
 
 </template>
 <script>
-  import CryptoJS from 'crypto-js/crypto-js'
   import Mixins from '../Mixins'
   import BookingForm from '../components/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
@@ -106,10 +105,10 @@
       },
       getVault(e) {
         this.status = 4
-        console.log(e)
+        // console.log(e)
         this.reservationinfo = e
       },
-      // ! after payment passing res ref only
+      // ! after vault entry e = resref
       showSummary(e) {
         this.status = 5
         this.getBookingInfo(JSON.parse(e).reservationref)
@@ -120,9 +119,9 @@
           "method":"bookinginfo",
           "reservationref":ref
         })
-        console.log(params)
+        // console.log(params)
         Mixins.methods.apiCall(params).then(res => {
-          console.log('getBookingInfo::::' + JSON.stringify(res))
+          // console.log('getBookingInfo::::' + JSON.stringify(res))
           this.bookinginfo = res
         })
       },

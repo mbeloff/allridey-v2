@@ -1,11 +1,11 @@
 <template>
 
   <div class="rounded bg-opacity-90 w-full p-1 flex flex-col gap-3">
-    <div class="flex flex-col md:flex-row  gap-3">
+    <div class="flex flex-col md:flex-row md:gap-3">
 
       <!-- Vehicle Image -->
-      <div class="w-full md:w-2/6 md:pr-1">
-        <img :src="this.step3.availablecars[0].imageurl" alt="" class="m-auto">
+      <div class="w-full md:w-2/6">
+        <img :src="this.step3.availablecars[0].imageurl" alt="" class="object-fill w-full">
       </div>
 
       <!-- Vehicle and Trip Details -->
@@ -44,7 +44,7 @@
 
     <!-- Mandatory Fees and Total Rate -->
     <div class="flex flex-col md:flex-row gap-3 items-start justify-items-start">
-      <div class="w-full md:w-2/6 text-left border text-sm shadow-xl">
+      <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
         <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>
           <div class="flex justify-between py-2">

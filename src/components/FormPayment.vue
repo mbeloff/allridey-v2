@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-full p-1">
-    <div class="wrapper mx-auto flex flex-col gap-3" style="max-width: 371px">
+    <div class="wrapper mx-auto flex flex-col gap-3 bg-white rounded shadow-xl py-2" style="max-width: 381px">
       <p class="font-bold text-center">Payment</p>
-    <div v-if="bookinginfo" class="container max-w-md mx-auto">
-      <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
+      <div v-if="bookinginfo" class="container max-w-md mx-auto p-2">
+        <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
     </div>
     <div class=" relative mx-auto grid place-items-center" style="width: 371px">
       <div v-if="!frameLoad" class="absolute grid place-items-center">
@@ -12,7 +12,7 @@
       </div>
       
       <iframe ref="vault" :src="url" frameborder="0" class="vault" height="243" width="371"></iframe>
-      <div v-if="frameLoad" class="">
+      <div v-if="frameLoad" class="p-2">
         <div class="flex items-center gap-2">
           <i class="fab fa-cc-visa fa-2x"></i>
           <i class="fab fa-cc-mastercard fa-2x"></i>

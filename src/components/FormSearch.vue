@@ -272,20 +272,6 @@
 
 <style lang="postcss">
   @layer components {
-    .my-label {
-      @apply text-blue-800 font-bold text-xs mb-0.5
-    }
-
-    .group:hover .my-label {
-      @apply text-yellow-500
-    }
-
-    .group:hover i {
-      @apply text-yellow-500
-    }
-
-    .my-input {
-      @apply h-8 border flex-1 pl-1 bg-gray-100
-    }
+    
   }
 </style>
