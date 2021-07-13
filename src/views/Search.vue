@@ -2,8 +2,8 @@
   <div class="bg-gray-100 h-full bg-center bg-cover" style="background-image: url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')">
     <div class="w-full flex px-4 py-1 bg-red-500 gap-4">
       <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white" @click="getBookingInfo('239E41C9223'), status = 5">gotosummary</button>
-      <button class="text-red rounded border bg-white" @click="getVault(testreservationinfo), status = 4">gotopayment</button>
+      <button class="text-red rounded border bg-white" @click="getBookingInfo('57980BEBAA44'), status = 5">gotosummary</button>
+      <button class="text-red rounded border bg-white" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
     </div>
     
     <div class="main-content max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
@@ -21,10 +21,10 @@
 
     <search-results @select-vehicle="selectVehicle" v-if="status == 2 && this.searchResults && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
 
-    <selected-vehicle @submit-booking="getVault" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
+    <selected-vehicle @submit-booking="gotoPayment" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
 
     <form-payment v-if="status == 4" :reservation="reservationinfo" @payment-saved="showSummary"></form-payment>
-
+    <submit-payment v-if="status == 4.5" @pay-finished="showSum"></submit-payment>
     <summary-page v-if="status == 5 && bookinginfo.bookinginfo" :bookinginfo="bookinginfo"></summary-page>
     </div>
     
@@ -41,6 +41,7 @@
   import Spinner from '../components/Spinner.vue'
   import FormPayment from '../components/FormPayment.vue'
   import SummaryPage from '../components/Summary.vue'
+  import SubmitPayment from '../components/SubmitPayment.vue'
   export default {
     components: {
       BookingForm,
@@ -49,7 +50,11 @@
       SelectedVehicle,
       Spinner,
       FormPayment,
-      SummaryPage
+      SummaryPage,
+      SubmitPayment
+    },
+    props: {
+      payment: {}
     },
     data() {
       return {
@@ -62,15 +67,19 @@
         // ! test res info
         reservationinfo: {},
         testreservationinfo: {
-          reservationref: "239E41C9223", 
-          reservationno: 873, 
-          customerid: 23},
+          reservationref: "57980BEBAA44", 
+          reservationno: 941, 
+          customerid: 569
+        },
         bookinginfo: {}
       }
     },
     mounted() {
-      // if (this.$route.query.ref && this.$route.query.step) {
-      //   this.getBookingInfo(this.$route.query.ref)
+      if (this.$route.query.payment == 1) {
+        this.status = 4.5
+      }
+      // if (this.$route.query.res && this.$route.query.step) {
+      //   this.getBookingInfo(this.$route.query.res)
       //   this.reservationinfo = {
       //     reservationref: this.bookinginfo.bookinginfo[0].reservationref,
       //     reservationno: this.bookinginfo.bookinginfo[0].reservationno,
@@ -103,7 +112,7 @@
         this.updateStatus(step)
         this.step3 = data
       },
-      getVault(e) {
+      gotoPayment(e) {
         this.status = 4
         // console.log(e)
         this.reservationinfo = e
@@ -114,14 +123,17 @@
         this.getBookingInfo(JSON.parse(e).reservationref)
         this.$forceUpdate()
       },
+      showSum(e) {
+        this.status = 5
+        this.getBookingInfo(e)
+        this.$forceUpdate()
+      },
       getBookingInfo(ref) {
         let params = JSON.stringify({
           "method":"bookinginfo",
           "reservationref":ref
         })
-        // console.log(params)
         Mixins.methods.apiCall(params).then(res => {
-          // console.log('getBookingInfo::::' + JSON.stringify(res))
           this.bookinginfo = res
         })
       },

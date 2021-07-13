@@ -1,11 +1,11 @@
 <template>
 <div class="wrapper min-h-screen max-w-screen grid">
-  <Nav />
+  <Nav v-if="this.$route.name != 'Success'"/>
   <div class=" z-0 main-content">
      <router-view />
   </div>
    
-  <Footer />
+  <Footer v-if="this.$route.name != 'Success'"/>
 </div>
 </template>
 

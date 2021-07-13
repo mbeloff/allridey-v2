@@ -1,26 +1,28 @@
 <template>
   <div class="w-full h-full p-1">
-    <div class="wrapper mx-auto flex flex-col gap-3 bg-white rounded shadow-xl py-2" style="max-width: 381px">
+    <div class="wrapper mx-auto flex flex-col gap-3 bg-white rounded shadow-xl py-2" style="max-width: 400px">
       <p class="font-bold text-center">Payment</p>
-      <div v-if="bookinginfo" class="container max-w-md mx-auto p-2">
-        <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
-    </div>
-    <div class=" relative mx-auto grid place-items-center" style="width: 371px">
-      <div v-if="!frameLoad" class="absolute grid place-items-center">
-        <spinner class=" text-blue-500" ></spinner>
-        <p>Please wait...</p>
-      </div>
-      
-      <iframe ref="vault" :src="url" frameborder="0" class="vault" height="243" width="371"></iframe>
-      <div v-if="frameLoad" class="p-2">
-        <div class="flex items-center gap-2">
-          <i class="fab fa-cc-visa fa-2x"></i>
-          <i class="fab fa-cc-mastercard fa-2x"></i>
-          <img class="w-1/2" src="../assets/wcave.svg" alt="Windcave Footer Logo" title="Windcave Footer Logo">
-        </div>
-        <p class="text-sm">{{vaultnote}}</p>
-      </div>
-      
+        <!-- <div v-if="bookinginfo" class="container max-w-md mx-auto p-2">
+          <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
+        </div> -->
+        <!-- <div class=" relative mx-auto grid place-items-center" style="width: 371px">
+          <div v-if="!frameLoad" class="absolute grid place-items-center">
+            <spinner class=" text-blue-500" ></spinner>
+            <p>Please wait...</p>
+          </div>
+          
+          <iframe ref="vault" :src="url" frameborder="0" class="vault" height="243" width="371"></iframe>
+          <div v-if="frameLoad" class="p-2">
+            <div class="flex items-center gap-2">
+              <i class="fab fa-cc-visa fa-2x"></i>
+              <i class="fab fa-cc-mastercard fa-2x"></i>
+              <img class="w-1/2" src="../assets/wcave.svg" alt="Windcave Footer Logo" title="Windcave Footer Logo">
+            </div>
+            <p class="text-sm">{{vaultnote}}</p>
+          </div>        
+        </div> -->
+    <div>
+      <iframe  ref="wcframe" :src="dps.RedirectUrl" width="400" height="470"></iframe>
     </div>
     </div>
     
@@ -43,53 +45,82 @@ export default {
       vaultnote: "",
       vaultresponse: "",
       bookinginfo: "",
+      dps: {},
+      q: ""
     }
   },
   mounted() {
-   
-    this.getVaultUrl()
-    let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent"
-    let eventer = window[eventMethod]
-    let messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message'
+    let iframe = this.$refs.wcframe
+    iframe.onload = function() {
+    // we can get the reference to the inner window
+    let iframeWindow = iframe.contentWindow; // OK
+    try {
+      // ...but not to the document inside it
+      let doc = iframe.contentDocument; // ERROR
+    } catch(e) {
+      alert(e); // Security Error (another origin)
+    }
 
-    // listen to message from child window needed for vault page
-    let _comp = this
-    eventer (messageEvent, function myFunction(e){
-      var key = e.message ? "message" : "data"
-      var data = e[key]
-      // run function
-      if (data.length > 4) {
-        var split = data.split(',')
-        if (split[5] == 'ADD') {
-        _comp.vaultresponse = data
-        _comp.$forceUpdate()
-        _comp.vaultEntry()
-        window.removeEventListener(messageEvent, myFunction)
-      }
-      }
-    }, false)
+    // also we can't READ the URL of the page in iframe
+    try {
+      const queryString = iframe.contentWindow.location.search;
+      console.log(queryString);
+      this.q = new URLSearchParams(queryString);
+      console.log(iframe.contentWindow.location.href); // ERROR
+    } catch(e) {
+      // alert(e); // Security Error
+    }
+  };
+    // this.getVaultUrl()
+    // let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent"
+    // let eventer = window[eventMethod]
+    // let messageEvent = eventMethod == 'attachEvent' ? 'onmessage' : 'message'
+
+    // // listen to message from child window needed for vault page
+    // let _comp = this
+    // eventer (messageEvent, function myFunction(e){
+    //   var key = e.message ? "message" : "data"
+    //   var data = e[key]
+    //   // run function
+    //   if (data.length > 4) {
+    //     var split = data.split(',')
+    //     if (split[5] == 'ADD') {
+    //     _comp.vaultresponse = data
+    //     _comp.$forceUpdate()
+    //     _comp.vaultEntry()
+    //     window.removeEventListener(messageEvent, myFunction)
+    //   }
+    //   }
+    // }, false)
 
 
     // check iframe loaded
-    var _this = this
-    const iframe = this.$refs.vault
-    // handle compatible line problem
-    if (iframe.attachEvent) {
-      iframe.attachEvent('onload', function () {
-                _this.setframeloaded()
-      })
-    } else {
-      iframe.onload = function () {
-                 _this.setframeloaded()
-      }
-    }
-     this.getBookingInfo()
+    // var _this = this
+    // const iframe = this.$refs.vault
+    // // handle compatible line problem
+    // if (iframe.attachEvent) {
+    //   iframe.attachEvent('onload', function () {
+    //             _this.setframeloaded()
+    //   })
+    // } else {
+    //   iframe.onload = function () {
+    //              _this.setframeloaded()
+    //   }
+    // }
+    this.getBookingInfo()
   },
   mixins: [Mixins],
-  computed: {
-
+    computed: {
+  },
+  watch: {
+    'bookinginfo': function() {
+      this.createDPSpayment()
+    }
   },
   methods: {
+    receiveMessage (event) {
+    console.log(event.data)
+  },
     setframeloaded(){
       this.frameLoad = true
     },
@@ -102,31 +133,45 @@ export default {
         this.bookinginfo = res
       })
     },
-    vaultEntry() {
-      let params = JSON.stringify({
-        "method":"vaultentry",
-        "reservationref":this.reservation.reservationref,
-        "data":btoa(this.vaultresponse),
-        "payscenario":1,
-        // ! set email option
-        "emailoption":0
-      })
-      Mixins.methods.apiCall(params).then(res => {
-        console.log(res)
-        if(res.paymentsaved == true) {
-          this.$emit('paymentSaved', JSON.stringify(this.reservation))
-        }
-      })
-    },
-    getVaultUrl(){
+    // vaultEntry() {
+    //   let params = JSON.stringify({
+    //     "method":"vaultentry",
+    //     "reservationref":this.reservation.reservationref,
+    //     "data":btoa(this.vaultresponse),
+    //     "payscenario":1,
+    //     // ! set email option
+    //     "emailoption":0
+    //   })
+    //   Mixins.methods.apiCall(params).then(res => {
+    //     console.log(res)
+    //     if(res.paymentsaved == true) {
+    //       this.$emit('paymentSaved', JSON.stringify(this.reservation))
+    //     }
+    //   })
+    // },
+    // getVaultUrl(){
+    //   let params = JSON.stringify(
+    //     {"method":"getvaulturl","reservationref":this.reservation.reservationref}
+    //   )
+    //   Mixins.methods.apiCall(params).then(res => {
+    //     this.vaultnote = res.vaultnote
+    //     this.url = atob(res.url)
+    //     })
+    // },
+    createDPSpayment() {
       let params = JSON.stringify(
-        {"method":"getvaulturl","reservationref":this.reservation.reservationref}
+        {
+            "method": "createdpspayment",
+            "reservationref": this.reservation.reservationref,
+            "amount": this.bookinginfo.bookinginfo[0].balancedue,
+            "returnurl": "http://localhost:3000/success?payment=1&ref=" + this.reservation.reservationref + "&resno=" + this.reservation.reservationno + "&customerid=" + this.reservation.customerid,
+            "transationtype": "Purchase"
+        }
       )
       Mixins.methods.apiCall(params).then(res => {
-        this.vaultnote = res.vaultnote
-        this.url = atob(res.url)
-        })
-    },
+        this.dps = res
+      })
+    }
   }
 }
 </script>

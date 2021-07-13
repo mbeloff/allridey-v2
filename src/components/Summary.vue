@@ -1,6 +1,12 @@
 <template>
   <div class="text-left p-2">
-    <div class="rounded bg-opacity-90 w-full p-2 flex flex-col gap-3">
+    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-red-100 border-red-300 border items-center text-red-700" v-if="this.$route.query.payment == 1 && this.payment.length == 0">
+     <i class="far fa-exclamation fa-fw"></i><span>Sorry, your payment was unsuccessful. We've saved your request as a quote.</span>
+    </div>
+    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700" v-if="this.$route.query.payment == 1 && this.payment.length > 0">
+     <i class="far fa-check fa-fw"></i><span>Payment Successful.</span>
+    </div>
+    <div class="rounded w-full flex flex-col gap-3">
       <div class="flex flex-col md:flex-row gap-3 items-start">
 
         <!--LEFT SIDE -->
@@ -46,8 +52,11 @@
               <br>
             </div>
 
-            <div v-if="booking.payment" class="flex justify-end">
+            <div v-if="payment.length != 0" class="flex justify-end">
               <span>Payment received:</span><span>{{booking.currencysymbol + booking.payment}}</span>
+            </div>
+            <div v-else-if="this.$route.query.payment == 1" class="flex justify-end">
+              <span class="italic">no payment received</span>
             </div>
           </div>
 
@@ -62,6 +71,7 @@
               <span>includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }}</span>
             </div>
           </div>
+          
         </div>
 
         <!-- RIGHT SIDE -->
@@ -71,7 +81,7 @@
           <p v-else class='text-xl font-bold'>Thanks for booking with All Ridey.</p>
           <p class="text-sm">We've sent you an email for your records. <span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below, or via the link in the email.</span></p>
           <div class="grid grid-cols-2 text-sm">
-            <span class="font-bold">Quote number:</span>
+            <span class="font-bold">Reference number:</span>
             <span class="font-bold">{{ booking.reservationdocumentno }}</span>
             <span class="font-bold">Reservation Type:</span>
             <span>{{ booking.reservationstatus }}</span>
@@ -80,7 +90,10 @@
           </div>
           
         </div>
-        <a v-if="booking.isquotation" :href="booking.quoteconversionurl" class="btn btn-primary ">Convert to Booking</a>
+        <div class="flex">
+          <a v-if="booking.isquotation" :href="booking.quoteconversionurl" class="btn btn-primary text-center mx-auto mb-2">Convert to Booking</a>
+        </div>
+        
         </div>
       </div>
     </div>
@@ -94,178 +107,6 @@
     },
     data() {
       return {
-      //   bookinginfo: {
-      //     "bookinginfo": [{
-      //       "reservationref": "0005643FE23F453",
-      //       "reservationno": 895,
-      //       "reservationdocumentno": "#Q-895",
-      //       "reservationstatus": "Reservation Request",
-      //       "reservationtypedescription": "Online Quotation",
-      //       "reservationcreateddate": "06/Jul/2021",
-      //       "isvehicleallocated": false,
-      //       "isquotation": true,
-      //       "quoteconversionurl": "https://web.rentalcarmanager.com/Workflow/Workflow.aspx?server=30&rcmtoken=4950e25e-0c9c-4624-9546-c9bb3a9f9de7",
-      //       "agreementpage": "Agreement.asp?RTA4B=895&refID=0005643FE23F453",
-      //       "quoteconversionvalidmessage": "Please note this quote is valid for 2 days subject to availability.",
-      //       "driverageid": 9,
-      //       "pickuplocationid": 3,
-      //       "pickupdate": "07/Jul/2021",
-      //       "pickuptime": "10:00",
-      //       "pickuplocationname": "Brisbane",
-      //       "pickuplocationaddress": "100 Longlands Street Woolloongabba",
-      //       "arrivalpoint": "",
-      //       "flightin": "",
-      //       "dropofflocationid": 3,
-      //       "dropoffdate": "13/Jul/2021",
-      //       "dropofftime": "10:00",
-      //       "dropofflocationname": "Brisbane",
-      //       "dropofflocationaddress": "100 Longlands Street Woolloongabba",
-      //       "departurepoint": "",
-      //       "flightout": "",
-      //       "rentalsource": "Online search",
-      //       "customerid": "564",
-      //       "customerremark": "",
-      //       "numbertravelling": "",
-      //       "areaofusedescription": "",
-      //       "transmission": "",
-      //       "urlpathfordocuments": "https://rentalcarmanagerau.blob.core.windows.net/public/auallridey534/",
-      //       "vehiclecategoryid": 3,
-      //       "vehiclecategory": "Allridey car",
-      //       "vehicleimage": "allridey-i20.jpg",
-      //       "vehicledescription1": "",
-      //       "vehicledescription2": "",
-      //       "vehicle_numberofadults": 5,
-      //       "vehicle_numberofchildren": 0,
-      //       "vehicle_numberoflargecases": 0,
-      //       "vehicle_numberofsmallcases": 0,
-      //       "sippcode": "",
-      //       "currencyname": "AUD",
-      //       "currencysymbol": "$",
-      //       "shouldhiderates": false,
-      //       "shouldhideextrarates": false,
-      //       "shouldhideinsurancerates": false,
-      //       "numberofdays": 6,
-      //       "dailyrate": 25,
-      //       "totalcost": 408.74,
-      //       "campaigncode": "",
-      //       "payment": 0,
-      //       "balancedue": 408.74,
-      //       "taxname1": "GST",
-      //       "taxname2": "",
-      //       "stampduty": 0,
-      //       "gst": 37.16,
-      //       "isgstinclusive": true,
-      //       "mileagedesc": "Kms",
-      //       "kmcharges_id": 11,
-      //       "kmcharges_description": "250 Kms free per day, additional per Kms $ 0.20",
-      //       "kmcharges_feeforeachadditionalkm": 0.2,
-      //       "kmcharges_additionalkmtotalamount": 0,
-      //       "kmcharges_dailyrate": 0,
-      //       "kmcharges_maximumprice": 0,
-      //       "kmcharges_totalfordailyrate": 0,
-      //       "kmcharges_totalnumberofkmsfree": 1500,
-      //       "kmcharges_notes": null,
-      //       "agentrefno": "",
-      //       "agent": null,
-      //       "agentbranch": null,
-      //       "agentcommission": 0,
-      //       "agentnetamountdue": 0,
-      //       "agentemail": null
-      //     }],
-      //     "customerinfo": [{
-      //       "customerid": 564,
-      //       "firstname": "test",
-      //       "lastname": "TEST",
-      //       "dateofbirth": "01/Jan/1990",
-      //       "licenseno": "12341231",
-      //       "licenseissued": "Australia",
-      //       "licenseexpires": "",
-      //       "email": "michael@wickedcampers.com",
-      //       "phone": "1234123123",
-      //       "mobile": "",
-      //       "fulladdress": "",
-      //       "address": "",
-      //       "city": "",
-      //       "state": "",
-      //       "postcode": "",
-      //       "country": "Australia",
-      //       "countryid": 7,
-      //       "localaddress": "",
-      //       "passport": "",
-      //       "loyaltycardno": ""
-      //     }],
-      //     "companyinfo": [{
-      //       "logo": "allridey-logo-sm.png",
-      //       "companyemail": "allridey@campervanvillage.com",
-      //       "companyname": "Juicy Love Trust ATF Juicy Love Pty Ltd T/as Wicked Campers",
-      //       "companycolour": "#0080c0",
-      //       "branchaddress": "100 Longlands St",
-      //       "branchcity": "Woolloongabba",
-      //       "branchpostcode": "QLD 4102 Australia",
-      //       "branchphone": "",
-      //       "branchfax": "",
-      //       "website": "www.allridey.com.au",
-      //       "freephone": ""
-      //     }],
-      //     "rateinfo": [{
-      //       "season": "Rate",
-      //       "numberofdays": 6,
-      //       "numberofhours": 0,
-      //       "dailyratebeforediscount": 25,
-      //       "dailyrateafterdiscount": 25,
-      //       "discountname": "",
-      //       "discountdescription": "",
-      //       "discountpercentagerate": 0,
-      //       "discountdailyrate": 0,
-      //       "monthlyrate_numberofmonths": 0,
-      //       "monthlyrate_afterdiscount": 0,
-      //       "monthlyrate_numberofextradays": 0,
-      //       "monthlyrate_extradaysrateafterdiscount": 25,
-      //       "ratesubtotal": 150
-      //     }],
-      //     "extrafees": [{
-      //       "extrafeeid": 98,
-      //       "name": "Cover One (Liability Reduction Fee) - 2WD Manual",
-      //       "type": "Daily",
-      //       "qty": 1,
-      //       "numberofdays": 6,
-      //       "fees": 32,
-      //       "totalfeeamount": 192,
-      //       "feedescription": "",
-      //       "isoptionalfee": true,
-      //       "isbondfee": false,
-      //       "isinsurancefee": true,
-      //       "insuranceexcessamount": 0
-      //     }, {
-      //       "extrafeeid": 83,
-      //       "name": "Toll Road Fee",
-      //       "type": "Fixed",
-      //       "qty": 1,
-      //       "numberofdays": 6,
-      //       "fees": 40,
-      //       "totalfeeamount": 40,
-      //       "feedescription": "",
-      //       "isoptionalfee": false,
-      //       "isbondfee": false,
-      //       "isinsurancefee": false,
-      //       "insuranceexcessamount": 0
-      //     }, {
-      //       "extrafeeid": 53,
-      //       "name": "Admin Fee",
-      //       "type": "Percentage",
-      //       "qty": 1,
-      //       "numberofdays": 6,
-      //       "fees": 7,
-      //       "totalfeeamount": 26.74,
-      //       "feedescription": "",
-      //       "isoptionalfee": false,
-      //       "isbondfee": false,
-      //       "isinsurancefee": false,
-      //       "insuranceexcessamount": 0
-      //     }],
-      //     "paymentinfo": [],
-      //     "extradrivers": []
-      //   }
       }
     },
     computed: {
