@@ -4,25 +4,27 @@
       <button @click="setMode(1)" class="btn btn-secondary ml-auto">Email Quote</button>
       <button @click="setMode(2)" class="btn btn-secondary mr-auto">Make Booking</button>
     </div>
-    <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
-    <form-optional :step3="step3" :parameters="parameters" v-if="mode == 2"></form-optional>
-    <button v-if="mode" @click="submitBooking(mode)" class="btn btn-primary mt-5">{{ btnText }}</button>
+    <form action="javascript:void(0)" @submit="submitBooking(mode)">
+      <form-customer  :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
+      <form-optional :step3="step3" :parameters="parameters" v-show="mode == 2"></form-optional>
+      <button type="submit"  v-if="mode" class="btn btn-primary mt-5">{{ btnText }}</button>
+    </form>
   </div>
 </template>
 
 <script>
-  import FormCustomer from './FormCustomer.vue'
-  import FormOptional from './FormOptional.vue'
-  export default {
-    components: {
-      FormCustomer,
-      FormOptional
-    },
-    props: {
-      optionalfees: Object,
-      calcTotals: Object,
-      submittedParams: Object,
-      step3: Object
+ import FormCustomer from './FormCustomer.vue'
+ import FormOptional from './FormOptional.vue'
+ export default {
+   components: {
+     FormCustomer,
+     FormOptional
+   },
+   props: {
+     optionalfees: Object,
+     calcTotals: Object,
+     submittedParams: Object,
+     step3: Object
     },
     watch: {},
     data() {
@@ -59,7 +61,7 @@
             address: "",
             countryid: 7, // Default country id (Australia)
           },
-          // ! set email option
+          // ! email option 0 = off, 1 = default, 2 = always send
           emailoption: 0,
           foundusid: 63,
           remark: "",
@@ -68,7 +70,6 @@
           refno: "",
           optionalfees: []
         }
-
       }
     },
     methods: {
@@ -81,7 +82,7 @@
       },
       setMode(mode) {
         this.mode = mode
-        this.parameters.bookingtype = mode
+        // this.parameters.bookingtype = mode
       },
       updateBookingParameters() {
         this.parameters.vehiclecategorytypeid = this.submittedParams.vehiclecategorytypeid

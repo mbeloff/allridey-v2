@@ -30,7 +30,6 @@
 </template>
 
 <script>
-// TODO: get props from search params
 import Mixins from '../Mixins'
 import Spinner from '../components/Spinner.vue'
 export default {
@@ -46,29 +45,16 @@ export default {
       vaultresponse: "",
       bookinginfo: "",
       dps: {},
-      q: ""
+      query: ""
     }
   },
   mounted() {
     let iframe = this.$refs.wcframe
     iframe.onload = function() {
-    // we can get the reference to the inner window
-    let iframeWindow = iframe.contentWindow; // OK
-    try {
-      // ...but not to the document inside it
-      let doc = iframe.contentDocument; // ERROR
-    } catch(e) {
-      alert(e); // Security Error (another origin)
-    }
-
-    // also we can't READ the URL of the page in iframe
     try {
       const queryString = iframe.contentWindow.location.search;
-      console.log(queryString);
-      this.q = new URLSearchParams(queryString);
-      console.log(iframe.contentWindow.location.href); // ERROR
+      this.query = new URLSearchParams(queryString);
     } catch(e) {
-      // alert(e); // Security Error
     }
   };
     // this.getVaultUrl()
@@ -118,12 +104,9 @@ export default {
     }
   },
   methods: {
-    receiveMessage (event) {
-    console.log(event.data)
-  },
-    setframeloaded(){
-      this.frameLoad = true
-    },
+    // setframeloaded(){
+    //   this.frameLoad = true
+    // },
     getBookingInfo() {
       let params = JSON.stringify({
         "method":"bookinginfo",
@@ -163,7 +146,8 @@ export default {
         {
             "method": "createdpspayment",
             "reservationref": this.reservation.reservationref,
-            "amount": this.bookinginfo.bookinginfo[0].balancedue,
+            "amount": 1,
+            // "amount": this.bookinginfo.bookinginfo[0].balancedue,
             "returnurl": "http://localhost:3000/success?payment=1&ref=" + this.reservation.reservationref + "&resno=" + this.reservation.reservationno + "&customerid=" + this.reservation.customerid,
             "transationtype": "Purchase"
         }

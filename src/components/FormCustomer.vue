@@ -5,25 +5,25 @@
       <div class="flex flex-col flex-grow group">
         <label for="fName" class="text-xs mb-1 my-label">First Name</label>
         <div class="flex flex-row place-items-center">
-          <input type="text" id="fName" class="my-input" v-model="parameters.customer.firstname">
+          <input required type="text" id="fName" class="my-input" v-model="parameters.customer.firstname">
         </div>
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
         <div class="flex flex-row place-items-center">
-          <input type="text" id="lName" class="my-input" v-model="parameters.customer.lastname">
+          <input required type="text" id="lName" class="my-input" v-model="parameters.customer.lastname">
         </div>
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="email" class="text-xs mb-1 my-label">Email</label>
         <div class="flex flex-row place-items-center">
-          <input type="email" id="email" class="my-input" v-model="parameters.customer.email">
+          <input required type="email" id="email" class="my-input" v-model="parameters.customer.email">
         </div>
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="phone" class="text-xs mb-1 my-label">Phone</label>
         <div class="flex flex-row place-items-center">
-          <input type="tel" id="phone" class="my-input" v-model="parameters.customer.phone">
+          <input required type="tel" id="phone" class="my-input" v-model="parameters.customer.phone">
         </div>
       </div>
 
