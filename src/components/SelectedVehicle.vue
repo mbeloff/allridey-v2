@@ -279,17 +279,19 @@
         }
       },
       submitBooking(e) {
+        // passing all booking parameters to goto payment page
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          console.log('booking: ' + res)
-          this.$emit('submitBooking', res)
+          if (typeof res == 'string') {
+            console.log('string returned (error)')
+          } else {
+              this.$emit('submitBooking', res)
+          }
         })
       },
       submitQuote(e) {
-        console.log('event from makebooking' + JSON.stringify(e))
+        // passing just the resref# to go straight to summary page
         Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          let string = JSON.stringify(res)
-          console.log('submitquote response::::: ' + string)
-          this.$emit('submitQuote', string)
+          this.$emit('submitQuote', res.reservationref)
         })
       },
       getTotals() {

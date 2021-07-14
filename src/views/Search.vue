@@ -2,7 +2,7 @@
   <div class="bg-gray-100 h-full bg-center bg-cover" style="background-image: url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')">
     <div class="w-full flex px-4 py-1 bg-red-500 gap-4">
       <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white" @click="getBookingInfo('57980BEBAA44'), status = 5">gotosummary</button>
+      <button class="text-red rounded border bg-white" @click="getBookingInfo(testreservationinfo.reservationref), status = 5">gotosummary</button>
       <button class="text-red rounded border bg-white" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
     </div>
     
@@ -23,8 +23,8 @@
 
     <selected-vehicle @submit-booking="gotoPayment" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
 
-    <form-payment v-if="status == 4" :reservation="reservationinfo" @payment-saved="showSummary"></form-payment>
-    <submit-payment v-if="status == 4.5" @pay-finished="showSum"></submit-payment>
+    <form-payment v-if="status == 4" :reservation="reservationinfo"></form-payment>
+    <submit-payment v-if="status == 4.5" @pay-finished="showSummary"></submit-payment>
     <summary-page v-if="status == 5 && bookinginfo.bookinginfo" :bookinginfo="bookinginfo"></summary-page>
     </div>
     
@@ -67,26 +67,18 @@
         // ! test res info
         reservationinfo: {},
         testreservationinfo: {
-          reservationref: "57980BEBAA44", 
-          reservationno: 941, 
-          customerid: 569
+          reservationref: "580F27D5F1C0", 
+          reservationno: 945, 
+          customerid: 580
         },
         bookinginfo: {}
       }
     },
     mounted() {
+      // navigate to step 4.5 after payment redirect
       if (this.$route.query.payment == 1) {
         this.status = 4.5
       }
-      // if (this.$route.query.res && this.$route.query.step) {
-      //   this.getBookingInfo(this.$route.query.res)
-      //   this.reservationinfo = {
-      //     reservationref: this.bookinginfo.bookinginfo[0].reservationref,
-      //     reservationno: this.bookinginfo.bookinginfo[0].reservationno,
-      //     customerid: this.bookinginfo.customerinfo[0].customerid
-      //   }
-      //   this.status = this.$route.query.step
-      // }
     },
     methods: {
       searching(e) {
@@ -113,17 +105,12 @@
         this.step3 = data
       },
       gotoPayment(e) {
+
         this.status = 4
-        // console.log(e)
         this.reservationinfo = e
+        
       },
-      // ! after vault entry e = resref
       showSummary(e) {
-        this.status = 5
-        this.getBookingInfo(JSON.parse(e).reservationref)
-        this.$forceUpdate()
-      },
-      showSum(e) {
         this.status = 5
         this.getBookingInfo(e)
         this.$forceUpdate()
