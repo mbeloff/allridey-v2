@@ -1,11 +1,11 @@
 <template>
 <div class="wrapper min-h-screen max-w-screen grid">
-  <Nav v-if="this.$route.name != 'Success'"/>
+  <Nav v-if="this.$route.name != 'CheckPayment'"/>
   <div class=" z-0 main-content">
      <router-view />
   </div>
    
-  <Footer v-if="this.$route.name != 'Success'"/>
+  <Footer v-if="this.$route.name != 'CheckPayment'"/>
 </div>
 </template>
 

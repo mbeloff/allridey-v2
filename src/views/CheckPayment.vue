@@ -34,7 +34,6 @@ export default {
       "reservationref":this.$route.query.ref,
       "result":this.$route.query.result
     })
-    console.log(params)
     Mixins.methods.apiCall(params).then(res=>{console.log(res), this.paymentInfo = res})
     }
   }

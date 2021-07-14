@@ -148,7 +148,7 @@ export default {
             "reservationref": this.reservation.reservationref,
             "amount": 1,
             // "amount": this.bookinginfo.bookinginfo[0].balancedue,
-            "returnurl": "http://localhost:3000/success?payment=1&ref=" + this.reservation.reservationref + "&resno=" + this.reservation.reservationno + "&customerid=" + this.reservation.customerid,
+            "returnurl": "http://localhost:3000/checkpayment?payment=1&ref=" + this.reservation.reservationref + "&resno=" + this.reservation.reservationno + "&customerid=" + this.reservation.customerid,
             "transationtype": "Purchase"
         }
       )
