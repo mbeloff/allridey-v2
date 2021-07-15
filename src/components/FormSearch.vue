@@ -149,7 +149,7 @@
         var step1 = JSON.stringify({
           'method':'step1'
         })
-        console.log(step1)
+
         let data = await Mixins.methods.apiCall(step1)
         this.step1 = await data
         this.initDates()

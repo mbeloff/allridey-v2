@@ -58,6 +58,7 @@
     },
     data() {
       return {
+        step1: {},
         status: 1,
         submittedParams: {},
         searchResults: {},
@@ -79,6 +80,8 @@
       if (this.$route.query.payment == 1) {
         this.status = 4.5
       }
+
+      
     },
     methods: {
       searching(e) {

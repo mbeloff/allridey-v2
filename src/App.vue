@@ -9,13 +9,14 @@
 </div>
 </template>
 
-<script setup>
+<script>
 import Nav from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-
+export default {
+  components: {
+    Nav, Footer
+  },
+}
 </script>
 
 <style lang="postcss">
@@ -45,7 +46,7 @@ import Footer from './components/Footer.vue'
     @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
   }
   .btn-secondary {
-    @apply bg-white text-blue-600 rounded 
+    @apply text-blue-600 rounded bg-gray-200 border-blue-300
   }
 
   .btn-secondary:hover {

@@ -12,7 +12,6 @@ export default {
         body: raw,
         redirect: 'follow'
       };
-      let _this = this
       // ! update functions dir on deploy
       let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
@@ -59,3 +58,4 @@ export default {
     }
   }
 }
+
