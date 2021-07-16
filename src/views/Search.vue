@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-gray-100 h-full bg-center bg-cover" style="background-image: url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')">
-    <div class="w-full flex px-4 py-1 bg-red-500 gap-4">
+  <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
+    <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
       <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white" @click="getBookingInfo(testreservationinfo.reservationref), status = 5">gotosummary</button>
-      <button class="text-red rounded border bg-white" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
+      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testreservationinfo.reservationref), status = 5">gotosummary</button>
+      <button class="text-red rounded border bg-white px-2" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
     </div>
     
-    <div class="main-content max-w-screen-lg h-full mx-auto flex flex-col gap-5 py-10">
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
 
     <keep-alive>
@@ -14,9 +14,9 @@
     </keep-alive>
 
 <div v-if="this.loading"  class="bg-white rounded bg-opacity-90 shadow-xl w-full py-5 flex place-items-center justify-center">
-  <spinner></spinner>
-  <p>loading...</p>
-  </div>
+    <spinner></spinner>
+    <p>loading...</p>
+    </div>
     
 
     <search-results @select-vehicle="selectVehicle" v-if="status == 2 && this.searchResults && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
@@ -132,5 +132,7 @@
 </script>
 
 <style>
-
+.full-bg {
+  background-image:url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')
+}
 </style>

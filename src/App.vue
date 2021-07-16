@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper min-h-screen max-w-screen grid">
   <Nav v-if="this.$route.name != 'CheckPayment'"/>
-  <div class=" z-0 main-content">
+  <div class="z-0">
      <router-view />
   </div>
    
@@ -46,11 +46,11 @@ export default {
     @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
   }
   .btn-secondary {
-    @apply text-blue-600 rounded bg-gray-200 border-blue-300
+    @apply text-blue-600 rounded bg-gray-200 border shadow
   }
 
   .btn-secondary:hover {
-    @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white
+    @apply bg-gradient-to-tr from-blue-500 to-blue-600 text-white
   }
 
   .my-label {
