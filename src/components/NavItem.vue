@@ -1,7 +1,7 @@
 <template>
-  <div @mouseover="hover=true" @mouseleave="hover=false" class="relative">
-    <router-link :to="{name: firstlabel}" class="hover:bg-gray-200 px-5 py-1">{{firstlabel}}</router-link>
-    <div :class="{'hidden mt-10': !hover}" @mouseover="hover=true" @mouseleave="hover=false" v-if="this.items" class="absolute top-100 -left-0 text-left bg-white shadow-2xl divide-y">
+  <div @mouseover="hover=true" @mouseleave="hover=false" class="hover:bg-gray-200 relative px-5 py-1">
+    <router-link :to="{name: firstlabel}" class="">{{firstlabel}}</router-link>
+    <div :class="{'hidden mt-10': !hover}" @mouseover="hover=true" @mouseleave="hover=false" v-if="this.items" class="absolute top-100 -left-0 text-left bg-white shadow-2xl">
       <router-link :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="px-5 py-1 block hover:bg-gray-200" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
     </div>
   </div>
@@ -18,6 +18,11 @@
     data() {
       return {
         hover: false
+      }
+    },
+    watch: {
+      $route (to, from){
+        this.hover = false;                
       }
     },
     methods: {

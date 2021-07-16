@@ -1,21 +1,35 @@
 <template>
-  <div class="w-full h-20 shadow-lg bg-white z-10">
+  <div class="w-full h-20 shadow-lg bg-white z-10 relative">
     <div class="flex justify-between container h-full mx-auto px-2"> 
-      <div class="left flex content-center items-center gap-x-4">
+      <div class="left flex content-center items-center gap-x-4 ">
         <a href="/" class="left flex">
           <img src="../assets/allridey_text_outline.svg" alt="" class="flex-grow w-32 md:w-48">
-        </a>
-        <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
-        <nav-item :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
+        </a>        
+        <div class="hidden md:flex h-full items-center">
+          <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
+          <nav-item :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
+        </div>
+        
       </div>
       
-    <div class="right h-full flex place-items-center">
+    <div class="hidden md:flex h-full place-items-center">
       <a href="tel:1800246869" class="font-bold text-blue-600">1800 24 68 69</a>
     </div>
+    <div class="md:hidden flex h-full place-items-center text-blue-800" @click="expand = !expand">
+      <i class="fas fa-bars fa-2x fa-fw" v-if="!expand"></i>
+      <i class="fas fa-times fa-2x fa-fw" v-if="expand"></i>
     </div>
+    </div>
+    <transition name="slide">
+      <div v-if="expand" class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full">
+      <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-3">Bookings</router-link>
+      <router-link :to="{ name: 'Locations' }" class="hover:bg-gray-200 px-5 py-3">Locations</router-link>
+      <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69</a>
+    </div>
+    </transition>
+    
   </div>
 </template>
-
 <script>
 import Mixins from '../Mixins'
 import NavItem from '../components/NavItem.vue'
@@ -26,6 +40,7 @@ export default {
   data() {
     return {
       locations: [],
+      expand: false,
     }
   },
   computed: {
@@ -45,6 +60,9 @@ export default {
     this.getLocations()
   },
   watch: {
+    $route(to, from){
+      this.expand = false
+    }
   },
   mixins: [Mixins],
   methods: {
@@ -61,4 +79,14 @@ export default {
 </script>
 
 <style>
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s ease, opacity 0.35s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+  opacity: 0
+}
 </style>
