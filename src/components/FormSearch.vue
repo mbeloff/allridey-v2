@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white p-2 rounded bg-opacity-90 shadow-xl py-8 w-full">
+    <div class="bg-white p-2 rounded   shadow-xl py-8 w-full">
       <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
       <div class="text-left ">
         <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
@@ -131,10 +131,38 @@
     },
     mixins: [Mixins],
     methods: {
-      async getStep2() {
-        this.$emit('searching', true)
+      getDateObject(pud, time) {
+          let y = parseInt(pud.substring(6,10))
+          let m = parseInt(pud.substring(3,5) - 1)
+          let d = parseInt(pud.substring(0,2))
+          let hr = parseInt(time.substring(0,2))
+          let min = parseInt(time.substring(3,5))
+          console.log(new Date(y, m, d, hr, min))
+          return new Date(y, m, d, hr, min)
+      },
+      validate() {        
+          let pud = this.getDateObject(this.formData.pickupdate, this.formData.pickuptime)
+          let errs = []
+          console.log(pud > new Date())
+          if (pud < new Date()) {
+            errs.push('Pickup date is in the past')
+          }
+          console.log(errs)
+          if (errs.length > 0) {
+            this.$emit('searching', false)
+            this.$emit('updateStatus', 2)
+            this.$emit('updateSearchResults', errs, this.submittedParams)
+            console.log('errs found')
+            return false
+          } else {
+            console.log('valid')
+            return true
+          }
+      },
+      async getStep2() {        
         this.convertdates()
-        var params = JSON.stringify(this.formData)
+        if (this.validate() == true) {
+          var params = JSON.stringify(this.formData)
         this.submittedParams = this.formData
         let data = await Mixins.methods.apiCall(params)
           .catch(this.$emit('searching', false))
@@ -143,6 +171,7 @@
         this.$emit('searching', false)
         this.$emit('updateStatus', 2)
         this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
+        }        
       },
       async getStep1() {
         

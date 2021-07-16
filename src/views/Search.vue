@@ -13,13 +13,18 @@
       <booking-form v-if="status < 3" @update-status="updateStatus" @searching="searching" @update-search-results="updateSearchResults"></booking-form>
     </keep-alive>
 
-<div v-if="this.loading"  class="bg-white rounded bg-opacity-90 shadow-xl w-full py-5 flex place-items-center justify-center">
-    <spinner></spinner>
-    <p>loading...</p>
+    <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
+      <loading-overlay></loading-overlay>
     </div>
     
 
-    <search-results @select-vehicle="selectVehicle" v-if="status == 2 && this.searchResults && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
+    <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !this.searchResults[0] && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
+
+    <div v-if="this.searchResults[0]" class="max-w-screen-lg mx-auto bg-white w-full rounded flex flex-col py-10">
+      <p>No Search Results</p>
+      <p class="text-sm text-red-500" v-if=" typeof searchResults == 'string'">{{searchResults}}</p>
+      <p v-else class="text-sm text-red-500" v-for="err in searchResults">{{err}}</p>
+    </div>
 
     <selected-vehicle @submit-booking="gotoPayment" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
 
@@ -42,6 +47,7 @@
   import FormPayment from '../components/FormPayment.vue'
   import SummaryPage from '../components/Summary.vue'
   import SubmitPayment from '../components/SubmitPayment.vue'
+  import LoadingOverlay from '../components/LoadingOverlay.vue'
   export default {
     components: {
       BookingForm,
@@ -51,7 +57,8 @@
       Spinner,
       FormPayment,
       SummaryPage,
-      SubmitPayment
+      SubmitPayment,
+      LoadingOverlay
     },
     props: {
       payment: {}
@@ -86,6 +93,7 @@
     methods: {
       searching(e) {
         this.loading = e
+
       },
       changeStep(e) {
         this.updateStatus(e)

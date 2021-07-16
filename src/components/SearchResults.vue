@@ -1,6 +1,6 @@
 <template>
-  <div class="text-left bg-white rounded bg-opacity-90 shadow-xl w-full p-1">
-    <p class="text-center" v-if="categories.length > 0">search results</p>
+  <div class="text-left bg-white rounded shadow-xl w-full p-1 search-results">   
+    <p class="text-center" v-if="numAvailable > 0">search results</p>
     <p class="text-center" v-else>No results found</p>
     <div v-for="(cat, i) in getCats(categories)" class="my-2">
       <!-- <div class="flex bg-gray-600 text-white px-2">
@@ -13,14 +13,17 @@
 </template>
 
 <script>
+  import LoadingOverlay from './LoadingOverlay.vue'
   import SearchResult from './SearchResult.vue'
   export default {
     components: {
-      SearchResult
+      SearchResult,
+      LoadingOverlay
     },
     data() {
       return {
         categories: [],
+        loading: false,
       }
     },
     props: {
@@ -35,6 +38,17 @@
         }
       })
       this.categories = arr          
+    },
+    computed: {
+      numAvailable() {
+        let count = 0
+        this.results.availablecars.forEach(el => {
+          if (el.available) {
+            count++
+          }
+        })
+        return count
+      }
     },
     methods: {
       selectVehicle(data, step) {
@@ -55,7 +69,7 @@
       getCars(categorytypeid) {
         let arr = []
         this.results.availablecars.forEach(function (el) {
-          if (el.vehiclecategorytypeid == categorytypeid) {
+          if (el.vehiclecategorytypeid == categorytypeid && el.available) {
             arr.push(el)
           }
         })
@@ -75,5 +89,7 @@
 </script>
 
 <style>
-
+.search-results {
+  min-height: 10rem
+}
 </style>
