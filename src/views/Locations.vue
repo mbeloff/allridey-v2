@@ -24,7 +24,7 @@
               <p>{{location.state}}</p>
             </div>
             
-          <router-link :to="{name: 'Location', params: {name:location.location, id:location.id}}" class="btn btn-secondary mt-auto" :class="{ 'text-green-600' : location.state == 'NZ'}">more info</router-link>
+          <router-link :to="{name: 'Location', params: {name:convert(location.location), id:location.id}}" class="btn btn-secondary mt-auto" :class="{ 'text-green-600' : location.state == 'NZ'}">more info</router-link>
           </div>         
         </div>
       </div>
@@ -74,6 +74,9 @@
         })
         Mixins.methods.apiCall(params).then(res => this.locations = res)
       },
+      convert(str) {
+        return str.replace(/\s+/g, '-').toLowerCase();
+      }
     }
   }
 </script>
