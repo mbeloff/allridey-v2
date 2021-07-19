@@ -105,7 +105,7 @@
                   <span class="fee-name">{{damage.feedescription3}}</span>
                   <p class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
                 </div>
-                <p v-if="damage.feedescription" class="">{{damage.name}}</p>
+                <p v-if="damage.feedescription">{{damage.name}}</p>
               </label>
             </div>
           </div>

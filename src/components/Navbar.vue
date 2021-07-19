@@ -6,7 +6,7 @@
           <img src="../assets/allridey_text_outline.svg" alt="" class="flex-grow w-32 md:w-48">
         </a>        
         <div class="hidden md:flex h-full items-center">
-          <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
+          <router-link :to="{ name: 'Search'}" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
           <nav-item :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
         </div>
         

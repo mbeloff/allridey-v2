@@ -90,6 +90,7 @@ import Mixins from '../Mixins'
         let data = await Mixins.methods.apiCall(params)
         this.step3 = data
         this.$emit("select-vehicle", data, 3)
+        this.$router.push({name: "Vehicle"})
       },
       getFeeOfType(type) {
         let arr = []

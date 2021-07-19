@@ -17,8 +17,8 @@
       <loading-overlay></loading-overlay>
     </div>
     
-
-    <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !this.searchResults[0] && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
+      <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !this.searchResults[0] && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
+    
 
     <div v-if="this.searchResults[0]" class="max-w-screen-lg mx-auto bg-white w-full rounded flex flex-col py-10">
       <p>No Search Results</p>
@@ -31,6 +31,7 @@
     <form-payment v-if="status == 4" :reservation="reservationinfo"></form-payment>
     <submit-payment v-if="status == 4.5" @pay-finished="showSummary"></submit-payment>
     <summary-page v-if="status == 5 && bookinginfo.bookinginfo" :bookinginfo="bookinginfo"></summary-page>
+    
     </div>
     
 
@@ -61,11 +62,12 @@
       LoadingOverlay
     },
     props: {
-      payment: {}
+      payment: {},
     },
     data() {
       return {
         step1: {},
+        step3: {},
         status: 1,
         submittedParams: {},
         searchResults: {},
@@ -82,18 +84,47 @@
         bookinginfo: {}
       }
     },
+    watch: { 
+     '$route.name': {
+        handler: function(name) {
+           if  (name == 'Home' || name == 'Search') {
+             this.status = 1
+           } else if (name == 'Results') {
+             if (Object.keys(this.searchResults).length === 0) {
+               this.$router.push({name: 'Search'}) 
+             } else {
+               this.status = 2
+             }             
+           } else if (name == 'Vehicle') {
+              if (Object.keys(this.submittedParams).length === 0) {
+               this.$router.push({name: 'Search'})
+             } else {
+             this.status = 3
+             }
+           } else if (name == 'Payment') {
+             this.stats = 4
+           } else if (name == 'Summary') {
+             if (Object.keys(this.bookinginfo).length === 0) {
+               this.$router.push({name: 'Search'})
+             } else [
+               this.status = 5 
+             ]
+                          
+           }
+        },
+        deep: true,
+        immediate: true
+      }
+    },
     mounted() {
       // navigate to step 4.5 after payment redirect
       if (this.$route.query.payment == 1) {
         this.status = 4.5
       }
-
-      
     },
     methods: {
       searching(e) {
         this.loading = e
-
       },
       changeStep(e) {
         this.updateStatus(e)
@@ -110,20 +141,21 @@
         this.submittedParams = f
         this.count++
         this.$forceUpdate()
+        
       },
       selectVehicle(data, step) {
         this.updateStatus(step)
         this.step3 = data
       },
       gotoPayment(e) {
-
         this.status = 4
-        this.reservationinfo = e
-        
+        this.reservationinfo = e   
+        this.$router.push({name: 'Payment'})    
       },
       showSummary(e) {
         this.status = 5
         this.getBookingInfo(e)
+        this.$router.push({name: 'Summary'})
         this.$forceUpdate()
       },
       getBookingInfo(ref) {
@@ -133,6 +165,7 @@
         })
         Mixins.methods.apiCall(params).then(res => {
           this.bookinginfo = res
+           this.$router.push({name: 'Summary'})
         })
       },
     }
@@ -141,6 +174,6 @@
 
 <style>
 .full-bg {
-  background-image:url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg')
+  /* background-image: linear-gradient(to bottom, rgba(255,255,255,.5), rgba(255,255,255,.1)),url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg') */
 }
 </style>
