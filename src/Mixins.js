@@ -13,7 +13,8 @@ export default {
         redirect: 'follow'
       };
       // ! update functions dir on deploy
-      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
+      let sign = fetch("https://dev.allridey.com.au/.netlify/functions/signRequest", requestOptions)
+      // let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
           let sig = JSON.parse(result).signature

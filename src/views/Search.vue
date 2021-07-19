@@ -1,10 +1,10 @@
 <template>
   <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
-    <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
+    <!-- <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
       <span class="text-white">dev panel:</span>
       <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testreservationinfo.reservationref), status = 5">gotosummary</button>
       <button class="text-red rounded border bg-white px-2" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
-    </div>
+    </div> -->
     
     <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
