@@ -66,7 +66,7 @@ export default {
     }
 
     .my-input {
-      @apply h-8 border flex-1 pl-1 bg-gray-200
+      @apply h-8 border flex-1 pl-1 bg-gray-200 rounded
     }
 }
 </style>
