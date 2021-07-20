@@ -8,22 +8,20 @@
     
     <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
-
     <keep-alive>
-      <booking-form v-if="status < 3" @update-status="updateStatus" @searching="searching" @update-search-results="updateSearchResults"></booking-form>
+      <booking-form v-if="status < 3" @errs="showErrs" @update-step2="status = 2"></booking-form>
     </keep-alive>
 
     <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
       <loading-overlay></loading-overlay>
     </div>
     
-      <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !this.searchResults[0] && !this.loading" :results="this.searchResults" :key="this.count" :submittedParams="this.submittedParams"></search-results>
+    <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !loading && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>
     
 
-    <div v-if="this.searchResults[0]" class="max-w-screen-lg mx-auto bg-white w-full rounded flex flex-col py-10">
-      <p>No Search Results</p>
-      <p class="text-sm text-red-500" v-if=" typeof searchResults == 'string'">{{searchResults}}</p>
-      <p v-else class="text-sm text-red-500" v-for="err in searchResults">{{err}}</p>
+    <div v-if="errs.length" class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10">
+      <p>No results found, please adjust your search</p>
+      <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
     </div>
 
     <selected-vehicle @submit-booking="gotoPayment" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
@@ -66,10 +64,9 @@
     },
     data() {
       return {
-        step1: {},
         step3: {},
         status: 1,
-        submittedParams: {},
+        errs: [],
         searchResults: {},
         count: 0,
         vehicle: {},
@@ -90,19 +87,19 @@
            if  (name == 'Home' || name == 'Search') {
              this.status = 1
            } else if (name == 'Results') {
-             if (Object.keys(this.searchResults).length === 0) {
+             if (this.isEmpty(this.step2)) {
                this.$router.push({name: 'Search'}) 
              } else {
                this.status = 2
              }             
            } else if (name == 'Vehicle') {
-              if (Object.keys(this.submittedParams).length === 0) {
+              if (this.isEmpty(this.submittedParams)) {
                this.$router.push({name: 'Search'})
              } else {
-             this.status = 3
+              this.status = 3
              }
            } else if (name == 'Payment') {
-             this.stats = 4
+             this.status = 4
            } else if (name == 'Summary') {
              if (Object.keys(this.bookinginfo).length === 0) {
                this.$router.push({name: 'Search'})
@@ -122,26 +119,43 @@
         this.status = 4.5
       }
     },
+    computed: {
+      step2() {
+        return this.$store.state.step2
+      },
+      submittedParams() {
+        return this.$store.state.submittedParams
+      }
+    },
     methods: {
+      isEmpty(obj) {
+        if (Object.keys(obj).length === 0) {
+          return true
+        } else {
+          return false
+        }
+      },
+      showErrs(e) {
+        this.errs = e
+      },
       searching(e) {
         this.loading = e
       },
       changeStep(e) {
         this.updateStatus(e)
-        if (e == 1) {
-          this.submittedParams = {},
-            this.searchResults = {}
-        }
+        // if (e == 1) {
+        //   this.submittedParams = {},
+        //   this.searchResults = {}
+        // }
       },
       updateStatus(e) {
         this.status = e;
       },
       updateSearchResults(e, f) {
-        this.searchResults = e
-        this.submittedParams = f
+        // this.searchResults = e
+        // this.submittedParams = f
         this.count++
-        this.$forceUpdate()
-        
+        this.$forceUpdate()        
       },
       selectVehicle(data, step) {
         this.updateStatus(step)

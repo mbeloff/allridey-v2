@@ -4,6 +4,16 @@
       <button @click="setMode(1)" class="btn btn-secondary ml-auto">Email Quote</button>
       <button @click="setMode(2)" class="btn btn-secondary mr-auto">Make Booking</button>
     </div>
+    <transition name="slide-down">
+      <div v-if="mode" class="relative grid place-items-center my-5 text-blue-600">
+      <i class="fas fa-chevron-down"></i>
+      <transition name="slide-down">
+        <i class="fas fa-chevron-down absolute -top-1.5"></i>
+      </transition>
+      
+    </div>
+    </transition>
+    
     <form action="javascript:void(0)" @submit="submitBooking(mode)">
       <form-customer  :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
       <form-optional :step3="step3" :parameters="parameters" v-show="mode == 2"></form-optional>
@@ -117,5 +127,14 @@
 </script>
 
 <style>
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: transform 1s ease, opacity 0.35s ease;
+}
 
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-100%);
+  opacity: 0
+}
 </style>

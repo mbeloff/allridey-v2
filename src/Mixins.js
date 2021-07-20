@@ -5,7 +5,7 @@ export default {
       myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
-      console.log(raw)
+      console.log('sending: ' + raw.substring(0,35) + '...')
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -13,8 +13,8 @@ export default {
         redirect: 'follow'
       };
       // ! update functions dir on deploy
-      let sign = fetch("https://dev.allridey.com.au/.netlify/functions/signRequest", requestOptions)
-      // let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
+      // let sign = fetch("https://dev.allridey.com.au/.netlify/functions/signRequest", requestOptions)
+      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
           let sig = JSON.parse(result).signature
@@ -41,13 +41,14 @@ export default {
             if (data.issues.length > 0) {
               console.log('issues: ' + data.issues)
             }
-            console.log('received ' + method + ' response')
+            console.log('response: ' + method.substring(0,35) + '...')
+            console.log(JSON.stringify(data).substring(0,60))
             return data
           } else {
             apierror = data.error
             throw new Error(data.error)
           }
-        }).catch((error)=>{alert(error)})
+        }).catch((error)=>{console.log(error)})
 
         if(responseData) {
           return responseData.results 

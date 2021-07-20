@@ -48,14 +48,13 @@ import Mixins from '../Mixins'
   export default {
     data() {
       return {
-        step3: {}
       }
     },
     props: {
       data: Object,
       manfees: Object,
       allData: Object,
-      submittedParams: Object
+      // submittedParams: Object
     },
     computed: {
       total() {
@@ -65,12 +64,18 @@ import Mixins from '../Mixins'
         })
         return parseFloat(sum)
       },
+      step3() {
+        return this.$store.state.step3
+      },
       currencyname() {
         return this.allData.locationfees[0].currencyname
       },
       currencysymbol() {
         return this.allData.locationfees[0].currencysymbol
       },
+      submittedParams() {
+        return this.$store.state.submittedParams
+      }
     },
     mixins: [Mixins],
     methods: {
@@ -88,7 +93,8 @@ import Mixins from '../Mixins'
           'vehiclecategoryid': this.data.vehiclecategoryid
         })
         let data = await Mixins.methods.apiCall(params)
-        this.step3 = data
+        this.$store.dispatch('step3', data);
+        // this.step3 = data
         this.$emit("select-vehicle", data, 3)
         this.$router.push({name: "Vehicle"})
       },

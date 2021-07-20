@@ -6,12 +6,11 @@
       <!-- <div class="flex bg-gray-600 text-white px-2">
         <p>{{cat.vehiclecategorytype}}</p>
       </div> -->
-      <search-result @select-vehicle="selectVehicle" v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="results" :submittedParams="submittedParams">
+      <search-result @select-vehicle="selectVehicle" v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="step2" >
       </search-result>
     </div>
   </div>
 </template>
-
 <script>
   import LoadingOverlay from './LoadingOverlay.vue'
   import SearchResult from './SearchResult.vue'
@@ -26,27 +25,33 @@
         loading: false,
       }
     },
-    props: {
-      results: Object | String,
-      submittedParams: Object
-    },
     mounted() {
       let arr = []
-        this.results.availablecars.forEach(function (el) {
+      if (this.step2.availablecars) {
+        this.step2.availablecars.forEach(function (el) {
         if (arr.indexOf(el.vehiclecategorytypeid) < 0 && el.availablemessage != 'Not available due to incomplete rates.') {
           arr.push(el.vehiclecategorytypeid)
         }
       })
+      }
       this.categories = arr          
     },
     computed: {
+      step2() {
+        return this.$store.state.step2
+      },
+      submittedParams() {
+        return this.$store.state.submittedParams
+      },
       numAvailable() {
         let count = 0
-        this.results.availablecars.forEach(el => {
+        if (this.step2.availablecars) {
+          this.step2.availablecars.forEach(el => {
           if (el.available) {
             count++
           }
         })
+        }       
         return count
       }
     },
@@ -56,7 +61,7 @@
       },
       getCats(catids) {
         let arr = []
-        let all = this.results.categorytypes
+        let all = this.step2.categorytypes
         catids.forEach(function (el) {
           all.forEach(function (x) {
             if (x.id == el) {
@@ -68,7 +73,7 @@
       },
       getCars(categorytypeid) {
         let arr = []
-        this.results.availablecars.forEach(function (el) {
+        this.step2.availablecars.forEach(function (el) {
           if (el.vehiclecategorytypeid == categorytypeid && el.available) {
             arr.push(el)
           }
@@ -77,7 +82,7 @@
       },
       getFees(categorytypeid, categoryid) {
         let arr = []
-        this.results.mandatoryfees.forEach(function (el) {
+        this.step2.mandatoryfees.forEach(function (el) {
           if (el.vehiclecategorytypeid == categorytypeid && el.vehiclecategoryid == categoryid) {
             arr.push(el)
           }

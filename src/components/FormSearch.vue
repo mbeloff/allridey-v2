@@ -9,7 +9,7 @@
             <div class="flex flex-col flex-grow group">
               <label class="my-label">Pickup Location</label>
               <div class="flex flex-row place-items-center">
-                <i class="mr-2 fal fa-map-marker fa-fw"></i>
+                <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
                   <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
@@ -18,7 +18,7 @@
             <div class="flex flex-col flex-grow group">
               <label class="my-label">Dropoff Location</label>
               <div class="flex flex-row place-items-center">
-                <i class="mr-2 fal fa-map-marker fa-fw"></i>
+                <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
                   <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
@@ -33,7 +33,7 @@
                   <div class="flex flex-col flex-1 group">
                     <label for="" class="my-label">Pickup Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-calendar fa-fw"></i>
+                      <i class="form-i fal fa-calendar fa-fw"></i>
                       <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
                     </div>
                   </div>
@@ -41,7 +41,7 @@
                   <div class="flex flex-col flex-1 group">
                     <label class="my-label" for="">Pickup Time</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-clock fa-fw"></i>
+                      <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="" id="" class="my-input" v-model="formData.pickuptime">
                         <!-- use putimearray to update times on date change -->
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">
@@ -57,7 +57,7 @@
                   <div class="flex flex-col flex-1 group">
                     <label for="" class="my-label">Dropoff Date</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-calendar fa-fw"></i>
+                      <i class="form-i fal fa-calendar fa-fw"></i>
                       <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
                     </div>
                   </div>
@@ -65,7 +65,7 @@
                   <div class="flex flex-col flex-1 group">
                     <label class="my-label" for="">Dropoff Time</label>
                     <div class="flex flex-row place-items-center">
-                      <i class="mr-2 fal fa-clock fa-fw"></i>
+                      <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="" id="" class="my-input" v-model="formData.dropofftime">
                         <!-- dotimearray -->
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}}</option>
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div class="text-right flex justify-end">
-          <button @click="getStep2()" class="btn btn-primary pl-6">SEARCH <i class="mr-2 fal fa-search"></i></button>
+          <button @click="getStep2()" class="btn btn-primary pl-6">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
         </div>
 
       </div>
@@ -96,13 +96,12 @@
     },
     data() {
       return {
-        loading: true,
         submittedParams: "",
         count: 1,
         alltimes: [
           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
         ],
-        searchResults: undefined,
+        // searchResults: undefined,
         selectedpulocation: {},
         selecteddolocation: {},
         daterange: this.tomorrow,
@@ -112,7 +111,7 @@
         domintime: "10:00",
         domaxtime: "16:30",
         dotimearray: [],
-        step1: {},
+        // step1: {},
         formData: {
           method: 'step2',
           vehiclecategorytypeid: '0',
@@ -130,83 +129,98 @@
       "daterange.start": function () {
         this.update()
       },
+      '$store.state.step1': function () {
+        this.initDates()
+        this.update()
+      }
     },
     computed: {
-
+      loading() {
+        return this.isEmpty(this.step1)
+      },
+      step1() {
+        return this.$store.state.step1
+      },
+      step2() {
+        return this.$store.state.step2
+      }
     },
     mounted() {
-      this.getStep1()
+      if (!this.isEmpty(this.$store.state.step1)) {
+        this.initDates()
+        this.update()
+      } else {
+        this.getStep1()
+      }
     },
     mixins: [Mixins],
     methods: {
+      isEmpty(obj) {
+        if (Object.keys(obj).length === 0) {
+          return true
+        } else {
+          return false
+        }
+      },
       getDateTimeObject(dat, time) {
-          let y = parseInt(dat.substring(6,10))
-          let m = parseInt(dat.substring(3,5) - 1)
-          let d = parseInt(dat.substring(0,2))
-          let hr = parseInt(time.substring(0,2))
-          let min = parseInt(time.substring(3,5))
-          return new Date(y, m, d, hr, min)
+        let y = parseInt(dat.substring(6, 10))
+        let m = parseInt(dat.substring(3, 5) - 1)
+        let d = parseInt(dat.substring(0, 2))
+        let hr = parseInt(time.substring(0, 2))
+        let min = parseInt(time.substring(3, 5))
+        return new Date(y, m, d, hr, min)
       },
       validate() {
-          // looks for errors before making api call to rcm
-          let pudt = this.getDateTimeObject(this.formData.pickupdate, this.formData.pickuptime)
-          let dodt = this.getDateTimeObject(this.formData.dropoffdate, this.formData.dropofftime)
-          let errs = []
-          if (pudt < new Date()) {
-            errs.push('Pickup date is in the past')
-          }
-          if (Date.parse(dodt) <= Date.parse(pudt)) {
-            errs.push('Dropoff date/time must by after pickup date/time')
-          }
-          console.log(errs)
-          if (errs.length > 0) {
-            this.$emit('searching', false)
-            this.$emit('updateStatus', 2)
-            this.$emit('updateSearchResults', errs, this.submittedParams)
-            console.log('errs found')
-            return false
-          } else {
-            console.log('valid')
-            return true
-          }
+        // looks for date errors before calling step2
+        let pudt = this.getDateTimeObject(this.formData.pickupdate, this.formData.pickuptime)
+        let dodt = this.getDateTimeObject(this.formData.dropoffdate, this.formData.dropofftime)
+        let errs = []
+        if (pudt < new Date()) {
+          errs.push('Pickup date is in the past')
+        }
+        if (Date.parse(dodt) <= Date.parse(pudt)) {
+          errs.push('Dropoff date/time must by after pickup date/time')
+        }
+        if (errs.length > 0) {
+          this.$emit('errs', errs)
+          console.log('errs found')
+          return false
+        } else {
+          return true
+        }
       },
-      async getStep2() {        
-        this.convertdates()
+      async getStep2() {
+        this.$emit('errs', [])
+        this.$store.dispatch('step2', {});
+        this.$store.dispatch('submittedParams', this.formData)
+        this.getDateStrings()
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
-        this.submittedParams = this.formData
-        let data = await Mixins.methods.apiCall(params)
-          .catch(this.$emit('searching', false))
-        this.searchResults = await data
-        this.count++
-        
-        this.$emit('searching', false)
-        this.$emit('updateStatus', 2)
-        this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
-        this.$router.push({name: 'Results'})
-        }        
+          this.submittedParams = this.formData
+          let data = await Mixins.methods.apiCall(params)
+            .catch(this.$emit('searching', false))
+          this.$store.dispatch('step2', data);
+          this.count++
+          this.$emit('update-step2')
+          // this.$emit('searching', false)
+          // this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
+          this.$router.push({
+            name: 'Results'
+          })
+        }
       },
       async getStep1() {
-        
         var step1 = JSON.stringify({
-          'method':'step1'
+          'method': 'step1'
         })
-
         let data = await Mixins.methods.apiCall(step1)
-        this.step1 = await data
+        this.$store.dispatch('step1', data);
         this.initDates()
         this.update()
-        this.loading = false
       },
-      convertdates() {
+      getDateStrings() {
         this.formData.pickupdate = this.daterange.start.toLocaleDateString()
         this.formData.dropoffdate = this.daterange.end.toLocaleDateString()
-      },
-      update() {
-        this.updatepulocation()
-        this.updatedolocation()
-        // this.updateputimes()
-        // this.updatedotimes()
       },
       initDates() {
         var tomorrow = new Date();
@@ -289,6 +303,12 @@
       //   this.dotimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
 
       // },
+      update() {
+        this.updatepulocation()
+        this.updatedolocation()
+        // this.updateputimes()
+        // this.updatedotimes()
+      },
       updatepulocation() {
         let id = this.formData.pickuplocationid
         let data = {}
@@ -315,6 +335,8 @@
 
 <style lang="postcss">
   @layer components {
-    
+    .form-i {
+      @apply text-blue-800 mr-2
+    }
   }
 </style>
