@@ -103,33 +103,40 @@
 <script>
   export default {
     props: {
-      bookinginfo: Object
+      // bookinginfo: Object
     },
     data() {
       return {
+        booking: {}
       }
     },
+    beforeMount() {
+      this.booking = this.$store.state.bookinginfo.bookinginfo[0]
+    },
     computed: {
-      booking() {
-        return this.bookinginfo.bookinginfo[0]
+      bookinginfo() {
+        return this.$store.state.bookinginfo
       },
+      // booking() {
+      //   return this.$store.state.bookinginfo.bookinginfo[0]
+      // },
       customer() {
-        return this.bookinginfo.customerinfo[0]
+        return this.$store.state.bookinginfo.customerinfo[0]
       },
       company() {
-        return this.bookinginfo.companyinfo[0]
+        return this.$store.state.bookinginfo.companyinfo[0]
       },
       drivers() {
-        return this.bookinginfo.extradrivers
+        return this.$store.state.bookinginfo.extradrivers
       },
       fees() {
-        return this.bookinginfo.extrafees
+        return this.$store.state.bookinginfo.extrafees
       },
       payment() {
-        return this.bookinginfo.paymentinfo
+        return this.$store.state.bookinginfo.paymentinfo
       },
       rate() {
-        return this.bookinginfo.rateinfo
+        return this.$store.state.bookinginfo.rateinfo
       }
     },
     methods: {

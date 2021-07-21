@@ -1,10 +1,10 @@
 <template>
   <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
-    <!-- <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
+    <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
       <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testreservationinfo.reservationref), status = 5">gotosummary</button>
-      <button class="text-red rounded border bg-white px-2" @click="gotoPayment(testreservationinfo), status = 4">gotopayment</button>
-    </div> -->
+      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5">gotosummary</button>
+      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), gotBooking = true, status = 4">gotopayment</button>
+    </div>
     
     <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
@@ -16,19 +16,20 @@
       <loading-overlay></loading-overlay>
     </div>
     
-    <search-results @select-vehicle="selectVehicle" v-if="status == 2 && !loading && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>
-    
+    <search-results @select-vehicle="status = 3" v-if="status == 2 && !loading && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>   
 
     <div v-if="errs.length" class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10">
       <p>No results found, please adjust your search</p>
       <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
     </div>
 
-    <selected-vehicle @submit-booking="gotoPayment" @submit-quote="showSummary" v-if="status == 3 && step3" :step3="step3" :submittedParams="submittedParams"></selected-vehicle>
+    <!-- ! commented out submit function -->
+    <!-- <selected-vehicle @submit="submit" v-if="status == 3 && step3"></selected-vehicle> -->
+    <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
 
-    <form-payment v-if="status == 4" :reservation="reservationinfo"></form-payment>
-    <submit-payment v-if="status == 4.5" @pay-finished="showSummary"></submit-payment>
-    <summary-page v-if="status == 5 && bookinginfo.bookinginfo" :bookinginfo="bookinginfo"></summary-page>
+    <form-payment v-if="status == 4 && gotBooking" :reservation="resinfo"></form-payment>
+    <submit-payment v-if="status == 4.5" @pay-finished=""></submit-payment>
+    <summary-page v-if="status == 5 && gotBooking"></summary-page>
     
     </div>
     
@@ -64,24 +65,31 @@
     },
     data() {
       return {
-        step3: {},
         status: 1,
         errs: [],
-        searchResults: {},
         count: 0,
         vehicle: {},
         loading: false,
         // ! test res info
-        reservationinfo: {},
-        testreservationinfo: {
+        testresinfo: {
           reservationref: "580F27D5F1C0", 
           reservationno: 945, 
           customerid: 580
         },
-        bookinginfo: {}
+        gotBooking: false
       }
     },
     watch: { 
+      'status': {
+      handler: function(status) {
+        if(status == 5) {
+          this.$router.push({name: 'Summary'})
+        }
+        if(status == 4) {
+          this.$router.push({name: 'Payment'})
+        }
+      }
+      },      
      '$route.name': {
         handler: function(name) {
            if  (name == 'Home' || name == 'Search') {
@@ -99,14 +107,12 @@
               this.status = 3
              }
            } else if (name == 'Payment') {
+            //  if (!this.bookinginfo.bookinginfo) {
+            //    this.$router.push({name: 'Vehicle'})
+            //  }
              this.status = 4
            } else if (name == 'Summary') {
-             if (Object.keys(this.bookinginfo).length === 0) {
-               this.$router.push({name: 'Search'})
-             } else [
-               this.status = 5 
-             ]
-                          
+               this.status = 5                         
            }
         },
         deep: true,
@@ -123,8 +129,20 @@
       step2() {
         return this.$store.state.step2
       },
+      step3() {
+        return this.$store.state.step3
+      },
       submittedParams() {
         return this.$store.state.submittedParams
+      },
+      bookingparams() {
+        return this.$store.state.bookingparams
+      },
+      bookinginfo() {
+        return this.$store.state.bookinginfo
+      },
+      resinfo() {
+        return this.$store.state.resinfo
       }
     },
     methods: {
@@ -143,45 +161,38 @@
       },
       changeStep(e) {
         this.updateStatus(e)
-        // if (e == 1) {
-        //   this.submittedParams = {},
-        //   this.searchResults = {}
-        // }
       },
       updateStatus(e) {
         this.status = e;
       },
       updateSearchResults(e, f) {
-        // this.searchResults = e
-        // this.submittedParams = f
         this.count++
         this.$forceUpdate()        
       },
-      selectVehicle(data, step) {
-        this.updateStatus(step)
-        this.step3 = data
-      },
-      gotoPayment(e) {
-        this.status = 4
-        this.reservationinfo = e   
-        this.$router.push({name: 'Payment'})    
-      },
-      showSummary(e) {
-        this.status = 5
-        this.getBookingInfo(e)
-        this.$router.push({name: 'Summary'})
-        this.$forceUpdate()
+      submit(mode, ref) {
+        console.log('submit from search... ref=' + ref + 'mode=' + mode)
+        this.getBookingInfo(ref)
+        if (mode == 1) {          
+          this.status = 5          
+          this.$router.push({name: 'Summary'})
+          this.$forceUpdate()
+        }
+        if (mode == 2) {
+          this.status = 4      
+          this.$router.push({name: 'Payment'})  
+        }
       },
       getBookingInfo(ref) {
+        console.log('getBookingInfo ref = ' + ref)
         let params = JSON.stringify({
           "method":"bookinginfo",
           "reservationref":ref
         })
         Mixins.methods.apiCall(params).then(res => {
-          this.bookinginfo = res
-           this.$router.push({name: 'Summary'})
+          this.$store.dispatch('bookinginfo', res)
+          this.gotBooking = true
         })
-      },
+      },      
     }
   }
 </script>

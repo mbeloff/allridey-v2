@@ -202,8 +202,6 @@
           this.$store.dispatch('step2', data);
           this.count++
           this.$emit('update-step2')
-          // this.$emit('searching', false)
-          // this.$emit('updateSearchResults', this.searchResults, this.submittedParams)
           this.$router.push({
             name: 'Results'
           })

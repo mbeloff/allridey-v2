@@ -1,5 +1,4 @@
 <template>
-
   <div class="rounded bg-opacity-90 w-full p-1 flex flex-col gap-3">
     <div class="flex flex-col md:flex-row md:gap-3">
 
@@ -155,7 +154,7 @@
 
       </div>
     </div>
-    <make-booking @submitBooking="submitBooking" @submitQuote="submitQuote" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
+    <make-booking @submit1="makeBooking" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :submittedParams="submittedParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
   </div>
 </template>
 
@@ -184,21 +183,31 @@
           kms: [],
           total: [],
           tax: [],
-        }
+        },
+        gotBooking: false,
+        mode: undefined,
+        ref: undefined
       }
     },
     watch: {
       'calcTotals': function () {
         this.getTotals()
         this.count++
-      }
-    },
-    props: {
-      step3: Object,
-      submittedParams: Object
+      },
+      'ref': function(ref) {
+        if(ref && this.mode) {
+          this.bookingMade()
+        }
+      }      
     },
     mixins: [Mixins],
     computed: {
+      step3() {
+        return this.$store.state.step3
+      },
+      submittedParams() {
+        return this.$store.state.submittedParams
+      },
       currencysymbol() {
         return this.step3.locationfees[0].currencysymbol
       },
@@ -267,6 +276,10 @@
       this.optionalfees = arr
     },
     methods: {
+      changeMode(e) {
+        this.mode = e
+        this.$forceUpdate()
+      },
       incQty(el) {
         let max = 10
         if (el.qty < max) {
@@ -278,21 +291,17 @@
           el.qty--
         }
       },
-      submitBooking(e) {
-        // passing all booking parameters to goto payment page
-        Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          if (typeof res == 'string') {
-            console.log('string returned (error)')
-          } else {
-              this.$emit('submitBooking', res)
-          }
-        })
+      async makeBooking() {
+        console.log('submit makeBooking from SelectedVehicle')
+        let data = await Mixins.methods.apiCall(JSON.stringify(await this.$store.state.bookingparams))
+        console.log('makebooking data = ' + JSON.parse(JSON.stringify(await data)))
+        this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(await data)))
+        this.ref = JSON.parse(JSON.stringify(await data)).reservationref
       },
-      submitQuote(e) {
-        // passing just the resref# to go straight to summary page
-        Mixins.methods.apiCall(JSON.stringify(e)).then(res => {
-          this.$emit('submitQuote', res.reservationref)
-        })
+      bookingMade() {
+        console.log('submit function: mode=' + this.mode + ' ref=' + this.ref)
+        console.log('emitting to search.vue disabled')
+        this.$emit('bookingMade', this.mode, this.ref)
       },
       getTotals() {
         this.calculating = true

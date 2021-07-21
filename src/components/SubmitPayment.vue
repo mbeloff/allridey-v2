@@ -59,7 +59,7 @@
         let params = JSON.stringify({
           "method": "confirmpayment",
           "reservationref": this.paymentinfo.ref,
-          // "amount": this.paymentStatus.Amount,
+          "amount": this.paymentStatus.Amount,
           "amount": 1,
           "success": true,
           "paytype": "Credit Card",

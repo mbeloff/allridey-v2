@@ -43,9 +43,12 @@ export default {
       url: "",
       vaultnote: "",
       vaultresponse: "",
-      bookinginfo: "",
+      // bookinginfo: "",
       dps: {},
-      query: ""
+      query: "",
+      resref: "",
+      resno:"",
+      customerid:"",
     }
   },
   mounted() {
@@ -57,6 +60,7 @@ export default {
     } catch(e) {
     }
   };
+  this.createDPSpayment()
     // this.getVaultUrl()
     // let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent"
     // let eventer = window[eventMethod]
@@ -93,29 +97,32 @@ export default {
     //              _this.setframeloaded()
     //   }
     // }
-    this.getBookingInfo()
+    // this.getBookingInfo()
   },
   mixins: [Mixins],
     computed: {
   },
   watch: {
-    'bookinginfo': function() {
-      this.createDPSpayment()
-    }
+  },
+  computed: {
+    resinfo() {
+      return this.$store.state.resinfo
+    },
   },
   methods: {
     // setframeloaded(){
     //   this.frameLoad = true
     // },
-    getBookingInfo() {
-      let params = JSON.stringify({
-        "method":"bookinginfo",
-        "reservationref":this.reservation.reservationref
-      })
-      Mixins.methods.apiCall(params).then(res => {
-        this.bookinginfo = res
-      })
-    },
+    // getBookingInfo() {
+    //   let params = JSON.stringify({
+    //     "method":"bookinginfo",
+    //     "reservationref":this.reservation.reservationref
+    //   })
+    //   Mixins.methods.apiCall(params).then(res => {
+    //     this.$store.dispatch('bookinginfo', res)
+    //     // this.bookinginfo = res
+    //   })
+    // },
     // vaultEntry() {
     //   let params = JSON.stringify({
     //     "method":"vaultentry",

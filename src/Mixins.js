@@ -5,7 +5,8 @@ export default {
       myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
-      console.log('sending: ' + raw.substring(0,35) + '...')
+      // console.log('sending: ' + raw.substring(0,35) + '...')
+      console.log('sending: ' + raw)
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -41,8 +42,9 @@ export default {
             if (data.issues.length > 0) {
               console.log('issues: ' + data.issues)
             }
-            console.log('response: ' + method.substring(0,35) + '...')
-            console.log(JSON.stringify(data).substring(0,60))
+            console.log('response: ' + method.substring(0,60))
+            // console.log('response: ' + method.substring(0,35) + '...')
+            console.log(JSON.stringify(data))
             return data
           } else {
             apierror = data.error

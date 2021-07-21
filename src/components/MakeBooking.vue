@@ -14,7 +14,7 @@
     </div>
     </transition>
     
-    <form action="javascript:void(0)" @submit="submitBooking(mode)">
+    <form action="javascript:void(0)" @submit="submitBooking">
       <form-customer  :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
       <form-optional :step3="step3" :parameters="parameters" v-show="mode == 2"></form-optional>
       <button type="submit"  v-if="mode" class="btn btn-primary mt-5">{{ btnText }}</button>
@@ -25,7 +25,9 @@
 <script>
  import FormCustomer from './FormCustomer.vue'
  import FormOptional from './FormOptional.vue'
+ import Mixins from '../Mixins'
  export default {
+   mixins: [Mixins],
    components: {
      FormCustomer,
      FormOptional
@@ -83,16 +85,15 @@
       }
     },
     methods: {
-      submitBooking(mode) {
-        if (mode == 1) {
-          this.$emit('submitQuote', this.parameters)
-        } else if (mode == 2) {
-          this.$emit('submitBooking', this.parameters)
-        }        
+      submitBooking() {
+        console.log('emitting submit with mode=' + this.mode)
+        this.$store.dispatch("bookingparams", this.parameters)
+        // this.makeBooking(this.parameters)
+        this.$emit('submit1')
       },
       setMode(mode) {
         this.mode = mode
-        // this.parameters.bookingtype = mode
+        this.$emit('modeChange', mode)
       },
       updateBookingParameters() {
         this.parameters.vehiclecategorytypeid = this.submittedParams.vehiclecategorytypeid
