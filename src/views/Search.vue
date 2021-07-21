@@ -28,8 +28,8 @@
     <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
 
     <form-payment v-if="status == 4 && gotBooking" :reservation="resinfo"></form-payment>
-    <submit-payment v-if="status == 4.5" @pay-finished=""></submit-payment>
-    <summary-page v-if="status == 5 && gotBooking"></summary-page>
+    <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, gotBooking = true"></submit-payment>
+    <summary-page v-if="status == 5 && this.$store.state.gotBooking"></summary-page>
     
     </div>
     
@@ -190,7 +190,7 @@
         })
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
-          this.gotBooking = true
+          this.$store.dispatch('gotBooking', true)
         })
       },      
     }

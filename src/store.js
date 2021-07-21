@@ -24,6 +24,7 @@ export default createStore({
       reservationno: "",
       customerid: ""
     },
+    gotBooking: false
   },
   mutations: {
     submittedParams(state, payload) {
@@ -47,6 +48,9 @@ export default createStore({
     resinfo(state, payload) {
       state.resinfo = payload
     },
+    gotBooking(state, payload) {
+      state.gotBooking = payload
+    },
   },
   actions: {
     submittedParams(context, payload) {
@@ -69,6 +73,9 @@ export default createStore({
     },
     resinfo(context, payload) {
       context.commit('resinfo', payload)
+    },
+    gotBooking(context, payload) {
+      context.commit('gotBooking', payload)
     },
   },
 })

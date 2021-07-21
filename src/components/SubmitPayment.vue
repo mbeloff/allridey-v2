@@ -17,11 +17,19 @@
         paymentinfo: {},
         paymentStatus: {},
         confirmedPayment: {},
+        resinfo: {
+          reservationref: "",
+          reservationno: "",
+          customerid: ""
+        }      
       }
     },
     mixins: [Mixins],
     mounted() {
       this.paymentinfo = this.$route.query
+      this.resinfo.reservationref = this.$route.query.ref
+      this.resinfo.reservationno = this.$route.query.resno
+      this.resinfo.customerid = this.$route.query.customerid
       this.getDPSpayment()
     },
     watch: {
@@ -45,8 +53,22 @@
     },
     methods: {
       payfinished() {
-        this.$emit('payFinished', this.paymentinfo.ref)
+        console.log('payfinished')
+        this.$store.dispatch('resinfo', this.resinfo)
+        this.getBookingInfo(this.resinfo.reservationref)
+        this.$emit('finishedpayment')
       },
+      getBookingInfo(ref) {
+        console.log('getBookingInfo ref = ' + ref)
+        let params = JSON.stringify({
+          "method":"bookinginfo",
+          "reservationref":ref
+        })
+        Mixins.methods.apiCall(params).then(res => {
+          this.$store.dispatch('bookinginfo', res)
+          this.$store.dispatch('gotBooking', true)
+        })
+      },  
       async getDPSpayment() {
         let params = JSON.stringify({
           "method": "getdpspayment",
