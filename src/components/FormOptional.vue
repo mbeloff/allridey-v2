@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white p-2 rounded mt-5 shadow-xl w-full text-left md:max-w-screen-lg mx-auto">
-    <p>Make the pickup/collection process quick and easy by filling in the following details.</p>
     <p class="font-bold text-lg mb-3 mt-5">License <span class="font-normal text-gray-400">optional</span></p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">

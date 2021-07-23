@@ -3,13 +3,14 @@
     <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm">
       <span class="text-white">dev panel:</span>
       <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5">gotosummary</button>
-      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), gotBooking = true, status = 4">gotopayment</button>
+      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), $store.dispatch('gotBooking', true), status = 4">gotopayment</button>
+      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('status', 'state has been edited')">edit state</button>
+      <div class="px-2 text-white font-bold">{{this.$store.state.status}}</div>
     </div>
-    
     <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
       <booking-nav @changeStep="changeStep" :status="status"></booking-nav>
     <keep-alive>
-      <booking-form v-if="status < 3" @errs="showErrs" @update-step2="status = 2"></booking-form>
+      <booking-form v-if="status < 3" @errs="showErrs" @searching="setLoading" @update-step2="status = 2"></booking-form>
     </keep-alive>
 
     <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
@@ -23,13 +24,11 @@
       <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
     </div>
 
-    <!-- ! commented out submit function -->
-    <!-- <selected-vehicle @submit="submit" v-if="status == 3 && step3"></selected-vehicle> -->
     <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
 
-    <form-payment v-if="status == 4 && gotBooking" :reservation="resinfo"></form-payment>
-    <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, gotBooking = true"></submit-payment>
-    <summary-page v-if="status == 5 && this.$store.state.gotBooking"></summary-page>
+    <form-payment @grabBookingInfo="getBookingInfo($store.state.resinfo.reservationref)" v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo"></form-payment>
+    <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, $store.dispatch('gotBooking', true)"></submit-payment>
+    <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>
     
     </div>
     
@@ -76,10 +75,17 @@
           reservationno: 945, 
           customerid: 580
         },
-        gotBooking: false
       }
     },
+    
     watch: { 
+      'step2': {
+        handler: function() {
+          setTimeout(()=>{
+            this.setLoading(false)
+          }, 500)                  
+        }
+      },
       'status': {
       handler: function(status) {
         if(status == 5) {
@@ -101,7 +107,7 @@
                this.status = 2
              }             
            } else if (name == 'Vehicle') {
-              if (this.isEmpty(this.submittedParams)) {
+              if (this.isEmpty(this.searchParams)) {
                this.$router.push({name: 'Search'})
              } else {
               this.status = 3
@@ -132,8 +138,8 @@
       step3() {
         return this.$store.state.step3
       },
-      submittedParams() {
-        return this.$store.state.submittedParams
+      searchParams() {
+        return this.$store.state.searchParams
       },
       bookingparams() {
         return this.$store.state.bookingparams
@@ -145,7 +151,10 @@
         return this.$store.state.resinfo
       }
     },
-    methods: {
+    methods: { 
+      setLoading(e) {
+        this.loading = e
+      },
       isEmpty(obj) {
         if (Object.keys(obj).length === 0) {
           return true
@@ -198,7 +207,4 @@
 </script>
 
 <style>
-.full-bg {
-  /* background-image: linear-gradient(to bottom, rgba(255,255,255,.5), rgba(255,255,255,.1)),url('https://res.cloudinary.com/dg5ybbkbh/image/upload/w_1080,q_auto,f_auto/v1625712411/allridey/acxidh.jpg') */
-}
 </style>

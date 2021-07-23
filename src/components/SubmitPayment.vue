@@ -31,6 +31,7 @@
       this.resinfo.reservationno = this.$route.query.resno
       this.resinfo.customerid = this.$route.query.customerid
       this.getDPSpayment()
+      // ! only used for testing - will usually already be true 
     },
     watch: {
       'paymentStatus': function () {

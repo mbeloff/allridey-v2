@@ -8,7 +8,7 @@
         <iframe :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
       </div>
       <div class="p-5 text-left flex flex-col gap-2">
-        <p class="font-bold text-lg text-blue-700 my-4">AllRidey {{data.location}}</p>
+        <p class="font-bold text-lg text-blue-700 my-4">Allridey {{data.location}}</p>
         <div class="flex items-center">
           <i class="far fa-map-marker fa-fw text-blue-700"></i>
           <span>{{data.address}}, {{data.suburb}} {{data.postcode}} {{data.state}}</span>
@@ -99,9 +99,8 @@
           'id': id
         })
         Mixins.methods.apiCall(params).then(res => this.data = res[0])
-        let _this = this
-        setTimeout(function () {
-          _this.loading = false
+        setTimeout(() => {
+          this.loading = false
         }, 1000);
       },
       convert(str) {

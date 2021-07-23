@@ -96,7 +96,7 @@
     },
     data() {
       return {
-        submittedParams: "",
+        searchParams: "",
         count: 1,
         alltimes: [
           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
@@ -183,6 +183,7 @@
         }
         if (errs.length > 0) {
           this.$emit('errs', errs)
+          this.$emit('searching', false)
           console.log('errs found')
           return false
         } else {
@@ -191,14 +192,15 @@
       },
       async getStep2() {
         this.$emit('errs', [])
-        this.$store.dispatch('step2', {});
-        this.$store.dispatch('submittedParams', this.formData)
+        this.$store.dispatch('step2', {}).then(console.log('emitting'),this.$emit('searching', true));       
+        this.$store.dispatch('searchParams', this.formData)
         this.getDateStrings()
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
-          this.submittedParams = this.formData
+          this.searchParams = this.formData
           let data = await Mixins.methods.apiCall(params)
-            .catch(this.$emit('searching', false))
+          // TODO figure out why I put this here, and why it always catches
+            // .catch(console.log('catch triggered'))
           this.$store.dispatch('step2', data);
           this.count++
           this.$emit('update-step2')

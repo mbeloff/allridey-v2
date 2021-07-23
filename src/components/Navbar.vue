@@ -2,9 +2,9 @@
   <div class="w-full h-20 shadow-lg bg-white z-10 relative">
     <div class="flex justify-between container h-full mx-auto px-2"> 
       <div class="left flex content-center items-center gap-x-4 ">
-        <a href="/" class="left flex">
+        <router-link :to="{ name: 'Home'}" href="/" class="left flex">
           <img src="../assets/allridey_text_outline.svg" alt="" class="flex-grow w-32 md:w-48">
-        </a>        
+        </router-link>        
         <div class="hidden md:flex h-full items-center">
           <router-link :to="{ name: 'Search'}" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
           <nav-item :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>

@@ -1,19 +1,19 @@
 <template>
-  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-row sm:grid-flow-col sm:divide-x mb-10 divide-y sm:divide-y-0 divide-gray-300 border border-gray-300">
-    <button @click="changeStep(1), this.$router.push({name: 'Search'})" class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStatus(1)">
-      <i class="" :class="iStatus(1)"></i> Search
+  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-row sm:grid-flow-col sm:divide-x mb-10 divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm">
+    <button @click="changeStep(1), this.$router.push({name: 'Search'})" class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStyle(1, this.status), btnDisable(1, this.status)">
+      <i class="" :class="iStatus(1, this.status)"></i> Search
     </button>
-    <button @click="changeStep(2), this.$router.push({name: 'Results'})" class="py-1.5 sm:py-6" :class="btnStatus(2)">
-      <i class="" :class="iStatus(2)"></i> Select
+    <button @click="changeStep(2), this.$router.push({name: 'Results'})" class="py-1.5 sm:py-6" :class="btnStyle(2, this.status), btnDisable(2, this.status)">
+      <i class="" :class="iStatus(2, this.status)"></i> Select
     </button>
-    <button @click="changeStep(3), this.$router.push({name: 'Vehicle'})" class="py-1.5 sm:py-6" :class="btnStatus(3)">
-      <i class="" :class="iStatus(3)"></i> Extras
+    <button @click="changeStep(3), this.$router.push({name: 'Vehicle'})" class="py-1.5 sm:py-6" :class="btnStyle(3, this.status), btnDisable(3, this.status)">
+      <i class="" :class="iStatus(3, this.status)"></i> Extras
     </button>
-    <button @click="changeStep(4), this.$router.push({name: 'Payment'})" class="py-1.5 sm:py-6" :class="btnStatus(4)">
-      <i class="" :class="iStatus(4)"></i> Pay
+    <button @click="changeStep(4), this.$router.push({name: 'Payment'})" class="py-1.5 sm:py-6" :class="btnStyle(4, this.status), btnDisable(4, this.status)">
+      <i class="" :class="iStatus(4, this.status)"></i> Pay
     </button>
-    <button @click="changeStep(5), this.$router.push({name: 'Summary'})" class="py-1.5 sm:py-6 sm:rounded-r" :class="btnStatus(5)">
-      <i class="" :class="iStatus(5)"></i> Summary
+    <button @click="changeStep(5), this.$router.push({name: 'Summary'})" class="py-1.5 sm:py-6 sm:rounded-r" :class="btnStyle(5, this.status), btnDisable(5, this.status)">
+      <i class="" :class="iStatus(5, this.status)"></i> Summary
     </button>
   </div>
 </template>
@@ -27,25 +27,37 @@ export default {
     changeStep(num) {
       this.$emit("changeStep", num)
     },
-    iStatus(step) {
-      if (step == this.status ) {
+    iStatus(step, status) {
+      if (step == status && status != 5) {
         return "text-gray-500 fal fa-circle"
-      } else if (step < this.status) {
+      } else if (step < status || step == 5 && status == 5) {
         return 'text-green-500 fas fa-check-circle'
       } else {
         return 'invisible fas fa-check-circle'
       }
     },
-    btnStatus(step) {
-      if ((step == 4 || step == 3) && this.status == 5) {
-        return 'bg-gray-200 text-gray-400 disabled hidden'
+    btnStyle(step, status) {
+      if ((step == 4 || step == 3 || step == 2) && status == 5) {
+        return 'bg-gray-200 disabled hidden'
       }
-      if (step == this.status ) {
+      if (step == status) {
         return "active"
-      } else if (step < this.status) {
+      } else if (step < status) {
         return 'completed'
+      }
+       else {
+        return 'bg-gray-200 disabled'
+      }
+    },
+    btnDisable(step, status) {
+      if (step > 1 && step < status) {
+        return 'disabled text-gray-400'
+      } else if (step > status) {
+        return 'disabled text-gray-400'
+      } else if (step == 5 && status == 5 || step == status) {
+        return 'disabled text-gray-600'
       } else {
-        return 'bg-gray-200 text-gray-400 disabled'
+        return 'text-gray-500'
       }
     }
   }
@@ -57,7 +69,7 @@ export default {
 }
 @layer components {
     .completed {
-      @apply bg-gray-200 text-current
+      @apply bg-gray-200
     }
     .active {
       @apply bg-white

@@ -40,8 +40,8 @@
       step2() {
         return this.$store.state.step2
       },
-      submittedParams() {
-        return this.$store.state.submittedParams
+      searchParams() {
+        return this.$store.state.searchParams
       },
       numAvailable() {
         let count = 0
