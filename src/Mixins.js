@@ -1,21 +1,19 @@
 export default {
-  methods: {
+  methods: {    
     signRequest(method) {
+      let fnHost = import.meta.env.VITE_FN_HOST
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
-      // console.log('sending: ' + raw.substring(0,35) + '...')
-      console.log('sending: ' + raw)
+      console.log(JSON.parse(method))
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
       };
-      // ! update functions dir on deploy
-      // let sign = fetch("https://dev.allridey.com.au/.netlify/functions/signRequest", requestOptions)
-      let sign = fetch("http://localhost:8888/.netlify/functions/signRequest", requestOptions)
+      let sign = fetch( fnHost + "/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
           let sig = JSON.parse(result).signature
@@ -42,9 +40,9 @@ export default {
             if (data.issues.length > 0) {
               console.log('issues: ' + data.issues)
             }
-            console.log('response: ' + method.substring(0,60))
-            // console.log('response: ' + method.substring(0,35) + '...')
-            console.log(JSON.stringify(data))
+            let request = JSON.parse(method)
+            console.log(request.method + ' ' + data.status)
+            console.log(data.results)
             return data
           } else {
             apierror = data.error
