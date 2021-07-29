@@ -31,13 +31,14 @@
       this.resinfo.reservationno = this.$route.query.resno
       this.resinfo.customerid = this.$route.query.customerid
       this.getDPSpayment()
-      // ! only used for testing - will usually already be true 
     },
     watch: {
       'paymentStatus': function () {
         if (this.paymentStatus.Status == 'Failed') {
           console.log('Payment Failed, redirecting to summary') 
-          this.payfinished()        
+          this.getBookingInfo(this.resinfo.reservationref)
+          this.payfinished('failed')  
+           
         }
         if (this.paymentStatus.Status == 'Approved') {
           console.log('Payment Approved, redirecting to summary')
@@ -48,16 +49,17 @@
       },
       'confirmedPayment': function () {
         if ((Object.keys(this.confirmedPayment).length != 0)) {
-          this.payfinished() 
+          this.payfinished('success') 
         }  
       }
     },
     methods: {
-      payfinished() {
+      payfinished(e) {
         console.log('payfinished')
         this.$store.dispatch('resinfo', this.resinfo)
-        this.getBookingInfo(this.resinfo.reservationref)
-        this.$emit('finishedpayment')
+        this.$store.dispatch('gotBooking', true)        
+        this.$router.push(
+          {path: 'summary?pymnt='+e, query: {pymnt: e}})
       },
       getBookingInfo(ref) {
         console.log('getBookingInfo ref = ' + ref)
@@ -82,18 +84,18 @@
         let params = JSON.stringify({
           "method": "confirmpayment",
           "reservationref": this.paymentinfo.ref,
-          "amount": this.paymentStatus.Amount,
+          // "amount": this.paymentStatus.Amount,
           "amount": 1,
           "success": true,
           "paytype": "Credit Card",
           "paydate": new Date().toLocaleDateString(),
           "supplierid": 2,
-          "transactid": this.paymentStatus.TransactionId,
-          "dpstxnref": this.paymentStatus.RebillingToken,         
+          "transactid": this.paymentStatus.RebillingToken,
+          "dpstxnref": this.paymentStatus.TransactionId,         
           "paysource": "Windcave Online Payment",
-          // "cardholder": "fred",
+          // "cardholder": "",
           // "cardnumber": "############1111",
-          // "cardexpiry": "01/23",
+          // "cardexpiry": "",
           "transtype": "Payment",
           // "merchfeeid": 1,
           "payscenario": 1,

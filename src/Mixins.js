@@ -46,7 +46,7 @@ export default {
             return data
           } else {
             apierror = data.error
-            throw new Error(data.error)
+            throw new Error(apierror)
           }
         }).catch((error)=>{console.log(error)})
 

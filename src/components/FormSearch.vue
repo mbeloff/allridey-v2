@@ -192,15 +192,14 @@
       },
       async getStep2() {
         this.$emit('errs', [])
-        this.$store.dispatch('step2', {}).then(console.log('emitting'),this.$emit('searching', true));       
+        this.$store.dispatch('step2', {}).then(this.$emit('searching', true));       
         this.$store.dispatch('searchParams', this.formData)
         this.getDateStrings()
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
           this.searchParams = this.formData
           let data = await Mixins.methods.apiCall(params)
-          // TODO figure out why I put this here, and why it always catches
-            // .catch(console.log('catch triggered'))
+          // .catch(console.log('catch triggered'))
           this.$store.dispatch('step2', data);
           this.count++
           this.$emit('update-step2')

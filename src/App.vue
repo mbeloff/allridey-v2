@@ -58,7 +58,7 @@
     }
 
     .my-label {
-      @apply text-blue-800 font-bold text-xs mb-0.5
+      @apply text-blue-800 font-bold text-xs mb-0.5 pl-8
     }
 
     .group:hover .my-label {

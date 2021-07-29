@@ -1,10 +1,10 @@
 <template>
   <div class="text-left p-2">
-    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-red-100 border-red-300 border items-center text-red-700" v-if="this.$route.query.payment == 1 && this.payment.length == 0">
-     <i class="far fa-exclamation fa-fw"></i><span>Sorry, your payment was unsuccessful. We've saved your request as a quote.</span>
+    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-red-100 border-red-300 border items-center text-red-700" v-if="pymnt == 'failed'">
+     <i class="far fa-exclamation fa-fw"></i><p>Sorry, your payment was unsuccessful. We've saved your request anyway. <router-link :to="{ name: 'Payment' }">try again?</router-link></p>
     </div>
-    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700" v-if="this.$route.query.payment == 1 && this.payment.length > 0">
-     <i class="far fa-check fa-fw"></i><span>Payment Successful.</span>
+    <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700" v-if="pymnt == 'success'">
+     <i class="far fa-check fa-fw"></i><p>Payment Successful.</p>
     </div>
     <div class="rounded w-full flex flex-col gap-3">
       <div class="flex flex-col md:flex-row gap-3 items-start">
@@ -106,11 +106,13 @@
     },
     data() {
       return {
-        booking: {}
+        booking: {},
+        pymnt: undefined,
       }
     },
     beforeMount() {
-      this.booking = this.$store.state.bookinginfo.bookinginfo[0]
+      this.booking = this.$store.state.bookinginfo.bookinginfo[0],
+      this.pymnt = this.$route.query.pymnt
     },
     computed: {
       bookinginfo() {

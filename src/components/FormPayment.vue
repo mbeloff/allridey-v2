@@ -1,6 +1,7 @@
 <template>
   <div class="w-full h-full p-1">
-    <div class="mx-auto flex flex-col gap-3 flex-1 bg-white rounded shadow-xl py-2" style="max-width: 400px">
+    <div class="mx-auto flex flex-col gap-3 flex-1 bg-white rounded shadow-xl py-2 relative" style="max-width: 400px">
+      <loading-overlay v-if="loading"></loading-overlay>
       <p class="font-bold text-center">Payment</p>
       <!-- <div v-if="bookinginfo" class="container max-w-md mx-auto p-2">
           <p class="text-left">Booking total: {{bookinginfo.bookinginfo[0].currencyname}}{{bookinginfo.currencysymbol}} {{bookinginfo.bookinginfo[0].balancedue.toFixed(2)}}</p>
@@ -25,7 +26,7 @@
         <iframe ref="wcframe" :src="dps.RedirectUrl" width="400" height="470" scrolling="no"></iframe>
       </div>
       <div class="text-left pl-2">
-        <router-link @click="this.$emit('grabBookingInfo')" :to="{name: 'Summary'}" class="text-red-500 text-sm italic">cancel & save as quote</router-link>
+        <router-link :to="{name: 'Summary'}" class="text-red-500 text-sm italic">cancel & save as quote</router-link>
       </div>
     </div>
   </div>
@@ -33,16 +34,17 @@
 
 <script>
   import Mixins from '../Mixins'
-  import Spinner from '../components/Spinner.vue'
+  import LoadingOverlay from '../components/LoadingOverlay.vue'
   export default {
     components: {
-      Spinner
+      LoadingOverlay
     },
     props: {
       reservation: Object
     },
     data() {
       return {
+        loading: true,
         frameLoad: false,
         url: "",
         vaultnote: "",
@@ -55,30 +57,18 @@
         customerid: "",
       }
     },
-    // unmounted() {
-    //   window.onbeforeunload = function () {
-        // * remove alert when leaving payment page
-    //     return null;
-    //   }
-    // },
     mounted() {
       this.getBookingInfo()
       let iframe = this.$refs.wcframe
-      iframe.onload = function () {
-        try {
-          const queryString = iframe.contentWindow.location.search;
-          console.log(queryString)
-          this.query = new URLSearchParams(queryString);
-        } catch (e) {}
-      }
-      this.createDPSpayment()
-
-
-      // window.onbeforeunload = function () {
-        // * Alert before closing app
-      //   return "";
+      // iframe.onload = function () {        
+      //   try {
+      //     const queryString = iframe.contentWindow.location.search;
+      //     console.log('iframe onload - qstring= ' + queryString)
+      //     this.query = new URLSearchParams(queryString);
+          
+      //   } catch (e) {}
       // }
-
+      
 
       // this.getVaultUrl()
       // let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent"
@@ -121,13 +111,19 @@
     mixins: [Mixins],
     computed: {},
     watch: {
-      'bookinginfo': {
-        handler: function() {
-          if (this.$store.state.bookinginfo.bookinginfo[0].balancedue <= 0) {
-            this.$router.push({name: 'Summary'})
-          }
-        }
-      }
+      // 'bookinginfo': {
+      //   handler: function() {
+      //     if (this.$store.state.bookinginfo.bookinginfo[0].balancedue) {
+      //       console.log('balance = ' + this.$store.state.bookinginfo.bookinginfo[0].balancedue)
+      //       return
+      //     } else {
+      //       console.log('no balance. redirecting to summary')
+      //       this.$router.push({ query: {paid: 'true'}})
+      //       this.$router.push({name: "Summary"})
+
+      //     }
+      //   }
+      // }
     },
     computed: {
       resinfo() {
@@ -138,6 +134,13 @@
       }
     },
     methods: {
+      grab() {
+        console.log('trying to grab')
+        var frame = this.$refs.wcframe;
+    var cntnt = frame.contentWindow.document;
+    var parag = cntnt.getElementsByTagName("p")[0];
+    console.log( parag );
+      },
       // setframeloaded(){
       //   this.frameLoad = true
       // },
@@ -149,6 +152,7 @@
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
           // this.bookinginfo = res
+          this.createDPSpayment()
         })
       },
       // vaultEntry() {
@@ -183,20 +187,19 @@
           let params = JSON.stringify({
             "method": "createdpspayment",
             "reservationref": this.reservation.reservationref,
-            // "amount": 1,
-            "amount": balancedue,
+            "amount": 1,
+            // "amount": balancedue,
             "returnurl": host + "/checkpayment?payment=1&ref=" + this.reservation.reservationref + "&resno=" + this.reservation.reservationno + "&customerid=" + this.reservation.customerid,
             "transationtype": "Purchase"
           })
           Mixins.methods.apiCall(params).then(res => {
             this.dps = res
+            this.loading = false
           })
         } else {
           console.log('no balance due')
-          this.$emit('grabBookingInfo')
-          // this.$router.push({
-          //   name: 'Summary'
-          // })
+          // this.$emit('grabBookingInfo')
+          this.$router.push({path: "/summary?pymnt=nobal", query: {pymnt: 'nobal'}})
         }
 
       }

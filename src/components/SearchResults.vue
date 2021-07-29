@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left bg-white rounded shadow-xl w-full p-1 search-results">   
+  <div class="text-left rounded w-full p-1 search-results">   
     <p class="text-center" v-if="numAvailable > 0">search results</p>
     <p class="text-center" v-else>No results found</p>
     <div v-for="(cat, i) in getCats(categories)" class="my-2">
@@ -34,7 +34,9 @@
         }
       })
       }
-      this.categories = arr          
+      this.categories = arr
+      console.log('results loaded')
+      this.$emit('mounted')      
     },
     computed: {
       step2() {

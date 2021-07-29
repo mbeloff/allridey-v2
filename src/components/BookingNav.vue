@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded bg-opacity-90 shadow-xl w-full grid grid-flow-row sm:grid-flow-col sm:divide-x mb-10 divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm">
+  <div class="bg-white rounded opacity-90 shadow-xl w-full grid grid-flow-row sm:grid-flow-col sm:divide-x divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm">
     <button @click="changeStep(1), this.$router.push({name: 'Search'})" class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStyle(1, this.status), btnDisable(1, this.status)">
       <i class="" :class="iStatus(1, this.status)"></i> Search
     </button>

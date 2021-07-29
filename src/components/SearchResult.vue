@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col md:flex-row mt-2 border shadow-lg">
-    <div class="flex w-full md:w-1/3 min-h-24 bg-contain bg-no-repeat ">
+    <div class="flex w-full md:w-1/3 min-h-24 bg-white">
       <img class="object-contain object-center mx-auto" :src="data.imageurl" alt="">
     </div>
 
-    <div class="flex flex-col flex-1">
+    <div class="flex flex-col flex-1 bg-white">
       <!-- Vehicle Title -->
       <p class="text-blue-800 text-lg font-bold border-b py-1 mb-1 mx-2" v-html="data.categoryfriendlydescription"></p>
       <!-- Vehicle Details -->
