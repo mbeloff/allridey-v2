@@ -4,9 +4,8 @@ import {
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
-  plugins: [createPersistedState({ storage: window.sessionStorage })],
+  // plugins: [createPersistedState({ storage: window.sessionStorage })],
   state: {
-    status: 'vuex is in inital state',
     phone: '1800 24 68 69',
     phoneuri: '1800246869',
     step1: {},
@@ -31,9 +30,6 @@ export default createStore({
     hasSession: false,
   },
   mutations: {
-    status(state, payload) {
-      state.status = payload
-    },
     session(state, payload) {
       state.hasSession = payload
     },
@@ -63,9 +59,6 @@ export default createStore({
     },
   },
   actions: {
-    status(context, payload) {
-      context.commit('status', payload)
-    },
     session(context, payload) {
       context.commit('session', payload)
     },

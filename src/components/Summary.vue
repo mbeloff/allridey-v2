@@ -55,7 +55,7 @@
             <div v-if="payment.length != 0" class="flex justify-end">
               <span>Payment received:</span><span>{{booking.currencysymbol + booking.payment}}</span>
             </div>
-            <div v-else-if="this.$route.query.payment == 1" class="flex justify-end">
+            <div v-else-if="this.$route.query.pymnt == 'failed'" class="flex justify-end">
               <span class="italic">no payment received</span>
             </div>
           </div>

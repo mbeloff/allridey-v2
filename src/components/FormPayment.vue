@@ -134,13 +134,6 @@
       }
     },
     methods: {
-      grab() {
-        console.log('trying to grab')
-        var frame = this.$refs.wcframe;
-    var cntnt = frame.contentWindow.document;
-    var parag = cntnt.getElementsByTagName("p")[0];
-    console.log( parag );
-      },
       // setframeloaded(){
       //   this.frameLoad = true
       // },

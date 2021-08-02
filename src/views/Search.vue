@@ -2,10 +2,8 @@
   <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
     <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm opacity-20 hover:opacity-100">
       <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5, this.$router.push({name: 'Summary'})">gotosummary</button>
-      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), $store.dispatch('gotBooking', true), status = 4, this.$router.push({name: 'Payment'})">gotopayment</button>
-      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('status', 'state has been edited')">edit state</button>
-      <div class="px-2 text-white font-bold">{{this.$store.state.status}}</div>
+      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5, this.$router.push({name: 'Summary'})">summary</button>
+      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), $store.dispatch('gotBooking', true), status = 4, this.$router.push({name: 'Payment'})">payment</button>
     </div>
     <div class="bg-cover bg-center p-2" style="background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/v1/allridey/1823.jpg)">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10">
@@ -50,7 +48,7 @@
   import SearchResults from '../components/SearchResults.vue'
   import SelectedVehicle from '../components/SelectedVehicle.vue'
   import Spinner from '../components/Spinner.vue'
-  import FormPayment from '../components/FormPayment.vue'
+  import FormPayment from '../components/FormPaymentNew.vue'
   import SummaryPage from '../components/Summary.vue'
   import SubmitPayment from '../components/SubmitPayment.vue'
   import LoadingOverlay from '../components/LoadingOverlay.vue'
