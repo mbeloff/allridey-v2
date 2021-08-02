@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add vuex@next
+  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin
@@ -33,7 +33,10 @@ npm manifest:
       "v-calendar": "^3.0.0-alpha.4",
       "vue": "^3.0.5",
       "vue-router": "4",
-      "vue3-timepicker": "^1.0.0-beta.2"
+      "vue-smooth-height": "^1.6.4",
+      "vue3-timepicker": "^1.0.0-beta.2",
+      "vuex": "^4.0.2",
+      "vuex-persistedstate": "^4.0.0"
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.2.2",
@@ -455,6 +458,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.22.1.tgz#1e5af959831ebb1d82992bf67b765052d8f0efc4"
     integrity sha512-yUFPQjrxEmIsMqlHhAhmxkuH769baF21Kk+nZwZGyrMoyLA+LugaQtC0+Tqf9CBUUULWwUJt6Q5ySI3LJDDCGg==
   
+  deepmerge@^4.2.2:
+    version "4.2.2"
+    resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
+    integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
+  
   defined@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
@@ -859,6 +867,11 @@ Lockfile:
     dependencies:
       wrappy "1"
   
+  parse-css-transition@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/parse-css-transition/-/parse-css-transition-0.0.1.tgz#36abfebb1d3200c7cca91b806d40f759e7ec7735"
+    integrity sha512-B8z0GBW/tfXyKxqIjyIxousamWAWre5cwn8VPoBkP7SvIKw4EqxThi6XJPHwFhGwcNY8lnlKHnCfHO1Y6DiaMg==
+  
   parse-glob@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/parse-glob/-/parse-glob-3.0.4.tgz#b2c376cfb11f35513badd173ef0bb6e3a388391c"
@@ -1054,6 +1067,11 @@ Lockfile:
     dependencies:
       queue-microtask "^1.2.2"
   
+  shvl@^2.0.3:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
+    integrity sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw==
+  
   simple-swizzle@^0.2.2:
     version "0.2.2"
     resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
@@ -1180,6 +1198,13 @@ Lockfile:
     dependencies:
       "@vue/devtools-api" "^6.0.0-beta.10"
   
+  vue-smooth-height@^1.6.4:
+    version "1.6.4"
+    resolved "https://registry.yarnpkg.com/vue-smooth-height/-/vue-smooth-height-1.6.4.tgz#e65558e184e94eda2aea6399729bc638038176a6"
+    integrity sha512-dglm4Fmv0qus34WEZWt/GdY7ajR3A53xambNFlFblgB1O1DhOFDNvoEXcr6hkKBf5CU7AP6agzO8uhkE9QO7dA==
+    dependencies:
+      parse-css-transition "0.0.1"
+  
   vue3-timepicker@^1.0.0-beta.2:
     version "1.0.0-beta.2"
     resolved "https://registry.yarnpkg.com/vue3-timepicker/-/vue3-timepicker-1.0.0-beta.2.tgz#cd7f0addfb2c93dd1d8b8a2a07db29ebfbc2a2be"
@@ -1195,6 +1220,14 @@ Lockfile:
       "@vue/compiler-dom" "3.0.11"
       "@vue/runtime-dom" "3.0.11"
       "@vue/shared" "3.0.11"
+  
+  vuex-persistedstate@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-4.0.0.tgz#ed82f266ca98c869a2aad9cb9880c2f608c05f3a"
+    integrity sha512-jDs+awbV9YD2A2F6S5zgtYq1Bjd8v0YldOK6HPv1EJZzGMse0FtZTREfXvA7zlVfq9MpmSZJNmYQVylfpZ5znQ==
+    dependencies:
+      deepmerge "^4.2.2"
+      shvl "^2.0.3"
   
   vuex@^4.0.2:
     version "4.0.2"
