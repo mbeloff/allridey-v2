@@ -4,7 +4,7 @@ const headers = {
   // 'Access-Control-Allow-Methods': 'GET'
 };
 exports.handler = async function (event) {
-  console.log('confirm payment function event: ' + event)
+  console.log('confirm payment function event: ' + JSON.stringify(event))
   let response = JSON.stringify(event)
   return {
     statusCode: 200,
