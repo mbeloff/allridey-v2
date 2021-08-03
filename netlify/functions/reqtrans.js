@@ -17,7 +17,8 @@ exports.handler = async function (event) {
   var ref = body.resref
   var successURL = process.env.VITE_HOST + '/checkpayment?ref=' + ref
   var failURL = process.env.VITE_HOST + '/checkpayment?ref=' + ref
-  var callback = process.env.VITE_FN_HOST + '/.netlify/functions/confirm'
+  // var callback = process.env.VITE_FN_HOST + '/.netlify/functions/confirm'
+  var callback = "https://InsertValidUrlForCallback"
 
   var raw = "<GenerateRequest>\r\n<PxPayUserId>" + pxpayuser + "</PxPayUserId>\r\n<PxPayKey>" + pxpaykey + "</PxPayKey>\r\n<TxnType>Purchase</TxnType>\r\n<AmountInput>" + amount + "</AmountInput>\r\n<CurrencyInput>" + currency + "</CurrencyInput>\r\n<MerchantReference>"+ ref +"</MerchantReference>\r\n<UrlSuccess>" + successURL + "</UrlSuccess>\r\n<UrlFail>" + failURL + "</UrlFail>\r\n<UrlCallback>" + callback + "</UrlCallback>\r\n</GenerateRequest>";
 

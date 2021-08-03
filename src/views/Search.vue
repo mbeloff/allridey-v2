@@ -5,19 +5,18 @@
       <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5, this.$router.push({name: 'Summary'})">summary</button>
       <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), $store.dispatch('gotBooking', true), status = 4, this.$router.push({name: 'Payment'})">payment</button>
     </div>
-    <div class="bg-cover bg-center p-2" style="background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/v1/allridey/1823.jpg)">
-      <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10">
+    <div class="bg-cover bg-center" style="background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/v1/allridey/1823.jpg)">
+      <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
         <booking-nav v-if="status > 2" @changeStep="changeStep" :status="status"></booking-nav>
         <keep-alive>
         <form-search v-if="status < 3" @errs="showErrs" @searching="setLoading" @update-step2="status = 2"></form-search>
         </keep-alive>
       </div>
+      
     </div>
     
-      
 
-
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10">
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10 px-2">
     <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
       <loading-overlay></loading-overlay>
     </div>
@@ -42,6 +41,8 @@
 
 </template>
 <script>
+
+  // import { Tippy } from 'vue-tippy'
   import Mixins from '../Mixins'
   import FormSearch from '../components/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
@@ -62,7 +63,7 @@
       FormPayment,
       SummaryPage,
       SubmitPayment,
-      LoadingOverlay
+      LoadingOverlay,
     },
     props: {
       payment: {},
@@ -84,13 +85,6 @@
     },
     
     watch: { 
-      // 'step2': {
-      //   handler: function() {
-      //     setTimeout(()=>{
-      //       this.setLoading(false)
-      //     }, 500)                  
-      //   }
-      // },
       'status': {
       handler: function(status) {
         if(status == 5) {
@@ -119,9 +113,6 @@
               this.status = 3
              }
            } else if (name == 'Payment') {
-            //  if (!this.bookinginfo.bookinginfo) {
-            //    this.$router.push({name: 'Vehicle'})
-            //  }
              this.status = 4
            } else if (name == 'Summary') {
                this.status = 5                         

@@ -6,14 +6,15 @@
           <img src="../assets/allridey_text_outline.svg" alt="" class="flex-grow w-32 md:w-48">
         </router-link>        
         <div class="hidden md:flex h-full items-center">
-          <router-link :to="{ name: 'Search'}" class="hover:bg-gray-200 px-5 py-1">Bookings</router-link>
-          <nav-item :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
+          <router-link :to="{ name: 'Search'}" class="menu-item">Bookings</router-link>
+          <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
         </div>
         
       </div>
       
     <div class="hidden md:flex h-full place-items-center">
       <a href="tel:1800246869" class="font-bold text-blue-600">1800 24 68 69</a>
+      
     </div>
     <div class="md:hidden flex h-full place-items-center text-blue-800" @click="expand = !expand">
       <i class="fas fa-bars fa-2x fa-fw" v-if="!expand"></i>
@@ -24,7 +25,8 @@
       <div v-if="expand" class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full">
       <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-3">Bookings</router-link>
       <router-link :to="{ name: 'Locations' }" class="hover:bg-gray-200 px-5 py-3">Locations</router-link>
-      <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69</a>
+      <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>
+      
     </div>
     </transition>
     
@@ -78,7 +80,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
+.menu-item {
+  @apply font-bold relative px-5 py-1 text-blue-900
+}
+
+.menu-item:hover {
+  @apply bg-gray-200
+}
+
 .slide-enter-active,
 .slide-leave-active {
   transition: transform 0.5s ease, opacity 0.35s ease;

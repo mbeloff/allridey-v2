@@ -21,10 +21,12 @@
 </script>
 
 <style lang="postcss">
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+  /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap'); */
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
   #app {
-    font-family: 'open Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -58,7 +60,11 @@
     }
 
     .my-label {
-      @apply text-blue-800 font-bold text-xs mb-0.5 pl-8
+      @apply text-blue-800 font-bold text-xs mb-0.5 
+    }
+
+    .my-label.has-icon {
+      @apply pl-8
     }
 
     .group:hover .my-label {
@@ -70,7 +76,7 @@
     }
 
     .my-input {
-      @apply h-8 border flex-1 pl-1 bg-gray-200 rounded
+      @apply border flex-1 pl-2 bg-gray-200 rounded py-3
     }
   }
 </style>
