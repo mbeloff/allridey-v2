@@ -10,43 +10,46 @@
       <!-- Vehicle Details -->
       <div class="flex flex-col md:flex-row flex-1">
         <div class="flex flex-col flex-1 p-1">
-          <div class="flex flex-col gap-1 mb-1">
-            <p class="" v-if="data.vehicledescription1"><i class="far fa-cogs mr-2"></i>{{data.vehicledescription1}}</p>
-            <p class="" v-if="data.vehicledescription2"><i class="far fa-bed mr-2"></i>{{data.vehicledescription2}}</p>
+          <div class="flex flex-col gap-1 mb-1 flex-grow p-2">
+            <p class="text-sm" v-if="data.vehicledescription1"><i class="fal fa-cogs mr-2 text-blue-800"></i>{{data.vehicledescription1}}</p>
+            <p class="text-sm" v-if="data.vehicledescription2"><i class="fal fa-bed mr-2 text-blue-800"></i>{{data.vehicledescription2}}</p>
           </div>
 
           <!-- v-if location and vehicle avaialble -->
-          <div class="text-xs gap-1 flex flex-col">
-
-
-
+          <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
             <p v-for="(fee, i) in getFeeOfType('Daily')" :key="i" class="">
               <i class='fas fa-plus-circle '></i>
-              {{currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0) + ' FOR ' + fee["name"] + " @ " + currencysymbol + parseFloat(fee["fees"]).toFixed(0) + " per day"}}
+              {{currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"] + " @ " + currencysymbol + parseFloat(fee["fees"]).toFixed(0) + " per day"}}
             </p>
             <p v-for="(fee, i) in getFeeOfType('Fixed')" :key="i" class="">
               <i class='fas fa-plus-circle '></i>
-              {{ currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0) + ' FOR ' + fee["name"]}}
+              {{ currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"]}}
             </p>
             <p v-for="(fee, i) in getFeeOfType('Percentage')" :key="i" class="">
               <i class='fas fa-plus-circle '></i>
-              {{ currencysymbol + parseFloat(fee["totalfeeamount"]).toFixed(0) + ' FOR ' + fee["name"]}}
+              {{ currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"]}}
             </p>
           </div>
         </div>
         <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1 md:p-2">
           <div class="flex md:flex-col justify-between">
-            <div class="text-blue-900 font-bold opacity-70">
-            <p class='text-xs'>{{"daily rate:"}}</p>
-            <p class="mb-3 text-lg ">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
+            <div class="text-blue-900 opacity-70">
+              <p class='text-xs'>daily rate:</p>
+              <p class="mb-3 text-lg font-bold -mt-1">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
+            </div>
+            <div class="relative cursory-pointer text-blue-900">
+              <tippy >
+                <p class="text-xs" >initial estimate: <i class="fal fa-question-circle fa-fw"></i></p>
+                <template #content>
+                  <div class="text-xs">
+                    <p>Included in Estimate: <br> daily rental / accomodation fees, <br> one-way or remote location fees, <br> other mandatory fees</p>
+                    <p>Not Included: <br> Damage cover, optional extras</p>
+                  </div>                   
+                </template>
+              </tippy>
+              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
+            </div>
           </div>
-          <div class="text-blue-900 font-bold">
-            <p class="text-xs">initial estimate:</p>
-            <p class="text-blue-900 font-bold text-lg">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
-          </div>
-          </div>
-          
-
           <button class="btn btn-secondary bg-gray-200 w-full" @click="getStep3()">Book Now</button>
         </div>
       </div>
@@ -60,13 +63,14 @@
   import Mixins from '../Mixins'
   export default {
     data() {
-      return {}
+      return {
+        showTip: false
+      }
     },
     props: {
       data: Object,
       manfees: Object,
       allData: Object,
-      // searchParams: Object
     },
     computed: {
       total() {

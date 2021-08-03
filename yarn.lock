@@ -48,7 +48,7 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@popperjs/core@^2.9.2":
+"@popperjs/core@^2.8.3", "@popperjs/core@^2.9.2":
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
   integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
@@ -1097,6 +1097,13 @@ tailwindcss@^2.1.2:
     reduce-css-calc "^2.1.8"
     resolve "^1.20.0"
 
+tippy.js@^6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.1.tgz#3788a007be7015eee0fd589a66b98fb3f8f10181"
+  integrity sha512-JnFncCq+rF1dTURupoJ4yPie5Cof978inW6/4S6kmWV7LL9YOSEVMifED3KdrVPEG+Z/TFH2CDNJcQEfaeuQww==
+  dependencies:
+    "@popperjs/core" "^2.8.3"
+
 to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
@@ -1155,6 +1162,13 @@ vue-smooth-height@^1.6.4:
   integrity sha512-dglm4Fmv0qus34WEZWt/GdY7ajR3A53xambNFlFblgB1O1DhOFDNvoEXcr6hkKBf5CU7AP6agzO8uhkE9QO7dA==
   dependencies:
     parse-css-transition "0.0.1"
+
+vue-tippy@^6.0.0-alpha.30:
+  version "6.0.0-alpha.30"
+  resolved "https://registry.yarnpkg.com/vue-tippy/-/vue-tippy-6.0.0-alpha.30.tgz#9816509f289bdae7ae90dc01a4c2f983a46908ff"
+  integrity sha512-Rzn+6mDB24e79z70ui6qlwSnB8wYlUsAyHbV2gRX1bmE7jlR0p3l8QCwpKDErxJtnP3ZqMBRJe8vZaQ0lWV/tQ==
+  dependencies:
+    tippy.js "^6.3.1"
 
 vue3-timepicker@^1.0.0-beta.2:
   version "1.0.0-beta.2"

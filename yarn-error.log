@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add vue-tippy
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin
@@ -36,7 +36,8 @@ npm manifest:
       "vue-smooth-height": "^1.6.4",
       "vue3-timepicker": "^1.0.0-beta.2",
       "vuex": "^4.0.2",
-      "vuex-persistedstate": "^4.0.0"
+      "vuex-persistedstate": "^4.0.0",
+      "xml-js": "^1.6.11"
     },
     "devDependencies": {
       "@vitejs/plugin-vue": "^1.2.2",
@@ -646,6 +647,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.1.0.tgz#7b5e6f7e665e9fb41f30007ed9e0d41e97fb2140"
     integrity sha512-1qYz89hW3lFDEazhjW0yVAV87lw8lVkrJocr72XmBkMKsoSVJCQx3W8BXsC7hO2qAt8BoVjYjtAcZ9perqGnNg==
   
+  humps@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+    integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
+  
   icss-replace-symbols@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -897,6 +903,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
     integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
   
+  popper.js@^1.14.7:
+    version "1.16.1"
+    resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
+    integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
+  
   postcss-functions@^3:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/postcss-functions/-/postcss-functions-3.0.0.tgz#0e94d01444700a481de20de4d55fb2640564250e"
@@ -1067,6 +1078,11 @@ Lockfile:
     dependencies:
       queue-microtask "^1.2.2"
   
+  sax@^1.2.4:
+    version "1.2.4"
+    resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+    integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+  
   shvl@^2.0.3:
     version "2.0.3"
     resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
@@ -1146,6 +1162,13 @@ Lockfile:
       reduce-css-calc "^2.1.8"
       resolve "^1.20.0"
   
+  tippy.js@^4.3.5:
+    version "4.3.5"
+    resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-4.3.5.tgz#882bff8d92f09bb0546d2826d5668c0560006f54"
+    integrity sha512-NDq3efte8nGK6BOJ1dDN1/WelAwfmh3UtIYXXck6+SxLzbIQNZE/cmRSnwScZ/FyiKdIcvFHvYUgqmoGx8CcyA==
+    dependencies:
+      popper.js "^1.14.7"
+  
   to-fast-properties@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
@@ -1205,6 +1228,14 @@ Lockfile:
     dependencies:
       parse-css-transition "0.0.1"
   
+  vue-tippy@v4:
+    version "4.10.2"
+    resolved "https://registry.yarnpkg.com/vue-tippy/-/vue-tippy-4.10.2.tgz#d87846141b84699753fd3ac6a537f205bab12997"
+    integrity sha512-o1E4Q7gJHrL5VKpPF10Mdp9Grrqi9JGUBrkOQQUmTrklxctYvjpsSxePZVM0mgfGfRFAboOClw33X1ueB4Byjw==
+    dependencies:
+      humps "^2.0.1"
+      tippy.js "^4.3.5"
+  
   vue3-timepicker@^1.0.0-beta.2:
     version "1.0.0-beta.2"
     resolved "https://registry.yarnpkg.com/vue3-timepicker/-/vue3-timepicker-1.0.0-beta.2.tgz#cd7f0addfb2c93dd1d8b8a2a07db29ebfbc2a2be"
@@ -1240,6 +1271,13 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
     integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+  
+  xml-js@^1.6.11:
+    version "1.6.11"
+    resolved "https://registry.yarnpkg.com/xml-js/-/xml-js-1.6.11.tgz#927d2f6947f7f1c19a316dd8eea3614e8b18f8e9"
+    integrity sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==
+    dependencies:
+      sax "^1.2.4"
   
   xtend@^4.0.2:
     version "4.0.2"
