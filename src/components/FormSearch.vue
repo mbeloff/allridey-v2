@@ -7,19 +7,19 @@
         <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
           <div class="flex flex-col  gap-2">
             <div class="flex flex-col flex-grow group">
-              <label class="my-label">Pickup Location</label>
+              <label ofr="puloc" class="my-label has-icon">Pickup Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
+                <select name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
                   <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
               </div>
             </div>
             <div class="flex flex-col flex-grow group">
-              <label class="my-label">Dropoff Location</label>
+              <label for="doloc" class="my-label has-icon">Dropoff Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
+                <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
                   <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
               </div>
@@ -31,18 +31,18 @@
               <template v-slot="{ inputValue, inputEvents, isDragging }">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
-                    <label for="" class="my-label">Pickup Date</label>
+                    <label for="pudate" class="my-label has-icon">Pickup Date</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-calendar fa-fw"></i>
-                      <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
+                      <input name="pudate" id='pudate' class="my-input pl-3" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.start" v-on="inputEvents.start" />
                     </div>
                   </div>
 
                   <div class="flex flex-col flex-1 group">
-                    <label class="my-label" for="">Pickup Time</label>
+                    <label class="my-label has-icon" for="putime">Pickup Time</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-clock fa-fw"></i>
-                      <select name="" id="" class="my-input" v-model="formData.pickuptime">
+                      <select name="putime" id="putime" class="my-input" v-model="formData.pickuptime">
                         <!-- use putimearray to update times on date change -->
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">
                           {{to12hr(time)}}
@@ -55,18 +55,18 @@
 
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
-                    <label for="" class="my-label">Dropoff Date</label>
+                    <label for="dodate" class="my-label has-icon">Dropoff Date</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-calendar fa-fw"></i>
-                      <input class="my-input pl-1" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
+                      <input name="dodate" id="dodate" class="my-input pl-3" :class="isDragging ? 'text-gray-600' : 'text-gray-900'" :value="inputValue.end" v-on="inputEvents.end" />
                     </div>
                   </div>
 
                   <div class="flex flex-col flex-1 group">
-                    <label class="my-label" for="">Dropoff Time</label>
+                    <label class="my-label has-icon" for="dotime">Dropoff Time</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-clock fa-fw"></i>
-                      <select name="" id="" class="my-input" v-model="formData.dropofftime">
+                      <select name="dotime" id="dotime" class="my-input" v-model="formData.dropofftime">
                         <!-- dotimearray -->
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}}</option>
                         <!-- <option v-if="domaxtime == '00:00'" value="" disabled>Closed</option> -->
