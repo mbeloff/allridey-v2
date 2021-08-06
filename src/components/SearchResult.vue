@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col md:flex-row mt-2 border shadow-lg">
-    <div class="flex w-full md:w-1/3 min-h-24 bg-white">
-      <img class="object-contain object-center mx-auto" :src="data.imageurl" alt="">
+  <div class="flex flex-col md:flex-row mt-2 rounded bg-white border border-gray-300 shadow-lg">
+    <div class="flex w-full md:w-1/3 min-h-24 rounded">
+      <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
     </div>
 
-    <div class="flex flex-col flex-1 bg-white">
+    <div class="flex flex-col flex-1">
       <!-- Vehicle Title -->
-      <p class="text-blue-800 text-lg font-bold border-b py-1 mb-1 mx-2" v-html="data.categoryfriendlydescription"></p>
+      <p class="text-blue-800 text-xl font-bold py-1 mb-1 mx-2" v-html="data.categoryfriendlydescription"></p>
       <!-- Vehicle Details -->
       <div class="flex flex-col md:flex-row flex-1">
         <div class="flex flex-col flex-1 p-1">
@@ -37,18 +37,22 @@
               <p class='text-xs'>daily rate:</p>
               <p class="mb-3 text-lg font-bold -mt-1">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
             </div>
-            <div class="relative cursory-pointer text-blue-900">
-              <tippy >
+            <tippy >
+            <div class="relative cursor-default text-blue-900">
+              
                 <p class="text-xs" >initial estimate: <i class="fal fa-question-circle fa-fw"></i></p>
-                <template #content>
+                
+              
+              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
+            </div>
+            <template #content>
                   <div class="text-xs">
-                    <p>Included in Estimate: <br> daily rental / accomodation fees, <br> one-way or remote location fees, <br> other mandatory fees</p>
+                    <p>Estimate Includes: <br> daily rental / accomodation fees, <br> one-way or remote location fees, <br> other mandatory fees</p>
+                    <br>
                     <p>Not Included: <br> Damage cover, optional extras</p>
                   </div>                   
                 </template>
-              </tippy>
-              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
-            </div>
+            </tippy>
           </div>
           <button class="btn btn-secondary bg-gray-200 w-full" @click="getStep3()">Book Now</button>
         </div>

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="bg-white p-2 rounded shadow-xl py-8 w-full relative">
+    <div class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative">
       <loading-overlay v-if="loading"></loading-overlay>
-      <p class="font-bold text-xl mb-4 text-left text-yellow-500">FIND A VEHICLE</p>
+      <p class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400">FIND A VEHICLE</p>
       <div class="text-left ">
         <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
           <div class="flex flex-col  gap-2">
             <div class="flex flex-col flex-grow group">
-              <label ofr="puloc" class="my-label has-icon">Pickup Location</label>
+              <label for="puloc" class="my-label has-icon">Pickup Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
@@ -88,8 +88,8 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import LoadingOverlay from '../components/LoadingOverlay.vue'
+  import Mixins from '../../Mixins'
+  import LoadingOverlay from '../LoadingOverlay.vue'
   export default {
     components: {
       LoadingOverlay
@@ -99,7 +99,7 @@
         searchParams: "",
         count: 1,
         alltimes: [
-          '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
+           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
         ],
         // searchResults: undefined,
         selectedpulocation: {},
@@ -143,7 +143,7 @@
       },
       step2() {
         return this.$store.state.step2
-      }
+      },
     },
     mounted() {
       if (!this.isEmpty(this.$store.state.step1)) {

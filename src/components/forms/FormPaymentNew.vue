@@ -1,7 +1,9 @@
 <template>
   <div class="w-full h-full p-1">
     <div class="mx-auto flex flex-col gap-3 flex-1 bg-white rounded shadow-xl py-2 relative" style="max-width: 400px">
-      <loading-overlay v-if="loading"></loading-overlay>
+      <loading-overlay v-if="loading">
+        ...loading
+      </loading-overlay>
       <p class="font-bold text-center">Payment</p>
       <div v-if="paymentResponse.Success._text == 0">
         <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
@@ -20,8 +22,8 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import LoadingOverlay from './LoadingOverlay.vue'
+  import Mixins from '../../Mixins'
+  import LoadingOverlay from '../LoadingOverlay.vue'
   export default {
     components: {
       LoadingOverlay
@@ -42,6 +44,7 @@
         query: "",
         resref: "",
         resno: "",
+        confirmedPayment: {},
         customerid: "",
         paymentResponse: {
           "_attributes": {
@@ -148,9 +151,6 @@
     mixins: [Mixins],
     computed: {},
     watch: {
-      'payurl': function () {
-        this.loading = false
-      },
       'paymentResponse': 'handlePayment',
       'confirmedPayment': function () {
         this.$router.push({
@@ -257,6 +257,7 @@
             .then(result => {
               let res = JSON.parse(result).Request.URI._text
               this.payurl = res
+              this.loading = false
             })
             .catch(error => {
               console.log('request transaction failed: ', error)

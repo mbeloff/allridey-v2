@@ -122,9 +122,9 @@
           <p class="font-bold mb-4 text-xl">Extras:</p>
           <div class="flex" v-for="extra in optionalfees">
             <div v-if="extra.sel && extra.qtyapply" class="flex flex-col justify-around items-center w-8">
-              <i @click="incQty(extra)" class="far fa-plus py-1"></i>
+              <i @click="incQty(extra)" class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
               <input type="text" disabled v-model="extra.qty" class="w-6 text-center">
-              <i @click="decQty(extra)" class="far fa-minus py-1"></i>
+              <i @click="decQty(extra)" class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
             </div>
             <div class="flex flex-col flex-grow p-1 border border-opacity-0 rounded" :class="{'selected': extra.sel == true}">
               <input type="checkbox" class="mr-1 hidden" v-model="extra.sel" :id="'extra' + extra.id">

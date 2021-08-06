@@ -1,20 +1,20 @@
 <template>
   <div class="bg-white rounded opacity-90 shadow-xl w-full grid grid-flow-row sm:grid-flow-col sm:divide-x divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm">
-    <button @click="changeStep(1), this.$router.push({name: 'Search'})" class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStyle(1, this.status), btnDisable(1, this.status)">
+    <p class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStyle(1, this.status), btnDisable(1, this.status)">
       <i class="" :class="iStatus(1, this.status)"></i> Search
-    </button>
-    <button @click="changeStep(2), this.$router.push({name: 'Results'})" class="py-1.5 sm:py-6" :class="btnStyle(2, this.status), btnDisable(2, this.status)">
+    </p>
+    <p class="py-1.5 sm:py-6" :class="btnStyle(2, this.status), btnDisable(2, this.status)">
       <i class="" :class="iStatus(2, this.status)"></i> Select
-    </button>
-    <button @click="changeStep(3), this.$router.push({name: 'Vehicle'})" class="py-1.5 sm:py-6" :class="btnStyle(3, this.status), btnDisable(3, this.status)">
+    </p>
+    <p class="py-1.5 sm:py-6" :class="btnStyle(3, this.status), btnDisable(3, this.status)">
       <i class="" :class="iStatus(3, this.status)"></i> Extras
-    </button>
-    <button @click="changeStep(4), this.$router.push({name: 'Payment'})" class="py-1.5 sm:py-6" :class="btnStyle(4, this.status), btnDisable(4, this.status)">
+    </p>
+    <p class="py-1.5 sm:py-6" :class="btnStyle(4, this.status), btnDisable(4, this.status)">
       <i class="" :class="iStatus(4, this.status)"></i> Pay
-    </button>
-    <button @click="changeStep(5), this.$router.push({name: 'Summary'})" class="py-1.5 sm:py-6 sm:rounded-r" :class="btnStyle(5, this.status), btnDisable(5, this.status)">
+    </p>
+    <p class="py-1.5 sm:py-6 sm:rounded-r" :class="btnStyle(5, this.status), btnDisable(5, this.status)">
       <i class="" :class="iStatus(5, this.status)"></i> Summary
-    </button>
+    </p>
   </div>
 </template>
 
@@ -44,8 +44,7 @@ export default {
         return "active"
       } else if (step < status) {
         return 'completed'
-      }
-       else {
+      } else {
         return 'bg-gray-200 disabled'
       }
     },
@@ -68,11 +67,11 @@ export default {
   pointer-events: none
 }
 @layer components {
-    .completed {
-      @apply bg-gray-200
-    }
-    .active {
-      @apply bg-white
-    }
+  .completed {
+    @apply bg-gray-200
+  }
+  .active {
+    @apply bg-white
+  }
 }
 </style>
