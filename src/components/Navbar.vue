@@ -7,7 +7,7 @@
         </router-link>        
         <div class="hidden md:flex h-full items-center">
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
-          <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="sorted" :itemlabel="'location'"></nav-item>
+          <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item>
         </div>
         
       </div>
@@ -39,25 +39,19 @@ export default {
   },
   data() {
     return {
-      locations: [],
+      // locations: [],
       expand: false,
     }
   },
   computed: {
-    sorted() {
-      return this.locations.sort(function( a, b ) {
-      if ( a.location < b.location ){
-        return -1;
-      }
-      if ( a.location > b.location ){
-        return 1;
-      }
-      return 0;
-    })
-    },
+    locations() {
+      return this.$store.state.locations
+    }
   },
   mounted() {
-    this.getLocations()
+    if (!this.$store.state.locations.length) {
+      this.getLocations()
+    }
   },
   watch: {
     $route(to, from){
@@ -68,11 +62,22 @@ export default {
   methods: {
   },
   methods: {
+    sort(list) {
+    return list.sort(function( a, b ) {
+      if ( a.location < b.location ){
+        return -1;
+      }
+      if ( a.location > b.location ){
+        return 1;
+      }
+      return 0;
+    })
+    },
     getLocations() {        
       var params = JSON.stringify({
         'method':'locationdetails'
       })
-      Mixins.methods.apiCall(params).then(res=> this.locations = res)
+      Mixins.methods.apiCall(params).then(res=> this.$store.dispatch('locations', this.sort(res)))
     },
   }
 }

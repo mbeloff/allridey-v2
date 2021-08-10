@@ -11,6 +11,7 @@ export default createStore({
     step1: {},
     step2: {},
     step3: {},
+    locations: [],
     searchParams: {},
     bookingparams: {},
     bookinginfo: {
@@ -30,6 +31,9 @@ export default createStore({
     hasSession: false,
   },
   mutations: {
+    locations(state, payload) {
+      state.locations = payload
+    },
     session(state, payload) {
       state.hasSession = payload
     },
@@ -61,6 +65,9 @@ export default createStore({
   actions: {
     session(context, payload) {
       context.commit('session', payload)
+    },
+    locations(context, payload) {
+      context.commit('locations', payload)
     },
     searchParams(context, payload) {
       context.commit('searchParams', payload)
