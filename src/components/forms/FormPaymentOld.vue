@@ -1,3 +1,4 @@
+// ? Original payment component with old vault entry code. does not utilise direct windcave api calls
 <template>
   <div class="w-full h-full p-1">
     <div class="mx-auto flex flex-col gap-3 flex-1 bg-white rounded shadow-xl py-2 relative" style="max-width: 400px">
