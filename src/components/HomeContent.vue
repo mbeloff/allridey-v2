@@ -17,7 +17,7 @@
     <div class="bg-white rounded shadow-lg">
        <div class="h-48 rounded-t bg-cover bg-bottom relative" :style="{'background-image' : 'url(' + article.img + ')'}">
          <div class="absolute bg-gradient-to-r h-full w-full rounded-t" :class="'from-' + article.color + '-400'">
-           <img v-if="article.overlayimg" class="h-full object-scale-down object-bottom" src="https://res.cloudinary.com/dg5ybbkbh/image/upload/v1582172582/allridey/header2.png" alt="">
+           <img v-if="article.overlayimg" class="h-full object-scale-down object-bottom" :src="article.overlayimg" alt="">
          </div>
       </div>
     <div class="rounded-b flex flex-wrap p-2 gap-2">
@@ -50,7 +50,7 @@
           cols: "1",
           linksto: "Fleet",
           color: 'yellow',
-          overlayimg: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/v1582172582/allridey/header2.png'
+          overlayimg: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/c_scale,w_500/v1582172582/allridey/header2.png'
           },
           {
             title: "Sample3",
