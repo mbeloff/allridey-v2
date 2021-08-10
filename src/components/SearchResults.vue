@@ -53,7 +53,7 @@
     computed: {
       filteredVehicles() {
         const sorters = {
-          // default doesn't do anything
+          // default returns original order from rcm
           default: () => {},
           pricelow: (a,b) => this.calcEstimate(a) - this.calcEstimate(b),
           pricehigh: (a,b) => this.calcEstimate(b) - this.calcEstimate(a),

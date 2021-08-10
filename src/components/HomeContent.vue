@@ -9,7 +9,7 @@
         <i class="fas fa-star text-yellow-400"></i>
         <i class="fas fa-star text-yellow-400"></i>
       </span>
-      <p class="text-xl mt-4 mb-4">Car and camper rentals with 12 locations across Australia and New Zealand</p>      
+      <p class="text-xl mt-4 mb-4">Car and camper rentals with 17 locations across Australia and New Zealand</p>      
     </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">

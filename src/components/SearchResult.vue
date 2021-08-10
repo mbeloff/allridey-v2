@@ -3,7 +3,6 @@
     <div class="flex w-full md:w-1/3 min-h-24 rounded">
       <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
     </div>
-
     <div class="flex flex-col flex-1">
       <!-- Vehicle Title -->
       <p class="text-blue-800 text-xl font-bold py-1 mb-1 mx-2" v-html="data.categoryfriendlydescription"></p>
@@ -14,7 +13,6 @@
             <p class="text-sm" v-if="data.vehicledescription1"><i class="fal fa-cogs mr-2 text-blue-800"></i>{{data.vehicledescription1}}</p>
             <p class="text-sm" v-if="data.vehicledescription2"><i class="fal fa-bed mr-2 text-blue-800"></i>{{data.vehicledescription2}}</p>
           </div>
-
           <!-- v-if location and vehicle avaialble -->
           <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
             <p v-for="(fee, i) in getFeeOfType('Daily')" :key="i" class="">
@@ -36,30 +34,25 @@
             <div class="text-blue-900 opacity-70">
               <p class='text-xs'>daily rate:</p>
               <p class="mb-3 text-lg font-bold -mt-1">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
-            </div>
-            <tippy >
+            </div>            
             <div class="relative cursor-default text-blue-900">
-              
+              <tippy >
                 <p class="text-xs" >initial estimate: <i class="fal fa-question-circle fa-fw"></i></p>
-                
-              
-              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
-            </div>
-            <template #content>
+                <template #content>
                   <div class="text-xs">
                     <p>Estimate Includes: <br> daily rental / accomodation fees, <br> one-way or remote location fees, <br> other mandatory fees</p>
                     <br>
                     <p>Not Included: <br> Damage cover, optional extras</p>
                   </div>                   
                 </template>
-            </tippy>
+              </tippy>              
+              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
+            </div>            
           </div>
           <button class="btn btn-secondary bg-gray-200 w-full" @click="getStep3()">Book Now</button>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
