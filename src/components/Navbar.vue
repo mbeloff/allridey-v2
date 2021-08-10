@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     sorted() {
-      return JSON.parse(JSON.stringify(this.locations)).sort(function( a, b ) {
+      return this.locations.sort(function( a, b ) {
       if ( a.location < b.location ){
         return -1;
       }
