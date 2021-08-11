@@ -20,7 +20,7 @@
         <template v-slot="{ inputValue, inputEvents }">
           <label for="" class="my-label">License Expiry</label>
           <div class="flex flex-row place-items-center">
-            <i class="mr-2 fal fa-calendar fa-fw"></i>
+            <i class="mr-2 form-i fal fa-calendar fa-fw"></i>
             <input class="my-input" :value="inputValue" v-on="inputEvents" />
           </div>
         </template>

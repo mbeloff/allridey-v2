@@ -9,7 +9,7 @@
         <i class="fas fa-star text-yellow-400"></i>
         <i class="fas fa-star text-yellow-400"></i>
       </span>
-      <p class="text-xl mt-4 mb-4">Car and camper rentals with 17 locations across Australia and New Zealand</p>      
+      <p class="text-xl mt-4 mb-4">Car and camper rentals with {{locationcount}} locations across Australia and New Zealand</p>      
     </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">
@@ -17,13 +17,14 @@
     <div class="bg-white rounded shadow-lg">
        <div class="h-48 rounded-t bg-cover bg-bottom relative" :style="{'background-image' : 'url(' + article.img + ')'}">
          <div class="absolute bg-gradient-to-r h-full w-full rounded-t" :class="'from-' + article.color + '-400'">
+           <p v-html="article.overlaytext" class="pl-2 pt-2 text-4xl md:text-6xl font-bold italic text-white" v-if="article.overlaytext"></p>
            <img v-if="article.overlayimg" class="h-full object-scale-down object-bottom" :src="article.overlayimg" alt="">
          </div>
       </div>
-    <div class="rounded-b flex flex-wrap p-2 gap-2">
+    <div class="rounded-b p-2 flex flex-col gap-2">
       <p class="font-bold">{{article.title}}</p>
       <p class="text-sm">{{article.content}}</p>
-      <button class="btn btn-secondary flex-initial">Learn More</button>
+      <a class="text-sm text-blue-800 cursor-pointer group">Learn More <i class="far fa-chevron-right transition ease-out duration-500 transform group-hover:translate-x-1"></i></a>
     </div>
     </div>   
   </div>
@@ -32,20 +33,26 @@
 
 <script>
   export default {
+    computed: {
+      locationcount() {
+        return this.$store.state.locations.length
+      }
+    },
     data() {
-      return {
+      return {       
         articles: [
           {
-            title: "Sample",
-          content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quis a officiis omnis eos reiciendis quo est doloremque, culpa eius quod, ut non quibusdam.",
+            title: "Car rental. Simplified",
+          content: "Get an instant quote and quickly book online in locations right across Australia and New Zealand.",
           img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1628040145/allridey/ajddSjc.jpg",
           cols: "3",
           linksto: "Deals",
+          overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
           color: 'blue'
           },
           {
-            title: "Sample2",
-          content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, veniam saepe! Impedit, perferendis laboriosam!",
+            title: "Our fleet",
+          content: "We have a range of budget small and mid-size cars, as well as campervans so you can plan your dream roadtrip and save money on accomodation along the way.",
           img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627347849/allridey/jbkad.jpg",
           cols: "1",
           linksto: "Fleet",

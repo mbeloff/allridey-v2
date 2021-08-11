@@ -71,7 +71,7 @@
       @apply text-yellow-500
     }
 
-    .group:hover i {
+    .group:hover .form-i {
       @apply text-yellow-500
     }
 

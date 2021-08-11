@@ -15,7 +15,7 @@
       </div>
       <div class="text-left pl-2">
         <a @click="this.$router.push(
-          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'}})" class="text-red-500 text-sm italic">cancel & save as quote?</a>
+          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'}})" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a>
       </div>
     </div>
   </div>
@@ -162,12 +162,13 @@
       }
     },
     computed: {
-      resinfo() {
-        return this.$store.state.resinfo
-      },
-      bookinginfo() {
-        return this.$store.state.bookinginfo
-      }
+      // ? test payment flow before removing
+      // resinfo() {
+      //   return this.$store.state.resinfo
+      // },
+      // bookinginfo() {
+      //   return this.$store.state.bookinginfo
+      // }
     },
     methods: {
       handlePayment() {
