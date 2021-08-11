@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import Spinner from './Spinner.vue'
+  import Mixins from '../../Mixins'
+  import Spinner from '../Spinner.vue'
   export default {
     components: {Spinner},
     data() {
