@@ -141,9 +141,9 @@
       step1() {
         return this.$store.state.step1
       },
-      step2() {
-        return this.$store.state.step2
-      },
+      // step2() {
+      //   return this.$store.state.step2
+      // },
     },
     mounted() {
       if (!this.isEmpty(this.$store.state.step1)) {
