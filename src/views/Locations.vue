@@ -40,22 +40,25 @@
     components: {Spinner},
     data() {
       return {
-        loading: true,
-        // locations: []
+        // loading: true,
       }
     },
     computed: {
       locations() {
         return this.$store.state.locations
+      },
+      loading() {
+        if (this.locations.length) {
+          return false
+        } else {
+          return true
+        }
       }
-    },
-    mounted() {
-      // this.getLocations()
     },
     watch: {
-      'locations': function() {
-        this.loading = false
-      }
+      'locationcount': function() {
+          this.loading = false
+      },
     },
     mixins: [Mixins],
     methods: {},

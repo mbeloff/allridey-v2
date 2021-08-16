@@ -129,7 +129,6 @@
         this.parameters.insuranceid = this.calcTotals.insuranceid
         this.parameters.extrakmsid = this.calcTotals.extrakmsid
         this.parameters.optionalfees = this.calcTotals.optionalfees
-
         // this.parameters = updated
       }
     },
@@ -161,7 +160,7 @@
 .fade-fast-enter-active, .fade-fast-leave-active {
     transition: opacity .5s;
 }
-.fade-fast-enter, .fade-fast-leave-to {
+.fade-fast-enter-from, .fade-fast-leave-to {
     opacity: 0;
 }
 </style>
