@@ -40,7 +40,7 @@
                 <p class="text-xs" >initial estimate: <i class="fal fa-question-circle fa-fw"></i></p>
                 <template #content>
                   <div class="text-xs">
-                    <p>Estimate Includes: <br> daily rental / accomodation fees, <br> one-way or remote location fees, <br> other mandatory fees</p>
+                    <p>Estimate Includes: <br> daily rental rate, <br> one-way or remote location fees, <br> other mandatory fees</p>
                     <br>
                     <p>Not Included: <br> Damage cover, optional extras</p>
                   </div>                   
