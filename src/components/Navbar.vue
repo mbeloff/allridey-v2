@@ -43,8 +43,9 @@ export default {
     }
   },
   computed: {
+    // * exclude unavailable locations
     locations() {
-      return this.$store.state.locations
+      return [...this.$store.state.locations].filter(el => el.ispickupavailable || el.isdropoffavailable)
     }
   },
   mounted() {

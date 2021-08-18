@@ -10,8 +10,8 @@
               <label for="puloc" class="my-label has-icon">Pickup Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
-                  <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
+                  <option v-for="(loc, i) in step1.locations" :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
               </div>
             </div>
@@ -20,7 +20,7 @@
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
-                  <option v-for="(loc, i) in step1.locations " :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                  <option v-for="(loc, i) in step1.locations" :key="loc.id" :value="loc.id">{{loc.location}}</option>
                 </select>
               </div>
             </div>
@@ -44,10 +44,10 @@
                       <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="putime" id="putime" class="my-input" v-model="formData.pickuptime">
                         <!-- use putimearray to update times on date change -->
-                        <option v-for="(time, i) in alltimes" :key="i" :value="time">
+                        <option v-for="(time, i) in putimearr" :key="i" :value="time">
                           {{to12hr(time)}}
                         </option>
-                        <!-- <option v-if="pumaxtime == '00:00'" value="" disabled>Closed</option> -->
+                        <option v-if="!putimearr.length" value="10:00" disabled selected>Closed</option>
                       </select>
                     </div>
                   </div>
@@ -68,8 +68,8 @@
                       <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="dotime" id="dotime" class="my-input" v-model="formData.dropofftime">
                         <!-- dotimearray -->
-                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}}</option>
-                        <!-- <option v-if="domaxtime == '00:00'" value="" disabled>Closed</option> -->
+                        <option v-for="(time, i) in dotimearr" :key="i" :value="time">{{to12hr(time)}}</option>
+                        <option v-if="!dotimearr.length" value="10:00" disabled selected>Closed</option>
                       </select>
                     </div>
                   </div>
@@ -96,42 +96,42 @@
     },
     data() {
       return {
-        searchParams: "",
         count: 1,
         alltimes: [
-           '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'
+           '08:00','08:30','09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
         ],
-        // searchResults: undefined,
-        selectedpulocation: {},
-        selecteddolocation: {},
-        daterange: this.tomorrow,
-        pumintime: "10:00",
-        pumaxtime: "16:30",
-        putimearray: [],
-        domintime: "10:00",
-        domaxtime: "16:30",
-        dotimearray: [],
-        // step1: {},
+        daterange: {},
         formData: {
           method: 'step2',
           vehiclecategorytypeid: '0',
-          pickuplocationid: 3,
-          dropofflocationid: 3,
+          pickuplocationid: undefined,
+          dropofflocationid: undefined,
           pickuptime: "10:00",
           dropofftime: "10:00",
           pickupdate: "",
           dropoffdate: "",
           ageid: 9
         },
+        pickuptime: {open:"", close:""},
+        dropofftime: {open:"", close:""}
       }
     },
     watch: {
-      "daterange.start": function () {
-        this.update()
+      "daterange": function (val) {
+        this.formData.pickupdate = val.start.toLocaleDateString('en-AU')
+        this.formData.dropoffdate = val.end.toLocaleDateString('en-AU')
       },
-      '$store.state.step1': function () {
-        this.initDates()
-        this.update()
+      "formData.pickuplocationid": function (val) {
+        this.pickuphours(val)
+      },
+      "formData.dropofflocationid": function (val) {
+        this.dropoffhours(val)
+      },
+      "formData.pickupdate": function () {
+        this.pickuphours(this.formData.pickuplocationid)
+      },
+      "formData.dropoffdate": function () {
+        this.dropoffhours(this.formData.dropofflocationid)
       }
     },
     computed: {
@@ -141,20 +141,47 @@
       step1() {
         return this.$store.state.step1
       },
-      // step2() {
-      //   return this.$store.state.step2
-      // },
+      putimearr() {
+        let all = [...this.alltimes]
+        return all.slice(all.indexOf(this.pickuptime.open), all.indexOf(this.pickuptime.close) + 1)
+      },
+      dotimearr() {
+        let all = [...this.alltimes]
+        return all.slice(all.indexOf(this.dropofftime.open), all.indexOf(this.dropofftime.close) + 1)
+      }
     },
     mounted() {
       if (!this.isEmpty(this.$store.state.step1)) {
+        this.getDefaultLocation(this.step1.locations)
         this.initDates()
-        this.update()
       } else {
         this.getStep1()
       }
     },
     mixins: [Mixins],
-    methods: {
+    methods: { 
+      pickuphours(id) {
+        let dayofweek = this.daterange.start.getDay() + 1
+        let pickuphours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
+        if (pickuphours == undefined) {
+          this.pickuptime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
+          this.pickuptime.close = this.step1.locations.find(el => el.id == id).officeclosingtime
+        } else {
+          this.pickuptime.open = pickuphours.openingtime
+          this.pickuptime.close = pickuphours.closingtime
+        }        
+      },
+      dropoffhours(id) {
+        let dayofweek = this.daterange.end.getDay() + 1
+        let dropoffhours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
+        if (dropoffhours == undefined) {
+          this.dropofftime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
+          this.dropofftime.close = this.step1.locations.find(el => el.id == id).officeclosingtime
+        } else {
+          this.dropofftime.open = dropoffhours.openingtime
+          this.dropofftime.close = dropoffhours.closingtime
+        }      
+      },
       isEmpty(obj) {
         if (Object.keys(obj).length === 0) {
           return true
@@ -171,7 +198,7 @@
         return new Date(y, m, d, hr, min)
       },
       validate() {
-        // looks for date errors before calling step2
+        // push custom error message before search
         let pudt = this.getDateTimeObject(this.formData.pickupdate, this.formData.pickuptime)
         let dodt = this.getDateTimeObject(this.formData.dropoffdate, this.formData.dropofftime)
         let errs = []
@@ -180,6 +207,12 @@
         }
         if (Date.parse(dodt) <= Date.parse(pudt)) {
           errs.push('Dropoff date/time must by after pickup date/time')
+        }
+        if (!this.putimearr.length) {
+          errs.push('There are no pickup times available for your selected dates. Please select a different Pickup Date')
+        }
+        if (!this.dotimearr.length) {
+          errs.push('There are no dropoff times available for your selected dates. Please select a different Dropoff Date')
         }
         if (errs.length > 0) {
           this.$emit('errs', errs)
@@ -197,7 +230,6 @@
         this.getDateStrings()
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
-          this.searchParams = this.formData
           let data = await Mixins.methods.apiCall(params)
           // .catch(console.log('catch triggered'))
           this.$store.dispatch('step2', data);
@@ -214,8 +246,13 @@
         })
         let data = await Mixins.methods.apiCall(step1)
         this.$store.dispatch('step1', data);
+        this.getDefaultLocation(data.locations)        
         this.initDates()
-        this.update()
+      },
+      getDefaultLocation(arr) {
+        let defaultId = arr.find(el => el.isdefault).id
+        this.formData.pickuplocationid = defaultId
+        this.formData.dropofflocationid = defaultId
       },
       getDateStrings() {
         this.formData.pickupdate = this.daterange.start.toLocaleDateString()
@@ -238,7 +275,7 @@
           start: tomorrow,
           end: week,
         }
-      },
+      },     
       to12hr(time) {
         // Check correct time format and split into components
         time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -249,84 +286,6 @@
           time[0] = +time[0] % 12 || 12; // Adjust hours
         }
         return time.join(''); // return adjusted time or original string
-      },
-      // updateputimes() {
-      //   let id = this.formData.pickuplocationid
-      //   let pudate = this.daterange.start
-      //   let start = this.pumintime
-      //   let end = this.pumaxtime
-      //   let arr = this.alltimes
-      //   if (pudate.getDay() + 1 == 1 || pudate.getDay() + 1 == 7) {
-      //     this.step1.officetimes.forEach(function (el) {
-      //       if (
-      //         el.locationid == id &&
-      //         el.dayofweek == pudate.getDay() + 1
-      //       ) {
-      //         start = el.openingtime
-      //         end = el.closingtime
-      //       }
-      //     })
-      //   } else {
-      //     start = this.selectedpulocation.officeopeningtime
-      //     end = this.selectedpulocation.officeclosingtime
-      //   }
-      //   this.pumintime = start
-      //   this.pumaxtime = end
-      //   this.putimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
-      // },
-      // updatedotimes() {
-      //   let id = this.formData.dropofflocationid
-      //   let dodate = this.daterange.end
-      //   let start = this.domintime
-      //   let end = this.domaxtime
-      //   let arr = this.alltimes
-      //   if (dodate.getDay() + 1 == 1 || dodate.getDay() + 1 == 7) {
-      //     this.step1.officetimes.forEach(function (el) {
-      //       if (
-      //         el.locationid == id &&
-      //         el.dayofweek == dodate.getDay() + 1
-      //       ) {
-      //         start = el.openingtime
-      //         end = el.closingtime
-      //       }
-      //     })
-      //   } else {
-      //     start = this.selecteddolocation.officeopeningtime
-      //     end = this.selecteddolocation.officeclosingtime
-      //   }
-      //   this.domintime = start
-      //   if (this.domintime == '') {
-      //     this.domintime = this.selecteddolocation.officeopeningtime
-      //   }
-      //   this.domaxtime = end
-      //   this.dotimearray = arr.slice(arr.indexOf(start), arr.indexOf(end) + 1)
-
-      // },
-      update() {
-        this.updatepulocation()
-        this.updatedolocation()
-        // this.updateputimes()
-        // this.updatedotimes()
-      },
-      updatepulocation() {
-        let id = this.formData.pickuplocationid
-        let data = {}
-        this.step1.locations.forEach(function (loc) {
-          if (loc.id == id) {
-            data = loc
-          }
-        })
-        this.selectedpulocation = data
-      },
-      updatedolocation() {
-        let id = this.formData.dropofflocationid
-        let data = {}
-        this.step1.locations.forEach(function (loc) {
-          if (loc.id == id) {
-            data = loc
-          }
-        })
-        this.selecteddolocation = data
       },
     },
   }
