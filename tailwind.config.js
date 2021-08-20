@@ -9,7 +9,11 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'spacing': 'margin, padding',
+       }
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -26,7 +30,9 @@ module.exports = {
   variants: {
     extend: {
       scale: ['active', 'group-hover'],
-      translate: ['group-hover']
+      translate: ['group-hover'],
+      borderRadius: ['first', 'last'],
+      padding: ['hover']
     },
   },
   plugins: [

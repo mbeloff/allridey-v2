@@ -11,7 +11,7 @@
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
-                  <option v-for="(loc, i) in step1.locations" :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                  <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
             </div>
@@ -20,7 +20,7 @@
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
                 <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
-                  <option v-for="(loc, i) in step1.locations" :key="loc.id" :value="loc.id">{{loc.location}}</option>
+                  <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
             </div>
@@ -113,7 +113,8 @@
           ageid: 9
         },
         pickuptime: {open:"", close:""},
-        dropofftime: {open:"", close:""}
+        dropofftime: {open:"", close:""},
+        locations: []
       }
     },
     watch: {
@@ -132,7 +133,7 @@
       },
       "formData.dropoffdate": function () {
         this.dropoffhours(this.formData.dropofflocationid)
-      }
+      },
     },
     computed: {
       loading() {
@@ -152,8 +153,7 @@
     },
     mounted() {
       if (!this.isEmpty(this.$store.state.step1)) {
-        this.getDefaultLocation(this.step1.locations)
-        this.initDates()
+        this.init(this.step1)
       } else {
         this.getStep1()
       }
@@ -246,8 +246,18 @@
         })
         let data = await Mixins.methods.apiCall(step1)
         this.$store.dispatch('step1', data);
-        this.getDefaultLocation(data.locations)        
+        this.init(data)
+      },
+      init(data) {
+        this.getDefaultLocation(data.locations)
+        this.splitLocations(data.locations)
         this.initDates()
+      },
+      splitLocations(list) {
+        let arr = [...list]
+        let index = arr.indexOf(arr.find(el => el.location == 'Auckland'))
+        arr.splice(index,0,{location:'-----',id:null})
+        this.locations = arr
       },
       getDefaultLocation(arr) {
         let defaultId = arr.find(el => el.isdefault).id

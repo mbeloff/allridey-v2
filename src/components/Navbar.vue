@@ -7,7 +7,7 @@
         </router-link>        
         <div class="hidden md:flex h-full items-center">
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
-          <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item>
+          <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="split" :itemlabel="'location'"></nav-item>
         </div>
         
       </div>
@@ -46,7 +46,14 @@ export default {
     // * exclude unavailable locations
     locations() {
       return [...this.$store.state.locations].filter(el => el.ispickupavailable || el.isdropoffavailable)
-    }
+    },
+    split() {
+      let au = [{location:'Australia', id:null}]
+      let auArr = this.locations.filter(el => el.country == 'Australia')
+      let nz = [{location:'New Zealand', id:null}]
+      let nzArr = this.locations.filter(el => el.country == 'New Zealand')
+      return au.concat(auArr, nz, nzArr)
+    },
   },
   mounted() {
     if (!this.$store.state.locations.length) {

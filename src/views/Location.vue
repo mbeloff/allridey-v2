@@ -21,11 +21,11 @@
           <i class="far fa-clock fa-fw text-blue-700 mt-1.5"></i>
           <div>
             <div class="w-56 flex justify-between items-center">
-              <span class="w-24">mon-fri:</span> <span class="w-24">9am - 4pm</span></div>
+              <span class="w-24">mon-fri:</span> <span class="w-32">9am - 4pm</span></div>
             <div class="w-56 flex justify-between items-center">
-              <span class="w-24">sat:</span> <span class="w-24">9am - 12pm</span></div>
+              <span class="w-24">sat:</span> <span class="w-32">9am - 12pm</span></div>
             <div class="w-56 flex justify-between items-center">
-              <span class="w-24">sun:</span> <span class="w-24">closed</span></div>
+              <span class="w-24">sun:</span> <span class="w-32">closed</span></div>
           </div>
         </div>
 
