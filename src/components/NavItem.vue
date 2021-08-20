@@ -2,7 +2,7 @@
   <div @mouseover="hover=true" @mouseleave="hover=false" class="relative">
     <router-link :to="{name: firstlabel}" class="">{{firstlabel}}</router-link>
     <transition name="dropdown">
-      <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 pt-2 text-left shadow-2xl rounded center-x">
+      <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 pt-2 text-left shadow-2xl rounded center-x bg-white">
       <router-link :class="{ 'dropdown-label' : !item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="px-5 py-1 block hover:bg-gray-200 font-normal bg-white border-l-2 border-white hover:border-blue-800 hover:pl-6 hover:pr-4 transition-spacing" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
       </div>
     </transition>    
@@ -38,7 +38,7 @@
 <style lang="postcss">
 @layer components {
     .dropdown-label {
-      @apply pointer-events-none whitespace-nowrap font-bold text-sm mt-1
+      @apply pointer-events-none whitespace-nowrap font-bold text-sm
     }
 }
 
@@ -68,11 +68,4 @@
   transform: translate(-50%, 0.15rem);
   opacity: 0;
 }
- 
-
-
- 
-
-
-
 </style>

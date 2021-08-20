@@ -11,7 +11,7 @@
       </div>
       <div v-if="loading" class="h-48"></div>
       <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-3 p-2">
-        <div class="w-full flex flex-col shadow-xl gap-3 p-2 border border-gray-200" v-for="(location, i) in locations" :key="location.id">
+        <div class="w-full flex flex-col shadow-xl gap-3 p-2 border border-gray-200" v-for="(location, i) in split" :key="location.id">
           <div class="w-full h-42 relative">
             <div class="w-full h-full absolute bg-blue-900 bg-opacity-20 overlay" :class="{ 'bg-green-600' : location.state == 'NZ'}"></div>
             <iframe :src=" location.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
@@ -45,7 +45,12 @@
     },
     computed: {
       locations() {
-        return this.$store.state.locations
+         return [...this.$store.state.locations].filter(el => el.ispickupavailable || el.isdropoffavailable)
+      },
+      split() {
+        let auArr = this.locations.filter(el => el.country == 'Australia')
+        let nzArr = this.locations.filter(el => el.country == 'New Zealand')
+        return auArr.concat(nzArr)
       },
       loading() {
         if (this.locations.length) {
