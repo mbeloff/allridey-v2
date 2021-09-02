@@ -12,7 +12,10 @@ module.exports = {
     extend: {
       transitionProperty: {
         'spacing': 'margin, padding',
-       }
+       },
+       screens: {
+        'print': {'raw': 'print'},
+      }
     },
     colors: {
       transparent: 'transparent',

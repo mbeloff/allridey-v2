@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative">
+    <div class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative print:hidden">
       <loading-overlay v-if="loading"></loading-overlay>
       <p class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400">FIND A VEHICLE</p>
       <div class="text-left ">
