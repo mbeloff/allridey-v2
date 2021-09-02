@@ -9,7 +9,7 @@
         <i class="fas fa-star text-yellow-400"></i>
         <i class="fas fa-star text-yellow-400"></i>
       </span>
-      <p class="text-xl mt-4 mb-4">Car and camper rentals with <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p>      
+      <p class="text-xl mt-4 mb-4">Find cars and campervans in <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p>      
     </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">
@@ -26,7 +26,7 @@
     <div class="rounded-b p-2 flex flex-col gap-2">
       <p class="font-bold">{{article.title}}</p>
       <p class="text-sm">{{article.content}}</p>
-      <a class="text-sm text-blue-800 cursor-pointer group">Learn More <i class="far fa-chevron-right transition ease-out duration-500 transform group-hover:translate-x-1"></i></a>
+      <router-link v-if="article.linksto" :to="{name: article.linksto }" class="text-sm text-blue-800 cursor-pointer group">{{article.linktext}} <i class="far fa-chevron-right transition ease-out duration-500 transform group-hover:translate-x-1"></i></router-link>
     </div>
     </div>   
   </div>
@@ -44,30 +44,31 @@
       return {       
         articles: [
           {
-            title: "Car rental. Simplified",
+            title: "Car rental. Simple",
           content: "Get an instant quote and quickly book online in locations right across Australia and New Zealand.",
           img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1628040145/allridey/ajddSjc.jpg",
           cols: "3",
-          linksto: "Deals",
+          linktext: "Book Now",
+          linksto: "Search",
           overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
           color: 'blue'
           },
           {
             title: "Our fleet",
-          content: "We have a range of economical small and mid-size cars, as well as campervans so you can plan your dream roadtrip and save money on accomodation along the way.",
+          content: "We have a range of economical small and mid-size cars, people movers and even campervans so you can plan your dream roadtrip and save money on accomodation along the way.",
           img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627347849/allridey/jbkad.jpg",
           cols: "2",
-          linksto: "Fleet",
+          // linksto: "Search",
           color: 'yellow',
           overlayimg: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/c_scale,w_500/v1582172582/allridey/header2.png'
           },
           {
             title: "Roadside Assist",
-          content: "We're only a phone call away with 24 hour roadside assist included on all hires.",
+          content: "We're only a phone call away with 24 hour support and roadside assist included on all hires.",
           img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627348031/allridey/Kdbad2.jpg",
           cols: "1",
           overlaytext: '<i class="fal fa-user-headset tranform rotate-3"></i>',
-          linksto: "Locations",
+          // linksto: "Search",
           color: 'green'
           },
         ]
