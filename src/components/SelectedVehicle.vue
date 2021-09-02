@@ -39,19 +39,22 @@
 
       <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
         <div class="w-full">
-          <img :src="this.step3.availablecars[0].imageurl" alt="" class="object-fill w-full">
+          <img :src="step3.availablecars[0].imageurl" alt="" class="object-fill w-full">
         </div>
         <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>
-          <div class="flex justify-between py-2">
+          <p v-if="step3.availablecars[0].discountname" class="bg-green-500 text-white text-center">discount applied: {{step3.availablecars[0].discountname}}</p>
+          <div class="flex justify-between">
             <span>
-              {{ this.step3.seasonalrates[0].numberofdays + " days @ " + currencysymbol + this.step3.seasonalrates[0].dailyrateafterdiscount}}
+              {{ step3.seasonalrates[0].numberofdays + " days @ " + currencysymbol + step3.seasonalrates[0].dailyrateafterdiscount}}
             </span>
-            <span class="w-14 font-bold">{{currencysymbol + this.step3.seasonalrates[0].ratesubtotal.toFixed(2) }}</span>
+            <span class="w-14 font-bold">{{currencysymbol + step3.seasonalrates[0].ratesubtotal.toFixed(2) }}</span>            
           </div>
+          
+            
 
           <!-- //? EXTRAS -->
-          <div class="">
+          <div class="mt-2">
             <div v-if="totals.mandatory.length || totals.optional.length">
               <p class="font-bold">Fees:</p>
               <div v-for="fee in totals.optional" class="flex justify-between">

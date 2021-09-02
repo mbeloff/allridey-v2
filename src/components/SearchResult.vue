@@ -1,20 +1,28 @@
 <template>
-  <div class="flex flex-col md:flex-row mt-2 rounded bg-white border border-gray-300 shadow-lg">
-    <div class="flex w-full md:w-1/3 min-h-24 rounded">
+  <div class="flex flex-col md:flex-row print:flex-row mt-2 rounded bg-white border border-gray-300 shadow-lg">
+    <div class="flex w-full md:w-1/3 print:w-1/3 min-h-24 rounded">
       <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
     </div>
     <div class="flex flex-col flex-1">
-      <!-- Vehicle Title -->
-      <p class="text-blue-800 text-xl font-bold py-1 mb-1 mx-2" v-html="data.categoryfriendlydescription"></p>
+      <div class="px-2 pt-2">
+        <p class="text-blue-800 text-xl font-bold">{{data.categoryfriendlydescription}}</p>
+        <p class="text-sm text-gray-500">{{data.vehicledescription2}}</p>
+      </div>
+      
       <!-- Vehicle Details -->
-      <div class="flex flex-col md:flex-row flex-1">
+      <div class="flex flex-col md:flex-row print:flex-row flex-1">
         <div class="flex flex-col flex-1 p-1">
-          <div class="flex flex-col gap-1 mb-1 flex-grow p-2">
-            <p class="text-sm" v-if="data.vehicledescription1"><i class="fal fa-cogs mr-2 text-blue-800"></i>{{data.vehicledescription1}}</p>
-            <p class="text-sm" v-if="data.vehicledescription2"><i class="fal fa-bed mr-2 text-blue-800"></i>{{data.vehicledescription2}}</p>
+          <div class="flex flex-col mb-1 p-2">
+            <p><i class="fal fa-fw fa-male mr-2 text-blue-800"></i>Seats {{data.numberofadults}}
+           </p>
+            <p v-if="data.numberofchildren"><i class="fal fa-bed fa-fw mr-2 text-blue-800"></i>Sleeps {{data.numberofchildren}}
+           </p>
+           <p v-for="feature in list" v-html="renderFeature(feature)"></p>
+           <p><i class="fal fa-tachometer-fast fa-fw text-blue-800 mr-2"></i>
+           250km/day included</p>            
           </div>
           <!-- v-if location and vehicle avaialble -->
-          <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
+          <!-- <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
             <p v-for="(fee, i) in getFeeOfType('Daily')" :key="i" class="">
               <i class='fas fa-plus-circle '></i>
               {{currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"] + " @ " + currencysymbol + parseFloat(fee["fees"]).toFixed(0) + " per day"}}
@@ -27,14 +35,31 @@
               <i class='fas fa-plus-circle '></i>
               {{ currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"]}}
             </p>
-          </div>
+          </div> -->
         </div>
         <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1 md:p-2">
-          <div class="flex md:flex-col justify-between">
-            <div class="text-blue-900 opacity-70">
-              <p class='text-xs'>daily rate:</p>
-              <p class="mb-3 text-lg font-bold -mt-1">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
-            </div>            
+          <div class="flex md:flex-col print:flex-col justify-between text-blue-900">
+                <div class="opacity-80 md:mb-3 flex flex-col">
+                  
+                  <div class="font-bold flex gap-2">
+                    <div class="flex flex-col">
+                      <p class='text-xs'>daily rate:</p>
+                    <p v-if="data.discountname" class="line-through font-normal mr-2">{{currencysymbol + parseFloat(data["avgrate"]).toFixed(2)}}</p>
+                    </div>
+                    
+                    <div>
+                      <p v-if="data.discountname" class="text-xs text-red-500 self-end">{{data.discountname}}</p>
+                      <p :class="{ 'text-red-500' : data.discountname }">{{currencysymbol + parseFloat(data["discounteddailyrate"]).toFixed(2)}}</p>
+                      
+                    </div>
+                    
+                    </div>
+                  
+              </div>
+                
+              
+              
+          
             <div class="relative cursor-default text-blue-900">
               <tippy >
                 <p class="text-xs" >initial estimate: <i class="fal fa-question-circle fa-fw"></i></p>
@@ -46,7 +71,7 @@
                   </div>                   
                 </template>
               </tippy>              
-              <p class="text-blue-900 font-bold -mt-1 text-lg mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
+              <p class="text-blue-900 font-bold -mt-1 text-lg md:mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
             </div>            
           </div>
           <button class="btn btn-secondary bg-gray-200 w-full" @click="getStep3()">Book Now</button>
@@ -88,10 +113,27 @@
       },
       searchParams() {
         return this.$store.state.searchParams
+      },
+      list() {
+        return this.data.vehicledescription1.split(' !! ')
       }
     },
     mixins: [Mixins],
     methods: {
+      renderFeature(item) {
+        if (item == 'at/mt') {
+          return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Auto & Manual'
+        }
+        if (item == 'at') {
+          return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Automatic'
+        }
+        if (item == 'mt') {
+          return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Manual'
+        }
+        if (item == 'kit') {
+          return '<i class="fal fa-fw fa-sink mr-2 text-blue-800"></i>Kitchenette & Cookware'
+        }
+      },
       async getStep3() {
         var params = await JSON.stringify({
           'method': 'step3',
