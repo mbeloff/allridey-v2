@@ -2,8 +2,12 @@
   <div @mouseover="hover=true" @mouseleave="hover=false" class="relative">
     <router-link :to="{name: firstlabel}" class="">{{firstlabel}}</router-link>
     <transition name="dropdown">
-      <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 mt-2 text-left shadow-2xl rounded center-x bg-white font-normal">
-      <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:border-blue-800 hover:pl-6 hover:pr-4 block whitespace-nowrap" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
+      <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
+      <div class="h-8"></div>
+      <div class="relative rounded dropdown-container shadow-2xl">
+        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:border-gray-600 hover:pl-5 hover:pr-3 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
+      </div>
+      
       </div>
     </transition>    
   </div>
@@ -38,12 +42,32 @@
 <style lang="postcss">
 @layer components {
     .dropdown-label {
-      @apply px-5 py-1 pointer-events-none  font-bold text-sm bg-blue-700 text-white
+      @apply px-5 py-1 pointer-events-none  font-bold text-sm bg-gray-600 text-gray-200
     }
 
     .dropdown-item {
-      @apply px-5 py-1  border-l-2 border-white  transition-spacing
+      @apply px-4 py-1 border-white  transition-spacing bg-white
     }
+    /* ! rounded first and last item */
+    /* /*  */
+     /* */
+    
+}
+
+.dropdown-container:after {
+  margin-bottom: -1px;
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: rgba(71, 85, 105);
+	border-width: 11px;
+	margin-left: -11px;
 }
 
 .center-x {

@@ -1,7 +1,9 @@
 <template>
   <div class="text-left p-2">
     <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-red-100 border-red-300 border items-center text-red-700" v-if="pymnt == 'failed'">
-     <i class="far fa-exclamation fa-fw"></i><p>Sorry, your payment was unsuccessful. We've saved your request anyway. <router-link class="underline" :to="{ name: 'Payment' }">try again?</router-link></p>
+     <i class="far fa-exclamation fa-fw"></i><p>Sorry, your payment was unsuccessful. We've saved your request as a quote. 
+       <!-- <router-link class="underline" :to="{ name: 'Payment' }">try again?</router-link> -->
+       </p>
     </div>
     <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700" v-if="pymnt == 'success'">
      <i class="far fa-check fa-fw"></i><p>Payment Successful.</p>
