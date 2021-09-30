@@ -3,9 +3,9 @@
     <router-link :to="{name: firstlabel}" class="">{{firstlabel}}</router-link>
     <transition name="dropdown">
       <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
-      <div class="h-8"></div>
-      <div class="relative rounded dropdown-container shadow-2xl">
-        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:border-gray-600 hover:pl-5 hover:pr-3 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
+      <div class="h-4"></div>
+      <div class="relative rounded dropdown-container shadow-2xl text-blue-900">
+        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:pl-5 hover:pr-3 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
       </div>
       
       </div>
@@ -42,11 +42,11 @@
 <style lang="postcss">
 @layer components {
     .dropdown-label {
-      @apply px-5 py-1 pointer-events-none  font-bold text-sm bg-gray-600 text-gray-200
+      @apply px-5 py-1.5 pointer-events-none  font-bold text-sm bg-blue-900 text-gray-200
     }
 
     .dropdown-item {
-      @apply px-4 py-1 border-white  transition-spacing bg-white
+      @apply px-4 py-1.5 border-white  transition-spacing bg-white
     }
     /* ! rounded first and last item */
     /* /*  */
@@ -64,8 +64,8 @@
 	width: 0;
 	position: absolute;
 	pointer-events: none;
-	border-color: rgba(255, 255, 255, 0);
-	border-bottom-color: rgba(71, 85, 105);
+	border-color: transparent;
+	border-bottom-color: #0c4a6e;
 	border-width: 11px;
 	margin-left: -11px;
 }

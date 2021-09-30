@@ -96,7 +96,7 @@ export default {
 }
 
 .menu-item:hover {
-  @apply bg-gray-200
+  @apply text-blue-700
 }
 
 .slide-enter-active,
