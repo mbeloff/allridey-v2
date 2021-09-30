@@ -14,7 +14,7 @@
         <div class="w-full flex flex-col shadow-xl gap-3 p-2 border border-gray-200" v-for="(location, i) in split" :key="location.id">
           <div class="w-full h-42 relative">
             <div class="w-full h-full absolute bg-blue-900 bg-opacity-20 overlay" :class="{ 'bg-green-600' : location.state == 'NZ'}"></div>
-            <iframe :src=" location.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
+            <!-- <iframe :src=" location.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe> -->
           </div>
           <div class="flex flex-col gap-3 text-left flex-grow">
             <div class="pl-2 text-sm">
