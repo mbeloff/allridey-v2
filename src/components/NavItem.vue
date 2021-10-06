@@ -2,7 +2,7 @@
   <div @mouseover="hover=true" @mouseleave="hover=false" class="relative">
     <router-link :to="{name: firstlabel}" class="">{{firstlabel}}</router-link>
     <transition name="dropdown">
-      <div  @mouseover="hover=true" @mouseleave="hover=false" v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
+      <div v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
       <div class="h-4"></div>
       <div class="relative rounded dropdown-container shadow-2xl text-blue-900">
         <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:pl-5 hover:pr-3 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
@@ -34,7 +34,7 @@
     methods: {
       convert(str) {
         return str.replace(/\s+/g, '-').toLowerCase();
-      }
+      },
     }
   }
 </script>

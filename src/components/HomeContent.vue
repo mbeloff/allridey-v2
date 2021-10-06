@@ -1,6 +1,6 @@
 <template>
-<div class="p-10 text-center">
-   <div class="w-full h-full grid place-items-center">     
+  <div class="p-10 text-center">
+    <div class="w-full h-full grid place-items-center">
       <h1 class="text-6xl mt-8 mb-3">Allridey</h1>
       <span class="">
         <i class="fas fa-star text-yellow-400"></i>
@@ -9,10 +9,10 @@
         <i class="fas fa-star text-yellow-400"></i>
         <i class="fas fa-star text-yellow-400"></i>
       </span>
-      <p class="text-xl mt-4 mb-4">Find cars and campervans in <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p>      
+      <p class="text-xl mt-4 mb-4">Find cars and campervans in <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p>
     </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">
+  </div>
+  <!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">
   <div v-for="(article, index) in articles" :key="index" class="w-full text-left rounded" :class=" 'md:col-span-' + article.cols ">
     <div class="bg-white rounded shadow-lg group">
        <div class="h-48 rounded-t bg-cover bg-bottom relative" :style="{'background-image' : 'url(' + article.img + ')'}">
@@ -30,7 +30,7 @@
     </div>
     </div>   
   </div>
-</div>
+</div> -->
 </template>
 
 <script>
@@ -40,36 +40,40 @@
         return this.$store.state.locations.length
       }
     },
+    mounted() {
+    },
+    methods: {      
+    },
     data() {
-      return {       
-        articles: [
-          {
+      return {
+        gallery: [],
+        articles: [{
             title: "Car rental. Simple",
-          content: "Get an instant quote and quickly book online in locations right across Australia and New Zealand.",
-          img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1628040145/allridey/ajddSjc.jpg",
-          cols: "3",
-          linktext: "Book Now",
-          linksto: "Search",
-          overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
-          color: 'blue'
+            content: "Get an instant quote and quickly book online in locations right across Australia and New Zealand.",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1628040145/allridey/ajddSjc.jpg",
+            cols: "3",
+            linktext: "Book Now",
+            linksto: "Search",
+            overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
+            color: 'blue'
           },
           {
             title: "Our fleet",
-          content: "We have a range of economical small and mid-size cars, people movers and even campervans so you can plan your dream roadtrip and save money on accomodation along the way.",
-          img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627347849/allridey/jbkad.jpg",
-          cols: "2",
-          // linksto: "Search",
-          color: 'yellow',
-          overlayimg: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/c_scale,w_500/v1582172582/allridey/header2.png'
+            content: "We have a range of economical small and mid-size cars, people movers and even campervans so you can plan your dream roadtrip and save money on accomodation along the way.",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627347849/allridey/jbkad.jpg",
+            cols: "2",
+            // linksto: "Search",
+            color: 'yellow',
+            overlayimg: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/c_scale,w_500/v1582172582/allridey/header2.png'
           },
           {
             title: "Roadside Assist",
-          content: "We're only a phone call away with 24 hour support and roadside assist included on all hires.",
-          img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627348031/allridey/Kdbad2.jpg",
-          cols: "1",
-          overlaytext: '<i class="fal fa-user-headset tranform rotate-3"></i>',
-          // linksto: "Search",
-          color: 'green'
+            content: "We're only a phone call away with 24 hour support and roadside assist included on all hires.",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1627348031/allridey/Kdbad2.jpg",
+            cols: "1",
+            overlaytext: '<i class="fal fa-user-headset tranform rotate-3"></i>',
+            // linksto: "Search",
+            color: 'green'
           },
         ]
       }
