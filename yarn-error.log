@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add vue-tippy
+  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add cloudinary
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin
+  C:\Users\mikey\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Program Files\nodejs;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin;C:\Users\mikey\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.10
@@ -34,6 +34,7 @@ npm manifest:
       "vue": "^3.0.5",
       "vue-router": "4",
       "vue-smooth-height": "^1.6.4",
+      "vue-tippy": "^6.0.0-alpha.30",
       "vue3-timepicker": "^1.0.0-beta.2",
       "vuex": "^4.0.2",
       "vuex-persistedstate": "^4.0.0",
@@ -103,7 +104,7 @@ Lockfile:
       "@nodelib/fs.scandir" "2.1.4"
       fastq "^1.6.0"
   
-  "@popperjs/core@^2.9.2":
+  "@popperjs/core@^2.8.3", "@popperjs/core@^2.9.2":
     version "2.9.2"
     resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
     integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
@@ -647,11 +648,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.1.0.tgz#7b5e6f7e665e9fb41f30007ed9e0d41e97fb2140"
     integrity sha512-1qYz89hW3lFDEazhjW0yVAV87lw8lVkrJocr72XmBkMKsoSVJCQx3W8BXsC7hO2qAt8BoVjYjtAcZ9perqGnNg==
   
-  humps@^2.0.1:
-    version "2.0.1"
-    resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
-    integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
-  
   icss-replace-symbols@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -902,11 +898,6 @@ Lockfile:
     version "2.3.0"
     resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
     integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
-  
-  popper.js@^1.14.7:
-    version "1.16.1"
-    resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
-    integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
   
   postcss-functions@^3:
     version "3.0.0"
@@ -1162,12 +1153,12 @@ Lockfile:
       reduce-css-calc "^2.1.8"
       resolve "^1.20.0"
   
-  tippy.js@^4.3.5:
-    version "4.3.5"
-    resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-4.3.5.tgz#882bff8d92f09bb0546d2826d5668c0560006f54"
-    integrity sha512-NDq3efte8nGK6BOJ1dDN1/WelAwfmh3UtIYXXck6+SxLzbIQNZE/cmRSnwScZ/FyiKdIcvFHvYUgqmoGx8CcyA==
+  tippy.js@^6.3.1:
+    version "6.3.1"
+    resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.1.tgz#3788a007be7015eee0fd589a66b98fb3f8f10181"
+    integrity sha512-JnFncCq+rF1dTURupoJ4yPie5Cof978inW6/4S6kmWV7LL9YOSEVMifED3KdrVPEG+Z/TFH2CDNJcQEfaeuQww==
     dependencies:
-      popper.js "^1.14.7"
+      "@popperjs/core" "^2.8.3"
   
   to-fast-properties@^2.0.0:
     version "2.0.0"
@@ -1228,13 +1219,12 @@ Lockfile:
     dependencies:
       parse-css-transition "0.0.1"
   
-  vue-tippy@v4:
-    version "4.10.2"
-    resolved "https://registry.yarnpkg.com/vue-tippy/-/vue-tippy-4.10.2.tgz#d87846141b84699753fd3ac6a537f205bab12997"
-    integrity sha512-o1E4Q7gJHrL5VKpPF10Mdp9Grrqi9JGUBrkOQQUmTrklxctYvjpsSxePZVM0mgfGfRFAboOClw33X1ueB4Byjw==
+  vue-tippy@^6.0.0-alpha.30:
+    version "6.0.0-alpha.30"
+    resolved "https://registry.yarnpkg.com/vue-tippy/-/vue-tippy-6.0.0-alpha.30.tgz#9816509f289bdae7ae90dc01a4c2f983a46908ff"
+    integrity sha512-Rzn+6mDB24e79z70ui6qlwSnB8wYlUsAyHbV2gRX1bmE7jlR0p3l8QCwpKDErxJtnP3ZqMBRJe8vZaQ0lWV/tQ==
     dependencies:
-      humps "^2.0.1"
-      tippy.js "^4.3.5"
+      tippy.js "^6.3.1"
   
   vue3-timepicker@^1.0.0-beta.2:
     version "1.0.0-beta.2"
