@@ -22,7 +22,7 @@
               </span>
               <div class="grid font-bold">
                 <span class="text-right">{{booking.pickuplocationname}}</span>
-                <span>{{tConvert(booking.pickuptime)}} - {{booking.pickupdate}}</span>
+                <span>{{tConvert(booking.pickuptime)}} - {{booking.pickupdate.replaceAll('/', ' ')}}</span>
               </div>              
             </div>
             <div class="flex justify-between py-2">
@@ -31,7 +31,7 @@
               </span>
               <div class="grid font-bold">
                 <span class="text-right">{{booking.dropofflocationname}}</span>
-                <span>{{tConvert(booking.dropofftime)}} - {{booking.dropoffdate}}</span>
+                <span>{{tConvert(booking.dropofftime)}} - {{booking.dropoffdate.replaceAll('/', ' ')}}</span>
               </div>              
             </div>
             <p class="font-bold">Daily Rental Rate:</p>

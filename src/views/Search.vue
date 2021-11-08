@@ -29,7 +29,7 @@
       <!-- <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, $store.dispatch('gotBooking', true)"></submit-payment> -->
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
-      <home-content v-if="this.$route.name == 'Home'"></home-content>        
+      <home-content></home-content>        
       
     </div>
 
@@ -104,7 +104,7 @@
                this.$router.push({name: 'Search'}) 
              } else {
                this.status = 2
-             }             
+             }
            } else if (name == 'Vehicle') {
               if (this.isEmpty(this.searchParams)) {
                this.$router.push({name: 'Search'})
@@ -114,7 +114,7 @@
            } else if (name == 'Payment') {
              this.status = 4
            } else if (name == 'Summary') {
-               this.status = 5                         
+               this.status = 5
            }
         },
         deep: true,

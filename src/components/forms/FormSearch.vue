@@ -2,7 +2,7 @@
   <div>
     <div class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative print:hidden">
       <loading-overlay v-if="loading"></loading-overlay>
-      <p class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400">FIND A VEHICLE</p>
+      <p class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400 uppercase">Find a Vehicle</p>
       <div class="text-left ">
         <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
           <div class="flex flex-col  gap-2">
@@ -246,11 +246,13 @@
         })
         let data = await Mixins.methods.apiCall(step1)
         this.$store.dispatch('step1', data);
+        console.log(step1)
         this.init(data)
       },
       init(data) {
+        this.locations = data.locations
         this.getDefaultLocation(data.locations)
-        this.splitLocations(data.locations)
+        // this.splitLocations(data.locations)
         this.initDates()
       },
       splitLocations(list) {

@@ -14,7 +14,7 @@ const routes = [
   { name: "Summary", path: "/summary", component: Search, props: true},
   { name: "CheckPayment", path: "/checkpayment", component: CheckPayment, props: true },
   {name: "Locations", path: "/locations", component: Locations, props: true},
-  {name: "Location", path: "/location/:name?", component: Location, props: true}
+  {name: "Location", path: "/location/:name?", component: Location, props: true},
 ];
 
 const router = createRouter({ history, routes });

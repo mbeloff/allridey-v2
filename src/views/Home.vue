@@ -10,7 +10,7 @@
         <i class="fas fa-star text-yellow-400"></i>
         <i class="fas fa-star text-yellow-400"></i>
       </span>
-      <p class="text-xl mt-4 mb-4">Cheap car and camper rentals across Australia and New Zealand</p>
+      <!-- <p class="text-xl mt-4 mb-4">Cheap car and camper rentals across Australia and New Zealand</p> -->
 
       <div class="relative">
         <booking-form class=""></booking-form>

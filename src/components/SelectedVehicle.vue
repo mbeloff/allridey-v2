@@ -87,7 +87,7 @@
 
           </div>
           <div class="text-right italic" v-if="totals.tax[0].total">
-            <span>includes GST of:</span><span>{{' ' + currencysymbol + totals.tax[0].total}}</span>
+            <span v-for="tax in totals.tax">{{ tax.name.replace('include', 'incl.') }} of:</span><span>{{' ' + currencysymbol + totals.tax[0].total}}</span>
           </div>
         </div>
       </div>
