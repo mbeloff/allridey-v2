@@ -48,6 +48,7 @@
       this.$smoothElement({
             el: this.$refs.container,
         })
+      this.parameters.agentcode = this.$store.state.searchParams.agentcode
   },
    props: {
      optionalfees: Object,
@@ -92,13 +93,14 @@
             countryid: 7, // Default country id (Australia)
           },
           // ! email option 0 = off, 1 = default, 2 = always send
-          emailoption: 0,
+          emailoption: 1,
           foundusid: 63,
           remark: "",
           areaofuseid: "",
           newsletter: true,
           refno: "",
-          optionalfees: []
+          optionalfees: [],
+          agentcode: ''
         }
       }
     },
@@ -109,7 +111,6 @@
       submitBooking() {
         console.log('emitting submit with mode=' + this.mode)
         this.$store.dispatch("bookingparams", this.parameters)
-        // this.makeBooking(this.parameters)
         this.$emit('submit1')
       },
       setMode(mode) {
@@ -129,7 +130,6 @@
         this.parameters.insuranceid = this.calcTotals.insuranceid
         this.parameters.extrakmsid = this.calcTotals.extrakmsid
         this.parameters.optionalfees = this.calcTotals.optionalfees
-        // this.parameters = updated
       }
     },
     

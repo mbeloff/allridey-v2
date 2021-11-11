@@ -114,16 +114,16 @@
     mixins: [Mixins],
     methods: {
       renderFeature(item) {
-        if (item == 'at/mt') {
+        if (item == 'a/m') {
           return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Auto & Manual'
         }
-        if (item == 'at') {
+        if (item == 'a') {
           return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Automatic'
         }
-        if (item == 'mt') {
+        if (item == 'm') {
           return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Manual'
         }
-        if (item == 'kit') {
+        if (item == 'k') {
           return '<i class="fal fa-fw fa-sink mr-2 text-blue-800"></i>Kitchenette & Cookware'
         }
       },
@@ -138,9 +138,11 @@
           'dropoffdate': this.searchParams.dropoffdate,
           'dropofftime': this.searchParams.dropofftime,
           'ageid': this.searchParams.ageid,
-          'vehiclecategoryid': this.data.vehiclecategoryid
+          'vehiclecategoryid': this.data.vehiclecategoryid,
+          'agentcode': this.searchParams.agentcode
         })
         let data = await Mixins.methods.apiCall(params)
+        console.log(data)
         this.$store.dispatch('step3', data);
         // this.step3 = data
         this.$emit("select-vehicle", data, 3)

@@ -3,8 +3,8 @@
     <div class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative print:hidden">
       <loading-overlay v-if="loading"></loading-overlay>
       <p class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400 uppercase">Find a Vehicle</p>
-      <div class="text-left ">
-        <div class="grid gap-2 mb-6 grid-flow-row md:grid-flow-col">
+      <div class="text-left">
+        <div class="grid gap-2 mb-2 grid-flow-row md:grid-flow-col">
           <div class="flex flex-col  gap-2">
             <div class="flex flex-col flex-grow group">
               <label for="puloc" class="my-label has-icon">Pickup Location</label>
@@ -78,9 +78,19 @@
             </date-picker>
           </div>
         </div>
-        <div class="text-right flex justify-end">
+        <div class="flex flex-row justify-between gap-2">
+            <div class="flex flex-col flex-grow group max-w-xs">
+              <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
+              <div class="flex flex-row place-items-center">
+                <i class="form-i fal fa-user-headset fa-fw"></i>
+                <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.formData.agentcode" placeholder="(agent use only)">
+              </div>
+            </div>
+           <div class="text-right flex justify-end flex-col">
           <button @click="getStep2()" class="btn btn-primary pl-6">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
         </div>
+        </div>
+        
 
       </div>
     </div>
@@ -110,7 +120,8 @@
           dropofftime: "10:00",
           pickupdate: "",
           dropoffdate: "",
-          ageid: 9
+          ageid: 9,
+          agentcode: ""
         },
         pickuptime: {open:"", close:""},
         dropofftime: {open:"", close:""},
