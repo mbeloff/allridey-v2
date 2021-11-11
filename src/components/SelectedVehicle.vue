@@ -95,7 +95,7 @@
       <!-- // ? RIGHT SIDE -->
       <div class="w-full md:w-4/6 border bg-white shadow-xl text-left p-1 px-2 md:px-5 text-sm py-5">
         <!-- Damage Cover -->
-        <div class="mb-4">
+        <div class="mb-4" v-if="this.step3.insuranceoptions.length">
           <p class="font-bold text-xl mb-4">Damage Cover:</p>
           <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" :class="{'selected': damage.id == insurance}" v-for="damage in this.step3.insuranceoptions">
 
@@ -262,6 +262,7 @@
       },
     },
     mounted() {
+      if (this.step3.insuranceoptions.length){
       let insuranceid = this.step3.insuranceoptions[0].id
       this.step3.insuranceoptions.forEach(function (el) {
         if (el.isdefault) {
@@ -270,6 +271,8 @@
       })
 
       this.insurance = insuranceid
+      }
+     
       let kmid
       this.step3.kmcharges.forEach(function (el) {
         if (el.isdefault) {
