@@ -29,7 +29,7 @@
       <!-- <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, $store.dispatch('gotBooking', true)"></submit-payment> -->
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
-      <home-content></home-content>        
+      <home-content v-if="status <= 2"></home-content>        
       
     </div>
 
