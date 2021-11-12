@@ -78,8 +78,8 @@
             </date-picker>
           </div>
         </div>
-        <div class="flex flex-row justify-between gap-2">
-            <div class="flex flex-col flex-grow group max-w-xs">
+        <div class="flex flex-col sm:flex-row justify-between gap-2">
+            <div class="flex flex-col group">
               <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-user-headset fa-fw"></i>
@@ -87,7 +87,7 @@
               </div>
             </div>
            <div class="text-right flex justify-end flex-col">
-          <button @click="getStep2()" class="btn btn-primary pl-6">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
+          <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
         </div>
         </div>
         

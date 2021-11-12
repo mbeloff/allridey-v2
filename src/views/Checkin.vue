@@ -16,7 +16,7 @@
           <input class="my-input uppercase" type="text" name="lastname" v-model="lastname" placeholder="Last name">
         </div>
       </div>      
-      <button class="text-4xl text-right font-bold group focus:outline-none"  @click.prevent="findBooking(resno, lastname)">
+      <button class="text-4xl text-right font-bold group focus:outline-none w-56"  @click.prevent="findBooking(resno, lastname)">
         <p class="text-4xl mt-4 text-left">online</p><span>check in</span> <i class="fas fa-arrow-right align-middle transition ease-out duration-500 transform group-hover:translate-x-1 group-hover:text-blue-600"></i></button>
     </div>    
   </div>
