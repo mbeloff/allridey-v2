@@ -3,6 +3,7 @@ import Search from './views/Search.vue'
 import CheckPayment from './views/CheckPayment.vue'
 import Locations from './views/Locations.vue'
 import Location from './views/Location.vue'
+import Checkin from './views/Checkin.vue'
 const history = createWebHistory();
 
 const routes = [
@@ -15,6 +16,8 @@ const routes = [
   { name: "CheckPayment", path: "/checkpayment", component: CheckPayment, props: true },
   {name: "Locations", path: "/locations", component: Locations, props: true},
   {name: "Location", path: "/location/:name?", component: Location, props: true},
+  {name: "Checkin", path: "/checkin", component: Checkin, props: true},
+
 ];
 
 const router = createRouter({ history, routes });
