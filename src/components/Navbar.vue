@@ -7,6 +7,7 @@
         </router-link>        
         <div class="hidden md:flex h-full items-center">
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
+          <router-link :to="{ name: 'Checkin'}" class="menu-item">Check In</router-link>
           <!-- <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item> -->
         </div>
         
