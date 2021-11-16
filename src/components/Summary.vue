@@ -65,7 +65,7 @@
           <!-- CALCULATED TOTAL -->
           <div class="bg-blue-800 text-blue-100 p-2">
             <div class="flex justify-end mb-2">
-              <span v-if="booking.inquotation" class="font-bold mr-2 ">TOTAL: </span>
+              <span v-if="booking.isquotation" class="font-bold mr-2 ">TOTAL: </span>
               <span v-else class="font-bold mr-2 ">BALANCE DUE: </span>
               <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol + booking.balancedue.toFixed(2)}}</span>
             </div>

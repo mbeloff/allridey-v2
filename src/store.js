@@ -29,8 +29,20 @@ export default createStore({
     },
     gotBooking: false,
     hasSession: false,
+    token: "",
+    tokenExp: "",
+    pbresref: ""
   },
   mutations: {
+    pbresref(state, payload) {
+      state.pbresref = payload
+    },
+    token(state, payload){
+      state.token = payload
+    },
+    tokenExp(state, payload){
+      state.tokenExp = payload
+    },
     locations(state, payload) {
       state.locations = payload
     },
@@ -63,6 +75,15 @@ export default createStore({
     },
   },
   actions: {
+    pbresref(context, payload){
+      context.commit('pbresref', payload)
+    },
+    token(context, payload){
+      context.commit('token', payload)
+    },
+    tokenExp(context, payload){
+      context.commit('tokenExp', payload)
+    },
     session(context, payload) {
       context.commit('session', payload)
     },

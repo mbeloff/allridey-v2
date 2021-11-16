@@ -1,3 +1,4 @@
+import store from './store.js'
 export default {
   methods: {    
     signRequest(method) {
@@ -57,7 +58,51 @@ export default {
           return apierror
         }
              
-    }
+    },
+    getToken() {
+      let fnHost =
+        import.meta.env.VITE_FN_HOST
+      var requestOptions = {
+        method: 'POST',
+        redirect: 'follow'
+      };
+      fetch(fnHost + "/.netlify/functions/getToken", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          const res = JSON.parse(result)
+          store.dispatch("token", res.access_token)
+          store.dispatch("tokenExp", res['.expires'])
+        })
+        .catch(error => console.log('error', error));
+      return store.state.token
+    },
+    async postapiCall(method) {
+      let token = store.state.token
+      let expires = store.state.tokenExp
+      if (!token || expires < new Date().toGMTString()) {
+        alert('Session has expired. Please refresh the page')
+        return
+      }
+      var requestOptions = {
+        headers: {
+          "Authorization": "Bearer " + store.state.token,
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: method,
+      }
+      let response = await fetch("https://api.rentalcarmanager.com/v32/api", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          return JSON.parse(result)
+        })
+        .catch(error => {
+          this.error = error
+          console.log('error', error)
+        });
+
+      return JSON.stringify(response)
+    },
   }
 }
 
