@@ -20,7 +20,10 @@
     </div>
   </div>
 
-  <modify-booking @update="bookingInfo(this.pbresref)" v-if="bookingdata" :bookingdata="bookingdata"></modify-booking>
+  <div v-if="customer && bookingdata">
+    <modify-booking @update="bookingInfo(this.pbresref)" :bookingdata="bookingdata" :customer="customer"></modify-booking>
+  </div>
+  
 </template>
 
 <script>
@@ -36,11 +39,9 @@
         resno: "U1157",
         lastname: "TEST",
         error: "",
-        resref: null,
         bookingdata: null,
+        customer: null,
       }
-    },
-    watch: {
     },
     mounted() {
       Mixins.methods.getToken()
@@ -61,16 +62,21 @@
           .then(res => JSON.parse(JSON.stringify(res)))
           .then(results => {
             this.$store.dispatch("pbresref", JSON.parse(results).results[0].reservationref)
+            this.bookingInfo(JSON.parse(results).results[0].reservationref)
           })
-        this.bookingInfo(this.pbresref)
+        // this.bookingInfo(this.pbresref)
       },
       bookingInfo(resref) {
         let method = JSON.stringify({
           "method": "bookinginfo",
           "reservationref": resref
         });
+        let bookingdata
         Mixins.methods.postapiCall(method).then(res => JSON.parse(JSON.stringify(res))).then(results => {
-          this.bookingdata = JSON.parse(results).results
+          console.log(JSON.parse(results))
+          bookingdata = JSON.parse(results).results
+          this.bookingdata = bookingdata
+          this.customer = bookingdata.customerinfo
         })
       }
     },

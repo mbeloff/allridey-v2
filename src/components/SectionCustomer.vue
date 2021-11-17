@@ -94,17 +94,17 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3 h-8 mt-auto">      
-      <button v-if="!newDriver && !isPrimary" class="rounded bg-red-300"  @click="extraDriver(-customer.customerid)">Delete</button>
+    <div class="grid grid-cols-2 gap-3 h-8 mt-auto">
+      <button v-if="!newDriver && !isPrimary" class="rounded bg-red-300" @click="extraDriver(-customer.customerid)">Delete</button>
       <button v-if="!isPrimary" class="rounded bg-green-300" @click="extraDriver(customer.customerid)">{{!newDriver ? 'Update' : 'Add'}}</button>
-      <button v-if="isPrimary" class="rounded bg-green-300">Update</button>
+      <button v-if="isPrimary" class="rounded bg-green-300" @click="modifyCustomer()">Update</button>
     </div>
 
   </div>
 </template>
 
 <script>
-import Mixins from '../Mixins'
+  import Mixins from '../Mixins'
   export default {
     mixins: [Mixins],
     props: {
@@ -123,7 +123,7 @@ import Mixins from '../Mixins'
           "customerid": 0,
           "firstname": "",
           "lastname": "",
-          "dateofbirth": "01/01/2000",
+          "dateofbirth": "",
           "email": "",
           "phone": "",
           "mobile": "",
@@ -142,8 +142,22 @@ import Mixins from '../Mixins'
     },
     data() {
       return {
-        dateofbirth: "",
-        licenseexpires: "",
+        dateofbirth: new Date(),
+        licenseexpires: new Date(),
+        months: [
+          ['Jan', '01'],
+          ['Feb', '02'],
+          ['Mar', '03'],
+          ['Apr', '04'],
+          ['May', '05'],
+          ['Jun', '06'],
+          ['Jul', '07'],
+          ['Aug', '08'],
+          ['Sep', '09'],
+          ['Oct', '10'],
+          ['Nov', '11'],
+          ['Dec', '12']
+      ]
       }
     },
     watch: {
@@ -154,31 +168,78 @@ import Mixins from '../Mixins'
         this.customer.licenseexpires = this.licenseexpires.toLocaleDateString()
       }
     },
+    computed: {
+    },
     mounted() {
-      let d = new Date(2000, 0, 1)
-      this.dateofbirth = d
+      if (this.newDriver == false) {
+        console.log('existing driver')
+        if (this.customer.dateofbirth) {
+          console.log('dob found' + this.customer.dateofbirth)
+        let dob = this.replaceMonth(this.customer.dateofbirth) 
+        dob = dob.split(' ')
+        dob = new Date(dob[2], dob[1] - 1, dob[0])
+        this.dateofbirth = dob
+      } else {
+        console.log('dob not found')
+        this.dateofbirth = new Date(2000, 0, 1)
+      }
+      if (this.customer.licenseexpires) {
+        let exp = this.replaceMonth(this.customer.licenseexpires)
+        exp = exp.split(' ')
+        exp = new Date(exp[2], exp[1] - 1, exp[0])
+        this.licenseexpires = exp
+      } else {
+        this.licenseexpires = new Date()
+      }    
+      } else {
+        console.log('new driver')
+        this.dateofbirth = new Date(2000, 0, 1)
+        this.licenseexpires = new Date()     
+      }         
     },
     methods: {
+      replaceMonth(str) {
+        let newStr = str.replaceAll('/', ' ')
+        let list = this.months
+        list.forEach(el => {
+          newStr = newStr.replaceAll(el[0], el[1])
+        })
+        return newStr
+      },
       extraDriver(id) {
         let method = JSON.stringify({
-          method:"extradriver",
+          method: "extradriver",
           reservationref: this.$store.state.pbresref,
           customerid: id,
-          customer: {...this.customer}
+          customer: {
+            ...this.customer
+          }
         })
         Mixins.methods.postapiCall(method).then(res => console.log(JSON.parse(res).results))
         this.$emit("update")
       },
       modifyCustomer() {
-        let method = JSON.stringify({
-          "method":"editbooking"
-					,"reservationref": null
-					,"bookingtype": null
-					,"insuranceid": null
-					,"extrakmsid": null
-					,"numbertravelling": null
-					,"customer": {...this.customer}
+        let bookingtype = (this.bookingdata.bookinginfo[0].isquotation) ? 1 : 2;
+        console.log(bookingtype)
+        let insuranceid = null
+        this.bookingdata.extrafees.forEach(el => {
+          if (el.isinsurancefee) {
+            insuranceid = el.extrafeeid
+          }
         })
+        let method = JSON.stringify({
+          "method": "editbooking",
+          "reservationref": this.bookingdata.bookinginfo[0].reservationref,
+          "bookingtype": bookingtype,
+          "insuranceid": insuranceid,
+          "extrakmsid": this.bookingdata.bookinginfo[0].kmcharges_id,
+          "numbertravelling": this.bookingdata.bookinginfo[0].numbertravelling,
+          "customer": {
+            ...this.customer
+          }
+        })
+        Mixins.methods.postapiCall(method).then(res => console.log(JSON.parse(res)))
+        this.$emit("update")
       }
     }
   }

@@ -13,7 +13,7 @@
               <button class="btn-primary rounded">Optional Extras</button>
               <button class="btn-primary rounded">Upload Documents</button>
             </div>
-            <section-drivers :bookingdata="bookingdata" @update="$emit('update')" :customer="bookingdata.customerinfo[0]" :extradrivers="bookingdata.extradrivers"></section-drivers>
+            <section-drivers :bookingdata="bookingdata" @update="$emit('update')" :customer="customer"></section-drivers>
           </div>
         </div>       
     </div>
@@ -25,7 +25,8 @@ import SectionSummary from '../components/SectionSummary.vue'
 import SectionDrivers from '../components/SectionDrivers.vue'
 export default {
   props: {
-    bookingdata: Object
+    bookingdata: Object,
+    customer: Object
   },
   components: {
     SectionSummary,
