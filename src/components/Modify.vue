@@ -9,11 +9,11 @@
         <div class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2">
           <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5">
             <div class="grid grid-cols-3 gap-3 h-12">
-              <button class="btn-primary rounded">Additional Drivers</button>
+              <button class="btn-primary rounded" @click="setTab('drivers')">Additional Drivers</button>
               <button class="btn-primary rounded">Optional Extras</button>
               <button class="btn-primary rounded">Upload Documents</button>
             </div>
-            <section-drivers :bookingdata="bookingdata" @update="$emit('update')" :customer="customer"></section-drivers>
+            <section-drivers v-show="tab == 'drivers'" :bookingdata="bookingdata" @update="$emit('update')" :customer="customer"></section-drivers>
           </div>
         </div>       
     </div>
@@ -34,7 +34,17 @@ export default {
   },
   data() {
     return {
-      activeTab: undefined
+      tab: ""
+    }
+  },
+  methods: {
+    setTab(str) {
+      if (this.tab == str) {
+        this.tab = ""
+      } else {
+        this.tab = str
+      }
+      
     }
   }
 }

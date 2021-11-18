@@ -1,5 +1,6 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1 text-left bg-white p-2 rounded mt-2">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1 text-left bg-white p-2 rounded mt-2 relative">
+    <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>
       <div class="flex flex-row place-items-center">
@@ -104,8 +105,12 @@
 </template>
 
 <script>
+import LoadingOverlay from '../components/LoadingOverlay.vue'
   import Mixins from '../Mixins'
   export default {
+    components: {
+      LoadingOverlay
+    },
     mixins: [Mixins],
     props: {
       bookingdata: Object,
@@ -142,6 +147,7 @@
     },
     data() {
       return {
+        loading: false,
         dateofbirth: new Date(),
         licenseexpires: new Date(),
         months: [
@@ -215,6 +221,7 @@
         this.$emit("update")
       },
       modifyCustomer() {
+        this.loading = true
         let bookingtype = (this.bookingdata.bookinginfo[0].isquotation) ? 1 : 2;
         let insuranceid = null
         this.bookingdata.extrafees.forEach(el => {
@@ -234,9 +241,14 @@
           }
         })
         Mixins.methods.postapiCall(method)
+        .then(res => JSON.parse(res))
+        .then(res => {
+          console.log(res)
+          this.loading = false
+        })
         this.$emit("update")
       }
-    }
+    },
   }
 </script>
 

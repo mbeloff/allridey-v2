@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col relative">
     <!-- CUSTOMER INFO -->
     <p class="text-xl font-bold text-left">Customer Details</p>
     <section-customer :bookingdata="bookingdata" :customer="bookingdata.customerinfo[0]" :countries="countries" :isPrimary="true"></section-customer>

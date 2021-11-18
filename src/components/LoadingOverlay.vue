@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute w-full h-full top-0 left-0 rounded grid place-items-center bg-gray-200 bg-opacity-80 no-pointer">
+  <div class="absolute w-full h-full top-0 left-0 rounded grid place-items-center bg-gray-200 bg-opacity-80">
     <spinner></spinner>
   </div>
 </template>
@@ -12,7 +12,5 @@ export default {
 </script>
 
 <style>
-.no-pointer {
-  pointer-events: none
-}
+
 </style>
