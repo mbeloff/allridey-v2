@@ -1,10 +1,10 @@
 import {
   createStore
 } from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
-  plugins: [createPersistedState({ storage: window.sessionStorage })],
+  // plugins: [createPersistedState({ storage: window.sessionStorage })],
   state: {
     phone: '1800 24 68 69',
     phoneuri: '1800246869',

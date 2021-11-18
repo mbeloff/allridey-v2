@@ -5,7 +5,7 @@
       <div class="flex flex-col flex-grow group">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-book fa-fw"></i>
-          <input class="my-input uppercase" type="text" name="resno" v-model="resno" placeholder="Rservation number">
+          <input class="my-input uppercase" type="text" name="resno" v-model="resno" placeholder="Reservation number">
         </div>
       </div>
       <div class="flex flex-col flex-grow group mt-2">
@@ -23,7 +23,7 @@
   <div v-if="customer && bookingdata">
     <modify-booking @update="bookingInfo(this.pbresref)" :bookingdata="bookingdata" :customer="customer"></modify-booking>
   </div>
-  
+
 </template>
 
 <script>
@@ -51,7 +51,7 @@
         return this.$store.state.pbresref
       }
     },
-    methods: {     
+    methods: {
       findBooking(resno, lastname) {
         let method = JSON.stringify({
           "method": "findbooking",
@@ -59,12 +59,20 @@
           "lastname": lastname
         });
         Mixins.methods.postapiCall(method)
-          .then(res => JSON.parse(JSON.stringify(res)))
-          .then(results => {
-            this.$store.dispatch("pbresref", JSON.parse(results).results[0].reservationref)
-            this.bookingInfo(JSON.parse(results).results[0].reservationref)
+          .then(res => JSON.parse(res))
+          .then(result => {
+            console.log(result)
+            if (result.status == "OK") {
+              let resref = result.results[0].reservationref
+              this.$store.dispatch("pbresref", resref)
+              this.bookingInfo(resref)
+            } else if (result.status == "ERR") {
+              throw result.error
+            }
+          }).catch(err => {
+            this.error == err
+            console.log(err)
           })
-        // this.bookingInfo(this.pbresref)
       },
       bookingInfo(resref) {
         let method = JSON.stringify({
@@ -73,7 +81,6 @@
         });
         let bookingdata
         Mixins.methods.postapiCall(method).then(res => JSON.parse(JSON.stringify(res))).then(results => {
-          console.log(JSON.parse(results))
           bookingdata = JSON.parse(results).results
           this.bookingdata = bookingdata
           this.customer = bookingdata.customerinfo

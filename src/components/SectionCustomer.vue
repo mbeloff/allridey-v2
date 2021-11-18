@@ -25,12 +25,12 @@
       </div>
     </div>
 
-    <date-picker v-model="dateofbirth" :max-date="new Date()" class="flex flex-col flex-grow group">
+    <date-picker v-model="dateofbirth" :max-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
       <template v-slot="{ inputValue, inputEvents }">
         <label for="" class="my-label">Date of Birth</label>
         <div class="flex flex-row place-items-center">
           <i class="mr-2 fal fa-calendar fa-fw"></i>
-          <input class="my-input" :value="inputValue" v-on="inputEvents" />
+          <input class="my-input" :value="inputValue" v-on="inputEvents"/>
         </div>
       </template>
     </date-picker>
@@ -50,7 +50,7 @@
         </select>
       </div>
     </div>
-    <date-picker v-model="licenseexpires" :min-date="new Date()" class="flex flex-col flex-grow group">
+    <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
       <template v-slot="{ inputValue, inputEvents }">
         <label for="" class="my-label">License Expiry</label>
         <div class="flex flex-row place-items-center">
@@ -172,15 +172,12 @@
     },
     mounted() {
       if (this.newDriver == false) {
-        console.log('existing driver')
         if (this.customer.dateofbirth) {
-          console.log('dob found' + this.customer.dateofbirth)
         let dob = this.replaceMonth(this.customer.dateofbirth) 
         dob = dob.split(' ')
         dob = new Date(dob[2], dob[1] - 1, dob[0])
         this.dateofbirth = dob
       } else {
-        console.log('dob not found')
         this.dateofbirth = new Date(2000, 0, 1)
       }
       if (this.customer.licenseexpires) {
@@ -192,7 +189,6 @@
         this.licenseexpires = new Date()
       }    
       } else {
-        console.log('new driver')
         this.dateofbirth = new Date(2000, 0, 1)
         this.licenseexpires = new Date()     
       }         
@@ -220,7 +216,6 @@
       },
       modifyCustomer() {
         let bookingtype = (this.bookingdata.bookinginfo[0].isquotation) ? 1 : 2;
-        console.log(bookingtype)
         let insuranceid = null
         this.bookingdata.extrafees.forEach(el => {
           if (el.isinsurancefee) {
@@ -238,7 +233,7 @@
             ...this.customer
           }
         })
-        Mixins.methods.postapiCall(method).then(res => console.log(JSON.parse(res)))
+        Mixins.methods.postapiCall(method)
         this.$emit("update")
       }
     }

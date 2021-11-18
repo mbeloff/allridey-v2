@@ -16,7 +16,7 @@
           </select>
         </div>
       </div>
-      <date-picker v-model="licenseexpires" :min-date="new Date()" class="flex flex-col flex-grow group">
+      <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
         <template v-slot="{ inputValue, inputEvents }">
           <label for="" class="my-label">License Expiry</label>
           <div class="flex flex-row place-items-center">

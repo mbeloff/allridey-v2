@@ -31,6 +31,11 @@ export default {
   components: {
     SectionSummary,
     SectionDrivers
+  },
+  data() {
+    return {
+      activeTab: undefined
+    }
   }
 }
 </script>

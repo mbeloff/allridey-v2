@@ -27,7 +27,7 @@
           </div>
 
           <div class="flex flex-col">
-            <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" is-range :min-date="new Date()">
+            <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" :update-on-input="false" is-range :min-date="new Date()">
               <template v-slot="{ inputValue, inputEvents, isDragging }">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
