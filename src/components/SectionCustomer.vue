@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1 text-left bg-white p-2 rounded mt-2 relative">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1 text-left bg-white border p-2 rounded mt-2 relative">
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>

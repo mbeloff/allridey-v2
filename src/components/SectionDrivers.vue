@@ -38,7 +38,7 @@
         let method = JSON.stringify({
           "method": "countries"
         });
-        Mixins.methods.postapiCall(method).then(res => JSON.parse(JSON.stringify(res))).then(results => {
+        Mixins.methods.postapiCall(method).then(results => {
           this.countries = JSON.parse(results).results
         })
       },
@@ -60,9 +60,8 @@
           "licenseno": "",
           "licenseexpires": "",
           "licenseissued": "Australia"
-        }
-          
-        }
+        }         
+      }
     }
   }
 </script>

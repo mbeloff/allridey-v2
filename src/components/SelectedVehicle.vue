@@ -158,12 +158,10 @@
                   <span class="fee-name">{{km.description}}</span>
                   <span class="price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + km.totalamount}}</span>
                 </div>
-
               </label>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <make-booking @submit1="makeBooking" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :searchParams="searchParams" :calcTotals="calcTotals" :step3="step3"></make-booking>

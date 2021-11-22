@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div v-if="customer && bookingdata">
+  <div v-if="customer && bookingdata && !loading" class="bg-gray-200 h-full">
     <modify-booking @update="bookingInfo(this.pbresref)" :bookingdata="bookingdata" :customer="customer"></modify-booking>
   </div>
 
@@ -48,13 +48,18 @@
         loading: false,
       }
     },
+    watch: {
+      // 'bookingdata': function() {
+      //   this.calcTotal()
+      // }
+    },
     mounted() {
       Mixins.methods.getToken()
     },
     computed: {
       pbresref() {
         return this.$store.state.pbresref
-      }
+      },       
     },
     methods: {
       findBooking(resno, lastname) {
@@ -77,8 +82,8 @@
             }
           }).catch(err => {
             this.loading = false
-            this.error = err
-            console.log(err)
+            // this.error = err
+            console.log('find booking (error): ' + err)
           })
       },
       bookingInfo(resref) {
@@ -92,19 +97,21 @@
         .then(res => JSON.parse(res))
         .then(res => {
           console.log(res)
-          this.loading = false
+          
           if (res.status == "OK") {
             bookingdata = res.results
             this.bookingdata = bookingdata
             this.customer = bookingdata.customerinfo
           } else if (res.status == "ERR") {
             throw res.error
-          }          
+          }  
+          this.loading = false        
         }).catch(err => {
-          this.error = err
-          console.log(log(err))
+          // this.error = err
+          console.log('get booking info (error): ' + err)
         })
-      }
+      },
+      
     },
   }
 </script>
