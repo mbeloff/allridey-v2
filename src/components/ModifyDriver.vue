@@ -3,27 +3,19 @@
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>
-      <div class="flex flex-row place-items-center">
         <input required type="text" id="fName" class="my-input" v-model="customer.firstname">
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
-      <div class="flex flex-row place-items-center">
         <input required type="text" id="lName" class="my-input" v-model="customer.lastname">
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="email" class="text-xs mb-1 my-label">Email</label>
-      <div class="flex flex-row place-items-center">
         <input required type="email" id="email" class="my-input" v-model="customer.email">
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="phone" class="text-xs mb-1 my-label">Phone</label>
-      <div class="flex flex-row place-items-center">
         <input required type="tel" id="phone" class="my-input" v-model="customer.phone">
-      </div>
     </div>
 
     <date-picker v-model="dateofbirth" :max-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
@@ -31,7 +23,7 @@
         <label for="" class="my-label">Date of Birth</label>
         <div class="flex flex-row place-items-center">
           <i class="mr-2 fal fa-calendar fa-fw"></i>
-          <input class="my-input" :value="inputValue" v-on="inputEvents"/>
+          <input class="my-input w-8" :value="inputValue" v-on="inputEvents"/>
         </div>
       </template>
     </date-picker>
@@ -39,24 +31,20 @@
 
     <div class="flex flex-col flex-grow group">
       <label for="licenseno" class="text-xs my-label">License #</label>
-      <div class="flex flex-row place-items-center">
         <input type="text" id="licenseno" class="my-input" v-model="customer.licenseno">
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
-      <div class="flex flex-row place-items-center">
         <select id="licenseissued" class="my-input" v-model="customer.licenseissued">
           <option v-for="country in countries" :value="country.country">{{country.country}}</option>
         </select>
-      </div>
     </div>
     <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
       <template v-slot="{ inputValue, inputEvents }">
         <label for="" class="my-label">License Expiry</label>
         <div class="flex flex-row place-items-center">
           <i class="mr-2 form-i fal fa-calendar fa-fw"></i>
-          <input class="my-input" :value="inputValue" v-on="inputEvents" />
+          <input class="my-input w-8" :value="inputValue" v-on="inputEvents" />
         </div>
       </template>
     </date-picker>
@@ -64,41 +52,31 @@
 
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Street Address</label>
-      <div class="flex flex-row place-items-center">
         <input type="text" id="address" class="my-input" v-model="customer.address">
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">City</label>
-      <div class="flex flex-row place-items-center">
         <input type="text" id="city" class="my-input" v-model="customer.city">
-      </div>
     </div>
     <div class="flex flex-col group">
       <label for="state" class=" my-label">State</label>
-      <div class="flex flex-row place-items-center">
         <input type="text" id="state" class="my-input" v-model="customer.state">
-      </div>
     </div>
     <div class="flex flex-col group">
-      <label for="country" class=" my-label">Country</label>
-      <div class="flex flex-row place-items-center">
+      <label for="country" class="my-label">Country</label>
         <select id="country" class="my-input" v-model="customer.countryid">
           <option v-for="country in countries" :value="country.id">{{country.country}}</option>
         </select>
-      </div>
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="postcode" class=" my-label">Postcode</label>
-      <div class="flex flex-row place-items-center">
         <input type="text" id="postcode" class="my-input" v-model="customer.postcode">
-      </div>
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-auto">
-      <button v-if="!newDriver && !isPrimary" class="rounded bg-red-300" @click="extraDriver(-customer.customerid)">Delete</button>
-      <button v-if="!isPrimary" class="rounded bg-green-300" @click="extraDriver(customer.customerid)">{{!newDriver ? 'Update' : 'Add'}}</button>
-      <button v-if="isPrimary" class="rounded bg-green-300" @click="modifyCustomer()">Update</button>
+      <button v-if="!newDriver && !isPrimary" class="btn-red" @click="extraDriver(-customer.customerid)">Delete <i class="far fa-times"></i></button>
+      <button v-if="!isPrimary" class="btn-green" @click="extraDriver(customer.customerid)">{{!newDriver ? 'Update' : 'Add'}} <i class="far fa-cloud-upload"></i></button>
+      <button v-if="isPrimary" class="btn-green" @click="modifyCustomer()">Update <i class="far fa-cloud-upload"></i></button>
     </div>
 
   </div>
