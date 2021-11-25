@@ -72,17 +72,16 @@ export default {
           const res = JSON.parse(result)
           store.dispatch("token", res.access_token)
           store.dispatch("tokenExp", res['.expires'])
-          console.log(res)
         })
         .catch(error => console.log('error', error));
       return store.state.token
     },
     async postapiCall(method) {
       let token = store.state.token
-      let expires = store.state.tokenExp
-      let now = new Date().toGMTString()
+      let expires = new Date(store.state.tokenExp).getTime()
+      let now = new Date().getTime()
       if (expires < now) {
-        console.log('Session has expired. Please refresh the page')
+        alert('Session has expired. Please refresh the page')
         return
       }
       var requestOptions = {
@@ -93,14 +92,9 @@ export default {
         method: "POST",
         body: method,
       }
-      let response = await fetch("https://api.rentalcarmanager.com/v32/api", requestOptions)
-        .then(response => response.text())
-        .then(result => JSON.parse(result))
-        .then(result => {
-            return result
-          })
-
-      return JSON.stringify(response)
+      return await fetch("https://api.rentalcarmanager.com/v32/api", requestOptions)
+      .then(response => response.text())
+      .then(result => {return JSON.parse(result)})
     },
   }
 }

@@ -70,7 +70,6 @@
           "lastname": lastname
         });
         Mixins.methods.postapiCall(method)
-          .then(res => JSON.parse(res))
           .then(res => {
             console.log(res)
             if (res.status == "OK") {
@@ -94,7 +93,6 @@
         });
         let bookingdata
         Mixins.methods.postapiCall(method)
-        .then(res => JSON.parse(res))
         .then(res => {
           console.log(res)
           

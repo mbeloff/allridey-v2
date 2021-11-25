@@ -44,7 +44,7 @@
   import FormSearch from '../components/forms/FormSearch.vue'
   import BookingNav from '../components/BookingNav.vue'
   import SearchResults from '../components/SearchResults.vue'
-  import SelectedVehicle from '../components/SelectedVehicle.vue'
+  import SelectedVehicle from '../components/SelectedOptions.vue'
   import Spinner from '../components/Spinner.vue'
   import FormPayment from '../components/forms/FormPaymentNew.vue'
   import SummaryPage from '../components/Summary.vue'

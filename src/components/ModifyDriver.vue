@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import LoadingOverlay from '../components/LoadingOverlay.vue'
+import LoadingOverlay from './LoadingOverlay.vue'
   import Mixins from '../Mixins'
   export default {
     components: {
@@ -217,7 +217,8 @@ import LoadingOverlay from '../components/LoadingOverlay.vue'
             ...this.customer
           }
         })
-        Mixins.methods.postapiCall(method).then(res => console.log(JSON.parse(res).results))
+        Mixins.methods.postapiCall(method)
+        .then(res => console.log(res.results))
         this.$emit("update")
       },
       modifyCustomer() {
@@ -241,7 +242,6 @@ import LoadingOverlay from '../components/LoadingOverlay.vue'
           }
         })
         Mixins.methods.postapiCall(method)
-        .then(res => JSON.parse(res))
         .then(res => {
           console.log(res)
           this.loading = false

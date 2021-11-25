@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import SectionCustomer from '../components/SectionCustomer.vue'
+  import SectionCustomer from './ModifyDriver.vue'
   import Mixins from '../Mixins'
   export default {
     components: {
@@ -38,8 +38,9 @@
         let method = JSON.stringify({
           "method": "countries"
         });
-        Mixins.methods.postapiCall(method).then(results => {
-          this.countries = JSON.parse(results).results
+        Mixins.methods.postapiCall(method)
+        .then(results => {
+          this.countries = results.results
         })
       },
       defaultCustomer() {
