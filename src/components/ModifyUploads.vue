@@ -2,11 +2,22 @@
   <div class="flex flex-col relative">
     <!-- FILE UPLOADS -->
     <p class="text-xl font-bold text-left">Document Uploads</p>
-    <div v-for="doc in doclist" class="border rounded p-2 text-left">
-      <p>{{doc.customerfirstname + ' ' + doc.customerlastname}}</p>
+    <div v-for="doc in doclist" class="border rounded p-1 text-left bg-gray-200 mb-1">
+      <div class="flex">
+        <div class="p-2 flex-grow">
+        <p class="font-bold">{{doc.customerfirstname + ' ' + doc.customerlastname}}</p>
       <p>{{doc.text}}</p>
-      <button v-show="doc.isuploaded != 1" class="bg-green-300 rounded px-2 h-8" @click="openCloudinaryWidget(doc)">upload</button>
-      <button v-show="doc.isuploaded" class="bg-red-300 rounded px-2 h-8" @click="editupload(doc.documentlinkid)">delete</button>
+      
+      </div>
+      <div class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink">
+        <span class="fa-stack fa-2x mx-auto">
+          <i :class="{ 'opacity-10' : doc.isuploaded == 1}" class="fal fa-id-card fa-stack-2x"></i>
+          <i :class="{ 'opacity-0' : doc.isuploaded == 0 }" class="fas fa-check fa-stack-1x text-green-500" ></i>
+        </span>
+        <button v-show="doc.isuploaded != 1" class="btn-green" @click="openCloudinaryWidget(doc)">upload</button>
+        <button v-show="doc.isuploaded" class="btn-red" @click="editupload(doc.documentlinkid)">delete</button>
+      </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,7 +71,10 @@
           "storageprovider": "cloudinary",
           "sequencenumber": doc.seqno
         })
-        Mixins.methods.postapiCall(method).then(res=>console.log(res))
+        Mixins.methods.postapiCall(method).then(res=>{
+          console.log(res)
+          this.documentlist()
+          })
       },      
       documentlist() {
         let method = JSON.stringify({
@@ -70,9 +84,8 @@
         })
         Mixins.methods.postapiCall(method)
           .then(res => {
-            console.log('returning doclist')
             this.doclist = res.results
-            })
+          })
       },
       editupload(id) {
         let method = JSON.stringify({
@@ -80,14 +93,15 @@
           "reservationref":this.bookingdata.bookinginfo[0].reservationref,
           "documentlinkid": -id
         })
-        console.log(JSON.parse(method))
         Mixins.methods.postapiCall(method)
-        .then(res=>console.log(res))
-        // .then(this.documentlist())
+        .then(res=>{
+          console.log(res)
+          this.documentlist()
+          })
       }
     }
   }
 </script>
-<style>
+<style lang='postcss'>
 
 </style>
