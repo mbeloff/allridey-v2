@@ -114,6 +114,19 @@
   }
 </script>
 
-<style>
-
+<style lang="postcss">
+@layer components {
+  .btn-green {
+    @apply text-sm border border-green-500 text-green-600 rounded px-2 h-8 
+  }
+  .btn-green:hover {
+    @apply hover:bg-green-500 hover:text-white
+  }
+  .btn-red {
+    @apply text-sm border border-red-400 text-red-600 rounded px-2 h-8 
+  }
+  .btn-red:hover {
+    @apply hover:bg-red-400 hover:text-white
+  }
+}
 </style>
