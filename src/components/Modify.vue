@@ -2,22 +2,23 @@
   <div class="py-10 container max-w-screen-lg mx-auto px-0 md:px-5 bg-gra">
     <div class="flex flex-col md:flex-row gap-3 items-start">
       <!-- LEFT SIDE -->
-      <div class="w-full md:w-2/6 order-2 md:order-1 " v-if="totals.length">
+      <div class="w-full md:w-2/6 order-2 md:order-1 px-1" v-if="totals.length">
         <section-summary :bookingdata="bookingdata" :totals="totals" :loading="loading"></section-summary>
+        <button class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">Pay Balance</button>
       </div>
 
       <!-- RIGHT SIDE -->
 
-      <div class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2">
+      <div class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2 px-1">
         <div class="grid grid-cols-3 gap-3 h-12 mb-3">
           <button class="btn-primary rounded" :class="{ 'active' : tab == 'drivers' }" @click="setTab('drivers')">Additional Drivers</button>
           <button class="btn-primary rounded" :class="{ 'active' : tab == 'extras' }" @click="setTab('extras')">Optional Extras</button>
           <button class="btn-primary rounded" :class="{ 'active' : tab == 'uploads' }" @click="setTab('uploads')">Upload Documents</button>
         </div>
-        <div class="flex flex-col shadow-xl bg-white p-5 gap-2 py-10 mb-5">
+        <div class="flex flex-col shadow-xl bg-white p-2 md:p-5 gap-2 py-10 mb-5">
           <section-drivers v-show="tab == 'drivers'" :bookingdata="bookingdata" @update="$emit('update')" :customer="customer"></section-drivers>
           <section-extras v-show="tab == 'extras'" :bookingdata="bookingdata" :insuranceid="insuranceid" @insurance-changed="updateIns" @options-changed="updateOpts" @save-changes="editBooking"></section-extras>
-          <section-uploads v-if="tab == 'uploads'" :bookingdata="bookingdata"></section-uploads>
+          <section-uploads v-show="tab == 'uploads'" :bookingdata="bookingdata"></section-uploads>
         </div>
       </div>
     </div>

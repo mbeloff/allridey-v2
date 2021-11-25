@@ -6,8 +6,9 @@
     <!-- ADDTIONAL DRIVERS -->
     <p class="text-xl font-bold text-left mt-2">Additional Drivers</p>
     <section-customer @update="$emit('update')" v-for="customer in bookingdata.extradrivers" :customer="customer" :countries="countries"></section-customer>
-    <button v-if="bookingdata.extradrivers.length < 4" :class="{ 'bg-green-500 text-green-700' : newDriver }" class="h-8 bg-green-300 rounded my-2" @click="newDriver = !newDriver">Add Driver</button>
+    <button v-if="bookingdata.extradrivers.length < 4" :class="{ 'bg-green-500 text-white' : newDriver }" class="btn-green my-2" @click="newDriver = !newDriver"><i class="fas fa-plus-circle"></i> Add a Driver</button>
     <!-- NEW DRIVER -->
+    <p v-if="newDriver" class="text-xl font-bold text-left">New Driver Details</p>
     <section-customer @update="$emit('update'); newDriver = false" :countries="countries" v-if="newDriver && bookingdata.extradrivers.length < 4" :customer="defaultCustomer()" :newDriver="true"></section-customer>
   </div>
 </template>

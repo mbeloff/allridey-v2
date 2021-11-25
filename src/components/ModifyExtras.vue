@@ -9,7 +9,7 @@
           <label :for="'dc' + dc.id" class="fee w-full">
             <div class="flex">
               <span class="fee-name">{{dc.feedescription}}</span>
-              <div class="flex items-center"><i class="fas fa-plus-circle mr-2"></i>{{ bookingdata.bookinginfo[0].currencysymbol + dc.fees}} <span class="text-xs">/day</span>  </div>              
+              <div class="flex items-center font-bold"><i class="fas fa-plus-circle mr-2"></i>{{ symbol + dc.fees}} <span class="text-xs font-normal">/day</span>  </div>              
             </div>
           </label>
         </div>
@@ -23,7 +23,7 @@
           <label :for="'km' + km.id" class="fee w-full">
             <div class="flex">
               <span class="fee-name">{{km.description}}</span>
-              <span class="price"><i class="fas fa-plus-circle mr-2"></i>{{ bookingdata.bookinginfo[0].currencysymbol + km.totalamount}}</span>
+              <div class="flex items-center font-bold"><i class="fas fa-plus-circle mr-2"></i>{{ symbol + km.dailyrate}} <span class="text-xs font-normal">/day</span>  </div> 
             </div>
           </label>
         </div>
@@ -32,7 +32,7 @@
     <div class="mb-4">
       <p class="font-bold mb-4 text-xl">Optional Extras:</p>      
       <div class="flex mb-1" v-for="extra in options.optionalfees">
-            <div v-if="extra.qtyapply" class="flex flex-col justify-around items-center w-8" :class="{'opacity-50': !extra.selected}">
+            <div v-if="extra.qtyapply && extra.selected" class="flex flex-col justify-around items-center w-8" :class="{'opacity-50': !extra.selected}">
               <i @click="extra.qty++" class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
               <input type="text" disabled v-model="extra.qty" class="w-6 text-center">
               <i @click="extra.qty--" class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
@@ -56,7 +56,7 @@
     </div>
       
       <div class="flex w-full h-8">
-        <button @click="$emit('saveChanges')" class="bg-green-300 rounded px-2 ml-auto">save changes</button>
+        <button @click="$emit('saveChanges')" class="btn-green ml-auto">save changes  <i class="far fa-cloud-upload"></i></button>
       </div>
   </div>
 </template>
