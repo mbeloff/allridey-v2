@@ -4,9 +4,13 @@
     <p class="text-xl font-bold text-left">Document Uploads</p>
     <div v-for="doc in doclist" class="border rounded p-1 text-left bg-gray-200 mb-1">
       <div class="flex">
-        <div class="p-2 flex-grow">
-        <p class="font-bold">{{doc.customerfirstname + ' ' + doc.customerlastname}}</p>
-      <p>{{doc.text}}</p>
+        <div class="p-2 flex-grow flex flex-col justify-between">
+          <div>
+            <p class="font-bold">{{doc.customerfirstname + ' ' + doc.customerlastname}}</p>
+            <p>{{doc.text}}</p>
+          </div>
+        
+      <span v-if="doc.isuploaded" class="text-green-600 font-normal text-sm"><i class="far fa-check "></i> uploaded</span>
       
       </div>
       <div class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink">
