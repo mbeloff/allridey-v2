@@ -3,6 +3,11 @@
     <p class="text-3xl px-2 py-3">Booking Summary</p>
     <!-- <img :src="bookingdata.bookinginfo[0].urlpathfordocuments + bookingdata.bookinginfo[0]. vehicleimage" alt="" class="m-auto"> -->
     <div class="px-2 py-1 text-sm">
+      <div class="flex justify-between py-2">
+        <p class="font-bold">Vehicle:</p>
+        <p>{{bookingdata.bookinginfo[0].vehiclecategory}}</p>
+      </div>
+      
       <p class="font-bold">Trip Information:</p>
       <div class="flex justify-between py-2">
         <span class="flex-shrink">
@@ -45,7 +50,7 @@
       </div>
 
       <div v-if="bookingdata.paymentinfo.length != 0" class="flex justify-end">
-        <span>Payment received:</span><span>{{symbol + bookingdata.bookinginfo[0].payment}}</span>
+        <span>Payment received:</span><span>{{symbol + bookingdata.bookinginfo[0].payment.toFixed(2)}}</span>
       </div>
     </div>
 
@@ -54,7 +59,7 @@
       <div class="flex justify-end mb-2">
         <span v-if="bookingdata.bookinginfo[0].isquotation" class="font-bold mr-2 ">TOTAL: </span>
         <span v-else class="font-bold mr-2 ">BALANCE DUE: </span>
-        <span class="text-right">{{bookingdata.bookinginfo[0].currencyname + ' ' + symbol + (total[0].total - bookingdata.bookinginfo[0].payment)}}</span>
+        <span class="text-right">{{bookingdata.bookinginfo[0].currencyname + ' ' + symbol + (total[0].total - bookingdata.bookinginfo[0].payment).toFixed(2)}}</span>
       </div>
       <div class="text-right italic text-xs">
         <span>includes GST of: </span><span> {{ symbol + tax[0].total }}</span>
@@ -62,6 +67,7 @@
     </div>
 
   </div>
+  <button class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">Pay Balance</button>
 </template>
 
 <script>

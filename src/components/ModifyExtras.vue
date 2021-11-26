@@ -45,7 +45,7 @@
 
                   <p class="font-bold price" v-if="extra.type == 'Percentage'">{{ symbol + extra.totalfeeamount }}</p>
                   <div v-else class="font-bold price">
-                    <span><i class="fas fa-plus-circle mr-2"></i>{{symbol + extra.fees*extra.qty}}</span>
+                    <span><i class="fas fa-plus-circle mr-2"></i>{{symbol + extra.fees}}</span>
                     <span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span>
                   </div>
                 </div>
@@ -118,7 +118,7 @@
           this.options = results.results
           this.options.optionalfees.forEach(el=>{
             el.selected = undefined
-            el.qty = undefined
+            el.qty = 1
             this.bookingdata.extrafees.forEach(x=>{
               if (x.extrafeeid == el.id) {
                 el.selected = true

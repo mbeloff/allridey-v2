@@ -3,15 +3,15 @@
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>
-        <input required type="text" id="fName" class="my-input" v-model="customer.firstname">
+        <input required type="text" id="fName" class="my-input" v-model="customer.firstname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
-        <input required type="text" id="lName" class="my-input" v-model="customer.lastname">
+        <input required type="text" id="lName" class="my-input" v-model="customer.lastname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="email" class="text-xs mb-1 my-label">Email</label>
-        <input required type="email" id="email" class="my-input" v-model="customer.email">
+        <input required type="email" id="email" class="my-input" v-model="customer.email" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="phone" class="text-xs mb-1 my-label">Phone</label>
@@ -33,12 +33,7 @@
       <label for="licenseno" class="text-xs my-label">License #</label>
         <input type="text" id="licenseno" class="my-input" v-model="customer.licenseno">
     </div>
-    <div class="flex flex-col flex-grow group">
-      <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
-        <select id="licenseissued" class="my-input" v-model="customer.licenseissued">
-          <option v-for="country in countries" :value="country.country">{{country.country}}</option>
-        </select>
-    </div>
+    
     <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
       <template v-slot="{ inputValue, inputEvents }">
         <label for="" class="my-label">License Expiry</label>
@@ -48,7 +43,12 @@
         </div>
       </template>
     </date-picker>
-
+    <div class="flex flex-col flex-grow group">
+      <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
+        <select id="licenseissued" class="my-input" v-model="customer.licenseissued">
+          <option v-for="country in countries" :value="country.country">{{country.country}}</option>
+        </select>
+    </div>
 
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Street Address</label>
@@ -203,9 +203,13 @@ import LoadingOverlay from './LoadingOverlay.vue'
         this.loading = true
         let bookingtype = (this.bookingdata.bookinginfo[0].isquotation) ? 1 : 2;
         let insuranceid = null
+        let optionalfees = []
         this.bookingdata.extrafees.forEach(el => {
           if (el.isinsurancefee) {
             insuranceid = el.extrafeeid
+          }
+          if (el.isoptionalfee) {
+            optionalfees.push({id: el.extrafeeid, qty: el.qty})
           }
         })
         let method = JSON.stringify({
@@ -213,6 +217,7 @@ import LoadingOverlay from './LoadingOverlay.vue'
           "reservationref": this.bookingdata.bookinginfo[0].reservationref,
           "bookingtype": bookingtype,
           "insuranceid": insuranceid,
+          "optionalfees": optionalfees,
           "extrakmsid": this.bookingdata.bookinginfo[0].kmcharges_id,
           "numbertravelling": this.bookingdata.bookinginfo[0].numbertravelling,
           "customer": {
