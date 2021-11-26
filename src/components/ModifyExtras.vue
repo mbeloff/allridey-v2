@@ -1,5 +1,5 @@
 <template>
-  <div class="relative text-left">
+  <div class="relative text-left text-sm">
     <!-- Kilometres -->    
     <div class="mb-4">
       <p class="font-bold mb-4 text-xl">Damage Cover:</p>
@@ -33,9 +33,9 @@
       <p class="font-bold mb-4 text-xl">Optional Extras:</p>      
       <div class="flex mb-1" v-for="extra in options.optionalfees">
             <div v-if="extra.qtyapply && extra.selected" class="flex flex-col justify-around items-center w-8" :class="{'opacity-50': !extra.selected}">
-              <i @click="extra.qty++" class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
+              <i @click="incQty(extra)" class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
               <input type="text" disabled v-model="extra.qty" class="w-6 text-center">
-              <i @click="extra.qty--" class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
+              <i @click="decQty(extra)" class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"></i>
             </div>
             <div class="flex flex-col flex-grow p-1 border border-opacity-0 rounded" :class="{'selected': extra.selected == true}">
               <input type="checkbox" class="mr-1 hidden" v-model="extra.selected" :id="'extra' + extra.id">
@@ -95,6 +95,12 @@
       this.getOptions()
     },
     methods: {
+      incQty(fee) {
+        if (fee.qty < 10) {fee.qty++}
+      },
+      decQty(fee) {
+        if (fee.qty > 1) {fee.qty--}
+      },
       toggleFee(fee){
         if (!this.selectedFees.find(el=>el.id == fee.id)) {
           this.selectedFees.push(fee)
@@ -112,12 +118,12 @@
           this.options = results.results
           this.options.optionalfees.forEach(el=>{
             el.selected = undefined
-            el.qty = 1
+            el.qty = undefined
             this.bookingdata.extrafees.forEach(x=>{
               if (x.extrafeeid == el.id) {
                 el.selected = true
+                el.qty = x.qty
               }
-              el.qty = x.qty
             })
           })
         })
