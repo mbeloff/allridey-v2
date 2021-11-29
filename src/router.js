@@ -4,6 +4,8 @@ import CheckPayment from './views/CheckPayment.vue'
 import Locations from './views/Locations.vue'
 import Location from './views/Location.vue'
 import Checkin from './views/Checkin.vue'
+import NewCheckin from './views/NewCheckin.vue'
+import ModifyBooking from './views/ModifyBooking.vue'
 const history = createWebHistory();
 
 const routes = [
@@ -17,6 +19,8 @@ const routes = [
   {name: "Locations", path: "/locations", component: Locations, props: true},
   {name: "Location", path: "/location/:name?", component: Location, props: true},
   {name: "Checkin", path: "/checkin", component: Checkin, props: true},
+  {name: "NewCheckin", path: "/newcheckin", component: NewCheckin, props: true},
+  {name: "ModifyBooking", path: "/modifybooking", component: ModifyBooking, props: true},
 
 ];
 
