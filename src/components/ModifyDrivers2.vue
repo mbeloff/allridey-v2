@@ -45,6 +45,9 @@
         newDriver: false,
       }
     },
+    created() {
+      this.getCountries()
+    },
     mounted() {
     },
     methods: {
