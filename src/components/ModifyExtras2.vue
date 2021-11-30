@@ -2,7 +2,7 @@
   <div class="flex flex-col md:flex-row gap-3 items-start">
     <!-- LEFT SIDE -->
     <div class="w-full md:w-2/6 order-2 md:order-1 px-1">
-      <section-summary :resref="resref" :totals="totals" :bookingdata="bookingdata"></section-summary>
+      <section-summary :resref="resref" :totals="totals" :bookingdata="bookingdata" :loading="loading"></section-summary>
     </div>
     <!-- RIGHT SIDE -->
     <div class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2 p-2 md:p-5 bg-white rounded">
@@ -52,7 +52,7 @@
 
                   <p class="font-bold price" v-if="extra.type == 'Percentage'">{{ symbol + extra.totalfeeamount }}</p>
                   <div v-else class="font-bold price">
-                    <span><i class="fas fa-plus-circle mr-2"></i>{{symbol + extra.fees}}</span>
+                    <span><i class="fas fa-plus-circle mr-2"></i>{{symbol + (extra.fees * extra.qty)}}</span>
                     <span v-if="extra.type == 'Daily'" class="text-xs font-normal">/day</span>
                   </div>
                 </div>
@@ -85,14 +85,47 @@
       customer: Object,
       resref: String,
     },
-    watch: {},
+    watch: {
+      'options.optionalfees': {
+        handler(newVal, oldVal) {
+          if (oldVal != {}) {
+            this.loading = true
+            this.calcTotal()
+          }
+        },
+        deep: true
+      },
+      'selectedkm': {
+        handler(newVal, oldVal) {
+          
+          if (oldVal != 0) {
+            console.log('kms: '+oldVal)
+            this.loading = true
+            this.calcTotal()
+          }
+        }
+      },
+      'insurancefee': {
+        
+        handler(newVal, oldVal) {
+         
+          if (oldVal != {}) {
+             console.log('ins: '+oldVal)
+            this.loading = true
+            this.calcTotal()
+          }
+        }
+      },
+
+    },
     data() {
       return {
         gotOptions: false,
         options: {},
-        insurancefee: 0,
+        insurancefee: {},
         selectedkm: 0,
-        totals: []
+        totals: [],
+        loading: true,
       }
     },
     computed: {
@@ -105,11 +138,6 @@
     },
     created() {
       this.getOptions()
-      this.bookingdata.extrafees.forEach(el => {
-        if (el.isinsurancefee) {
-          this.insurancefee = el
-        }
-      })
       this.selectedkm = this.bookingdata.bookinginfo[0].kmcharges_id
     },
     mounted() {
@@ -172,7 +200,6 @@
                 this.insurancefee = el
               }
             })
-            // this.initialOptions = JSON.parse(JSON.stringify(this.options))
             this.calcTotal()
             this.gotOptions = true
           })
@@ -184,7 +211,6 @@
             arr.push({id: el.id, qty: el.qty})
           }
         })
-        console.log(arr)
         return arr
       },
       mandatoryFees() {
@@ -194,7 +220,6 @@
             arr.push({id: el.extrafeeid, qty: el.qty})
           }
         })
-        console.log(arr)
         return arr
       },
       calcTotal() {
@@ -215,12 +240,14 @@
         })
         Mixins.methods.postapiCall(method)
           .then(res => {
-            this.loading = false
+            
             console.log(res)
             if (res.status == 'OK') {
               this.totals = res.results.totals
               this.ready = true
+              this.loading = false
             } else if (res.status == 'ERR') {
+              this.loading = false
               throw res.error
             }
           })
