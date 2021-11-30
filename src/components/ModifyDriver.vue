@@ -44,7 +44,7 @@
       </template>
     </date-picker>
     <div class="flex flex-col flex-grow group">
-      <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
+      <label for="licenseissued" class="text-xs my-label">License Issued In</label>
         <select id="licenseissued" class="my-input" v-model="customer.licenseissued">
           <option v-for="country in countries" :value="country.country">{{country.country}}</option>
         </select>

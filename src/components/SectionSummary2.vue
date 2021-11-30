@@ -1,34 +1,39 @@
 <template>
 <div>
   <div class="text-left shadow-xl bg-white rounded">
-    <p class="text-3xl px-2 py-3">Booking Summary</p>
+    <p class="text-3xl px-2 py-3 text-center">Booking Summary</p>
     <!-- <img :src="bookingdata.bookinginfo[0].urlpathfordocuments + bookingdata.bookinginfo[0]. vehicleimage" alt="" class="m-auto"> -->
-    <div class="px-2 py-1 text-sm">
-      <div class="flex justify-between py-2">
-        <p class="font-bold">Vehicle:</p>
-        <p>{{bookingdata.bookinginfo[0].vehiclecategory}}</p>
-      </div>
-      
-      <p class="font-bold">Trip Information:</p>
-      <div class="flex justify-between py-2">
-        <span class="flex-shrink">
-          Pickup:
-        </span>
-        <div class="grid font-bold">
-          <span class="text-right">{{bookingdata.bookinginfo[0].pickuplocationname}}</span>
-          <span>{{tConvert(bookingdata.bookinginfo[0].pickuptime)}} - {{bookingdata.bookinginfo[0].pickupdate.replaceAll('/', ' ')}}</span>
+    <div class="px-2 py-1 text-sm">      
+      <div class="w-full flex gap-3 items-center text-sm text-gray-500 py-4">
+
+        <div class="text-right flex-grow">
+          <p class="uppercase text-sm font-bold text-gray-500 mb-1">Picking Up</p>
+          <ul>
+            <li>{{bookingdata.bookinginfo[0].pickuplocationname}}</li>
+            <li>{{bookingdata.bookinginfo[0].pickupdate.replaceAll('/', ' ') + ' ' + bookingdata.bookinginfo[0].pickuptime}}</li>
+
+          </ul>
+        </div>
+        <div class="flex-shrink grid place-items-center">
+          <div class="grid grid-flow-col place-items-center">
+            <i class="fal fa-ellipsis-h mr-0.5"></i> <i class="fal fa-arrow-right"></i>
+          </div>
+
+        </div>
+        <div class="text-left flex-grow ">
+          <p class="uppercase text-sm font-bold text-gray-500 mb-1">Dropping Off</p>
+          <ul>
+            <li>{{bookingdata.bookinginfo[0].dropofflocationname}}</li>
+            <li>{{bookingdata.bookinginfo[0].dropoffdate.replaceAll('/', ' ') + ' ' + bookingdata.bookinginfo[0].dropofftime}}</li>
+
+          </ul>
         </div>
       </div>
-      <div class="flex justify-between py-2">
-        <span class="flex-shrink">
-          Dropoff:
-        </span>
-        <div class="grid font-bold">
-          <span class="text-right">{{bookingdata.bookinginfo[0].dropofflocationname}}</span>
-          <span>{{tConvert(bookingdata.bookinginfo[0].dropofftime)}} - {{bookingdata.bookinginfo[0].dropoffdate.replaceAll('/', ' ')}}</span>
-        </div>
+      <div class="text-center py-2">
+        <p class="font-bold">Vehicle Category:</p>
+        <p class="py-2">{{bookingdata.bookinginfo[0].vehiclecategory}}</p>
       </div>
-      <p class="font-bold">Daily Rental Rate:</p>
+      <p class="font-bold text-center">Daily Rental Rate:</p>
       <div class="flex justify-between py-2">
         <span class="flex-shrink">
           {{bookingdata.rateinfo[0].numberofdays + ' days @ ' + symbol + bookingdata.rateinfo[0].dailyrateafterdiscount}}
@@ -37,7 +42,7 @@
       </div>
 
       <div class="">
-        <p class="font-bold">Fees:</p>
+        <p class="font-bold text-center">Fees:</p>
         <div class="flex justify-between" v-if="insurance.length">
           <span> Damage Cover </span><span class="font-bold ml-5">{{symbol + insurance[0].total}}</span>
         </div>

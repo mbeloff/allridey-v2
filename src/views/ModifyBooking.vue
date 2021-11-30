@@ -6,7 +6,7 @@
     <div class="py-10">
       <div class="grid md:grid-flow-col gap-1 px-1">
         <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Additional Drivers</label>
-        <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Optional Extras</label>
+        <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Upgrade Extras</label>
         <label for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
         <input name="drivers" id="drivers" type="radio" value="drivers" v-model="tab" hidden>
         <input name="extras" id="extras" type="radio" value="extras" v-model="tab" hidden>
@@ -15,6 +15,7 @@
     </div>
 
     <modify-drivers @update="bookingInfo()" v-if="tab=='drivers' && this.ready" :bookingdata="bookingdata" :customer="customer" :resref="resref" :totals="totals" :extradrivers="bookingdata.extradrivers"></modify-drivers>
+    <modify-extras v-if="tab=='extras'" :customer="customer" :initialtotals="totals" :bookingdata="bookingdata" :resref="resref" :insuranceid="insurancefee"></modify-extras>
     <modify-uploads v-if="tab=='uploads'" :resref="resref" :totals="totals" :bookingdata="bookingdata"></modify-uploads>
 </div>
 </div>
@@ -24,6 +25,7 @@
 <script>
   import Mixins from '../Mixins.js'
   import ModifyDrivers from '../components/ModifyDrivers2.vue'
+  import ModifyExtras from '../components/ModifyExtras2.vue'
   import SectionSummary from '../components/SectionSummary2.vue'
   import ModifyUploads from '../components/ModifyUploads2.vue'
   import LoadingOverlay from '../components/LoadingOverlay.vue'
@@ -32,6 +34,7 @@
     components: {
       SectionSummary,
       ModifyUploads,
+      ModifyExtras,
       LoadingOverlay,
       ModifyDrivers
     },
@@ -66,10 +69,8 @@
           .then(res => {
             console.log(res)
             if (res.status == "OK") {
-              this.bookingdata = res.results
-              this.customer = this.bookingdata.customerinfo[0]
               this.loading = false
-              this.init()
+              this.init(res.results)
             } else if (res.status == "ERR") {
               console.log(res.error)
               this.$router.push({
@@ -95,11 +96,13 @@
         let id = data.find(el=>el.isinsurancefee)
         return id.extrafeeid
       },
-      init() {
-        let data = this.bookingdata.extrafees
-        this.insurancefee = this.getIns(data)
-        this.mandatoryfees = this.getMans(data)
-        this.optionalfees = this.getOpts(data)
+      init(data) {
+        let feedata = data.extrafees
+        this.bookingdata = data
+        this.customer = data.customerinfo[0]
+        this.insurancefee = this.getIns(feedata)
+        this.mandatoryfees = this.getMans(feedata)
+        this.optionalfees = this.getOpts(feedata)
         this.calcTotal()
       },
       getMans(data) {
