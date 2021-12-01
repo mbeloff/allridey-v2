@@ -1,5 +1,5 @@
 <template>
-  <p v-if="loading">please wait...</p>
+  <p v-if="!paymentInfo">please wait...</p>
 </template>
 
 <script>
@@ -8,27 +8,26 @@ export default {
   data() {
     return {
       paymentInfo: {},
-      loading: true
-      // target: ""
+      target: ""
     }
   },
   mounted() {
-    // console.log(this.$route.query)
-    // var search = location.search.substring(1);
-    // console.log(search)
-    // this.target = search;
+    console.log(this.$route.query)
+    var search = location.search.substring(1);
+    console.log(search)
+    this.target = search;
     this.processPayResult()
   },
   watch: {
-    // 'paymentInfo': function() {
+    'paymentInfo': function() {
       
-    // }
+    }
   },
   mixins: [Mixins],
   methods: {
-    // changeParent() {
-    //   top.window.location = '/?' + this.target;
-    // },
+    changeParent() {
+      top.window.location = '/?' + this.target;
+    },
 
     processPayResult() {
       let fnHost = import.meta.env.VITE_FN_HOST
@@ -50,7 +49,6 @@ export default {
                 // console.log(JSON.parse(result))
                 let res = JSON.parse(result).Response
                 this.paymentInfo = res
-                this.loading = false
                 window.parent.postMessage(res)
               })
               .catch(error => {console.log('process result failed: ', error)

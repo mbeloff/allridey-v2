@@ -36,10 +36,17 @@
         resno: "U1157",
         lastname: "TEST",
         error: "",
-        loading: false,
+        loading: true,
       }
     },
     watch: {
+      token: {
+        handler(val) {
+          if (val) {
+            this.loading = false
+          }
+        }
+      }
     },
     mounted() {
       Mixins.methods.getToken()
@@ -47,11 +54,15 @@
     computed: {
       resref() {
         return this.$store.state.pbresref
-      },      
+      },   
+      token() {
+        return this.$store.state.token
+      }   
     },
     methods: {
       findBooking(resno, lastname) {
         this.loading = true
+        this.error = ""
         let method = JSON.stringify({
           "method": "findbooking",
           "reservationno": resno,
@@ -69,7 +80,7 @@
             }
           }).catch(err => {
             this.loading = false
-            // this.error = err
+            this.error = err
             console.log('find booking (error): ' + err)
           })
       },     

@@ -2,8 +2,8 @@
   <div>
     <div class="text-left shadow-xl bg-white rounded relative">
       <div>
-        <p class="text-3xl px-2 py-3 text-center">Booking Summary</p>
-        <!-- <img :src="bookingdata.bookinginfo[0].urlpathfordocuments + bookingdata.bookinginfo[0]. vehicleimage" alt="" class="m-auto"> -->
+        <loading-overlay v-if="loading"></loading-overlay>
+        <p class="text-3xl px-2 py-3 text-center">{{ (this.bookingdata.bookinginfo[0].isquotation ? 'Quote' : 'Booking') + ' Summary'}}</p>
         <div class="px-2 py-1 text-sm">
           <div class="w-full flex gap-3 items-center text-sm text-gray-500 py-4">
 
@@ -11,7 +11,7 @@
               <p class="uppercase text-sm font-bold text-gray-500 mb-1">Picking Up</p>
               <ul>
                 <li>{{bookingdata.bookinginfo[0].pickuplocationname}}</li>
-                <li>{{bookingdata.bookinginfo[0].pickupdate.replaceAll('/', ' ') + ' ' + bookingdata.bookinginfo[0].pickuptime}}</li>
+                <li>{{bookingdata.bookinginfo[0].pickupdate.replaceAll('/', ' ') + ' ' + tConvert(bookingdata.bookinginfo[0].pickuptime)}}</li>
 
               </ul>
             </div>
@@ -25,43 +25,44 @@
               <p class="uppercase text-sm font-bold text-gray-500 mb-1">Dropping Off</p>
               <ul>
                 <li>{{bookingdata.bookinginfo[0].dropofflocationname}}</li>
-                <li>{{bookingdata.bookinginfo[0].dropoffdate.replaceAll('/', ' ') + ' ' + bookingdata.bookinginfo[0].dropofftime}}</li>
+                <li>{{bookingdata.bookinginfo[0].dropoffdate.replaceAll('/', ' ') + ' ' + tConvert(bookingdata.bookinginfo[0].dropofftime)}}</li>
 
               </ul>
             </div>
           </div>
-          <div v-if="totals && totals.length">
-            <div class="text-center py-2">
+          <div class="text-center py-2">
             <p class="font-bold">Vehicle Category:</p>
             <p class="py-2">{{bookingdata.bookinginfo[0].vehiclecategory}}</p>
           </div>
-          <p class="font-bold text-center">Daily Rental Rate:</p>
-          <div class="flex justify-between py-2">
-            <span class="flex-shrink">
-              {{bookingdata.rateinfo[0].numberofdays + ' days @ ' + symbol + bookingdata.rateinfo[0].dailyrateafterdiscount}}
-            </span>
-            <span class="font-bold">{{symbol + rate[0].total}}</span>
+          <div v-if="totals && totals.length">
+
+            <p class="font-bold text-center">Daily Rental Rate:</p>
+            <div class="flex justify-between py-2">
+              <span class="flex-shrink">
+                {{bookingdata.rateinfo[0].numberofdays + ' days @ ' + symbol + bookingdata.rateinfo[0].dailyrateafterdiscount}}
+              </span>
+              <span class="font-bold">{{symbol + rate[0].total}}</span>
+            </div>
+
+            <div class="">
+              <p class="font-bold text-center">Fees:</p>
+              <div class="flex justify-between" v-if="insurance.length">
+                <span> Damage Cover </span><span class="font-bold ml-5">{{symbol + insurance[0].total}}</span>
+              </div>
+              <div class="flex justify-between" v-if="kms.length">
+                <span> Km Charges </span><span class="font-bold ml-5">{{symbol + kms[0].total}}</span>
+              </div>
+              <div class="flex justify-between" v-for="fee in fees" :key="fee.id">
+                <span> {{fee.name}} </span><span class="font-bold">{{symbol + fee.total}}</span>
+              </div>
+              <br>
+            </div>
+
+            <div v-if="bookingdata.paymentinfo.length != 0" class="flex justify-end gap-2">
+              <span>Payment received: </span><span> {{symbol + bookingdata.bookinginfo[0].payment.toFixed(2)}}</span>
+            </div>
           </div>
 
-          <div class="">
-            <p class="font-bold text-center">Fees:</p>
-            <div class="flex justify-between" v-if="insurance.length">
-              <span> Damage Cover </span><span class="font-bold ml-5">{{symbol + insurance[0].total}}</span>
-            </div>
-            <div class="flex justify-between" v-if="kms.length">
-              <span> Km Charges </span><span class="font-bold ml-5">{{symbol + kms[0].total}}</span>
-            </div>
-            <div class="flex justify-between" v-for="fee in fees" :key="fee.id">
-              <span> {{fee.name}} </span><span class="font-bold">{{symbol + fee.total}}</span>
-            </div>
-            <br>
-          </div>
-
-          <div v-if="bookingdata.paymentinfo.length != 0" class="flex justify-end">
-            <span>Payment received:</span><span>{{symbol + bookingdata.bookinginfo[0].payment.toFixed(2)}}</span>
-          </div>
-          </div>
-          
         </div>
 
         <div class="bg-blue-800 text-blue-100 p-2 rounded-b relative h-16">
@@ -79,7 +80,28 @@
 
 
     </div>
-    <button class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">Pay Balance</button>
+    <div v-if="total && total.length">
+      <button v-show="changesSaved()" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">Pay Balance</button>
+      <button @click="$emit('saveChanges')" v-show="!changesSaved()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">save changes <i class="fal fa-cloud-upload"></i></button>
+    </div>
+    
+
+    <div v-if="openPayment" class="fixed max-w-screen w-full h-screen bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
+      <div class="bg-white rounded p-2 overflow-scroll">
+        <loading-overlay v-if="payLoading">
+        ...loading
+        </loading-overlay>
+        <p class="font-bold text-center">Payment</p>
+        <div v-if="paymentResponse.Success">
+          <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
+
+        </div>
+        <iframe ref="wcframe" :src="payurl" width="400" height="470" scrolling="no"></iframe>
+        <button @click="openPayment = false" class="italic text-red-500 text-right float-right">go back <i class="ml-1 fal fa-times-square"></i></button>
+      </div>
+
+    </div>
+
   </div>
 
 </template>
@@ -92,10 +114,42 @@
     components: {
       LoadingOverlay
     },
+    data() {
+      return {
+        payurl: "",
+        payLoading: false,
+        openPayment: false,
+        paymentResponse: {}
+      }
+    },
+    created() {
+      this.openPayment = false
+    },
+    watch: {
+      'paymentResponse': {
+        handler(val) {
+          console.log(val)
+          this.handlePayment()
+        },
+        deep: true
+      },
+      
+    },
+    mounted() {
+      window.addEventListener("message", (event) => {
+        if (event.origin !==
+          import.meta.env.VITE_HOST) {
+          return;
+        } else if (event.data.TxnType) {
+          this.paymentResponse = event.data
+        }
+      }, false);
+    },
     props: {
       bookingdata: Object,
       totals: Object,
-      loading: Boolean
+      loading: Boolean,
+      resref: String
     },
     computed: {
       symbol() {
@@ -118,8 +172,9 @@
       },
       tax() {
         return this.getFees('country tax')
-      }
+      },
     },
+
     methods: {
       getFees(type, type2) {
         let fees = []
@@ -145,6 +200,90 @@
           time[0] = +time[0] % 12 || 12; // Adjust hours
         }
         return time.join(''); // return adjusted time or original string
+      },
+      createPayment() {       
+        this.payLoading = true
+        this.openPayment = true
+        var body = JSON.stringify({
+          amount: 1,
+          currency: this.bookingdata.bookinginfo[0].currencyname,
+          resref: this.resref
+        });
+        var requestOptions = {
+          method: 'POST',
+          body: body,
+          redirect: 'follow'
+        };
+        fetch(import.meta.env.VITE_FN_HOST + "/.netlify/functions/reqtrans", requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            console.log(JSON.parse(result))
+            let res = JSON.parse(result).Request.URI._text
+            this.payurl = res
+            this.payLoading = false
+          })
+          .catch(error => {
+            console.log('request transaction failed: ', error)
+          });
+      },
+      handlePayment() {
+        this.payLoading = true
+        console.log('handling payment')
+        if (this.paymentResponse.Success._text == 1) {   
+        let params = JSON.stringify(this.gatherParams())
+        console.log(JSON.parse(params))
+        Mixins.methods.postapiCall(params).then(res => {
+          if (res.status == 'OK') {
+            console.log('confirmed payment')
+            console.log(res)
+            this.openPayment = false
+            this.$emit('update')
+          } else if (res.status == 'ERR') {
+            alert(res.error)
+          }         
+        })
+        } else if (this.paymentResponse.Success._text == 0) {
+          console.log('payment unsuccessful, retrying')         
+          this.createPayment()
+          this.count++
+        }  
+      },
+      getPaydate(dateStr) {
+        let year = dateStr.substring(0, 4)
+        let month = dateStr.substring(4, 6)
+        let day = dateStr.substring(6, 8)
+        return day + '/' + month + '/' + year
+      },
+      cardExpiry(dateStr) {
+        let month = dateStr.substring(0, 2)
+        let year = dateStr.substring(2, 4)
+        return month + '/' + year
+      },
+      gatherParams() {
+        let obj = this.paymentResponse
+        let params = {
+          "method": "confirmpayment",
+          "reservationref": this.resref,
+          "amount": obj.AmountSettlement._text,
+          // "success": obj.Success._text,
+          "success": 1,
+          "paytype": obj.CardName._text,
+          "paydate": this.getPaydate(obj.DateSettlement._text),
+          "supplierid": 2,
+          "transactid": obj.DpsTxnRef._text,
+          "dpstxnref": obj.TxnId._text,
+          "cardholder": obj.CardHolderName._text,
+          "paysource": "Windcave Online Payment",
+          "cardnumber": obj.CardNumber._text,
+          "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
+          "transtype": "Payment",
+          "payscenario": 1,
+          "emailoption": 0
+        }
+        return params
+      },
+      changesSaved() {
+        return this.bookingdata.bookinginfo[0].balancedue == ( this.total[0].total - this.bookingdata.bookinginfo[0].payment )
       }
     }
   }

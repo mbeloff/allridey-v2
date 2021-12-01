@@ -15,7 +15,7 @@
     </div>
 
     <modify-drivers @update="bookingInfo()" v-if="tab=='drivers' && this.ready" :bookingdata="bookingdata" :customer="customer" :resref="resref" :totals="totals" :extradrivers="bookingdata.extradrivers"></modify-drivers>
-    <modify-extras v-if="tab=='extras'" :customer="customer" :initialtotals="totals" :bookingdata="bookingdata" :resref="resref" :insuranceid="insurancefee"></modify-extras>
+    <modify-extras @update="bookingInfo()" v-if="tab=='extras'" :customer="customer" :initialtotals="totals" :bookingdata="bookingdata" :resref="resref" :insuranceid="insurancefee"></modify-extras>
     <modify-uploads v-if="tab=='uploads'" :resref="resref" :totals="totals" :bookingdata="bookingdata"></modify-uploads>
 </div>
 </div>

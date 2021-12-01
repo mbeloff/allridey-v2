@@ -74,7 +74,7 @@ export default {
           store.dispatch("tokenExp", res['.expires'])
         })
         .catch(error => console.log('error', error));
-      return store.state.token
+      // return store.state.token
     },
     async postapiCall(method) {
       let token = store.state.token

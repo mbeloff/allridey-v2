@@ -24,7 +24,7 @@
     <transition name="slide">
       <div v-if="expand" class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full">
         <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-3">Book Now</router-link>
-        <router-link :to="{ name: 'Checkin' }" class="hover:bg-gray-200 px-5 py-3">Check In</router-link>
+        <router-link :to="{ name: 'NewCheckin' }" class="hover:bg-gray-200 px-5 py-3">Check In</router-link>
         <!-- <router-link :to="{ name: 'Locations' }" class="hover:bg-gray-200 px-5 py-3">Locations</router-link> -->
         <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
       </div>
