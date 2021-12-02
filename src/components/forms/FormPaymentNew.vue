@@ -197,30 +197,26 @@
         return month + '/' + year
       },
       gatherParams() {
-        let resref = this.$store.state.bookinginfo.bookinginfo[0].reservationref
         let obj = this.paymentResponse
-        let paydate = this.getPaydate(obj.DateSettlement._text)
-        let cardexpiry = this.cardExpiry(obj.DateExpiry._text)
         let params = {
           "method": "confirmpayment",
-          "reservationref": resref,
+          "reservationref": this.$store.state.bookinginfo.bookinginfo[0].reservationref,
           "amount": obj.AmountSettlement._text,
           // "success": obj.Success._text,
           "success": 1,
           "paytype": obj.CardName._text,
-          "paydate": paydate,
+          "paydate": this.getPaydate(obj.DateSettlement._text),
           "supplierid": 2,
-          "transactid": obj.DpsTxnRef._text,
-          "dpstxnref": obj.TxnId._text,
+          "transactid": obj.TxnId._text,
+          "dpstxnref": obj.DpsTxnRef._text,
           "cardholder": obj.CardHolderName._text,
           "paysource": "Windcave Online Payment",
           "cardnumber": obj.CardNumber._text,
-          "cardexpiry": cardexpiry,
+          "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
           "transtype": "Payment",
           "payscenario": 1,
           "emailoption": 0
         }
-        console.log(params)
         return params
       },
       getBookingInfo() {

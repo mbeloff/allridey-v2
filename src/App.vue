@@ -48,7 +48,7 @@
     }
 
     .btn-primary:hover {
-      @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
+      @apply from-blue-800 to-blue-900
     }
 
     .btn-secondary {

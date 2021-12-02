@@ -1,7 +1,7 @@
 <template>
   <loading-overlay class="z-10" v-if="loading"></loading-overlay>
   <p v-if="error" class="text-red-500 text-center mb-4 py-2">{{error}}</p>
-  <div class="h-full flex flex-col justify-center">
+  <div class="h-full flex flex-col justify-center" v-if="!bookingdata">
     
     <div class="max-w-sm mx-auto text-left flex flex-col">      
       <div class="flex flex-col flex-grow group">
@@ -21,14 +21,21 @@
       </button>
     </div>
   </div>
+
+  <div v-if="customer && bookingdata && !loading" class="bg-gray-200 h-full">
+    <modify-booking @update="bookingInfo(this.pbresref)" :bookingdata="bookingdata" :customer="customer"></modify-booking>
+  </div>
+
 </template>
 
 <script>
   import LoadingOverlay from '../components/LoadingOverlay.vue'
+  import ModifyBooking from '../components/Modify.vue'
   import Mixins from '../Mixins'
   export default {
     mixins: [Mixins],
     components: {
+      ModifyBooking,
       LoadingOverlay
     },
     data() {
@@ -36,33 +43,27 @@
         resno: "U1157",
         lastname: "TEST",
         error: "",
-        loading: true,
+        bookingdata: null,
+        customer: null,
+        loading: false,
       }
     },
     watch: {
-      token: {
-        handler(val) {
-          if (val) {
-            this.loading = false
-          }
-        }
-      }
+      // 'bookingdata': function() {
+      //   this.calcTotal()
+      // }
     },
     mounted() {
       Mixins.methods.getToken()
     },
     computed: {
-      resref() {
+      pbresref() {
         return this.$store.state.pbresref
-      },   
-      token() {
-        return this.$store.state.token
-      }   
+      },       
     },
     methods: {
       findBooking(resno, lastname) {
         this.loading = true
-        this.error = ""
         let method = JSON.stringify({
           "method": "findbooking",
           "reservationno": resno,
@@ -74,16 +75,41 @@
             if (res.status == "OK") {
               let resref = res.results[0].reservationref
               this.$store.dispatch("pbresref", resref)
-              this.$router.push({name: 'ModifyBooking'})
+              this.bookingInfo(resref)
             } else if (res.status == "ERR") {
               throw res.error
             }
           }).catch(err => {
             this.loading = false
-            this.error = err
+            // this.error = err
             console.log('find booking (error): ' + err)
           })
-      },     
+      },
+      bookingInfo(resref) {
+        this.loading = true
+        let method = JSON.stringify({
+          "method": "bookinginfo",
+          "reservationref": resref
+        });
+        let bookingdata
+        Mixins.methods.postapiCall(method)
+        .then(res => {
+          console.log(res)
+          
+          if (res.status == "OK") {
+            bookingdata = res.results
+            this.bookingdata = bookingdata
+            this.customer = bookingdata.customerinfo
+          } else if (res.status == "ERR") {
+            throw res.error
+          }  
+          this.loading = false        
+        }).catch(err => {
+          // this.error = err
+          console.log('get booking info (error): ' + err)
+        })
+      },
+      
     },
   }
 </script>

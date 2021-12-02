@@ -214,9 +214,4 @@
 </script>
 
 <style lang="postcss" scoped>
-  @layer components {
-    .active {
-      @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
-    }
-  }
 </style>

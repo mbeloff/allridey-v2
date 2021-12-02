@@ -5,7 +5,7 @@
     
     <div class="py-10">
       <div class="grid md:grid-flow-col gap-1 px-1">
-        <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Additional Drivers</label>
+        <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Customer Details</label>
         <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Upgrade Extras</label>
         <label for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
         <input name="drivers" id="drivers" type="radio" value="drivers" v-model="tab" hidden>
@@ -24,10 +24,10 @@
 
 <script>
   import Mixins from '../Mixins.js'
-  import ModifyDrivers from '../components/ModifyDrivers2.vue'
-  import ModifyExtras from '../components/ModifyExtras2.vue'
-  import SectionSummary from '../components/SectionSummary2.vue'
-  import ModifyUploads from '../components/ModifyUploads2.vue'
+  import ModifyDrivers from '../components/ModifyDrivers.vue'
+  import ModifyExtras from '../components/ModifyExtras.vue'
+  import SectionSummary from '../components/SectionSummary.vue'
+  import ModifyUploads from '../components/ModifyUploads.vue'
   import LoadingOverlay from '../components/LoadingOverlay.vue'
   export default {
     mixins: [Mixins],
@@ -74,13 +74,13 @@
             } else if (res.status == "ERR") {
               console.log(res.error)
               this.$router.push({
-                name: "NewCheckin"
+                name: "Checkin"
               })
             }
             if (res.Message) {
               console.log(res.Message)
               this.$router.push({
-                name: "NewCheckin"
+                name: "Checkin"
               })
             }
             this.loading = false
@@ -88,7 +88,7 @@
             // this.error = err
             console.log('get booking info (error): ' + err)
             this.$router.push({
-              name: "NewCheckin"
+              name: "Checkin"
             })
           })
       },
@@ -163,7 +163,7 @@
 <style lang="postcss">
   @layer components {
     .active {
-      @apply from-blue-800 to-blue-900 ring-2 ring-blue-200
+      @apply from-blue-800 to-blue-900
     }
   }
 </style>
