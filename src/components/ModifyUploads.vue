@@ -9,24 +9,24 @@
       <div class="flex flex-col relative">
         <!-- FILE UPLOADS -->
         <p class="text-xl font-bold text-left">Document Uploads</p>
-        <div v-for="doc in doclist" class="border rounded p-1 text-left bg-gray-200 mb-1">
+        <div v-for="doc in doclist" class="border rounded p-1 text-left bg-gray-200 mb-1 text-sm">
           <div class="flex">
             <div class="p-2 flex-grow flex flex-col justify-between">
               <div>
-                <p class="font-bold">{{doc.customerfirstname + ' ' + doc.customerlastname}}</p>
-                <p>{{doc.text}}</p>
+                <p class="font-bold">{{doc.customerlastname + ', ' + doc.customerfirstname}}</p>
+                <p>{{doc.title}}</p>
               </div>
 
               <span v-if="doc.isuploaded" class="text-green-600 font-normal text-sm"><i class="far fa-check "></i> uploaded</span>
             </div>
-            
+
             <div class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink">
               <span class="fa-stack fa-2x mx-auto">
-                <i :class="{ 'opacity-10' : doc.isuploaded == 1}" class="fal fa-id-card fa-stack-2x"></i>
+                <i :class="iconClass(doc)" class="fa-thin fa-stack-2x text-gray-500"></i>
                 <i :class="{ 'opacity-0' : doc.isuploaded == 0 }" class="fas fa-check fa-stack-1x text-green-500"></i>
               </span>
-              <button v-show="doc.isuploaded != 1" class="btn-green" @click="openCloudinaryWidget(doc)">upload</button>
-              <button v-show="doc.isuploaded" class="btn-red" @click="editupload(doc.documentlinkid)">delete</button>
+              <button v-show="doc.isuploaded != 1" class="btn-green mt-2" @click="openCloudinaryWidget(doc)">upload</button>
+              <button v-show="doc.isuploaded" class="btn-red mt-2" @click="editupload(doc.documentlinkid)">delete</button>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ import SectionSummary from './SectionSummary.vue'
             default_source: 'local',
             multiple: doc.allowmultiple,
             max_image_width: doc.maximagewidth,
-            button_class: 'btn-primary',
+            // button_class: 'btn-primary',
           },
           (error, result) => {
             if (!error && result && result.event === "success") {
@@ -105,7 +105,7 @@ import SectionSummary from './SectionSummary.vue'
         })
         Mixins.methods.postapiCall(method)
           .then(res => {
-            this.doclist = res.results
+            this.doclist = res.results.sort((a, b) => a.customerlastname.localeCompare(b.customerlastname))
           })
       },
       editupload(id) {
@@ -119,8 +119,16 @@ import SectionSummary from './SectionSummary.vue'
             console.log(res)
             this.documentlist()
         })
+      },
+      iconClass(doc) {
+        return {
+          'opacity-20' : doc.isuploaded == 1,
+          'fa-id-card' : doc.title == "Take a photo of the front of your driving license",
+          'fa-image-user' :doc.title == "Take a Selfie",
+          'fa-credit-card-blank fa-flip-vertical': doc.title == "Take a photo of the back of your driving license"
+        }
       }
-    }
+    },
   }
 </script>
 <style lang='postcss'>

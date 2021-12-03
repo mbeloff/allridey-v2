@@ -3,7 +3,7 @@
   <p v-if="error" class="text-red-500 text-center mb-4 py-2">{{error}}</p>
   <div class="h-full flex flex-col justify-center">
     
-    <div class="max-w-sm mx-auto text-left flex flex-col">      
+    <form class="max-w-sm mx-auto text-left flex flex-col">      
       <div class="flex flex-col flex-grow group">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-book fa-fw"></i>
@@ -19,7 +19,7 @@
       <button class="text-4xl text-right font-bold group focus:outline-none w-56" @click.prevent="findBooking(resno, lastname)">
         <p class="text-4xl mt-4 text-left">online</p><span>check in</span> <i class="z-0 fas fa-arrow-right align-middle transition ease-out duration-500 transform group-hover:translate-x-1 group-hover:text-blue-600"></i>
       </button>
-    </div>
+    </form>
   </div>
 </template>
 
