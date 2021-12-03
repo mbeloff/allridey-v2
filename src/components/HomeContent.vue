@@ -50,7 +50,7 @@
         gallery: [],
         articles: [{
             title: "Car rental. Simple",
-            content: "Get an instant quote and quickly book online in locations right across Australia and New Zealand.",
+            content: "Get an instant quote and quickly book online. Cheap car and camper rental in Hobart",
             img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/v1628040145/allridey/ajddSjc.jpg",
             cols: "3",
             linktext: "Book Now",
