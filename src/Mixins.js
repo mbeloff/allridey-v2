@@ -81,8 +81,8 @@ export default {
       let expires = new Date(store.state.tokenExp).getTime()
       let now = new Date().getTime()
       if (expires < now) {
-        alert('Session has expired. Please refresh the page')
-        return
+        alert('Session has expired. Please refresh page')
+        // this.$router.go(0)
       }
       var requestOptions = {
         headers: {

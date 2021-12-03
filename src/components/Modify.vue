@@ -19,7 +19,8 @@
         </div>
         <div class="flex flex-col shadow-xl bg-white rounded p-2 md:p-5 gap-2 py-10 mb-5">
           <section-drivers v-show="tab == 'drivers'" :bookingdata="bookingdata" @update="$emit('update')" :customer="customer"></section-drivers>
-          <section-extras v-show="tab == 'extras'" :bookingdata="bookingdata" :insuranceid="insuranceid" @insurance-changed="updateIns" @options-changed="updateOpts" @save-changes="editBooking"></section-extras>
+            <section-extras v-show="tab == 'extras'" :bookingdata="bookingdata" :insuranceid="insuranceid" @insurance-changed="updateIns" @options-changed="updateOpts" @save-changes="editBooking"></section-extras>
+          
           <section-uploads v-show="tab == 'uploads'" :bookingdata="bookingdata"></section-uploads>
         </div>
       </div>

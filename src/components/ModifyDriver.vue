@@ -68,15 +68,15 @@
           <option v-for="country in countries" :value="country.id">{{country.country}}</option>
         </select>
     </div>
-    <div class="flex flex-col flex-grow group">
+    <div class="flex flex-col flex-grow group mb-4 md:mb-0">
       <label for="postcode" class=" my-label">Postcode</label>
         <input type="text" id="postcode" class="my-input" v-model="customer.postcode">
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-auto">
       <button v-if="!newDriver && !isPrimary" class="btn-red" @click="extraDriver(-customer.customerid)">Delete <i class="far fa-times"></i></button>
-      <button v-if="!isPrimary" class="btn-green" @click="extraDriver(customer.customerid)">{{!newDriver ? 'Update' : 'Add'}} <i class="far fa-cloud-upload"></i></button>
-      <button v-if="isPrimary" class="btn-green" @click="modifyCustomer()">Update <i class="far fa-cloud-upload"></i></button>
+      <button v-if="!isPrimary" class="btn-green col-start-2" @click="extraDriver(customer.customerid)">{{!newDriver ? 'Update' : 'Add'}} <i class="far fa-cloud-upload"></i></button>
+      <button v-if="isPrimary" class="btn-green col-start-2" @click="$emit('saveChanges')">Update <i class="far fa-cloud-upload"></i></button>
     </div>
 
   </div>
@@ -91,6 +91,10 @@ import LoadingOverlay from './LoadingOverlay.vue'
     },
     mixins: [Mixins],
     props: {
+      loading: {
+        type: Boolean,
+        default: false
+      },
       bookingdata: Object,
       newDriver: {
         type: Boolean,
@@ -125,7 +129,6 @@ import LoadingOverlay from './LoadingOverlay.vue'
     },
     data() {
       return {
-        loading: false,
         dateofbirth: new Date(),
         licenseexpires: new Date(),
         months: [
@@ -199,38 +202,6 @@ import LoadingOverlay from './LoadingOverlay.vue'
         .then(res => console.log(res.results))
         this.$emit("update")
       },
-      modifyCustomer() {
-        this.loading = true
-        let bookingtype = (this.bookingdata.bookinginfo[0].isquotation) ? 1 : 2;
-        let insuranceid = null
-        let optionalfees = []
-        this.bookingdata.extrafees.forEach(el => {
-          if (el.isinsurancefee) {
-            insuranceid = el.extrafeeid
-          }
-          if (el.isoptionalfee) {
-            optionalfees.push({id: el.extrafeeid, qty: el.qty})
-          }
-        })
-        let method = JSON.stringify({
-          "method": "editbooking",
-          "reservationref": this.bookingdata.bookinginfo[0].reservationref,
-          "bookingtype": bookingtype,
-          "insuranceid": insuranceid,
-          "optionalfees": optionalfees,
-          "extrakmsid": this.bookingdata.bookinginfo[0].kmcharges_id,
-          "numbertravelling": this.bookingdata.bookinginfo[0].numbertravelling,
-          "customer": {
-            ...this.customer
-          }
-        })
-        Mixins.methods.postapiCall(method)
-        .then(res => {
-          console.log(res)
-          this.loading = false
-        })
-        this.$emit("update")
-      }
     },
   }
 </script>

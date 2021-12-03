@@ -19,7 +19,7 @@
         <!-- Kilometres -->
         <div class="mb-4">
           <p class="font-bold mb-4 text-xl">Damage Cover:</p>
-          <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" v-for="extra in options.insuranceoptions.filter(el=>el.totalinsuranceamount >= currentinsurance.totalfeeamount)" :class="{'selected': extra.id == insurancefee.id}">
+          <div class="flex flex-col p-1 mb-1 border border-opacity-0 rounded" v-for="extra in options.insuranceoptions.filter(el=>el.totalinsuranceamount >= initialinsurance.totalfeeamount)" :class="{'selected': extra.id == insurancefee.id}">
             <div class="flex items-center">
               <input type="radio" :checked="extra.id == insurancefee.id" class="mr-1 hidden" :value="extra" v-model="insurancefee" :id="'dc' + extra.id">
               <label :for="'dc' + extra.id" class="fee w-full">
@@ -97,37 +97,42 @@
     watch: {
       'bookingdata': {
         handler() {
-          // this.loading = true
+          console.log('booking data trigger')
           this.getOptions()
         },
         deep: true
       },
       'options.optionalfees': {
-        handler(newVal, oldVal) {
-          if (oldVal != {}) {
-            // this.loading = true
+        handler(val, oldVal) {
+          if (this.gotOptions && oldVal != undefined) {
+            console.log('options trigger')
+            console.log(oldVal)
+            console.log(val)
             this.calcTotal()
           }
+            
         },
         deep: true
       },
       'selectedkm': {
-        handler(newVal, oldVal) {
-          
-          if (oldVal != 0) {
-            // this.loading = true
+        handler(val, oldVal) {
+          if (this.gotOptions && JSON.stringify(val) != JSON.stringify(oldVal)) {
+            console.log('kms trigger')
+            console.log(oldVal)
+            console.log(val)
             this.calcTotal()
           }
         }
       },
       'insurancefee': {
-        
-        handler(newVal, oldVal) {
-         
-          if (oldVal != {}) {
-            // this.loading = true
-            this.calcTotal()
-          }
+        handler(val, oldVal) {          
+            if ( this.gotOptions && JSON.stringify(oldVal) != "{}" && JSON.stringify(val) != JSON.stringify(oldVal)) {
+              console.log(' insurance trigger')
+              console.log(oldVal)
+              console.log(val)
+              this.calcTotal()
+            }
+            
         }
       },
 
@@ -147,12 +152,12 @@
       symbol() {
         return this.bookingdata.bookinginfo[0].currencysymbol
       },
-      currentinsurance(){
+      initialinsurance(){
         return this.bookingdata.extrafees.find(el=>el.isinsurancefee)
       },
     },
     created() {
-      this.getOptions()
+      // this.getOptions()
       this.selectedkm = this.bookingdata.bookinginfo[0].kmcharges_id
     },
     mounted() {
@@ -175,7 +180,7 @@
         }
 
         if (type == 'insurance') {
-          let arr = this.options.insuranceoptions.filter(el=>el.totalinsuranceamount >= this.currentinsurance.totalfeeamount)
+          let arr = this.options.insuranceoptions.filter(el=>el.totalinsuranceamount >= this.initialinsurance.totalfeeamount)
           if (arr.length == 1) {
             return true
           } else return false
@@ -196,28 +201,30 @@
         });
         Mixins.methods.postapiCall(method)
           .then(results => {
-            this.options = results.results
-            delete this.options.countries
-            delete this.options.rentalsource
-            this.options.optionalfees.forEach(el => {
-              el.selected = undefined
-              el.qty = 1
-              el.qtyinit = 1
-              this.bookingdata.extrafees.forEach(x => {
-                if (x.extrafeeid == el.id) {
-                  el.selected = true
-                  el.qty = x.qty
-                  el.qtyinit = x.qty
+            if (results.status == 'OK') {
+              this.options = results.results
+              delete this.options.countries
+              delete this.options.rentalsource
+              this.options.optionalfees.forEach(el => {
+                el.selected = undefined
+                el.qty = 1
+                el.qtyinit = 1
+                this.bookingdata.extrafees.forEach(x => {
+                  if (x.extrafeeid == el.id) {
+                    el.selected = true
+                    el.qty = x.qty
+                    el.qtyinit = x.qty
+                  }
+                })
+              })
+              this.options.insuranceoptions.forEach(el => {
+                if (el.id == this.insuranceid) {
+                  this.insurancefee = el
                 }
               })
-            })
-            this.options.insuranceoptions.forEach(el => {
-              if (el.id == this.insuranceid) {
-                this.insurancefee = el
-              }
-            })
-            this.calcTotal()
-            this.gotOptions = true
+              this.calcTotal()
+              this.gotOptions = true
+            }            
           })
       },
       selectedOptions() {
@@ -256,8 +263,8 @@
         })
         Mixins.methods.postapiCall(method)
           .then(res => {
-            
-            console.log(res)
+            if (res.status == 'OK') {
+              console.log(res)
             if (res.status == 'OK') {
               this.totals = res.results.totals
               this.ready = true
@@ -266,6 +273,8 @@
               this.loading = false
               throw res.error
             }
+            }
+            
           })
       },
       editBooking() {

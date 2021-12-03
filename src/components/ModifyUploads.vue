@@ -18,8 +18,8 @@
               </div>
 
               <span v-if="doc.isuploaded" class="text-green-600 font-normal text-sm"><i class="far fa-check "></i> uploaded</span>
-
             </div>
+            
             <div class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink">
               <span class="fa-stack fa-2x mx-auto">
                 <i :class="{ 'opacity-10' : doc.isuploaded == 1}" class="fal fa-id-card fa-stack-2x"></i>
@@ -118,7 +118,7 @@ import SectionSummary from './SectionSummary.vue'
           .then(res => {
             console.log(res)
             this.documentlist()
-          })
+        })
       }
     }
   }
