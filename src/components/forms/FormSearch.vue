@@ -79,16 +79,17 @@
           </div>
         </div>
         <div class="flex flex-col sm:flex-row justify-between gap-2">
-            <div class="flex flex-col group">
+          <!-- // ? agent code input -->
+            <!-- <div class="flex flex-col group">
               <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-user-headset fa-fw"></i>
                 <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.formData.agentcode" placeholder="(agent use only)">
               </div>
-            </div>
-           <div class="text-right flex justify-end flex-col">
+            </div> -->
+           <div class="text-right flex-grow">
           <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
-        </div>
+          </div>
         </div>
         
 
