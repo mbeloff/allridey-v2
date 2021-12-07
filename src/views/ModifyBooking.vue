@@ -154,6 +154,8 @@
             } else if (res.status == 'ERR') {
               throw res.error
             }
+          }).catch(err => {console.log(err)
+            this.$router.push({name: 'Checkin', query: { "valid" : false }})
           })
       },
     }

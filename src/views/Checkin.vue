@@ -1,19 +1,22 @@
 <template>
   <loading-overlay class="z-10" v-if="loading"></loading-overlay>
-  <p v-if="error" class="text-red-500 text-center mb-4 py-2">{{error}}</p>
+  
   <div class="h-full flex flex-col justify-center">
+    <div class="h-12 my-2">
+      <p v-show="error" class="text-red-500 text-center">{{error}}</p>
+    </div>
     
     <form class="max-w-sm mx-auto text-left flex flex-col">      
       <div class="flex flex-col flex-grow group">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-book fa-fw"></i>
-          <input class="my-input uppercase" type="text" name="resno" v-model="resno" placeholder="Reservation number">
+          <input :class="{ 'input-error' : missinginput && !resno.length }" class="my-input uppercase" type="text" name="resno" v-model="resno" placeholder="Reservation number">
         </div>
       </div>
       <div class="flex flex-col flex-grow group mt-2">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-user fa-fw"></i>
-          <input class="my-input uppercase" type="text" name="lastname" v-model="lastname" placeholder="Last name">
+          <input :class="{ 'input-error' : missinginput && !lastname.length }" class="my-input uppercase" type="text" name="lastname" v-model="lastname" placeholder="Last name">
         </div>
       </div>
       <button class="text-4xl text-right font-bold group focus:outline-none w-56" @click.prevent="findBooking(resno, lastname)">
@@ -33,8 +36,11 @@
     },
     data() {
       return {
-        resno: "U1157",
-        lastname: "TEST",
+        // resno: "U1157",
+        // lastname: "TEST",
+        resno: "",
+        lastname: "",
+        missinginput: false,
         error: "",
         loading: true,
       }
@@ -50,6 +56,9 @@
     },
     mounted() {
       Mixins.methods.getToken()
+      if (this.$route.query.valid == "false") {
+        this.error = "The requested booking in unavailable"
+      }
     },
     computed: {
       resref() {
@@ -68,7 +77,8 @@
           "reservationno": resno,
           "lastname": lastname
         });
-        Mixins.methods.postapiCall(method)
+        if (resno && lastname) {
+          Mixins.methods.postapiCall(method)
           .then(res => {
             console.log(res)
             if (res.status == "OK") {
@@ -83,6 +93,14 @@
             this.error = err
             console.log('find booking (error): ' + err)
           })
+        } else {
+          // TODO add highlighting to empty/invalid fields
+          this.error = "Please enter reservation number and your last name."
+          this.missinginput = true
+          this.loading = false
+          return
+        }
+        
       },     
     },
   }
@@ -101,6 +119,9 @@
   }
   .btn-red:hover {
     @apply hover:bg-red-400 hover:text-white
+  }
+  .input-error {
+    @apply ring-2 ring-orange-400
   }
 }
 </style>
