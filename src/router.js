@@ -5,6 +5,7 @@ import Locations from './views/Locations.vue'
 import Location from './views/Location.vue'
 import Checkin from './views/Checkin.vue'
 import ModifyBooking from './views/ModifyBooking.vue'
+import Privacy from './views/Privacy.vue'
 const history = createWebHistory();
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   {name: "Location", path: "/location/:name?", component: Location, props: true},
   {name: "Checkin", path: "/checkin", component: Checkin, props: true},
   {name: "ModifyBooking", path: "/modifybooking", component: ModifyBooking, props: true},
+  {name: "Privacy", path: "/privacy", component: Privacy, props: true},
 
 ];
 

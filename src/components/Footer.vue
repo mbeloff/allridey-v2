@@ -1,19 +1,11 @@
 <template>
   <div class="bg-gray-200 grid place-items-center h-32">
-    <div class="grid grid-cols-3 w-screen-lg">
-      <div class=""></div>
-    <div class="flex justify-center gap-2">
+    <div class="flex justify-center gap-2 text-sm text-left flex-col">
       <a :href="test" download><i class=" far fa-file-pdf mr-2"></i>Terms and Conditions</a>  
+      <router-link :to="'privacy'" download><i class=" far fa-file-pdf mr-2"></i>Privacy Policy</router-link>  
     </div>
-    <div class="text-right text-sm">
-      <!-- <p>94 Kennedy Dr
-        <br>
-        Cambridge 7170
-        <br>
-        TAS
-      </p> -->
-    </div>
-    </div>
+
+
     
     <div>
       <a href="mailto:sales@allridey.com.au"><i class="far fa-envelope mr-2"></i>sales@allridey.com.au</a>
