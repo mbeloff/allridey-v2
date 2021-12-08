@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 w-full h-full py-10">
+  <div class="bg-gray-200 w-full h-full py-10 px-2">
     <div class="max-w-screen-lg mx-auto bg-white rounded shadow-xl place-items-center justify-center relative">
       <div v-if="loading" class="absolute grid place-items-center w-full h-full bg-gray-200 bg-opacity-80">
         <spinner></spinner>
@@ -14,8 +14,8 @@
           <span>{{data.address}}, {{data.suburb}} {{data.postcode}} {{data.state}}</span>
         </div>
         <div class="flex items-center">
-          <i class="far fa-phone fa-fw text-blue-700"></i>
-          <a :href="`tel:` + this.$store.state.phoneuri">{{this.$store.state.phone}}</a>
+          <i class="far fa-envelope fa-fw text-blue-700"></i>
+          <a :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
         </div>
         <div class="flex">
           <i class="far fa-clock fa-fw text-blue-700 mt-1.5"></i>

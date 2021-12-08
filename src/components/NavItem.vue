@@ -5,9 +5,12 @@
       <div v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
       <div class="h-4"></div>
       <div class="relative rounded dropdown-container shadow-2xl text-blue-900">
-        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 hover:pl-5 hover:pr-3 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
+        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200  block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
       </div>
-      
+      <!-- 
+        hover animation for router link
+        hover:pl-5 hover:pr-3
+       -->
       </div>
     </transition>    
   </div>
