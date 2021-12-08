@@ -16,7 +16,7 @@
           </select>
         </div>
       </div>
-      <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
+      <date-picker v-model="parameters.customer.licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group" :model-config="dateconfig">
         <template v-slot="{ inputValue, inputEvents }">
           <label for="" class="my-label">License Expiry</label>
           <div class="flex flex-row place-items-center">
@@ -106,17 +106,15 @@
   export default {
     data() {
       return {
-        licenseexpires: ""
+        dateconfig: {
+        type: 'string',
+        mask: 'DD/MM/YYYY', // Uses 'iso' if missing
+      },
       }
     },
     props: {
       parameters: Object,
       step3: Object
-    },
-    watch: {
-      'licenseexpires': function () {
-        this.parameters.customer.licenseexpires = this.licenseexpires.toLocaleDateString()
-      }
     },
   }
 </script>

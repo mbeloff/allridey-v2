@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <date-picker v-if="mode == 2" v-model="dateofbirth" :max-date="new Date()" class="flex flex-col flex-grow group">
+      <date-picker v-if="mode == 2" v-model="parameters.customer.dateofbirth" :max-date="new Date()" :model-config="dateconfig" class="flex flex-col flex-grow group">
         <template v-slot="{ inputValue, inputEvents }">
           <label for="" class="my-label">Date of Birth</label>
           <div class="flex flex-row place-items-center">
@@ -49,18 +49,12 @@
     },
     data() {
       return {
-        dateofbirth: ""
+        dateconfig: {
+        type: 'string',
+        mask: 'DD/MM/YYYY', // Uses 'iso' if missing
+      },
       }
     },
-    watch: {
-      'dateofbirth': function () {
-        this.parameters.customer.dateofbirth = this.dateofbirth.toLocaleDateString()
-      }
-    },
-    mounted() {
-      let d = new Date(1990, 0, 1)
-      this.dateofbirth = d
-    }
   }
 </script>
 

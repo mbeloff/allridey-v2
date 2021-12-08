@@ -80,7 +80,7 @@
           customer: {
             firstname: "",
             lastname: "",
-            dateofbirth: new Date().toLocaleDateString(),
+            dateofbirth: new Date(1990,0,1).toLocaleDateString(),
             licenseno: "",
             licenseissued: 7, // Default country id (Australia)
             licenseexpires: "",

@@ -27,7 +27,7 @@
           </div>
 
           <div class="flex flex-col">
-            <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" :update-on-input="false" is-range :min-date="new Date()">
+            <date-picker class="flex flex-col items-center gap-2" v-model="daterange" mode="date" :update-on-input="false" is-range :min-date="new Date()" :model-config="dateconfig">
               <template v-slot="{ inputValue, inputEvents, isDragging }">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
@@ -126,13 +126,19 @@
         },
         pickuptime: {open:"", close:""},
         dropofftime: {open:"", close:""},
-        locations: []
+        locations: [],
+        dateconfig: {
+        type: 'string',
+        mask: 'DD/MM/YYYY', // Uses 'iso' if missing
+      },
       }
     },
     watch: {
       "daterange": function (val) {
-        this.formData.pickupdate = val.start.toLocaleDateString('en-AU')
-        this.formData.dropoffdate = val.end.toLocaleDateString('en-AU')
+        // this.formData.pickupdate = val.start.toLocaleDateString('en-AU')
+        // this.formData.dropoffdate = val.end.toLocaleDateString('en-AU')
+        this.formData.pickupdate = val.start
+        this.formData.dropoffdate = val.end
       },
       "formData.pickuplocationid": function (val) {
         this.pickuphours(val)
@@ -173,7 +179,10 @@
     mixins: [Mixins],
     methods: { 
       pickuphours(id) {
-        let dayofweek = this.daterange.start.getDay() + 1
+        let parts = this.daterange.start.split('/')
+        let newDate =  new Date(parts[2],parts[1]-1,parts[0])
+        let dayofweek = newDate.getDay() + 1
+        // let dayofweek = this.daterange.start.getDay() + 1
         let pickuphours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (pickuphours == undefined) {
           this.pickuptime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
@@ -184,7 +193,10 @@
         }        
       },
       dropoffhours(id) {
-        let dayofweek = this.daterange.end.getDay() + 1
+        let parts = this.daterange.end.split('/')
+        let newDate =  new Date(parts[2],parts[1]-1,parts[0])
+        let dayofweek = newDate.getDay() + 1
+        // let dayofweek = this.daterange.end.getDay() + 1
         let dropoffhours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (dropoffhours == undefined) {
           this.dropofftime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
@@ -239,11 +251,9 @@
         this.$emit('errs', [])
         this.$store.dispatch('step2', {}).then(this.$emit('searching', true));       
         this.$store.dispatch('searchParams', this.formData)
-        this.getDateStrings()
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
           let data = await Mixins.methods.apiCall(params)
-          // .catch(console.log('catch triggered'))
           this.$store.dispatch('step2', data);
           this.count++
           this.$emit('update-step2')
@@ -267,37 +277,26 @@
         // this.splitLocations(data.locations)
         this.initDates()
       },
-      splitLocations(list) {
-        let arr = [...list]
-        let index = arr.indexOf(arr.find(el => el.location == 'Auckland'))
-        arr.splice(index,0,{location:'-----',id:null})
-        this.locations = arr
-      },
+      // ? split locations to sort aus/nz location list
+      // splitLocations(list) {
+      //   let arr = [...list]
+      //   let index = arr.indexOf(arr.find(el => el.location == 'Auckland'))
+      //   arr.splice(index,0,{location:'-----',id:null})
+      //   this.locations = arr
+      // },
       getDefaultLocation(arr) {
         let defaultId = arr.find(el => el.isdefault).id
         this.formData.pickuplocationid = defaultId
         this.formData.dropofflocationid = defaultId
       },
-      getDateStrings() {
-        this.formData.pickupdate = this.daterange.start.toLocaleDateString()
-        this.formData.dropoffdate = this.daterange.end.toLocaleDateString()
-      },
       initDates() {
-        var tomorrow = new Date();
+        var tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
-        tomorrow.setHours(10);
-        tomorrow.setMinutes(0);
-        tomorrow.setSeconds(0);
-        tomorrow.setMilliseconds(0);
-        var week = new Date();
-        week.setDate(week.getDate() + 7);
-        week.setHours(10);
-        week.setMinutes(0);
-        week.setSeconds(0);
-        week.setMilliseconds(0);
+        var nextweek = new Date();
+        nextweek.setDate(nextweek.getDate() + 7);
         this.daterange = {
-          start: tomorrow,
-          end: week,
+          start: tomorrow.toLocaleDateString(),
+          end: nextweek.toLocaleDateString(),
         }
       },     
       to12hr(time) {
