@@ -80,8 +80,8 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import SectionSummary from './SectionSummary.vue'
+  import Mixins from '@/Mixins'
+  import SectionSummary from '@/components/postbooking/BookingSummary.vue'
   export default {
     components: {
       SectionSummary

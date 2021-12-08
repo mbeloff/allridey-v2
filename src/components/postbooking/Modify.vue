@@ -29,12 +29,12 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import LoadingOverlay from '../components/LoadingOverlay.vue'
-  import SectionExtras from './ModifyExtras.vue'
-  import SectionUploads from './ModifyUploads.vue'
-  import SectionSummary from '../components/SectionSummary.vue'
-  import SectionDrivers from './ModifyDrivers.vue'
+  import Mixins from '@/Mixins'
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
+  import SectionExtras from '@/components/postbooking/ModifyExtras.vue'
+  import SectionUploads from '@/components/postbooking/ModifyUploads.vue'
+  import SectionSummary from '@/components/SectionSummary.vue'
+  import SectionDrivers from '@/components/postbooking/ModifyDrivers.vue'
   export default {
     mixins: [Mixins],
     props: {
@@ -145,12 +145,6 @@
         })
         return fees
       },
-      // getFees(data) {
-      //   let fees = []
-      //   data.forEach(el => {
-      //     // if ()
-      //   })
-      // },
       setTab(str) {
         if (this.tab == str) {
           this.tab = ""

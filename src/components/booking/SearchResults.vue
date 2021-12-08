@@ -21,8 +21,8 @@
   </div>
 </template>
 <script>
-  import LoadingOverlay from './LoadingOverlay.vue'
-  import SearchResult from './SearchResult.vue'
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
+  import SearchResult from '@/components/booking/SearchResult.vue'
   
   export default {
     

@@ -169,9 +169,9 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
-  import Spinner from './Spinner.vue'
-  import MakeBooking from './MakeBooking.vue'
+  import Mixins from '@/Mixins'
+  import Spinner from '@/components/Spinner.vue'
+  import MakeBooking from '@/components/MakeBooking.vue'
   export default {
     components: {
       Spinner,

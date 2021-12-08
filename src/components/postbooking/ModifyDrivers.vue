@@ -36,10 +36,10 @@
 </template>
 
 <script>
-  import ModifyTrip from './ModifyTrip.vue'
-  import SectionSummary from './SectionSummary.vue'
-  import ModifyDriver from './ModifyDriver.vue'
-  import Mixins from '../Mixins'
+  import ModifyTrip from '@/components/postbooking/ModifyTrip.vue'
+  import SectionSummary from '@/components/postbooking/BookingSummary.vue'
+  import ModifyDriver from '@/components/postbooking/ModifyDriver.vue'
+  import Mixins from '@/Mixins'
   export default {
     components: {
       ModifyDriver,

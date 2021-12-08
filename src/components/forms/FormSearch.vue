@@ -99,8 +99,8 @@
 </template>
 
 <script>
-  import Mixins from '../../Mixins'
-  import LoadingOverlay from '../LoadingOverlay.vue'
+  import Mixins from '@/Mixins'
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
   export default {
     components: {
       LoadingOverlay

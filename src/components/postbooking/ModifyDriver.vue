@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import LoadingOverlay from './LoadingOverlay.vue'
-  import Mixins from '../Mixins'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
+  import Mixins from '@/Mixins'
   export default {
     components: {
       LoadingOverlay

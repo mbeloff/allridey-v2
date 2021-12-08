@@ -34,9 +34,9 @@
 
 <script>
  import smoothHeight from 'vue-smooth-height';
- import FormCustomer from './forms/FormCustomer.vue'
- import FormOptional from './forms/FormOptional.vue'
- import Mixins from '../Mixins'
+ import FormCustomer from '@/components/forms/FormCustomer.vue'
+ import FormOptional from '@/components/forms/FormOptional.vue'
+ import Mixins from '@/Mixins'
  export default {
    mixins: [Mixins, smoothHeight],
    components: {

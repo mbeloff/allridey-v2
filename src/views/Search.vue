@@ -40,17 +40,16 @@
   
 </template>
 <script>
-  import Mixins from '../Mixins'
-  import FormSearch from '../components/forms/FormSearch.vue'
-  import BookingNav from '../components/BookingNav.vue'
-  import SearchResults from '../components/SearchResults.vue'
-  import SelectedVehicle from '../components/SelectedOptions.vue'
-  import Spinner from '../components/Spinner.vue'
-  import FormPayment from '../components/forms/FormPaymentNew.vue'
-  import SummaryPage from '../components/Summary.vue'
-  // import SubmitPayment from '../components/SubmitPayment.vue'
-  import LoadingOverlay from '../components/LoadingOverlay.vue'
-  import HomeContent from '../components/HomeContent.vue'
+  import Mixins from '@/Mixins'
+  import FormSearch from '@/components/forms/FormSearch.vue'
+  import BookingNav from '@/components/booking/BookingNav.vue'
+  import SearchResults from '@/components/booking/SearchResults.vue'
+  import SelectedVehicle from '@/components/booking/SelectedOptions.vue'
+  import Spinner from '@/components/Spinner.vue'
+  import FormPayment from '@/components/forms/FormPaymentNew.vue'
+  import SummaryPage from '@/components/booking/Summary.vue'
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
+  import HomeContent from '@/components/HomeContent.vue'
   export default {
     components: {
       FormSearch,
@@ -60,7 +59,6 @@
       Spinner,
       FormPayment,
       SummaryPage,
-      // SubmitPayment,
       LoadingOverlay,
       HomeContent
     },

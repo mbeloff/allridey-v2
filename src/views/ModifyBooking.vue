@@ -23,12 +23,12 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins.js'
-  import ModifyDrivers from '../components/ModifyDrivers.vue'
-  import ModifyExtras from '../components/ModifyExtras.vue'
-  import SectionSummary from '../components/SectionSummary.vue'
-  import ModifyUploads from '../components/ModifyUploads.vue'
-  import LoadingOverlay from '../components/LoadingOverlay.vue'
+  import Mixins from '@/Mixins.js'
+  import ModifyDrivers from '@/components/postbooking/ModifyDrivers.vue'
+  import ModifyExtras from '@/components/postbooking/ModifyExtras.vue'
+  import SectionSummary from '@/components/postbooking/BookingSummary.vue'
+  import ModifyUploads from '@/components/postbooking/ModifyUploads.vue'
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
   export default {
     mixins: [Mixins],
     components: {

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import Mixins from '../Mixins'
+  import Mixins from '@/Mixins'
   export default {
     data() {
       return {
