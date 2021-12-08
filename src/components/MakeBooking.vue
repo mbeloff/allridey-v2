@@ -70,6 +70,10 @@
           dropofflocationid: 0,
           dropoffdate: "",
           dropofftime: "",
+          flightin: "",
+          flightout: "",
+          arrivalpoint: "",
+          departurepoint: "",
           ageid: 0,
           vehiclecategoryid: 0,
           bookingtype: 1,
@@ -93,7 +97,7 @@
             countryid: 7, // Default country id (Australia)
           },
           // ! email option 0 = off, 1 = default, 2 = always send
-          emailoption: 0,
+          emailoption: 1,
           foundusid: 63,
           remark: "",
           areaofuseid: "",
