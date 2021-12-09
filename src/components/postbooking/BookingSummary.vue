@@ -81,8 +81,8 @@
 
     </div>
     <div v-if="total && total.length">
-      <button v-show="changesSaved()" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">{{bookingdata.bookinginfo[0].isquotation ? 'Convert To Booking' : 'Pay Balance'}}</button>
-      <button @click="$emit('saveChanges')" v-show="!changesSaved()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">save changes <i class="fal fa-cloud-upload"></i></button>
+      <button v-show="changesAreSaved()" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">{{bookingdata.bookinginfo[0].isquotation ? 'Convert To Booking' : 'Pay Balance'}}</button>
+      <button @click="$emit('saveChanges')" v-show="!changesAreSaved()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">save changes <i class="fal fa-cloud-upload"></i></button>
     </div>
     
 
@@ -281,9 +281,7 @@
         }
         return params
       },
-      changesSaved() {
-        console.log()
-
+      changesAreSaved() {
         return this.bookingdata.bookinginfo[0].balancedue == ( this.total[0].total - this.bookingdata.bookinginfo[0].payment )
       }
     }

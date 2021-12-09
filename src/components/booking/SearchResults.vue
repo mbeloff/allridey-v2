@@ -47,7 +47,6 @@
       })
       }
       this.categories = arr
-      console.log('results loaded')
       this.$emit('mounted')      
     },
     computed: {

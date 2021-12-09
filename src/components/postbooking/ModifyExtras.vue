@@ -97,7 +97,6 @@
     watch: {
       'bookingdata': {
         handler() {
-          console.log('booking data trigger')
           this.getOptions()
         },
         deep: true
@@ -105,9 +104,6 @@
       'options.optionalfees': {
         handler(val, oldVal) {
           if (this.gotOptions && oldVal != undefined) {
-            console.log('options trigger')
-            console.log(oldVal)
-            console.log(val)
             this.calcTotal()
           }
             
@@ -117,9 +113,6 @@
       'selectedkm': {
         handler(val, oldVal) {
           if (this.gotOptions && JSON.stringify(val) != JSON.stringify(oldVal)) {
-            console.log('kms trigger')
-            console.log(oldVal)
-            console.log(val)
             this.calcTotal()
           }
         }
@@ -127,9 +120,6 @@
       'insurancefee': {
         handler(val, oldVal) {          
             if ( this.gotOptions && JSON.stringify(oldVal) != "{}" && JSON.stringify(val) != JSON.stringify(oldVal)) {
-              console.log(' insurance trigger')
-              console.log(oldVal)
-              console.log(val)
               this.calcTotal()
             }
             

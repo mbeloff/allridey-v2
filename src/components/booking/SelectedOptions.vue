@@ -171,7 +171,7 @@
 <script>
   import Mixins from '@/Mixins'
   import Spinner from '@/components/Spinner.vue'
-  import MakeBooking from '@/components/MakeBooking.vue'
+  import MakeBooking from '@/components/booking/MakeBooking.vue'
   export default {
     components: {
       Spinner,

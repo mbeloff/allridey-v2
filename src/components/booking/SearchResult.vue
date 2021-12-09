@@ -142,7 +142,6 @@
           'agentcode': this.searchParams.agentcode
         })
         let data = await Mixins.methods.apiCall(params)
-        console.log(data)
         this.$store.dispatch('step3', data);
         // this.step3 = data
         this.$emit("select-vehicle", data, 3)
