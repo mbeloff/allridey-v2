@@ -7,30 +7,27 @@ export default {
       myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
-      console.log(JSON.parse(method))
+      // console.log(JSON.parse(method))
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
       };
-      let sign = fetch( fnHost + "/.netlify/functions/signRequest", requestOptions)
+      return fetch( fnHost + "/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
-          let sig = JSON.parse(result).signature
-          return sig
+          return JSON.parse(result).signature
         })
         .catch(error => {console.log('Couldn\'t get token!', error)
     });
-        return sign
     },
     async apiCall(method) {
       let signString = await this.signRequest(method);
       let formdata = new FormData();
       formdata.append("request", method);
       formdata.append("signature", signString);
-      let apierror = undefined
-      let responseData = await fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
+      return fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
           method: "POST",
           body: formdata,
         })
@@ -39,25 +36,15 @@ export default {
           let data = JSON.parse(result)
           if (data.status == 'OK') {
             if (data.issues.length > 0) {
-              console.log('issues: ' + data.issues)
+              console.log('issues: ', data.issues)
             }
-            let request = JSON.parse(method)
-            console.log(request.method + ' ' + data.status)
-            console.log(data.results)
-            return data
-          } else {
-            apierror = data.error
-            throw new Error(apierror)
+            console.log(JSON.parse(method).method, data.status,data.results)
+            return data.results
           }
-        }).catch((error)=>{console.log(error)})
-
-        if(responseData) {
-          return responseData.results 
-        } else {
-          console.log('returning error:' + apierror)
-          return apierror
-        }
-             
+        }).catch((error)=>{
+          console.log(JSON.parse(method).method, data.status, error)
+          return error
+        })    
     },
     getToken() {
       let fnHost =
@@ -81,8 +68,9 @@ export default {
       let expires = new Date(store.state.tokenExp).getTime()
       let now = new Date().getTime()
       if (expires < now) {
-        alert('Session has expired. Please refresh page')
-        // this.$router.go(0)
+        // alert('Session has expired. Please refresh page')
+        console.log('refreshing token')
+        this.getToken()
       }
       var requestOptions = {
         headers: {
