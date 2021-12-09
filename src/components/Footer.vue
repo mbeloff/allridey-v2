@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray-200 grid place-items-center h-32">
     <div class="gap-2 text-sm text-left grid w-screen-lg">
-      <a :href="test" download><i class=" far fa-file-pdf mr-2"></i>Terms and Conditions</a>  
-      <router-link :to="'privacy'" download><i class=" far fa-file-pdf mr-2"></i>Privacy Policy</router-link>  
+      <a class="hover:underline" :href="test" download><i class=" far fa-file-pdf mr-2"></i>Terms and Conditions</a>  
+      <router-link class="hover:underline" :to="'privacy'" download><i class=" far fa-file-pdf mr-2"></i>Privacy Policy</router-link>  
     </div>
 
 
