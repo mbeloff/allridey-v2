@@ -154,6 +154,7 @@
       },
     },
     computed: {
+      
       loading() {
         return this.isEmpty(this.step1)
       },
@@ -182,7 +183,6 @@
         let parts = this.daterange.start.split('/')
         let newDate =  new Date(parts[2],parts[1]-1,parts[0])
         let dayofweek = newDate.getDay() + 1
-        // let dayofweek = this.daterange.start.getDay() + 1
         let pickuphours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (pickuphours == undefined) {
           this.pickuptime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
@@ -196,7 +196,6 @@
         let parts = this.daterange.end.split('/')
         let newDate =  new Date(parts[2],parts[1]-1,parts[0])
         let dayofweek = newDate.getDay() + 1
-        // let dayofweek = this.daterange.end.getDay() + 1
         let dropoffhours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (dropoffhours == undefined) {
           this.dropofftime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
@@ -268,7 +267,6 @@
         })
         let data = await Mixins.methods.apiCall(step1)
         this.$store.dispatch('step1', data);
-        console.log(step1)
         this.init(data)
       },
       init(data) {

@@ -1,10 +1,5 @@
 <template>
   <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
-    <!-- <div class="w-full flex px-4 py-1 bg-red-500 gap-4 text-sm opacity-20 hover:opacity-100">
-      <span class="text-white">dev panel:</span>
-      <button class="text-red rounded border bg-white px-2" @click="getBookingInfo(testresinfo.reservationref), status = 5, this.$router.push({name: 'Summary'})">summary</button>
-      <button class="text-red rounded border bg-white px-2" @click="$store.dispatch('resinfo', testresinfo), $store.dispatch('gotBooking', true), status = 4, this.$router.push({name: 'Payment'})">payment</button>
-    </div> -->
     <div class="bg-cover bg-center" style="background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/v1/allridey/1823.jpg)">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
         <booking-nav v-if="status > 2" @changeStep="changeStep" :status="status"></booking-nav>
@@ -26,7 +21,6 @@
       </div>
       <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
       <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo"></form-payment>
-      <!-- <submit-payment v-if="status == 4.5" @finishedpayment="status = 5, $store.dispatch('gotBooking', true)"></submit-payment> -->
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
       <home-content v-if="status <= 2"></home-content>        
@@ -72,27 +66,10 @@
         count: 0,
         vehicle: {},
         loading: false,
-        // ! test res info
-        testresinfo: {
-          reservationref: "580F27D5F1C0", 
-          reservationno: 945, 
-          customerid: 580
-        },
       }
     },
     
-    watch: { 
-      'status': {
-      handler: function(status) {
-        if(status == 5) {
-          // ?????????
-          // this.$router.push({name: 'Summary'})
-        }
-        if(status == 4) {
-          // this.$router.push({name: 'Payment'})
-        }
-      }
-      },      
+    watch: {     
      '$route.name': {
         handler: function(name) {
            if  (name == 'Home' || name == 'Search') {

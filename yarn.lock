@@ -704,6 +704,11 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
+keen-slider@^6.3.4:
+  version "6.3.4"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.3.4.tgz#31122ded9d89101c03c482b5c892cfbd944a6ced"
+  integrity sha512-IkG5YCsV+lbOfZ9nQkJWt7JDTrQ7YmeNMXo1UuFeWNNd4oj1MVM8fjQcO9Zo2OrO8dpmuPtq4MUyCKb7W46aYQ==
+
 loader-utils@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
@@ -1194,18 +1199,6 @@ vue-tippy@^6.0.0-alpha.30:
   integrity sha512-Rzn+6mDB24e79z70ui6qlwSnB8wYlUsAyHbV2gRX1bmE7jlR0p3l8QCwpKDErxJtnP3ZqMBRJe8vZaQ0lWV/tQ==
   dependencies:
     tippy.js "^6.3.1"
-
-vue3-carousel@^0.1.27:
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.1.27.tgz#59ee1c549bc2e417171c07d118f6e47989f71fea"
-  integrity sha512-0NhqqmIIm+RgUOmdEAXAgHsbrgcLuulJtUAb4JscDlB3xe2Fy75r5epUxTB3umJVblzOs/13waR0KNi2w4CjCw==
-
-vue3-timepicker@^1.0.0-beta.2:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/vue3-timepicker/-/vue3-timepicker-1.0.0-beta.2.tgz#cd7f0addfb2c93dd1d8b8a2a07db29ebfbc2a2be"
-  integrity sha512-j4IVU7PPLrO5HADspv1E+tXTkMc9gWfCu/ruwJqJdX7qugAaVk3yNF7Mj4icRGlU4uKeSohlXWA8/Uj1ePiTxQ==
-  dependencies:
-    vue "^3.0.5"
 
 vue@^3.0.5:
   version "3.0.11"

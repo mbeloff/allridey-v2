@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add cloudinary
+  C:\Program Files\nodejs\node.exe C:\Program Files\Git\usr\local\node_modules\yarn\bin\yarn.js add keen-slider
 
 PATH: 
-  C:\Users\mikey\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Program Files\nodejs;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin;C:\Users\mikey\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\mikey\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\usr\local;C:\Program Files (x86)\Yarn\bin;C:\Users\mikey\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\heroku\bin;C:\Program Files\PostgreSQL\13\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\mikey\AppData\Local\Programs\Python\Python37-32;C:\Users\mikey\.windows-build-tools\python27;node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\mikey\AppData\Roaming\npm\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\mikey\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Local\Programs\Microsoft VS C;C:\Users\mikey\AppData\Local\Programs\Microsoft;C:\Users\mikey\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\mikey\AppData\Local\Microsoft\WindowsApps;C:\Users\mikey\AppData\Roaming\Composer\vendor\bin;C:\Users\mikey\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.10
@@ -28,6 +28,7 @@ npm manifest:
     "dependencies": {
       "@popperjs/core": "^2.9.2",
       "@tailwindcss/aspect-ratio": "^0.2.0",
+      "cloudinary": "^1.27.0",
       "crypto-js": "^4.0.0",
       "node-fetch": "^2.6.1",
       "v-calendar": "^3.0.0-alpha.4",
@@ -35,7 +36,7 @@ npm manifest:
       "vue-router": "4",
       "vue-smooth-height": "^1.6.4",
       "vue-tippy": "^6.0.0-alpha.30",
-      "vue3-timepicker": "^1.0.0-beta.2",
+      "vue3-carousel": "^0.1.27",
       "vuex": "^4.0.2",
       "vuex-persistedstate": "^4.0.0",
       "xml-js": "^1.6.11"
@@ -363,6 +364,21 @@ Lockfile:
     optionalDependencies:
       fsevents "~2.3.1"
   
+  cloudinary-core@^2.10.2:
+    version "2.11.4"
+    resolved "https://registry.yarnpkg.com/cloudinary-core/-/cloudinary-core-2.11.4.tgz#1d191935bcdcd412d499a91b928a94b266fee49d"
+    integrity sha512-F1BZczD6f5mB73D0c8gl/iuacVQQO+UhckNZxeeS9ZIVeIHbsfqwWiAZMQmIvEb7Wti/9MLU0xVwaWOak2THHA==
+  
+  cloudinary@^1.27.0:
+    version "1.27.0"
+    resolved "https://registry.yarnpkg.com/cloudinary/-/cloudinary-1.27.0.tgz#1939f4767c32d596c8cd74ea3db66094bf25fa96"
+    integrity sha512-3Slh8gTmEfaut+ZBIMByOXaD60QP5uw46zn3lyYYEA0mhTQ82FIrwfj98s0eZ6PciQJIJ+Ea4QPBl7Ji21TQEA==
+    dependencies:
+      cloudinary-core "^2.10.2"
+      core-js "3.6.5"
+      lodash "^4.17.11"
+      q "^1.5.1"
+  
   color-convert@^1.9.0, color-convert@^1.9.1:
     version "1.9.3"
     resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -424,6 +440,11 @@ Lockfile:
     integrity sha512-Nhl1wzCslqXYTJVDyJCu3ODohy9OfBMB5uD2BiBTzd7w+QY0lBzafkR8y8755yMYHAaMD4NuzbAw03/xzfw+eQ==
     dependencies:
       bluebird "^3.7.2"
+  
+  core-js@3.6.5:
+    version "3.6.5"
+    resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
+    integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
   
   core-js@^3.7.0:
     version "3.14.0"
@@ -764,7 +785,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
     integrity sha1-NhY1Hzu6YZlKCTGYlmC9AyVP0Ak=
   
-  lodash@^4.17.20, lodash@^4.17.21:
+  lodash@^4.17.11, lodash@^4.17.20, lodash@^4.17.21:
     version "4.17.21"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
     integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -1017,6 +1038,11 @@ Lockfile:
       postcss "^8.2.1"
       postcss-selector-parser "^6.0.2"
   
+  q@^1.5.1:
+    version "1.5.1"
+    resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+    integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+  
   queue-microtask@^1.2.2:
     version "1.2.3"
     resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -1205,12 +1231,22 @@ Lockfile:
     optionalDependencies:
       fsevents "~2.3.1"
   
+  vue-dragscroll@^3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/vue-dragscroll/-/vue-dragscroll-3.0.1.tgz#572c68ca021209accf8fe6f1bc7540c627c26453"
+    integrity sha512-4Oq3S1RGm94YMy/DcjcvM+itRLoTGnKaxlpUUVICPPkNEvMMKzArZUNDXxmDInVa8t4GtrfM0uGAShFP+0JIUw==
+  
   vue-router@4:
     version "4.0.8"
     resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.8.tgz#55d4290a3122444edbc91a3cd2492bb1d0cef494"
     integrity sha512-42mWSQaH7CCBQDspQTHv63f34VEnZC20g9QNK4WJ/zW8SdIUeT6TQ2i/78fjF/pVBUPLBWrGhvB7uDnaz7O/pA==
     dependencies:
       "@vue/devtools-api" "^6.0.0-beta.10"
+  
+  vue-scroll-snap@^0.1.11:
+    version "0.1.11"
+    resolved "https://registry.yarnpkg.com/vue-scroll-snap/-/vue-scroll-snap-0.1.11.tgz#a3b0e53d67e3aeab0e3b2f3ffd6890059f152e35"
+    integrity sha512-4ak7oU7Tdrl8AgWcZa2wrQYCn68TVg+TQQmn0xfsKJ2my59MGEx21dGC5IrF3gD23rTyJHzHnaovTsKMOVVxiQ==
   
   vue-smooth-height@^1.6.4:
     version "1.6.4"
@@ -1226,12 +1262,10 @@ Lockfile:
     dependencies:
       tippy.js "^6.3.1"
   
-  vue3-timepicker@^1.0.0-beta.2:
-    version "1.0.0-beta.2"
-    resolved "https://registry.yarnpkg.com/vue3-timepicker/-/vue3-timepicker-1.0.0-beta.2.tgz#cd7f0addfb2c93dd1d8b8a2a07db29ebfbc2a2be"
-    integrity sha512-j4IVU7PPLrO5HADspv1E+tXTkMc9gWfCu/ruwJqJdX7qugAaVk3yNF7Mj4icRGlU4uKeSohlXWA8/Uj1ePiTxQ==
-    dependencies:
-      vue "^3.0.5"
+  vue3-carousel@^0.1.27:
+    version "0.1.27"
+    resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.1.27.tgz#59ee1c549bc2e417171c07d118f6e47989f71fea"
+    integrity sha512-0NhqqmIIm+RgUOmdEAXAgHsbrgcLuulJtUAb4JscDlB3xe2Fy75r5epUxTB3umJVblzOs/13waR0KNi2w4CjCw==
   
   vue@^3.0.5:
     version "3.0.11"

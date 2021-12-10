@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Search from './views/Search.vue'
 import CheckPayment from './views/CheckPayment.vue'
-import Locations from './views/Locations.vue'
+import Locations from './views/LocationList.vue'
 import Location from './views/Location.vue'
 import Checkin from './views/Checkin.vue'
 import ModifyBooking from './views/ModifyBooking.vue'
