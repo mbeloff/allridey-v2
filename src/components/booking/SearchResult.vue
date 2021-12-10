@@ -1,7 +1,18 @@
 <template>
   <div class="flex flex-col md:flex-row print:flex-row mt-2 rounded bg-white border border-gray-300 shadow-lg">
     <div class="flex w-full md:w-1/3 print:w-1/3 min-h-24 rounded">
-      <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
+      <!-- <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt=""> -->
+      <div ref="container" class="keen-slider">
+      <div class="keen-slider__slide number-slide1">
+        <img class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
+      </div>
+      <template v-for="(image,index) in gallery" :key="index">
+        <div class="keen-slider__slide"  :class="'number-slide' + (index+2)">
+        <img width="563" height="295" :src="image" />
+      </div>  
+      </template>
+      
+    </div>
     </div>
     <div class="flex flex-col flex-1">
       
@@ -74,12 +85,19 @@
 </template>
 
 <script>
+import { useKeenSlider } from 'keen-slider/vue.es'
+import 'keen-slider/keen-slider.min.css'
   import Mixins from '@/Mixins'
   export default {
+    setup(){
+    const [container] = useKeenSlider()
+    return { container }
+  },
     data() {
       return {
         showTip: false,
-        images: []
+        images: [],
+        gallery: []
       }
     },
     props: {
@@ -111,8 +129,29 @@
         return this.data.vehicledescription1.split(' !! ')
       },
     },
+    mounted() {
+      this.getGallery()
+    },
     mixins: [Mixins],
     methods: {
+      async getGallery() {
+          let fnhost = import.meta.env.VITE_FN_HOST
+          let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
+          let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
+          let raw = JSON.stringify({
+            "catid": this.data.vehiclecategoryid
+          });
+          let requestOptions = {
+            method: 'POST',
+            body: raw,
+            redirect: 'follow'
+          };
+          let files = await fetch(fnhost + "/.netlify/functions/getGallery", requestOptions)
+            .then(response => response.text())
+            .then(res => JSON.parse(res))
+            .catch(error => console.log('error', error));
+            files.forEach(el=> this.gallery.push(baseurl + transform + el + '.jpg'))          
+      },
       renderFeature(item) {
         if (item == 'a/m') {
           return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Auto & Manual'
