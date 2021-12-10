@@ -7,7 +7,8 @@ const headers = {
 };
 exports.handler = async function (event) {
   let catid = JSON.parse(event.body).catid
-  let expression = 'folder=allridey/vehicles/' + catid
+  let expression = 'folder=vehicles/' + catid
+
   cloudinary.config({ 
     cloud_name: process.env.VITE_CLOUD_NAME, 
     api_key: process.env.VITE_CLOUD_KEY, 
@@ -16,8 +17,7 @@ exports.handler = async function (event) {
   });
   let list = []
   await cloudinary.v2.search.expression(expression)
-  .sort_by('public_id').max_results(10).execute().then(result => result.resources.forEach(el => list.push(el.secure_url) + '.jpg'))
-
+  .sort_by('public_id').max_results(10).execute().then(result => result.resources.forEach(el => list.push(el.public_id) + '.jpg'))
   return {
     statusCode: 200,
     headers,
