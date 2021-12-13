@@ -37,7 +37,7 @@
             </p>
           </div> -->
         </div>
-        <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1 md:p-2 md:w-40 bg-gray-100">
+        <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1 md:p-2 md:w-40 bg-gray-100 rounded-b md:rounded-l-none md:rounded-r">
           <div class="flex md:flex-col print:flex-col justify-between  px-1 md:px-0">
             <div class=" flex flex-col self-end md:self-start mb-1">
               <p v-if="data.discountname" class="  text-xs -mb-1 font-normal mr-2 text-red-500"><span class="line-through">{{currencysymbol + parseFloat(data["avgrate"]).toFixed(2)}}/day</span> <span v-if="data.discountname" class="text-xs font-normal text-red-500">({{data.discountname}})</span></p>
