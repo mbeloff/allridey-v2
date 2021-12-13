@@ -10,7 +10,7 @@
     </div>
     
 
-    <div class="max-w-screen-lg mx-auto flex flex-col gap-5 py-10 px-2">
+    <div class="w-screen md:max-w-screen-lg mx-auto flex flex-col gap-5 py-10 px-2">
       <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
         <loading-overlay></loading-overlay>
       </div>      
