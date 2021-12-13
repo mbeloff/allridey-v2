@@ -39,7 +39,9 @@
 
       <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
         <div class="w-full">
-          <img :src="step3.availablecars[0].imageurl" alt="" class="object-fill w-full">
+          <!-- <img :src="step3.availablecars[0].imageurl" alt="" class="object-fill w-full"> -->
+          <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded w-full" :src="this.step3.availablecars[0].imageurl" alt="">
+          <keen-slider v-if="gallery.length" :slides="gallery" class="w-full"></keen-slider>
         </div>
         <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>
@@ -169,13 +171,15 @@
 </template>
 
 <script>
+import KeenSlider from '@/components/Gallery.vue'
   import Mixins from '@/Mixins'
   import Spinner from '@/components/Spinner.vue'
   import MakeBooking from '@/components/booking/MakeBooking.vue'
   export default {
     components: {
       Spinner,
-      MakeBooking
+      MakeBooking,
+      KeenSlider
     },
     data() {
       return {
@@ -184,6 +188,7 @@
         insurance: 0,
         extrakmsid: 0,
         optionalfees: [],
+        gallery: [],
         totals: {
           all: [],
           daily: [],
@@ -287,8 +292,33 @@
         arr.push(obj)
       })
       this.optionalfees = arr
+      this.getGallery()
     },
     methods: {
+      getGallery() {
+        let catid = this.step3.availablecars[0].vehiclecategoryid
+        let baseimg = this.step3.availablecars[0].imageurl
+        let fnhost =
+          import.meta.env.VITE_FN_HOST
+        let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
+        let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
+        let raw = JSON.stringify({
+          "catid": catid
+        });
+        let requestOptions = {
+          method: 'POST',
+          body: raw,
+          redirect: 'follow'
+        };
+        fetch(fnhost + "/.netlify/functions/getGallery", requestOptions)
+          .then(response => response.text())
+          .then(res => JSON.parse(res))
+          .then(files => {           
+            files.forEach(el => this.gallery.unshift(baseurl + transform + el + '.jpg'))
+            this.gallery.unshift(baseimg)
+          })
+          .catch(error => console.log('error', error))
+      },
       changeMode(e) {
         this.mode = e
         this.$forceUpdate()
