@@ -22,7 +22,7 @@
               250km/day included</p>
           </div>
           <!-- v-if location and vehicle avaialble -->
-          <!-- <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
+           <!-- <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
             <p v-for="(fee, i) in getFeeOfType('Daily')" :key="i" class="">
               <i class='fas fa-plus-circle '></i>
               {{currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"] + " @ " + currencysymbol + parseFloat(fee["fees"]).toFixed(0) + " per day"}}
@@ -35,7 +35,7 @@
               <i class='fas fa-plus-circle '></i>
               {{ currencysymbol + parseFloat(fee.totalfeeamount).toFixed(0) + ' FOR ' + fee["name"]}}
             </p>
-          </div> -->
+          </div>  -->
         </div>
         <div v-if="isAvailable() == 'Available for booking'" class="flex flex-col justify-end p-1 md:p-2 md:w-40 bg-gray-100 rounded-b md:rounded-l-none md:rounded-r">
           <div class="flex md:flex-col print:flex-col justify-between  px-1 md:px-0">
@@ -128,9 +128,9 @@
         fetch(fnhost + "/.netlify/functions/getGallery", requestOptions)
           .then(response => response.text())
           .then(res => JSON.parse(res))
-          .then(files => {
-            this.gallery.push(this.data.imageurl)
-            files.forEach(el => this.gallery.push(baseurl + transform + el + '.jpg'))
+          .then(files => {           
+            files.forEach(el => this.gallery.unshift(baseurl + transform + el + '.jpg'))
+            this.gallery.unshift(this.data.imageurl)
           })
           .catch(error => console.log('error', error))
       },
