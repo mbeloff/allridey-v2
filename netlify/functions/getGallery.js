@@ -10,9 +10,9 @@ exports.handler = async function (event) {
   let expression = 'folder=vehicles/' + catid
 
   cloudinary.config({ 
-    cloud_name: process.env.VITE_CLOUD_NAME, 
-    api_key: process.env.VITE_CLOUD_KEY, 
-    api_secret: process.env.VITE_CLOUD_SECRET,
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.CLOUD_KEY, 
+    api_secret: process.env.CLOUD_SECRET,
     secure: true 
   });
   let list = []
