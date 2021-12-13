@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-100 h-full bg-center bg-cover" :class="{ 'full-bg' : this.status < 3}">
-    <div class="bg-cover bg-center" style="background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/v1/allridey/1823.jpg)">
+    <div class="bg-cover bg-center bg-main">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
         <booking-nav v-if="status > 2" @changeStep="changeStep" :status="status"></booking-nav>
         <keep-alive>
@@ -180,5 +180,23 @@
   }
 </script>
 
-<style>
-</style>
+<style lang="postcss">
+.bg-main {
+    background-image: url(https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_fill,h_600,ar_1/v1639371251/assets/1823.jpg)
+    }
+  @media only screen and (min-width: 768px) {
+    .bg-main {
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1024,ar_3/v1/allridey/1823.jpg)
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .bg-main {
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1200,ar_3/v1/allridey/1823.jpg)
+    }
+  }
+  @media only screen and (min-width: 1600px) {
+    .bg-main {
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1600,ar_3/v1/allridey/1823.jpg)
+    }
+  }
+  </style>
