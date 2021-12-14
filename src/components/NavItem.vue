@@ -51,10 +51,6 @@
     .dropdown-item {
       @apply px-4 py-1.5 border-white  transition-spacing bg-white
     }
-    /* ! rounded first and last item */
-    /* /*  */
-     /* */
-    
 }
 
 .dropdown-container:after {

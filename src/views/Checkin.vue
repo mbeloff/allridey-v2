@@ -57,7 +57,7 @@
     mounted() {
       Mixins.methods.getToken()
       if (this.$route.query.valid == "false") {
-        this.error = "The requested booking in unavailable"
+        this.error = "The requested booking is no longer available"
       }
     },
     computed: {
@@ -94,7 +94,6 @@
             console.log('find booking (error): ' + err)
           })
         } else {
-          // TODO add highlighting to empty/invalid fields
           this.error = "Please enter reservation number and your last name."
           this.missinginput = true
           this.loading = false

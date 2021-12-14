@@ -1,14 +1,15 @@
 <template>
   <div class="w-full h-20 shadow-lg bg-white z-10 relative print:hidden">
     <div class="flex justify-between container h-full mx-auto px-2"> 
-      <div class="left flex content-center items-center gap-x-4 ">
+      <div class="left flex content-center items-center gap-x-4 w-full">
         <router-link :to="{ name: 'Home'}" href="/" class="left flex">
           <img src="../assets/allridey_text_outline.svg" alt="Go to Allridey homepage" class="flex-grow w-32 md:w-48">
-        </router-link>        
-        <div class="hidden md:flex h-full items-center">
+        </router-link>    
+        <div class="hidden md:flex h-full w-full flex-grow items-center">
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
-          <router-link :to="{ name: 'Checkin'}" class="menu-item">Check In</router-link>
+          
           <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item>
+          <router-link :to="{ name: 'Checkin'}" class="menu-item menu-button ml-auto  "><i class="fal fa-sign-in mr-1"></i> Check in</router-link>
         </div>
         
       </div>
@@ -22,10 +23,12 @@
       </div>
     </div>
     <transition name="slide">
-      <div v-if="expand" class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full">
+      <div v-if="expand" class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full py-2">
         <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-3">Book Now</router-link>
-        <router-link :to="{ name: 'Checkin' }" class="hover:bg-gray-200 px-5 py-3">Check In</router-link>
+        
         <router-link :to="{ name: 'Locations' }" class="hover:bg-gray-200 px-5 py-3">Locations</router-link>
+
+        <router-link :to="{ name: 'Checkin' }" class="hover:bg-gray-200 px-5 py-3 menu-item menu-button max-w-max rounded-full mx-auto text-sm"><i class="fal fa-sign-in mr-1"></i> Check In</router-link>
         <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
       </div>
     </transition>    
@@ -94,11 +97,19 @@ export default {
 
 <style lang="postcss">
 .menu-item {
-  @apply font-bold relative px-5 py-1 text-blue-900
+  @apply relative px-5 py-1 text-blue-900
 }
 
 .menu-item:hover {
   @apply text-blue-700
+}
+
+.menu-button {
+  @apply bg-blue-900 rounded text-white
+}
+
+.menu-button:hover {
+  @apply bg-gray-200 shadow-inner
 }
 
 .slide-enter-active,
