@@ -6,11 +6,9 @@ const headers = {
 };
 exports.handler = async function (event) {
   var secret = process.env.RCM_SECRET;
-  // console.log(event)
   let msg = event.body
   var hash = CryptoJS.HmacSHA256(msg, secret);
   var hashInHex = CryptoJS.enc.Hex.stringify(hash);
-  // console.log(hashInHex);
 
   let signature = '{"signature":"' + hashInHex + '"}'
 

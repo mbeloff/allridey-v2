@@ -166,7 +166,7 @@
         </div>
       </div>
     </div>
-    <make-booking @submit1="makeBooking" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :searchParams="searchParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
+    <make-booking @submit="makeBooking" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :searchParams="searchParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
   </div>
 </template>
 
@@ -335,15 +335,11 @@ import KeenSlider from '@/components/Gallery.vue'
         }
       },
       async makeBooking() {
-        console.log('submit makeBooking from SelectedVehicle')
         let data = await Mixins.methods.apiCall(JSON.stringify(await this.$store.state.bookingparams))
-        console.log('makebooking data = ' + JSON.parse(JSON.stringify(await data)))
         this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(await data)))
         this.ref = JSON.parse(JSON.stringify(await data)).reservationref
       },
       bookingMade() {
-        console.log('submit function: mode=' + this.mode + ' ref=' + this.ref)
-        console.log('emitting mode and ref to search.vue')
         this.$emit('bookingMade', this.mode, this.ref)
       },
       getTotals() {

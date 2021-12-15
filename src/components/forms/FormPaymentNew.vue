@@ -5,9 +5,8 @@
         ...loading
       </loading-overlay>
       <p class="font-bold text-center">Payment</p>
-      <div v-if="paymentResponse.Success._text == 0">
+      <div v-if="paymentResponse.Success && paymentResponse.Success._text == 0">
         <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
-
       </div>
 
       <div>
@@ -15,7 +14,7 @@
       </div>
       <div class="text-left pl-2">
         <a @click="this.$router.push(
-          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'}})" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a>
+          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'} })" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a>
       </div>
     </div>
   </div>
@@ -33,108 +32,13 @@
     },
     data() {
       return {
-        count: 1,
         loading: true,
-        frameLoad: false,
         url: "",
-        vaultnote: "",
-        vaultresponse: "",
         dps: {},
         payurl: "",
-        query: "",
         resref: "",
-        resno: "",
         confirmedPayment: {},
-        customerid: "",
-        paymentResponse: {
-          "_attributes": {
-            "valid": ""
-          },
-          "AmountSettlement": {
-            "_text": ""
-          },
-          "TotalAmount": {},
-          "AmountSurcharge": {},
-          "AuthCode": {},
-          "CardName": {
-            "_text": ""
-          },
-          "CardNumber": {
-            "_text": ""
-          },
-          "DateExpiry": {
-            "_text": ""
-          },
-          "DpsTxnRef": {
-            "_text": ""
-          },
-          "SurchargeDpsTxnRef": {},
-          "Success": {
-            "_text": ""
-          },
-          "ResponseText": {
-            "_text": ""
-          },
-          "DpsBillingId": {},
-          "CardHolderName": {
-            "_text": ""
-          },
-          "CurrencySettlement": {
-            "_text": ""
-          },
-          "TxnData1": {},
-          "TxnData2": {},
-          "TxnData3": {},
-          "TxnType": {
-            "_text": ""
-          },
-          "CurrencyInput": {
-            "_text": ""
-          },
-          "MerchantReference": {},
-          "ClientInfo": {
-            "_text": ""
-          },
-          "TxnId": {
-            "_text": ""
-          },
-          "EmailAddress": {},
-          "BillingId": {},
-          "TxnMac": {
-            "_text": ""
-          },
-          "CardNumber2": {},
-          "DateSettlement": {
-            "_text": ""
-          },
-          "IssuerCountryId": {
-            "_text": ""
-          },
-          "IssuerCountryCode": {},
-          "Cvc2ResultCode": {
-            "_text": ""
-          },
-          "ReCo": {
-            "_text": ""
-          },
-          "ProductSku": {},
-          "ShippingName": {},
-          "ShippingAddress": {},
-          "ShippingPostalCode": {},
-          "ShippingPhoneNumber": {},
-          "ShippingMethod": {},
-          "BillingName": {},
-          "BillingPostalCode": {},
-          "BillingAddress": {},
-          "BillingPhoneNumber": {},
-          "PhoneNumber": {},
-          "HomePhoneNumber": {},
-          "AccountInfo": {},
-          "RiskScore": {
-            "_text": ""
-          },
-          "RiskScoreText": {}
-        }
+        paymentResponse: {}
       }
     },
     mounted() {
@@ -161,28 +65,16 @@
         })
       }
     },
-    computed: {
-      // ? test payment flow before removing
-      // resinfo() {
-      //   return this.$store.state.resinfo
-      // },
-      // bookinginfo() {
-      //   return this.$store.state.bookinginfo
-      // }
-    },
     methods: {
       handlePayment() {
         this.loading = true
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
-        console.log(params)
         Mixins.methods.apiCall(params).then(res => {
           this.confirmedPayment = res
         })
-        } else if (this.paymentResponse.Success._text == 0) {
-          console.log('payment unsuccessful, retrying')         
+        } else if (this.paymentResponse.Success._text == 0) {      
           this.requestWindcaveTransaction()
-          this.count++
         }  
       },
       getPaydate(dateStr) {
@@ -215,7 +107,7 @@
           "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
           "transtype": "Payment",
           "payscenario": 1,
-          "emailoption": 0
+          "emailoption": 1
         }
         return params
       },
@@ -226,7 +118,6 @@
         })
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
-          // this.bookinginfo = res
           this.requestWindcaveTransaction()
         })
       },
@@ -259,24 +150,7 @@
             .catch(error => {
               console.log('request transaction failed: ', error)
             });
-
-          // let host = import.meta.env.VITE_HOST
-          // let params = JSON.stringify({
-          //   "method": "createdpspayment",
-          //   "reservationref": this.reservation.reservationref,
-          //   "amount": 1,
-          //   // "amount": balancedue,
-          //   "returnurl": host + "/checkpayment?ref=" + resref,
-          //   "transationtype": "Purchase"
-          // })
-          // Mixins.methods.apiCall(params).then(res => {
-          //   this.payurl = res.RedirectUrl
-          //   this.loading = false
-          // })
-
         } else {
-          console.log('no balance due')
-          // this.$emit('grabBookingInfo')
           this.$router.push({
             path: "/summary?pymnt=nobal",
             query: {

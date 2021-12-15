@@ -105,8 +105,7 @@
         handler(val, oldVal) {
           if (this.gotOptions && oldVal != undefined) {
             this.calcTotal()
-          }
-            
+          }            
         },
         deep: true
       },
@@ -119,13 +118,11 @@
       },
       'insurancefee': {
         handler(val, oldVal) {          
-            if ( this.gotOptions && JSON.stringify(oldVal) != "{}" && JSON.stringify(val) != JSON.stringify(oldVal)) {
-              this.calcTotal()
-            }
-            
+          if ( this.gotOptions && JSON.stringify(oldVal) != "{}" && JSON.stringify(val) != JSON.stringify(oldVal)) {
+            this.calcTotal()
+          }            
         }
       },
-
     },
     data() {
       return {
@@ -254,17 +251,13 @@
         Mixins.methods.postapiCall(method)
           .then(res => {
             if (res.status == 'OK') {
-              console.log(res)
-            if (res.status == 'OK') {
               this.totals = res.results.totals
               this.ready = true
               this.loading = false
             } else if (res.status == 'ERR') {
               this.loading = false
               throw res.error
-            }
-            }
-            
+            }            
           })
       },
       editBooking() {

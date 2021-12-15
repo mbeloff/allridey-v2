@@ -80,7 +80,6 @@
         if (resno && lastname) {
           Mixins.methods.postapiCall(method)
           .then(res => {
-            console.log(res)
             if (res.status == "OK") {
               let resref = res.results[0].reservationref
               this.$store.dispatch("pbresref", resref)

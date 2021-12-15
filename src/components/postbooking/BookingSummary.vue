@@ -127,7 +127,6 @@
     watch: {
       'paymentResponse': {
         handler(val) {
-          console.log(val)
           this.handlePayment()
         },
         deep: true
@@ -216,7 +215,6 @@
         fetch(import.meta.env.VITE_FN_HOST + "/.netlify/functions/reqtrans", requestOptions)
           .then(response => response.text())
           .then(result => {
-            console.log(JSON.parse(result))
             let res = JSON.parse(result).Request.URI._text
             this.payurl = res
             this.payLoading = false
@@ -230,11 +228,9 @@
         console.log('handling payment')
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
-        console.log(JSON.parse(params))
         Mixins.methods.postapiCall(params).then(res => {
           if (res.status == 'OK') {
             console.log('confirmed payment')
-            console.log(res)
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {

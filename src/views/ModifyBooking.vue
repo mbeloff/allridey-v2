@@ -67,7 +67,6 @@
         });
         Mixins.methods.postapiCall(method)
           .then(res => {
-            console.log(res)
             if (res.status == "OK") {
               this.loading = false
               this.init(res.results)

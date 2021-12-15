@@ -4,37 +4,7 @@
     <div v-for="(image,index) in slides" :key="index" class="keen-slider__slide" :class="'number-slide' + (index+1)">
       <img class="h-full w-full object-cover" :src="image" />
     </div>
-    <!-- <svg
-        @click="slider.prev()"
-        :class="{
-          arrow: true,
-          'arrow--left': true,
-          'arrow--disabled': current === 0,
-          'hidden': slides.length < 2
-          }"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        class=""
-      >
-        <path
-        fill="skyblue" d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
-        ></path>
-      </svg>
-      <svg
-        v-if="slider"
-        @click="slider.next()"
-        :class="{
-          arrow: true,
-          'arrow--right': true,
-          'arrow--disabled': current === slider.track.details.slides.length - 1,
-          'hidden': slides.length < 2
-        }"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path
-        fill="skyblue" d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"></path>
-      </svg> -->
+
       <div v-if="slides.length > 1" class="dots absolute w-full bottom-0">
           <button
         v-for="(_slide, idx) in dotHelper"
@@ -57,18 +27,48 @@ import { computed, ref } from 'vue'
 
 
   export default {
+    // TODO go to slide 1 after timeout?
     setup(){
-
     const current = ref(0)
-    const [container, slider] = useKeenSlider({
-      initial: current.value,
-      slideChanged: (s) => {
-        current.value = s.track.details.rel
+    const [container, slider] = useKeenSlider(
+      {
+        initial: current.value,
+        slideChanged: (s) => {
+          current.value = s.track.details.rel
+        },
       },
-    })
-
+      [
+        (slider) => {
+          let timeout
+          let mouseOver = false
+          function clearNextTimeout() {
+            clearTimeout(timeout)
+          }
+          function nextTimeout() {
+            clearTimeout(timeout)
+            if (mouseOver) return
+            timeout = setTimeout(() => {
+              slider.moveToIdx(0, true)
+            }, 3000)
+          }
+          slider.on("created", () => {
+            slider.container.addEventListener("mouseover", () => {
+              mouseOver = true
+              clearNextTimeout()
+            })
+            slider.container.addEventListener("mouseout", () => {
+              mouseOver = false
+              nextTimeout()
+            })
+            nextTimeout()
+          })
+          slider.on("dragStarted", clearNextTimeout)
+          slider.on("animationEnded", nextTimeout)
+          slider.on("updated", nextTimeout)
+        },
+      ]
+    )
     const dotHelper = computed(() => slider.value ? [...Array(slider.value.track.details.slides.length).keys()] : [])
-    console.log(slider)
     return { container, current, dotHelper, slider }
   },
     props: {
@@ -78,12 +78,6 @@ import { computed, ref } from 'vue'
 </script>
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
 
   [class^="number-slide"],
   [class*=" number-slide"] {

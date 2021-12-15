@@ -80,7 +80,8 @@
         <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5">
           <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with Allridey</p>
           <p v-else class='text-xl font-bold'>Thanks for booking with Allridey.</p>
-          <p class="text-sm">We've sent you an email for your records. <span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below, or via the link in the email.</span></p>
+          <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote.</p>
+          <p class="text-sm"><span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below.</span></p>
           <div class="grid grid-cols-2 text-sm">
             <span class="font-bold">Reference number:</span>
             <span class="font-bold">{{ booking.reservationdocumentno }}</span>

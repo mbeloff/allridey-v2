@@ -7,7 +7,6 @@ const headers = {
 };
 
 exports.handler = async function (event) {
-  // console.log(event.body)
   let body = JSON.parse(event.body)
   var transresponse = body.transresponse
   var pxpayuser = process.env.PXPAY_USER
@@ -25,7 +24,6 @@ exports.handler = async function (event) {
   const res = await fetch("https://sec.windcave.com/pxaccess/pxpay.aspx", requestOptions)
   .then(response => response.text())
   .catch(error => console.log('error', error));
-  // console.log(res)
   const json = convert.xml2json(res, {compact: true});
 
   return {

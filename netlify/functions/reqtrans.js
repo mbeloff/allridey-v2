@@ -7,9 +7,7 @@ const headers = {
 };
 
 exports.handler = async function (event) {
-  // console.log(event.body)
   let body = JSON.parse(event.body)
-  // console.log(body.amount)
   var pxpayuser = process.env.PXPAY_USER
   var pxpaykey = process.env.PXPAY_KEY
   var amount = body.amount
@@ -17,7 +15,6 @@ exports.handler = async function (event) {
   var ref = body.resref
   var successURL = process.env.VITE_HOST + '/checkpayment?ref=' + ref
   var failURL = process.env.VITE_HOST + '/checkpayment?ref=' + ref
-  // var callback = process.env.VITE_FN_HOST + '/.netlify/functions/confirm'
   var callback = "https://InsertValidUrlForCallback"
 
   var raw = "<GenerateRequest>\r\n<PxPayUserId>" + pxpayuser + "</PxPayUserId>\r\n<PxPayKey>" + pxpaykey + "</PxPayKey>\r\n<TxnType>Purchase</TxnType>\r\n<AmountInput>" + amount + "</AmountInput>\r\n<CurrencyInput>" + currency + "</CurrencyInput>\r\n<MerchantReference>"+ ref +"</MerchantReference>\r\n<UrlSuccess>" + successURL + "</UrlSuccess>\r\n<UrlFail>" + failURL + "</UrlFail>\r\n<UrlCallback>" + callback + "</UrlCallback>\r\n</GenerateRequest>";
@@ -32,7 +29,6 @@ exports.handler = async function (event) {
   const res = await fetch("https://sec.windcave.com/pxaccess/pxpay.aspx", requestOptions)
   .then(response => response.text())
   .catch(error => console.log('error', error));
-  // console.log(res)
   const json = convert.xml2json(res, {compact: true});
 
   return {

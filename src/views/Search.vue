@@ -153,7 +153,6 @@
         this.$forceUpdate()        
       },
       submit(mode, ref) {
-        console.log('submit from search... ref=' + ref + 'mode=' + mode)
         this.getBookingInfo(ref)
         if (mode == 1) {          
           this.status = 5          
@@ -166,7 +165,6 @@
         }
       },
       getBookingInfo(ref) {
-        console.log('getBookingInfo ref = ' + ref)
         let params = JSON.stringify({
           "method":"bookinginfo",
           "reservationref":ref

@@ -73,7 +73,6 @@ import SectionSummary from '@/components/postbooking/BookingSummary.vue'
           },
           (error, result) => {
             if (!error && result && result.event === "success") {
-              console.log('Done uploading..: ', result.info);
               res = result.info
               this.processUploadResult(doc, res);
             }

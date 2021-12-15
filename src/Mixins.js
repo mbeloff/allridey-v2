@@ -7,7 +7,6 @@ export default {
       myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
-      // console.log(JSON.parse(method))
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -68,7 +67,6 @@ export default {
       let expires = new Date(store.state.tokenExp).getTime()
       let now = new Date().getTime()
       if (expires < now) {
-        // alert('Session has expired. Please refresh page')
         console.log('refreshing token')
         this.getToken()
       }

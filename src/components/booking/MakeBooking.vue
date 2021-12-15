@@ -13,7 +13,7 @@
     </div>
     </transition>
     
-    <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking">
+    <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking(mode)">
       <form-customer  :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
       <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max"  :class="{ 'border border-blue-700' : showOptional }">
         <input type="checkbox" name="showops" id="showops" class="mr-2 hidden" v-model="showOptional">
@@ -97,7 +97,7 @@
             countryid: 7, // Default country id (Australia)
           },
           // ! email option 0 = off, 1 = default, 2 = always send
-          emailoption: 1,
+          emailoption: 0,
           foundusid: 63,
           remark: "",
           areaofuseid: "",
@@ -112,10 +112,13 @@
       scroll(ref) {
         setTimeout(()=>{ this.$refs[ref].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})}, 100);        
       },
-      submitBooking() {
-        console.log('emitting submit with mode=' + this.mode)
+      submitBooking(mode) {
+        // send email straight away only if quote
+        if (mode == 1) {
+          this.parameters.emailoption = 1
+        }        
         this.$store.dispatch("bookingparams", this.parameters)
-        this.$emit('submit1')
+        this.$emit('submit')
       },
       setMode(mode) {
         this.mode = mode
