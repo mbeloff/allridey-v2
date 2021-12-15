@@ -3,19 +3,19 @@
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Arrival Flight</label>
-        <input type="text" class="my-input" v-model="bookingdata.bookinginfo[0].flightin">
+        <input maxlength="50" type="text" class="my-input" v-model="bookingdata.bookinginfo[0].flightin">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Arrival Collection Point</label>
-        <input type="text" class="my-input" v-model="bookingdata.bookinginfo[0].arrivalpoint">
+        <input maxlength="80" type="text" class="my-input" v-model="bookingdata.bookinginfo[0].arrivalpoint">
     </div>
     <div class="flex flex-col group">
       <label for="state" class=" my-label">Departure Flight</label>
-        <input type="text" class="my-input" v-model="bookingdata.bookinginfo[0].flightout">
+        <input maxlength="50" type="text" class="my-input" v-model="bookingdata.bookinginfo[0].flightout">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="postcode" class=" my-label">Departure Dropoff Point</label>
-        <input type="text" class="my-input" v-model="bookingdata.bookinginfo[0].departurepoint">
+        <input maxlength="80" type="text" class="my-input" v-model="bookingdata.bookinginfo[0].departurepoint">
     </div>
     <div class="flex flex-col group">
       <label for="travelling" class=" my-label">Number of People Travelling</label>
@@ -30,7 +30,7 @@
     </div>
     <div class="grid group">
       <label for="remark" class=" my-label">Comments</label>
-      <textarea type="text" name="remark" id="remark" class="my-input" v-model="bookingdata.bookinginfo[0].remark"></textarea>
+      <textarea maxlength="250" type="text" name="remark" id="remark" class="my-input" v-model="bookingdata.bookinginfo[0].remark"></textarea>
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-3 md:col-start-2">

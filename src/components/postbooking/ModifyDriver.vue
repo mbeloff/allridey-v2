@@ -3,19 +3,19 @@
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>
-        <input required type="text" id="fName" class="my-input" v-model="customer.firstname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
+        <input maxlength="30" required type="text" id="fName" class="my-input" v-model="customer.firstname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
-        <input required type="text" id="lName" class="my-input" v-model="customer.lastname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
+        <input maxlength="40" required type="text" id="lName" class="my-input" v-model="customer.lastname" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="email" class="text-xs mb-1 my-label">Email</label>
-        <input required type="email" id="email" class="my-input" v-model="customer.email" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
+        <input maxlength="50" required type="email" id="email" class="my-input" v-model="customer.email" :disabled="isPrimary" :class="{'text-gray-400' : isPrimary}">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="phone" class="text-xs mb-1 my-label">Phone</label>
-        <input required type="tel" id="phone" class="my-input" v-model="customer.phone">
+        <input maxlength="25" required type="tel" id="phone" class="my-input" v-model="customer.mobile">
     </div>
 
     <date-picker v-model="dateofbirth" :max-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
@@ -31,7 +31,7 @@
 
     <div class="flex flex-col flex-grow group">
       <label for="licenseno" class="text-xs my-label">License #</label>
-        <input type="text" id="licenseno" class="my-input" v-model="customer.licenseno">
+        <input maxlength="70" type="text" id="licenseno" class="my-input" v-model="customer.licenseno">
     </div>
     
     <date-picker v-model="licenseexpires" :min-date="new Date()" :update-on-input="false" class="flex flex-col flex-grow group">
@@ -52,15 +52,15 @@
 
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Street Address</label>
-        <input type="text" id="address" class="my-input" v-model="customer.address">
+        <input maxlength="80" type="text" id="address" class="my-input" v-model="customer.address">
     </div>
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">City</label>
-        <input type="text" id="city" class="my-input" v-model="customer.city">
+        <input maxlength="50" type="text" id="city" class="my-input" v-model="customer.city">
     </div>
     <div class="flex flex-col group">
       <label for="state" class=" my-label">State</label>
-        <input type="text" id="state" class="my-input" v-model="customer.state">
+        <input maxlength="30" type="text" id="state" class="my-input" v-model="customer.state">
     </div>
     <div class="flex flex-col group">
       <label for="country" class="my-label">Country</label>
@@ -70,7 +70,7 @@
     </div>
     <div class="flex flex-col flex-grow group mb-4 md:mb-0">
       <label for="postcode" class=" my-label">Postcode</label>
-        <input type="text" id="postcode" class="my-input" v-model="customer.postcode">
+        <input maxlength="10" type="text" id="postcode" class="my-input" v-model="customer.postcode">
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-auto">

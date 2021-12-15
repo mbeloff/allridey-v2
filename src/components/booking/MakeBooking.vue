@@ -89,6 +89,7 @@
             licenseissued: 7, // Default country id (Australia)
             licenseexpires: "",
             email: "",
+            mobile: "",
             phone: "",
             state: "",
             city: "",

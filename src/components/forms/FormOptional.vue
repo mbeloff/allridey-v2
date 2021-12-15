@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">
         <label for="licenseno" class="text-xs my-label">License #</label>
-          <input type="text" id="licenseno" class="my-input" v-model="parameters.customer.licenseno">
+          <input maxlength="80" type="text" id="licenseno" class="my-input" v-model="parameters.customer.licenseno">
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="licenseissued" class="text-xs my-label">Country of Issue</label>
@@ -27,15 +27,15 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">
         <label for="" class="text-xs my-label">Street Address</label>
-          <input type="text" id="address" class="my-input" v-model="parameters.customer.address">
+          <input maxlength="80" type="text" id="address" class="my-input" v-model="parameters.customer.address">
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="" class="text-xs my-label">City</label>
-          <input type="text" id="city" class="my-input" v-model="parameters.customer.city">
+          <input maxlength="50" type="text" id="city" class="my-input" v-model="parameters.customer.city">
       </div>
       <div class="flex flex-col group">
         <label for="state" class=" my-label">State</label>
-          <input type="text" id="state" class="my-input" v-model="parameters.customer.state">
+          <input maxlength="30" type="text" id="state" class="my-input" v-model="parameters.customer.state">
       </div>
       <div class="flex flex-col group">
         <label for="country" class=" my-label">Country</label>
@@ -45,7 +45,7 @@
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="postcode" class=" my-label">Postcode</label>
-          <input type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
+          <input maxlength="10" type="text" id="postcode" class="my-input" v-model="parameters.customer.postcode">
       </div>
     </div>
 
@@ -54,19 +54,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
       <div class="flex flex-col flex-grow group">
         <label for="flightin" class="text-xs my-label">Arrival Flight</label>
-          <input type="text" id="flightin" class="my-input" v-model="parameters.flightin">
+          <input maxlength="50" type="text" id="flightin" class="my-input" v-model="parameters.flightin">
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="arrivalpoint" class="text-xs my-label">Pick up Point</label>
-          <input type="text" id="arrivalpoint" class="my-input" v-model="parameters.arrivalpoint">
+          <input maxlength="80" type="text" id="arrivalpoint" class="my-input" v-model="parameters.arrivalpoint">
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="flightout" class="text-xs my-label">Departure Flight</label>
-          <input type="text" id="flightout" class="my-input" v-model="parameters.flightout">
+          <input maxlength="50" type="text" id="flightout" class="my-input" v-model="parameters.flightout">
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="departurepoint" class="text-xs my-label">Drop off point</label>
-          <input type="text" id="departurepoint" class="my-input" v-model="parameters.departurepoint">
+          <input maxlength="80" type="text" id="departurepoint" class="my-input" v-model="parameters.departurepoint">
       </div>
 
       <div class="flex flex-col flex-grow group">
@@ -91,7 +91,7 @@
       </div>
       <div class="flex flex-col flex-grow group">
         <label for="remark" class=" my-label">Comments/Requests</label>
-          <textarea rows="3" id="remark" class="my-input flex-initial" v-model="parameters.remark"></textarea>
+          <textarea maxlength="250" rows="3" id="remark" class="my-input flex-initial" v-model="parameters.remark"></textarea>
       </div>
     </div>
 
