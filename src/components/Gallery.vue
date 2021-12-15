@@ -1,8 +1,7 @@
 <template>
-<div class="navigation-wrapper ">
-  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full">
+  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full w-full">
     <div v-for="(image,index) in slides" :key="index" class="keen-slider__slide" :class="'number-slide' + (index+1)">
-      <img class="h-full w-full object-cover" :src="image" />
+      <img class="h-full object-cover" :src="image" />
     </div>
 
       <div v-if="slides.length > 1" class="dots absolute w-full bottom-0">
@@ -14,8 +13,6 @@
       ></button>      
     </div>
   </div>
-</div>
-  
 </template>
 
 <script>
@@ -27,7 +24,6 @@ import { computed, ref } from 'vue'
 
 
   export default {
-    // TODO go to slide 1 after timeout?
     setup(){
     const current = ref(0)
     const [container, slider] = useKeenSlider(
@@ -88,30 +84,8 @@ import { computed, ref } from 'vue'
     font-size: 50px;
     color: #fff;
     font-weight: 500;
+    min-width: 100% !important;
   }
-  .navigation-wrapper {
-  position: relative;
-}
-.arrow {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  fill: #fff;
-  cursor: pointer;
-}
-.arrow--left {
-  left: 5px;
-}
-.arrow--right {
-  left: auto;
-  right: 5px;
-}
-.arrow--disabled {
-  fill: rgba(255, 255, 255, 0.5);
-}
 .dots {
   display: flex;
   padding: 5px 0;

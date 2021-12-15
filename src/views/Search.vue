@@ -26,10 +26,6 @@
       <home-content v-if="status <= 2"></home-content>        
       
     </div>
-
-    
-    
-
   </div>
   
 </template>
@@ -38,7 +34,7 @@
   import FormSearch from '@/components/forms/FormSearch.vue'
   import BookingNav from '@/components/booking/BookingNav.vue'
   import SearchResults from '@/components/booking/SearchResults.vue'
-  import SelectedVehicle from '@/components/booking/SelectedOptions.vue'
+  import SelectedVehicle from '@/components/booking/SelectOptions.vue'
   import Spinner from '@/components/Spinner.vue'
   import FormPayment from '@/components/forms/FormPaymentNew.vue'
   import SummaryPage from '@/components/booking/Summary.vue'
@@ -173,7 +169,7 @@
           this.$store.dispatch('bookinginfo', res)
           this.$store.dispatch('gotBooking', true)
         })
-      },      
+      },     
     }
   }
 </script>

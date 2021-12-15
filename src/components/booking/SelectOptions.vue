@@ -27,22 +27,19 @@
           <ul>
             <li>{{this.step3.locationfees[1].location}}</li>
             <li>{{this.step3.locationfees[1].dayofweekname + ' ' + this.step3.locationfees[1].locdate.substring(0, this.step3.locationfees[1].locdate.length - 4) + ' ' + this.step3.locationfees[1].loctime}}</li>
-
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- // ? LEFT SIDE -->
+    
     <div class="flex flex-col md:flex-row gap-5 items-start justify-items-start">
-      <!-- Vehicle Image -->
-
+    <!-- // ? LEFT SIDE -->
       <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
-        <div class="w-full">
-          <!-- <img :src="step3.availablecars[0].imageurl" alt="" class="object-fill w-full"> -->
-          <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded w-full" :src="this.step3.availablecars[0].imageurl" alt="">
-          <keen-slider v-if="gallery.length" :slides="gallery" class="w-full"></keen-slider>
-        </div>
+        <!-- Vehicle Image -->
+        <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded" :src="this.step3.availablecars[0].imageurl" alt="">
+        <keen-slider v-if="gallery.length" :slides="gallery"></keen-slider>          
+
         <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>
           <p v-if="step3.availablecars[0].discountname" class="bg-green-500 text-white text-center">discount applied: {{step3.availablecars[0].discountname}}</p>
@@ -53,8 +50,6 @@
             <span class="w-14 font-bold">{{currencysymbol + step3.seasonalrates[0].ratesubtotal.toFixed(2) }}</span>            
           </div>
           
-            
-
           <!-- //? EXTRAS -->
           <div class="mt-2">
             <div v-if="totals.mandatory.length || totals.optional.length">
@@ -108,13 +103,6 @@
 
                 <p class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
               </div>
-              <!-- <div v-if="damage.name.includes('2WD')" class="fee-description">
-
-
-              </div>
-              <div v-if="damage.name.includes('4WD')" class="fee-description">
-
-              </div> -->
             </label>
           </div>
         </div>
