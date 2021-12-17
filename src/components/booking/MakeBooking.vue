@@ -27,7 +27,7 @@
           <form-optional v-if="showOptional" :step3="step3" :parameters="parameters"></form-optional>  
         </transition>
       </div>      
-      <button type="submit"  v-if="mode" class="btn btn-primary mt-5">{{ btnText }}</button>
+      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5">{{ btnText }}</button>
     </form>
   </div>
 </template>
@@ -153,7 +153,7 @@
   }
 </script>
 
-<style>
+<style lang="postcss">
 .slide-down-enter-active,
 .slide-down-leave-active {
   transition: transform 2s ease, opacity 0.35s ease;

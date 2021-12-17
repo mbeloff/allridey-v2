@@ -88,7 +88,7 @@
               </div>
             </div> -->
            <div class="text-right flex-grow">
-          <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="mr-2 text-gray-200 far fa-search"></i></button>
+          <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="text-gray-200 far fa-search"></i></button>
           </div>
         </div>
         

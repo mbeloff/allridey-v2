@@ -21,8 +21,6 @@
 </script>
 
 <style lang="postcss">
-  /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap'); */
-
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
   #app {
@@ -38,16 +36,16 @@
     grid-template-rows: auto 1fr auto
   }
 
-   .btn {
+  .btn {
     @apply px-4 py-2 font-bold rounded shadow
   }
 
   .btn-primary {
-    @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white
+    @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-lg shadow-blue-500/30
   }
 
   .btn-primary:hover {
-    @apply from-blue-800 to-blue-900
+    @apply from-blue-800 to-blue-900 shadow-lg shadow-blue-800/30
   }
 
   .btn-secondary {
@@ -59,7 +57,7 @@
   }
 
   .my-label {
-    @apply text-blue-800 font-bold text-xs mb-0.5 
+    @apply text-blue-800 font-bold text-xs mb-0.5
   }
 
   .my-label.has-icon {
