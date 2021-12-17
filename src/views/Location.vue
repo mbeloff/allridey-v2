@@ -5,7 +5,7 @@
         <spinner></spinner>
       </div>
       <div class="w-full h-36">
-        <iframe :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
+        <iframe class="rounded-t" :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
       </div>
       <div class="p-5 text-left flex flex-col gap-2">
         <p class="font-bold text-lg text-blue-700 my-4">Allridey {{data.location}}</p>

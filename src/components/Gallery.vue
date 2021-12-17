@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full w-full">
+  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full w-full rounded">
     <div v-for="(image,index) in slides" :key="index" class="keen-slider__slide" :class="'number-slide' + (index+1)">
       <img class="h-full object-cover" :src="image" />
     </div>
