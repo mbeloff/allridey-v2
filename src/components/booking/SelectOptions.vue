@@ -357,7 +357,7 @@ import KeenSlider from '@/components/Gallery.vue'
 </script>
 
 <style lang="postcss">
-  @layer components {
+
     .selected {
       @apply border-opacity-100 bg-gray-200
     }
@@ -371,9 +371,8 @@ import KeenSlider from '@/components/Gallery.vue'
     }
 
     .fee-name {
-      @apply py-1  tracking-tight flex-1
+      @apply py-1 tracking-tight flex-1
     }
-
 
     .price {
       @apply py-1 font-bold w-20
@@ -382,5 +381,5 @@ import KeenSlider from '@/components/Gallery.vue'
     .fee-description {
       @apply pl-2 pt-1.5
     }
-  }
+
 </style>

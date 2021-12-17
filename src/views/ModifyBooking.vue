@@ -162,9 +162,8 @@
 </script>
 
 <style lang="postcss">
-  @layer components {
+
     .active {
       @apply from-blue-800 to-blue-900
     }
-  }
 </style>

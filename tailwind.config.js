@@ -7,7 +7,6 @@ module.exports = {
     './src/**/*.vue',
     './src/**/*.jsx',
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       transitionProperty: {
@@ -22,8 +21,8 @@ module.exports = {
       current: 'currentColor',
       black: colors.black,
       white: colors.white,
-      gray: colors.blueGray,
-      blue: colors.lightBlue,
+      gray: colors.slate,
+      blue: colors.sky,
       green: colors.emerald,
       red: colors.rose,
       yellow: colors.amber,
@@ -38,7 +37,4 @@ module.exports = {
       padding: ['hover']
     },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
 }

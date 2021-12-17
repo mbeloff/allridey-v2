@@ -38,45 +38,43 @@
     grid-template-rows: auto 1fr auto
   }
 
-  @layer components {
-    .btn {
-      @apply px-4 py-2 font-bold rounded shadow
-    }
+   .btn {
+    @apply px-4 py-2 font-bold rounded shadow
+  }
 
-    .btn-primary {
-      @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white
-    }
+  .btn-primary {
+    @apply bg-gradient-to-tr from-blue-400 to-blue-600 text-white
+  }
 
-    .btn-primary:hover {
-      @apply from-blue-800 to-blue-900
-    }
+  .btn-primary:hover {
+    @apply from-blue-800 to-blue-900
+  }
 
-    .btn-secondary {
-      @apply text-blue-600 rounded bg-gray-200 border shadow
-    }
+  .btn-secondary {
+    @apply text-blue-600 rounded bg-gray-200 border shadow
+  }
 
-    .btn-secondary:hover {
-      @apply bg-gradient-to-tr from-blue-500 to-blue-600 text-white
-    }
+  .btn-secondary:hover {
+    @apply bg-gradient-to-tr from-blue-500 to-blue-600 text-white
+  }
 
-    .my-label {
-      @apply text-blue-800 font-bold text-xs mb-0.5 
-    }
+  .my-label {
+    @apply text-blue-800 font-bold text-xs mb-0.5 
+  }
 
-    .my-label.has-icon {
-      @apply pl-8
-    }
+  .my-label.has-icon {
+    @apply pl-8
+  }
 
-    .group:hover .my-label {
-      @apply text-yellow-500
-    }
+  .group:hover .my-label {
+    @apply text-yellow-500
+  }
 
-    .group:hover .form-i {
-      @apply text-yellow-500
-    }
+  .group:hover .form-i {
+    @apply text-yellow-500
+  }
 
-    .my-input {
-      @apply border flex-1 pl-2 bg-gray-200 rounded py-3
-    }
+  .my-input {
+    @apply border flex-1 pl-2 bg-gray-200 rounded py-3
   }
 </style>

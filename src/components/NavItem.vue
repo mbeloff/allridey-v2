@@ -43,7 +43,7 @@
 </script>
 
 <style lang="postcss">
-@layer components {
+
     .dropdown-label {
       @apply px-5 py-1.5 pointer-events-none  font-bold text-sm bg-blue-900 text-gray-200
     }
@@ -51,7 +51,7 @@
     .dropdown-item {
       @apply px-4 py-1.5 border-white  transition-spacing bg-white
     }
-}
+
 
 .dropdown-container:after {
   margin-bottom: -1px;

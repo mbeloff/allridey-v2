@@ -105,7 +105,7 @@
 </script>
 
 <style lang="postcss">
-@layer components {
+
   .btn-green {
     @apply text-sm border border-green-500 text-green-600 rounded px-2 h-8 
   }
@@ -121,5 +121,5 @@
   .input-error {
     @apply ring-2 ring-orange-400
   }
-}
+
 </style>

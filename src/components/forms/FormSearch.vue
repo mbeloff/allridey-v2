@@ -313,9 +313,7 @@
 </script>
 
 <style lang="postcss">
-  @layer components {
     .form-i {
       @apply text-blue-800 mr-2
     }
-  }
 </style>

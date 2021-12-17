@@ -84,10 +84,7 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
   .my-input {
     padding: .25rem
   }
-  @layer components {
-    textarea.my-input {
-          @apply border flex-1 pl-2 bg-gray-200 rounded
-        }
+  textarea.my-input {
+    @apply border flex-1 pl-2 bg-gray-200 rounded
   }
-  
 </style>

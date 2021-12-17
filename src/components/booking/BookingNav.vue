@@ -66,12 +66,12 @@ export default {
 .disabled {
   pointer-events: none
 }
-@layer components {
+
   .completed {
     @apply bg-gray-200
   }
   .active {
     @apply bg-white
   }
-}
+
 </style>
