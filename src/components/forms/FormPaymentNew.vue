@@ -126,8 +126,8 @@
         let currency = this.$store.state.bookinginfo.bookinginfo[0].currencyname
         let resref = this.$store.state.bookinginfo.bookinginfo[0].reservationref
         if (balancedue > 0) {
-          let fnHost =
-            import.meta.env.VITE_FN_HOST
+          let Host =
+            import.meta.env.VITE_HOST
 
 
           var body = JSON.stringify({
@@ -140,7 +140,7 @@
             body: body,
             redirect: 'follow'
           };
-          fetch(fnHost + "/.netlify/functions/reqtrans", requestOptions)
+          fetch(Host + "/.netlify/functions/reqtrans", requestOptions)
             .then(response => response.text())
             .then(result => {
               let res = JSON.parse(result).Request.URI._text

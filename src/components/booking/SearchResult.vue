@@ -113,8 +113,8 @@
     mixins: [Mixins],
     methods: {
       getGallery() {
-        let fnhost =
-          import.meta.env.VITE_FN_HOST
+        let Host =
+          import.meta.env.VITE_HOST
         let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
         let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
         let raw = JSON.stringify({
@@ -125,7 +125,7 @@
           body: raw,
           redirect: 'follow'
         };
-        fetch(fnhost + "/.netlify/functions/getGallery", requestOptions)
+        fetch(Host + "/.netlify/functions/getGallery", requestOptions)
           .then(response => response.text())
           .then(res => JSON.parse(res))
           .then(files => {           

@@ -2,7 +2,7 @@ import store from './store.js'
 export default {
   methods: {    
     signRequest(method) {
-      let fnHost = import.meta.env.VITE_FN_HOST
+      let Host = import.meta.env.VITE_HOST
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
@@ -13,7 +13,7 @@ export default {
         body: raw,
         redirect: 'follow'
       };
-      return fetch( fnHost + "/.netlify/functions/signRequest", requestOptions)
+      return fetch( Host + "/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
         .then(result => {
           return JSON.parse(result).signature
@@ -46,13 +46,13 @@ export default {
         })    
     },
     getToken() {
-      let fnHost =
-        import.meta.env.VITE_FN_HOST
+      let Host =
+        import.meta.env.VITE_HOST
       var requestOptions = {
         method: 'POST',
         redirect: 'follow'
       };
-      fetch(fnHost + "/.netlify/functions/getToken", requestOptions)
+      fetch(Host + "/.netlify/functions/getToken", requestOptions)
         .then(response => response.text())
         .then(result => {
           const res = JSON.parse(result)

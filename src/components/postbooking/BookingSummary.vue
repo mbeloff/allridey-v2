@@ -212,7 +212,7 @@
           body: body,
           redirect: 'follow'
         };
-        fetch(import.meta.env.VITE_FN_HOST + "/.netlify/functions/reqtrans", requestOptions)
+        fetch(import.meta.env.VITE_HOST + "/.netlify/functions/reqtrans", requestOptions)
           .then(response => response.text())
           .then(result => {
             let res = JSON.parse(result).Request.URI._text

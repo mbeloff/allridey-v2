@@ -286,8 +286,8 @@ import KeenSlider from '@/components/Gallery.vue'
       getGallery() {
         let catid = this.step3.availablecars[0].vehiclecategoryid
         let baseimg = this.step3.availablecars[0].imageurl
-        let fnhost =
-          import.meta.env.VITE_FN_HOST
+        let Host =
+          import.meta.env.VITE_HOST
         let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
         let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
         let raw = JSON.stringify({
@@ -298,7 +298,7 @@ import KeenSlider from '@/components/Gallery.vue'
           body: raw,
           redirect: 'follow'
         };
-        fetch(fnhost + "/.netlify/functions/getGallery", requestOptions)
+        fetch(Host + "/.netlify/functions/getGallery", requestOptions)
           .then(response => response.text())
           .then(res => JSON.parse(res))
           .then(files => {           
