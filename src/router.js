@@ -12,7 +12,7 @@ const routes = [
   { name: "Home", path: "/", component: Search, props: true },
   { name: "Search", path: "/search", component: Search, props: true },
   { name: "Results", path: "/results", component: Search, props: true},
-  { name: "Vehicle", path: "/vehicle", component: Search, props: true},
+  { name: "Options", path: "/options", component: Search, props: true},
   { name: "Payment", path: "/payment", component: Search, props: true},
   { name: "Summary", path: "/summary", component: Search, props: true},
   { name: "CheckPayment", path: "/checkpayment", component: CheckPayment, props: true },
