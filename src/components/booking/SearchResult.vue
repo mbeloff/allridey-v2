@@ -2,7 +2,7 @@
   <div class="flex flex-col md:flex-row print:flex-row mt-2 rounded bg-white border border-gray-300 shadow-lg">
     <div class="flex w-full md:w-1/3 print:w-1/3 min-h-24 rounded">
       <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded" :src="data.imageurl" alt="">
-      <keen-slider v-if="gallery.length" :slides="gallery"></keen-slider>
+      <keen-slider v-if="gallery.length" :slides="gallery" class="rounded-t md:rounded-tr-none md:rounded-l"></keen-slider>
     </div>
     <div class="flex flex-col flex-1">
       <!-- Vehicle Details -->
@@ -167,7 +167,7 @@
         // this.step3 = data
         this.$emit("select-vehicle", data, 3)
         this.$router.push({
-          name: "Vehicle"
+          name: "Options"
         })
       },
       getFeeOfType(type) {

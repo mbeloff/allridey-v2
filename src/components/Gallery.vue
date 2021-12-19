@@ -1,14 +1,15 @@
 <template>
-  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full w-full rounded">
+  <div ref="container" class="keen-slider text-blue-500 bg-blue-500 h-full w-full">
     <div v-for="(image,index) in slides" :key="index" class="keen-slider__slide" :class="'number-slide' + (index+1)">
       <img class="h-full object-cover" :src="image" />
     </div>
 
       <div v-if="slides.length > 1" class="dots absolute w-full bottom-0">
-          <button
+        <button
         v-for="(_slide, idx) in dotHelper"
         @click="slider.moveToIdx(idx)"
         :class="{ dot: true, active: current === idx }"
+        class=""
         :key="idx"
       ></button>      
     </div>
@@ -94,17 +95,20 @@ import { computed, ref } from 'vue'
 .dot {
   border: none;
   width: 5px;
-  height: 5px;
-  background: #00000056;
-  border-radius: 50%;
+  height: 1px;
+  max-height: 2px;
+  background: #00000050;
+  border-radius: 2px;
   margin: 0 5px;
-  padding: 5px;
+  padding: 1px 8px;
   cursor: pointer;
+  /* box-shadow: 0px .5px 4px 0px rgba(1, 43, 121, 0.445) */
 }
 .dot:focus {
   outline: none;
 }
 .dot.active {
-  background: rgb(58, 183, 255);
+  background: rgb(49, 179, 255);
 }
+
 </style>

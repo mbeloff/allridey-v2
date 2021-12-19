@@ -18,7 +18,7 @@
       <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max"  :class="{ 'border border-blue-700' : showOptional }">
         <input type="checkbox" name="showops" id="showops" class="mr-2 hidden" v-model="showOptional">
         <label ref="showops" for="showops" class="text-left text-sm font-bold text-blue-800 flex items-center" @click="scroll('showops')">
-          <i class="fal fa-check-circle fa-2x mr-2 text-gray-300" :class="{ 'text-blue-800' : showOptional}"></i> 
+          <i class="fal fa-check-circle fa-2x mr-2" :class="{ 'text-blue-800' : showOptional, 'text-gray-300' : !showOptional}"></i> 
           <span>Make pickup quick and easy by providing more details ahead of time?</span>
         </label>
       </div>

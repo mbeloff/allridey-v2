@@ -38,7 +38,7 @@
       <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
         <!-- Vehicle Image -->
         <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded" :src="this.step3.availablecars[0].imageurl" alt="">
-        <keen-slider v-if="gallery.length" :slides="gallery"></keen-slider>          
+        <keen-slider v-if="gallery.length" :slides="gallery" class="rounded-t"></keen-slider>          
 
         <div class="bg-white px-2 py-1 ">
           <p class="font-bold">Daily Rental Rate:</p>

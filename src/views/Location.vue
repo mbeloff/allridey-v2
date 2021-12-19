@@ -4,8 +4,8 @@
       <div v-if="loading" class="absolute grid place-items-center w-full h-full bg-gray-200 bg-opacity-80">
         <spinner></spinner>
       </div>
-      <div class="w-full h-36">
-        <iframe class="rounded-t" :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" loading="lazy"></iframe>
+      <div class="w-full h-56">
+        <iframe class="rounded-t" :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" height="100%" loading="lazy"></iframe>
       </div>
       <div class="p-5 text-left flex flex-col gap-2">
         <p class="font-bold text-lg text-blue-700 my-4">Allridey {{data.location}}</p>
@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center">
           <i class="far fa-envelope fa-fw text-blue-700"></i>
-          <a :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
+          <a class="decoration-blue-500 decoration-dotted decoration-2 decoration underline" :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
         </div>
         <div class="flex">
           <i class="far fa-clock fa-fw text-blue-700 mt-1.5"></i>
