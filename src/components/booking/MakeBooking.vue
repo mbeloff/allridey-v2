@@ -146,7 +146,7 @@
         if (this.mode == 1) {
           return 'Get Quote'
         } else if (this.mode == 2) {
-          return 'Book Now'
+          return 'Make Payment'
         }
       }
     }
