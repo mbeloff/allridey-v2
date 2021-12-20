@@ -247,6 +247,13 @@
         }
       },
       async getStep2() {
+
+        this.$gtag.event('search', {
+          'event_category': 'engagement',
+          'event_label': 'location_id',
+          'value': this.formData.pickuplocationid
+        })
+
         this.$emit('errs', [])
         this.$store.dispatch('step2', {}).then(this.$emit('searching', true));       
         this.$store.dispatch('searchParams', this.formData)
