@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center">
           <i class="far fa-envelope fa-fw text-blue-700"></i>
-          <a class="decoration-blue-500 decoration-dotted decoration-2 decoration underline" :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
+          <a class="text-blue-600 hover:underline" :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
         </div>
         <div class="flex">
           <i class="far fa-clock fa-fw text-blue-700 mt-1.5"></i>
