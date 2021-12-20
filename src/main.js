@@ -8,10 +8,21 @@ import { plugin as VueTippy } from 'vue-tippy'
 import 'tippy.js/dist/backdrop.css'
 import 'tippy.js/animations/shift-away.css'
 import 'tippy.js/dist/tippy.css'
+import VueGtag from "vue-gtag";
 
-createApp(App).use(router).use(store).use(
+createApp(App).use(router)
+.use(store)
+.use(VueGtag, {
+  config: { 
+    id: "G-3DHLGGKJJR",
+    router,
+    params: {
+      send_page_view: false
+    }
+  }
+})
+.use(
   VueTippy,
-  // optional
   {
     directive: 'tippy', // => v-tippy
     component: 'tippy', // => <tippy/>
@@ -21,4 +32,6 @@ createApp(App).use(router).use(store).use(
     arrow: true, 
     trigger: 'mouseenter click',},
   }
-).component('DatePicker', DatePicker).mount('#app')
+)
+.component('DatePicker', DatePicker)
+.mount('#app')
