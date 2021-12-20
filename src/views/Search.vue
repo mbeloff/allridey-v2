@@ -4,7 +4,7 @@
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
         <booking-nav v-if="status > 2" @changeStep="changeStep" :status="status"></booking-nav>
         <keep-alive>
-        <form-search v-if="status < 3" @errs="showErrs" @searching="setLoading" @update-step2="status = 2"></form-search>
+        <form-search id="search-form" v-if="status < 3" @errs="showErrs" @searching="setLoading" @update-step2="status = 2"></form-search>
         </keep-alive>
       </div>      
     </div>
