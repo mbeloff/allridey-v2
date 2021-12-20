@@ -13,7 +13,7 @@ import VueGtag from "vue-gtag-next";
 createApp(App).use(router).use(store).use(VueGtag, {
   property: {
     id: "G-3DHLGGKJJR"
-  }
+  },
 }).use(
   VueTippy,
   {
