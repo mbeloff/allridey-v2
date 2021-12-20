@@ -322,10 +322,12 @@ import KeenSlider from '@/components/Gallery.vue'
           el.qty--
         }
       },
-      async makeBooking() {
-        let data = await Mixins.methods.apiCall(JSON.stringify(await this.$store.state.bookingparams))
-        this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(await data)))
-        this.ref = JSON.parse(JSON.stringify(await data)).reservationref
+      makeBooking() {
+        Mixins.methods.apiCall(JSON.stringify(this.$store.state.bookingparams)).then(data => {
+          this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(data)))
+          this.ref = JSON.parse(JSON.stringify(data)).reservationref
+        })
+        
       },
       bookingMade() {
         this.$emit('bookingMade', this.mode, this.ref)

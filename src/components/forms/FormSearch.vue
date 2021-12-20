@@ -107,7 +107,7 @@
     },
     data() {
       return {
-        count: 1,
+
         alltimes: [
            '08:00','08:30','09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
         ],
@@ -246,35 +246,29 @@
           return true
         }
       },
-      async getStep2() {
-
-        this.$gtag.event('search', {
-          'event_category': 'engagement',
-          'event_label': 'location_id',
-          'value': this.formData.pickuplocationid
-        })
-
+      getStep2() {
         this.$emit('errs', [])
         this.$store.dispatch('step2', {}).then(this.$emit('searching', true));       
         this.$store.dispatch('searchParams', this.formData)
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
-          let data = await Mixins.methods.apiCall(params)
-          this.$store.dispatch('step2', data);
-          this.count++
-          this.$emit('update-step2')
-          this.$router.push({
+          Mixins.methods.apiCall(params).then(res => {
+            this.$store.dispatch('step2', res);
+            this.$emit('update-step2')
+            this.$router.push({
             name: 'Results'
+          })
           })
         }
       },
-      async getStep1() {
+      getStep1() {
         var step1 = JSON.stringify({
           'method': 'step1'
         })
-        let data = await Mixins.methods.apiCall(step1)
-        this.$store.dispatch('step1', data);
-        this.init(data)
+        Mixins.methods.apiCall(step1).then(data => {
+          this.$store.dispatch('step1', data);
+          this.init(data)
+        })        
       },
       init(data) {
         this.locations = data.locations

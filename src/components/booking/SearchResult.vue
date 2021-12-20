@@ -148,8 +148,8 @@
           return '<i class="fal fa-fw fa-sink mr-2 text-blue-800"></i>Kitchenette & Cookware'
         }
       },
-      async getStep3() {
-        var params = await JSON.stringify({
+      getStep3() {
+        var params = JSON.stringify({
           'method': 'step3',
           'vehiclecategorytypeid': this.data.vehiclecategorytypeid,
           'pickuplocationid': this.searchParams.pickuplocationid,
@@ -162,13 +162,14 @@
           'vehiclecategoryid': this.data.vehiclecategoryid,
           'agentcode': this.searchParams.agentcode
         })
-        let data = await Mixins.methods.apiCall(params)
-        this.$store.dispatch('step3', data);
-        // this.step3 = data
-        this.$emit("select-vehicle", data, 3)
-        this.$router.push({
+        Mixins.methods.apiCall(params).then(data => {
+          this.$store.dispatch('step3', data);
+          this.$emit("select-vehicle", data, 3)
+          this.$router.push({
           name: "Options"
         })
+        })
+        
       },
       getFeeOfType(type) {
         let arr = []
