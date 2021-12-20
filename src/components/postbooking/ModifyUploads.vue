@@ -69,6 +69,7 @@ import SectionSummary from '@/components/postbooking/BookingSummary.vue'
             default_source: 'local',
             multiple: doc.allowmultiple,
             max_image_width: doc.maximagewidth,
+            folder: 'rcm_uploads/' + this.resref
             // button_class: 'btn-primary',
           },
           (error, result) => {
