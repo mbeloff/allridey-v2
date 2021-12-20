@@ -9,15 +9,12 @@
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
           
           <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item>
-          <router-link :to="{ name: 'Checkin'}" class="menu-item menu-button ml-auto  "><i class="fal fa-sign-in mr-1"></i> Check in</router-link>
-        </div>
-        
-      </div>
-      
-      <div class="hidden md:flex h-full place-items-center">
-        <!-- <a href="tel:1800246869" class="font-bold text-blue-600">1800 24 68 69</a> -->
+          <a href="tel:0417740307" class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600">0417 740 307</a>
+          <router-link :to="{ name: 'Checkin'}" class="ml-4 menu-item menu-button"><i class="fal fa-sign-in mr-1"></i> Check in</router-link>
+        </div>        
       </div>
       <div class="md:hidden flex h-full place-items-center text-blue-800" @click="expand = !expand">
+        <a href="tel:0417740307" class="min-w-max font-bold text-blue-600 ml-auto mr-4">0417 740 307</a>
         <i class="fas fa-bars fa-2x fa-fw" v-if="!expand"></i>
         <i class="fas fa-times fa-2x fa-fw" v-if="expand"></i>
       </div>
