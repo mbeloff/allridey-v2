@@ -68,6 +68,9 @@
     methods: {
       handlePayment() {
         this.loading = true
+        if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
+          this.$router.push({name: 'Summary'})
+        }
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
         Mixins.methods.apiCall(params).then(res => {
