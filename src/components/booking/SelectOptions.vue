@@ -1,7 +1,7 @@
 <template>
   <div class="rounded bg-opacity-90 w-full p-1 flex flex-col gap-5">
     <!-- Vehicle and Trip Details -->
-    <div class="flex flex-col md:w-full justify-center shadow-xl bg-gray-200">
+    <div class="flex flex-col md:w-full justify-center shadow-xl shadow-black/5 bg-gray-200 rounded">
       <div class="flex-shrink pt-4">
         <p class="text-center text-blue-700 font-bold">{{this.step3.availablecars[0].categoryfriendlydescription}}</p>
       </div>
@@ -74,7 +74,7 @@
         </div>
 
         <!-- // ? CALCULATED TOTAL -->
-        <div v-if="totals.all.length > 0" class="bg-blue-900 text-white p-2">
+        <div v-if="totals.all.length > 0" class="bg-blue-900 text-white p-2 rounded-b">
           <div class="flex justify-end text-lg mb-2">
             <span class="font-bold">TOTAL: </span>
             <span v-if="calculating" class="w-24 text-right grid place-items-center justify-items-end">
@@ -90,7 +90,7 @@
       </div>
 
       <!-- // ? RIGHT SIDE -->
-      <div class="w-full md:w-4/6 border bg-white shadow-xl text-left p-1 px-2 md:px-5 text-sm py-5">
+      <div class="w-full md:w-4/6 bg-white shadow-xl text-left p-1 px-2 md:px-5 text-sm py-5 rounded">
         <!-- Damage Cover -->
         <div class="mb-4" v-if="this.step3.insuranceoptions.length">
           <p class="font-bold text-xl mb-4">Damage Cover:</p>
@@ -103,6 +103,7 @@
 
                 <p class="font-bold price"><i class="fas fa-plus-circle mr-2"></i>{{currencysymbol + damage.fees}}<span class="text-xs font-normal">/day</span></p>
               </div>
+              <p v-if="damage.feedescription1" class="fee-description" v-html="damage.feedescription1"></p>
             </label>
           </div>
         </div>
