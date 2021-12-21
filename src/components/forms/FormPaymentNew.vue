@@ -10,11 +10,11 @@
       </div>
 
       <div>
-        <iframe ref="wcframe" :src="payurl" width="400" height="470" scrolling="no"></iframe>
+        <iframe ref="wcframe" :src="payurl" width="400" height="750" scrolling="no"></iframe>
       </div>
       <div class="text-left pl-2">
-        <a @click="this.$router.push(
-          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'} })" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a>
+        <!-- <a @click="this.$router.push(
+          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'} })" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a> -->
       </div>
     </div>
   </div>
@@ -131,7 +131,8 @@
 
 
           var body = JSON.stringify({
-            amount: balancedue,
+            // amount: balancedue,
+            amount: 1,
             currency: currency,
             resref: resref
           });
