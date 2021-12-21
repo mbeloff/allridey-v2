@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="grid grid-flow-col place-items-center gap-2 mt-10">
-      <button @click="setMode(1), scroll('scrollMarker')" class="btn btn-secondary ml-auto">Email Quote</button>
-      <button @click="setMode(2), scroll('scrollMarker')" class="btn btn-secondary mr-auto">Make Booking</button>
+      <button @click="setMode(1), scroll('scrollMarker')" class="btn btn-secondary ml-auto" :class="{'bg-blue-600 text-white' : mode == 1}">Email Quote</button>
+      <button @click="setMode(2), scroll('scrollMarker')" class="btn btn-secondary mr-auto" :class="{'bg-blue-600 text-white' : mode == 2}">Make Booking</button>
     </div>
     <transition name="slide-down">
       <div ref="scrollMarker" v-if="mode" class="relative grid place-items-center my-5 text-blue-600">
@@ -119,7 +119,7 @@
           this.parameters.emailoption = 1
         }        
         this.$store.dispatch("bookingparams", this.parameters)
-        this.$emit('submit')
+        this.$emit('create-booking')
       },
       setMode(mode) {
         this.mode = mode

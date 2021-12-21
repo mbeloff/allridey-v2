@@ -23,7 +23,7 @@
       <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo"></form-payment>
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
-      <home-content v-if="status <= 2"></home-content>        
+      <home-content v-if="status < 2"></home-content>        
       
     </div>
   </div>
@@ -76,7 +76,7 @@
              } else {
                this.status = 2
              }
-           } else if (name == 'Vehicle') {
+           } else if (name == 'Options') {
               if (this.isEmpty(this.searchParams)) {
                this.$router.push({name: 'Search'})
              } else {
