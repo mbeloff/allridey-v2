@@ -131,8 +131,7 @@
 
 
           var body = JSON.stringify({
-            // amount: balancedue,
-            amount: 1,
+            amount: balancedue,
             currency: currency,
             resref: resref
           });
