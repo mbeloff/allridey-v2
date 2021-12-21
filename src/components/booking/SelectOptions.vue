@@ -171,6 +171,7 @@ import KeenSlider from '@/components/Gallery.vue'
     },
     data() {
       return {
+        pleaseWait: false,
         count: 1,
         calculating: true,
         insurance: 0,
@@ -325,7 +326,7 @@ import KeenSlider from '@/components/Gallery.vue'
       createBooking() {
         Mixins.methods.apiCall(JSON.stringify(this.$store.state.bookingparams)).then(data => {
           this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(data)))
-          this.ref = JSON.parse(JSON.stringify(data)).reservationref
+          this.ref = JSON.parse(JSON.stringify(data)).reservationref         
         })
         
       },

@@ -27,7 +27,7 @@
           <form-optional v-if="showOptional" :step3="step3" :parameters="parameters"></form-optional>  
         </transition>
       </div>      
-      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5">{{ btnText }}</button>
+      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5" :disabled="pleaseWait" :class="{'opacity-30' : pleaseWait}">{{ btnText }}</button>
     </form>
   </div>
 </template>
@@ -49,16 +49,18 @@
             el: this.$refs.container,
         })
       this.parameters.agentcode = this.$store.state.searchParams.agentcode
+      this.pleaseWait = false
   },
    props: {
      optionalfees: Object,
      calcTotals: Object,
      searchParams: Object,
-     step3: Object
+     step3: Object,
     },
     watch: {},
     data() {
       return {
+        pleaseWait: false,
         mode: null,
         showOptional: false,
         parameters: {
@@ -114,6 +116,7 @@
         setTimeout(()=>{ this.$refs[ref].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})}, 100);        
       },
       submitBooking(mode) {
+        this.pleaseWait = true
         // send email straight away only if quote
         if (mode == 1) {
           this.parameters.emailoption = 1
