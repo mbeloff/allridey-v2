@@ -71,8 +71,9 @@
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
         Mixins.methods.apiCall(params).then(res => {
-          this.confirmedPayment = res
-        })
+          
+          this.refreshBookingInfo()
+        }).catch(err => console.log(err))
         } else if (this.paymentResponse.Success._text == 0) {      
           this.requestWindcaveTransaction()
         }  
@@ -119,6 +120,16 @@
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
           this.requestWindcaveTransaction()
+        })
+      },
+      refreshBookingInfo() {
+        let params = JSON.stringify({
+          "method": "bookinginfo",
+          "reservationref": this.reservation.reservationref
+        })
+        Mixins.methods.apiCall(params).then(res => {
+          this.$store.dispatch('bookinginfo', res)
+          this.confirmedPayment = res
         })
       },
       requestWindcaveTransaction() {
