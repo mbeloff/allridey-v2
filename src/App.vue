@@ -37,7 +37,7 @@
   }
 
   .btn {
-    @apply px-4 py-2 font-bold rounded shadow
+    @apply px-4 py-2 rounded shadow
   }
 
   .btn-primary {
@@ -49,7 +49,7 @@
   }
 
   .btn-secondary {
-    @apply text-blue-600 rounded bg-gray-200 border shadow
+    @apply text-blue-700 rounded bg-gray-200 border shadow-inner
   }
 
   .btn-secondary:hover {

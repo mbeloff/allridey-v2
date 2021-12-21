@@ -57,7 +57,7 @@
               <p class="text-blue-900 font-bold -mt-1 text-xl md:mb-1">{{currencyname + ' ' + currencysymbol + total.toFixed(0) + '.'}}<span class="text-xs">{{(total % 1).toFixed(2).substring(2)}}</span> </p>
             </div>
           </div>
-          <button class="btn btn-secondary bg-gray-200 w-full border-blue-600" @click="getStep3()">Book Now</button>
+          <button class="btn btn-secondary bg-gray-200 w-full " @click="getStep3()">Book Now</button>
         </div>
       </div>
     </div>

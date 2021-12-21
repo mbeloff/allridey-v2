@@ -102,11 +102,11 @@ export default {
 }
 
 .menu-button {
-  @apply bg-blue-900 rounded text-white
+  @apply bg-blue-500 rounded bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-lg shadow-blue-500/20
 }
 
 .menu-button:hover {
-  @apply bg-gray-200 shadow-inner
+  @apply bg-gray-200 shadow-inner from-gray-200 to-gray-300
 }
 
 .slide-enter-active,
