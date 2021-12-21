@@ -37,7 +37,7 @@ export default {
             if (data.issues.length > 0) {
               console.log('issues: ', data.issues)
             }
-            console.log(JSON.parse(method).method, data.status,data.results)
+            // console.log(JSON.parse(method).method, data.status,data.results)
             return data.results
           }
         }).catch((error)=>{
