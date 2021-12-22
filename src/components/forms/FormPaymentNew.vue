@@ -150,7 +150,7 @@
 
 
           var body = JSON.stringify({
-            amount: balancedue,
+            amount: balancedue.toFixed(2),
             currency: currency,
             resref: resref
           });
@@ -162,6 +162,7 @@
           fetch(Host + "/.netlify/functions/reqtrans", requestOptions)
             .then(response => response.text())
             .then(result => {
+              console.log(JSON.parse(result))
               let res = JSON.parse(result).Request.URI._text
               this.payurl = res
               this.loading = false
