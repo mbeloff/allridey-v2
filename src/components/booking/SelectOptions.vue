@@ -74,16 +74,16 @@
         </div>
 
         <!-- // ? CALCULATED TOTAL -->
-        <div v-if="totals.all.length > 0" class="bg-blue-900 text-white p-2 rounded-b">
-          <div class="flex justify-end text-lg mb-2">
-            <span class="font-bold">TOTAL: </span>
+        <div v-if="totals.all.length > 0" class="bg-blue-900 text-white px-2 py-1 rounded-b">
+          <div class="flex justify-end text-base">
+            <span class="font-bold">TOTAL COST: </span>
             <span v-if="calculating" class="w-24 text-right grid place-items-center justify-items-end">
               <spinner></spinner>
             </span>
             <span v-else class="w-24 text-right">{{currencysymbol + totals.all[totals.all.findIndex(el => el.name === "TOTAL")].total}}</span>
 
           </div>
-          <div class="text-right italic" v-if="totals.tax[0].total">
+          <div class="text-right italic text-xs" v-if="totals.tax[0].total">
             <span v-for="tax in totals.tax">{{ tax.name.replace('include', 'incl.') }} of:</span><span>{{' ' + currencysymbol + totals.tax[0].total}}</span>
           </div>
         </div>
