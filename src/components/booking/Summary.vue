@@ -11,8 +11,8 @@
       <div class="flex flex-col md:flex-row gap-3 items-start">
 
         <!--LEFT SIDE -->
-        <div class="md:w-2/6 md:pr-1 order-2 md:order-1">
-          <img :src="booking.urlpathfordocuments + booking.vehicleimage" alt="" class="m-auto">
+        <div class="md:w-2/6 order-2 md:order-1 bg-white shadow-xl rounded">
+          <img :src="booking.urlpathfordocuments + booking.vehicleimage" alt="" class="m-auto rounded-t">
           <div class="bg-white px-2 py-1 text-sm">
             <p class="font-bold">Trip Information:</p>
             <div class="flex justify-between py-2">
@@ -62,29 +62,31 @@
           </div>
 
           <!-- CALCULATED TOTAL -->
-          <div class="bg-blue-800 text-blue-100 p-2">
-            <div class="flex justify-end mb-2">
-              <span v-if="booking.isquotation" class="font-bold mr-2 ">TOTAL: </span>
-              <span v-else class="font-bold mr-2 ">BALANCE DUE: </span>
-              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol + booking.balancedue.toFixed(2)}}</span>
+          <div class="bg-blue-800 text-blue-100 px-2 rounded-b py-1">
+            <div v-show="true" class="flex justify-end">
+              <span class="font-bold mr-2 ">TOTAL COST: </span>
+              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol}}</span><span id="booktotal">{{booking.totalcost.toFixed(2)}}</span>
             </div>
             <div class="text-right italic text-xs">
               <span>includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }}</span>
             </div>
-          </div>
-          
+            <div v-if="payment.length != 0" class="flex justify-end mt-2 text-sm">
+              <span class="font-bold mr-2 ">BALANCE DUE: </span>
+              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol}}</span><span>{{booking.balancedue.toFixed(2)}}</span>
+            </div>            
+          </div>          
         </div>
 
         <!-- RIGHT SIDE -->
         <div class="flex flex-col md:w-4/6 flex-shrink order-1 md:order-2">
-        <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5">
+        <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5 rounded">
           <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with Allridey</p>
           <p v-else class='text-xl font-bold'>Thanks for booking with Allridey.</p>
           <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote.</p>
           <p class="text-sm"><span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below.</span></p>
           <div class="grid grid-cols-2 text-sm">
             <span class="font-bold">Reference number:</span>
-            <span class="font-bold">{{ booking.reservationdocumentno }}</span>
+            <span class="font-bold" id="booknumber">{{ booking.reservationdocumentno }}</span>
             <span class="font-bold">Reservation Type:</span>
             <span>{{ booking.reservationstatus }}</span>
             <span class="font-bold">Name:</span><span>{{ customer.firstname }} {{ customer.lastname }}</span>
