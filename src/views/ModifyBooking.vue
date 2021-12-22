@@ -68,6 +68,10 @@
         Mixins.methods.postapiCall(method)
           .then(res => {
             if (res.status == "OK") {
+              console.log(res.results)
+              if (res.results.bookinginfo[0].reservationstatus == 'Cancelled') {
+                this.$router.push({name: 'Checkin', query: { "valid" : false }})
+              }          
               this.loading = false
               this.init(res.results)
             } else if (res.status == "ERR") {
