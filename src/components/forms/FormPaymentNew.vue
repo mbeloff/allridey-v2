@@ -162,7 +162,6 @@
           fetch(Host + "/.netlify/functions/reqtrans", requestOptions)
             .then(response => response.text())
             .then(result => {
-              console.log(JSON.parse(result))
               let res = JSON.parse(result).Request.URI._text
               this.payurl = res
               this.loading = false
