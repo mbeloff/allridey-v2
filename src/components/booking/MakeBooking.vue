@@ -6,56 +6,62 @@
     </div>
     <transition name="slide-down">
       <div ref="scrollMarker" v-if="mode" class="relative grid place-items-center my-5 text-blue-600">
-      <i class="fas fa-chevron-down"></i>
-      <transition name="slide-down">
-        <i class="fas fa-chevron-down absolute -top-1.5"></i>
-      </transition>     
-    </div>
+        <i class="fas fa-chevron-down"></i>
+        <transition name="slide-down">
+          <i class="fas fa-chevron-down absolute -top-1.5"></i>
+        </transition>
+      </div>
     </transition>
-    
+
     <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking(mode)">
-      <form-customer  :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
-      <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max"  :class="{ 'border border-blue-700' : showOptional }">
+      <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
+      <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max" :class="{ 'border border-blue-700' : showOptional }">
         <input type="checkbox" name="showops" id="showops" class="mr-2 hidden" v-model="showOptional">
         <label ref="showops" for="showops" class="text-left text-sm font-bold text-blue-800 flex items-center" @click="scroll('showops')">
-          <i class="fal fa-check-circle fa-2x mr-2" :class="{ 'text-blue-800' : showOptional, 'text-gray-300' : !showOptional}"></i> 
+          <i class="fal fa-check-circle fa-2x mr-2" :class="{ 'text-blue-800' : showOptional, 'text-gray-300' : !showOptional}"></i>
           <span>Make pickup quick and easy by providing more details ahead of time?</span>
         </label>
       </div>
       <div ref="container">
-        <transition name="fade-fast">        
-          <form-optional v-if="showOptional" :step3="step3" :parameters="parameters"></form-optional>  
+        <transition name="fade-fast">
+          <form-optional v-if="showOptional" :step3="step3" :parameters="parameters"></form-optional>
         </transition>
-      </div>      
-      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5" :disabled="pleaseWait" :class="{'opacity-30' : pleaseWait}">{{ btnText }}</button>
+      </div>
+
+        
+        <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5 relative" :disabled="pleaseWait">{{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black"></loading-overlay></button>
+
+
     </form>
   </div>
 </template>
 
 <script>
- import smoothHeight from 'vue-smooth-height';
- import FormCustomer from '@/components/forms/FormCustomer.vue'
- import FormOptional from '@/components/forms/FormOptional.vue'
- import Mixins from '@/Mixins'
- export default {
-   mixins: [Mixins, smoothHeight],
-   components: {
-     FormCustomer,
-     FormOptional
-   },
-   mounted() {
+  import LoadingOverlay from '@/components/LoadingOverlay.vue'
+  import smoothHeight from 'vue-smooth-height';
+  import FormCustomer from '@/components/forms/FormCustomer.vue'
+  import FormOptional from '@/components/forms/FormOptional.vue'
+  import Mixins from '@/Mixins'
+  export default {
+    mixins: [Mixins, smoothHeight],
+    components: {
+      FormCustomer,
+      FormOptional,
+      LoadingOverlay
+    },
+    mounted() {
       this.updateBookingParameters()
       this.$smoothElement({
-            el: this.$refs.container,
-        })
+        el: this.$refs.container,
+      })
       this.parameters.agentcode = this.$store.state.searchParams.agentcode
       this.pleaseWait = false
-  },
-   props: {
-     optionalfees: Object,
-     calcTotals: Object,
-     searchParams: Object,
-     step3: Object,
+    },
+    props: {
+      optionalfees: Object,
+      calcTotals: Object,
+      searchParams: Object,
+      step3: Object,
     },
     watch: {},
     data() {
@@ -113,14 +119,20 @@
     },
     methods: {
       scroll(ref) {
-        setTimeout(()=>{ this.$refs[ref].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})}, 100);        
+        setTimeout(() => {
+          this.$refs[ref].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest"
+          })
+        }, 100);
       },
       submitBooking(mode) {
         this.pleaseWait = true
         // send email straight away only if quote
         if (mode == 1) {
           this.parameters.emailoption = 1
-        }        
+        }
         this.$store.dispatch("bookingparams", this.parameters)
         this.$emit('create-booking')
       },
@@ -143,7 +155,7 @@
         this.parameters.optionalfees = this.calcTotals.optionalfees
       }
     },
-    
+
     computed: {
       btnText() {
         if (this.mode == 1) {
@@ -157,21 +169,24 @@
 </script>
 
 <style lang="postcss">
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: transform 2s ease, opacity 0.35s ease;
-}
+  .slide-down-enter-active,
+  .slide-down-leave-active {
+    transition: transform 2s ease, opacity 0.35s ease;
+  }
 
-.slide-down-enter-from,
-.slide-down-leave-to {
-  transform: translateY(-100%);
-  opacity: 0
-}
+  .slide-down-enter-from,
+  .slide-down-leave-to {
+    transform: translateY(-100%);
+    opacity: 0
+  }
 
-.fade-fast-enter-active, .fade-fast-leave-active {
+  .fade-fast-enter-active,
+  .fade-fast-leave-active {
     transition: opacity .5s;
-}
-.fade-fast-enter-from, .fade-fast-leave-to {
+  }
+
+  .fade-fast-enter-from,
+  .fade-fast-leave-to {
     opacity: 0;
-}
+  }
 </style>
