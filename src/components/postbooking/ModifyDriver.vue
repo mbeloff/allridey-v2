@@ -199,7 +199,6 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
           }
         })
         Mixins.methods.postapiCall(method)
-        .then(res => console.log(res.results))
         .catch(err => console.log(err))
         this.$emit("update")
       },

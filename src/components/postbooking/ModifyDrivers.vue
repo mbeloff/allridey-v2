@@ -129,10 +129,9 @@
           }
         })
         Mixins.methods.postapiCall(method)
-          .then(res => {
-            console.log(res)
+          .then(
             this.savingChanges = false
-          })
+          )
         // this.$emit("update")
       }
     }

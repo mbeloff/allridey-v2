@@ -240,7 +240,6 @@
         if (errs.length > 0) {
           this.$emit('errs', errs)
           this.$emit('searching', false)
-          console.log('validation errs found')
           return false
         } else {
           return true

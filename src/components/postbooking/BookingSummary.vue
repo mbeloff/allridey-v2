@@ -225,20 +225,17 @@
       },
       handlePayment() {
         this.payLoading = true
-        console.log('handling payment')
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
         Mixins.methods.postapiCall(params).then(res => {
           if (res.status == 'OK') {
-            console.log('confirmed payment')
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {
             alert(res.error)
           }         
         })
-        } else if (this.paymentResponse.Success._text == 0) {
-          console.log('payment unsuccessful, retrying')         
+        } else if (this.paymentResponse.Success._text == 0) {       
           this.createPayment()
           this.count++
         }  

@@ -92,10 +92,9 @@ import SectionSummary from '@/components/postbooking/BookingSummary.vue'
           "storageprovider": "cloudinary",
           "sequencenumber": doc.seqno
         })
-        Mixins.methods.postapiCall(method).then(res => {
-          console.log(res)
+        Mixins.methods.postapiCall(method).then(
           this.documentlist()
-        })
+        )
       },
       documentlist() {
         let method = JSON.stringify({
@@ -115,10 +114,9 @@ import SectionSummary from '@/components/postbooking/BookingSummary.vue'
           "documentlinkid": -id
         })
         Mixins.methods.postapiCall(method)
-          .then(res => {
-            console.log(res)
+          .then(
             this.documentlist()
-        })
+          )
       },
       iconClass(doc) {
         return {
