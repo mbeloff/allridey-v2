@@ -149,10 +149,10 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
     },
     watch: {
       'dateofbirth': function () {
-        this.customer.dateofbirth = this.dateofbirth.toLocaleDateString()
+        this.customer.dateofbirth = this.dateofbirth.toLocaleDateString('en-AU')
       },
       'licenseexpires': function () {
-        this.customer.licenseexpires = this.licenseexpires.toLocaleDateString()
+        this.customer.licenseexpires = this.licenseexpires.toLocaleDateString('en-AU')
       }
     },
     computed: {

@@ -293,8 +293,8 @@
         var nextweek = new Date();
         nextweek.setDate(nextweek.getDate() + 7);
         this.daterange = {
-          start: tomorrow.toLocaleDateString(),
-          end: nextweek.toLocaleDateString(),
+          start: tomorrow.toLocaleDateString('en-AU'),
+          end: nextweek.toLocaleDateString('en-AU'),
         }
       },     
       to12hr(time) {
