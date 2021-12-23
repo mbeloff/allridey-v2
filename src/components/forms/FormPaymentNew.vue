@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full p-1">
-    <div class="mx-auto flex flex-col gap-3 flex-1 bg-white rounded shadow-xl py-2 relative" style="max-width: 400px">
+    <div class="mx-auto flex flex-col gap-3 flex-1 rounded py-2 relative" style="max-width: 400px">
       <loading-overlay v-if="loading">
         ...loading
       </loading-overlay>
@@ -10,11 +10,7 @@
       </div>
 
       <div>
-        <iframe ref="wcframe" :src="payurl" width="400" height="750" scrolling="no"></iframe>
-      </div>
-      <div class="text-left pl-2">
-        <!-- <a @click="this.$router.push(
-          {path: 'summary?pymnt=failed', query: {pymnt: 'failed'} })" class="text-red-500 text-sm italic cursor-pointer">cancel & save as quote?</a> -->
+        <iframe ref="wcframe" :src="payurl" width="400" height="900" scrolling="no"></iframe>
       </div>
     </div>
   </div>
@@ -70,21 +66,21 @@
         this.loading = true
         if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
           this.$router.push({
-          path: 'summary?pymnt=failed',
-          query: {
-            pymnt: 'failed'
-          }
-        })
+            path: 'summary?pymnt=failed',
+            query: {
+              pymnt: 'failed'
+            }
+          })
         }
-        if (this.paymentResponse.Success._text == 1) {   
-        let params = JSON.stringify(this.gatherParams())
-        Mixins.methods.apiCall(params).then(res => {
-          
-          this.refreshBookingInfo()
-        }).catch(err => console.log(err))
-        } else if (this.paymentResponse.Success._text == 0) {      
+        if (this.paymentResponse.Success._text == 1) {
+          let params = JSON.stringify(this.gatherParams())
+          Mixins.methods.apiCall(params).then(res => {
+
+            this.refreshBookingInfo()
+          }).catch(err => console.log(err))
+        } else if (this.paymentResponse.Success._text == 0) {
           this.requestWindcaveTransaction()
-        }  
+        }
       },
       getPaydate(dateStr) {
         let year = dateStr.substring(0, 4)
@@ -97,6 +93,19 @@
         let year = dateStr.substring(2, 4)
         return month + '/' + year
       },
+      trackPayment() {
+        let obj = this.paymentResponse
+        this.$gtag.purchase({
+          currency: "AUD",
+          transaction_id: this.$store.state.bookinginfo.bookinginfo[0].reservationdocumentno,
+          value: obj.AmountSettlement._text,
+          items: [{
+            item_name: this.$store.state.bookinginfo.bookinginfo[0].vehiclecategory,
+            location_id: this.$store.state.bookinginfo.bookinginfo[0].pickuplocationname,
+            price: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+          }]
+        })
+      },
       gatherParams() {
         let obj = this.paymentResponse
         let params = {
@@ -104,7 +113,6 @@
           "reservationref": this.$store.state.bookinginfo.bookinginfo[0].reservationref,
           "amount": obj.AmountSettlement._text,
           "success": obj.Success._text,
-          // "success": 1,
           "paytype": obj.CardName._text,
           "paydate": this.getPaydate(obj.DateSettlement._text),
           "supplierid": 2,
@@ -126,6 +134,7 @@
           "reservationref": this.reservation.reservationref
         })
         Mixins.methods.apiCall(params).then(res => {
+          this.trackPayment()
           this.$store.dispatch('bookinginfo', res)
           this.requestWindcaveTransaction()
         })

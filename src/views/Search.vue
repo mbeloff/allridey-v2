@@ -160,6 +160,18 @@
           this.$router.push({name: 'Payment'})  
         }
       },
+      trackQuote() {
+        this.$gtag.purchase({
+          currency: "AUD",
+          transaction_id: this.$store.state.bookinginfo.bookinginfo[0].reservationdocumentno,
+          value: 0,
+          items: [{
+            item_name: this.$store.state.bookinginfo.bookinginfo[0].vehiclecategory,
+            location_id: this.$store.state.bookinginfo.bookinginfo[0].pickuplocationname,
+            price: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+          }]
+        })
+      },
       getBookingInfo(ref) {
         let params = JSON.stringify({
           "method":"bookinginfo",
@@ -168,6 +180,7 @@
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
           this.$store.dispatch('gotBooking', true)
+          this.trackQuote()
         })
       },     
     }
