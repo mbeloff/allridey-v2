@@ -8,7 +8,12 @@
         <iframe class="rounded-t" :src=" data.mapurl " style="border:0;" allowfullscreen="" width="100%" height="100%" loading="lazy"></iframe>
       </div>
       <div class="p-5 text-left flex flex-col gap-2">
-        <p class="font-bold text-lg text-blue-700 my-4">Allridey {{data.location}}</p>
+        <p class="font-bold text-lg text-blue-700">Allridey {{data.location}}</p>
+        <div class="mb-2 flex flex-col gap-2 text-sm" v-if="data.city == 'Hobart'">
+          <p>With our depot conveniently located by Hobart airport and shuttle service available for pick up and drop off, we make car rental easy as well as affordable.</p>
+          <p>Climb a mountain and view captivating modern art in the same day. Eat fish and chips from a floating fish punt, or dine in the finest and freshest of restaurants. Add thriving markets, an unsurpassed natural setting and a tangible sense of history, and Tasmania's capital city really does have it all.</p>
+        </div>
+
         <div class="flex items-center">
           <i class="far fa-map-marker fa-fw text-blue-700"></i>
           <span>{{data.address}}, {{data.suburb}} {{data.postcode}} {{data.state}}</span>
