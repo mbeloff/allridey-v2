@@ -53,6 +53,7 @@
     watch: {
       'paymentResponse': 'handlePayment',
       'confirmedPayment': function () {
+        this.trackPayment()
         this.$router.push({
           path: 'summary?pymnt=success',
           query: {
@@ -134,7 +135,6 @@
           "reservationref": this.reservation.reservationref
         })
         Mixins.methods.apiCall(params).then(res => {
-          this.trackPayment()
           this.$store.dispatch('bookinginfo', res)
           this.requestWindcaveTransaction()
         })
