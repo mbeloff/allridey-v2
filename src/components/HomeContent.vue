@@ -11,7 +11,7 @@
       </span>
       <!-- <p class="text-xl mt-4 mb-4">Find cars and campervans in <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p> -->
       <p class="text-xl mt-4 mb-4">Car Rental</p>
-      <p>Allridey offers great value car and van rentals in Hobart. We've got the best prices with no hidden or complicated fees - get an instant quote and book online today.</p>
+      <p>Allridey offers great value car and van rentals in Hobart. We've got the best prices - get an instant quote and book online today.</p>
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">
