@@ -23,6 +23,7 @@ const routes = [
   {name: "Checkin", path: "/checkin", component: Checkin, props: true},
   {name: "ModifyBooking", path: "/modifybooking", component: ModifyBooking, props: true},
   {name: "Privacy", path: "/privacy", component: Privacy, props: true},
+  {path: '/australia', redirect: "/"},
   {
     path:"/404",
     name: "NotFound",
