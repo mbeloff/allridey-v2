@@ -7,7 +7,7 @@ import Checkin from './views/Checkin.vue'
 import ModifyBooking from './views/ModifyBooking.vue'
 import Privacy from './views/Privacy.vue'
 import NotFound from './views/NotFound.vue'
-// import { trackRouter } from "vue-gtag-next"
+import { trackRouter } from "vue-gtag-next"
 const history = createWebHistory();
 
 const routes = [
@@ -36,5 +36,5 @@ const routes = [
 ];
 
 const router = createRouter({ history, routes });
-// trackRouter(router);
+trackRouter(router);
 export default router;
