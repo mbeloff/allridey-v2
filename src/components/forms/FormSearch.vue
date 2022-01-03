@@ -44,10 +44,10 @@
                       <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="putime" id="putime" class="my-input" v-model="formData.pickuptime">
                         <!-- use putimearray to update times on date change -->
-                        <option v-for="(time, i) in putimearr" :key="i" :value="time">
-                          {{to12hr(time)}}
+                        <option v-for="(time, i) in alltimes" :key="i" :value="time">
+                          {{to12hr(time)}} <span v-if="!putimearr.find(el => el == time)">{{ '- after hours fee' }}</span>
                         </option>
-                        <option v-if="!putimearr.length" value="10:00" disabled selected>Closed</option>
+                        <!-- <option v-if="!putimearr.length" value="10:00" disabled selected>Closed</option> -->
                       </select>
                     </div>
                   </div>
@@ -68,8 +68,8 @@
                       <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="dotime" id="dotime" class="my-input" v-model="formData.dropofftime">
                         <!-- dotimearray -->
-                        <option v-for="(time, i) in dotimearr" :key="i" :value="time">{{to12hr(time)}}</option>
-                        <option v-if="!dotimearr.length" value="10:00" disabled selected>Closed</option>
+                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}} <span v-if="!dotimearr.find(el => el == time)">{{ '- after hours fee' }}</span></option>
+                        <!-- <option v-if="!dotimearr.length" value="10:00" disabled selected>Closed</option> -->
                       </select>
                     </div>
                   </div>
@@ -109,7 +109,7 @@
       return {
 
         alltimes: [
-           '08:00','08:30','09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
+           '06:30','07:00','08:00','08:30','09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'
         ],
         daterange: {},
         formData: {
@@ -178,31 +178,31 @@
       }
     },
     mixins: [Mixins],
-    methods: { 
+    methods: {
       pickuphours(id) {
         let parts = this.daterange.start.split('/')
         let newDate =  new Date(parts[2],parts[1]-1,parts[0])
         let dayofweek = newDate.getDay() + 1
-        let pickuphours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
-        if (pickuphours == undefined) {
+        let hours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
+        if (hours == undefined) {
           this.pickuptime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
           this.pickuptime.close = this.step1.locations.find(el => el.id == id).officeclosingtime
         } else {
-          this.pickuptime.open = pickuphours.openingtime
-          this.pickuptime.close = pickuphours.closingtime
+          this.pickuptime.open = hours.openingtime
+          this.pickuptime.close = hours.closingtime
         }        
       },
       dropoffhours(id) {
         let parts = this.daterange.end.split('/')
         let newDate =  new Date(parts[2],parts[1]-1,parts[0])
         let dayofweek = newDate.getDay() + 1
-        let dropoffhours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
-        if (dropoffhours == undefined) {
+        let hours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
+        if (hours == undefined) {
           this.dropofftime.open = this.step1.locations.find(el => el.id == id).officeopeningtime
           this.dropofftime.close = this.step1.locations.find(el => el.id == id).officeclosingtime
         } else {
-          this.dropofftime.open = dropoffhours.openingtime
-          this.dropofftime.close = dropoffhours.closingtime
+          this.dropofftime.open = hours.openingtime
+          this.dropofftime.close = hours.closingtime
         }      
       },
       isEmpty(obj) {
@@ -231,12 +231,12 @@
         if (Date.parse(dodt) <= Date.parse(pudt)) {
           errs.push('Dropoff date/time must by after pickup date/time')
         }
-        if (!this.putimearr.length) {
-          errs.push('There are no pickup times available for your selected dates. Please select a different Pickup Date')
-        }
-        if (!this.dotimearr.length) {
-          errs.push('There are no dropoff times available for your selected dates. Please select a different Dropoff Date')
-        }
+        // if (!this.putimearr.length) {
+        //   errs.push('There are no pickup times available for your selected dates. Please select a different Pickup Date')
+        // }
+        // if (!this.dotimearr.length) {
+        //   errs.push('There are no dropoff times available for your selected dates. Please select a different Dropoff Date')
+        // }
         if (errs.length > 0) {
           this.$emit('errs', errs)
           this.$emit('searching', false)
