@@ -7,7 +7,7 @@
       <div class="grid md:grid-flow-col gap-1 px-1">
         <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Customer Details</label>
         <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Upgrade Extras</label>
-        <label for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
+        <label v-if="!isQuotation" for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
         <input name="drivers" id="drivers" type="radio" value="drivers" v-model="tab" hidden>
         <input name="extras" id="extras" type="radio" value="extras" v-model="tab" hidden>
         <input name="uploads" id="uploads" type="radio" value="uploads" v-model="tab" hidden>
@@ -68,7 +68,7 @@
         Mixins.methods.postapiCall(method)
           .then(res => {
             if (res.status == "OK") {
-              if (res.results.bookinginfo[0].reservationstatus == 'Cancelled') {
+              if (res.results.bookinginfo[0].reservationstatus == ('Cancelled' || 'Hired' || 'Non Revenue' || 'Returned')) {
                 this.$router.push({name: 'Checkin', query: { "valid" : false }})
               }          
               this.loading = false
@@ -93,6 +93,9 @@
               name: "Checkin"
             })
           })
+      },
+      isQuotation() {
+        return this.bookingdata.bookinginfo[0].isQuotation
       },
       getIns(data) {
         let id = data.find(el=>el.isinsurancefee)

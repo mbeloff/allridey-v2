@@ -106,7 +106,7 @@
             countryid: 7, // Default country id (Australia)
           },
           // ! email option 0 = off, 1 = default, 2 = always send
-          emailoption: 1,
+          emailoption: 0,
           foundusid: 63,
           remark: "",
           areaofuseid: "",

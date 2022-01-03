@@ -82,7 +82,8 @@
         <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5 rounded">
           <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with Allridey</p>
           <p v-else class='text-xl font-bold'>Thanks for booking with Allridey.</p>
-          <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote. <button class="text-blue-700" @click="sendEmail"><i class="fal fa-envelope"></i> get an email copy of your quote.</button></p>
+          <p class="text-sm">We've sent you an email for your records. <button class="text-blue-700" @click="sendEmail"><i class="fal fa-envelope mr-1"></i>Click here to re-send email.</button></p>
+          <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote.</p>
           <p class="text-sm"><span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below.</span></p>
           <div class="grid grid-cols-2 text-sm">
             <span class="font-bold">Reference number:</span>
@@ -118,13 +119,13 @@
       this.booking = this.$store.state.bookinginfo.bookinginfo[0],
       this.pymnt = this.$route.query.pymnt
     },
+    mounted() {
+      this.sendEmail()
+    },
     computed: {
       bookinginfo() {
         return this.$store.state.bookinginfo
       },
-      // booking() {
-      //   return this.$store.state.bookinginfo.bookinginfo[0]
-      // },
       customer() {
         return this.$store.state.bookinginfo.customerinfo[0]
       },

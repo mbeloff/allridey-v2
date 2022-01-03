@@ -25,7 +25,7 @@
       </div>
 
         <!-- NEW DRIVER -->
-      <div class="flex flex-col relative p-2 md:p-5 bg-white rounded" v-if="extradrivers && extradrivers.length < 4"> 
+      <div class="flex flex-col relative p-2 md:p-5 bg-white rounded" v-if="!isQuotation && extradrivers && extradrivers.length < 4"> 
         <button v-if="extradrivers && extradrivers.length < 4" :class="{ 'bg-green-500 text-white' : newDriver }" class="btn-green my-2" @click="newDriver = !newDriver"><i class="fas fa-plus-circle"></i> Add a Driver</button>
 
         <p v-if="newDriver" class="text-xl font-bold text-left">New Driver Details</p>
@@ -74,6 +74,9 @@
           .then(results => {
             this.countries = results.results
           })
+      },
+      isQuotation() {
+        return this.bookingdata.bookinginfo[0].isQuotation
       },
       defaultCustomer() {
         return {
