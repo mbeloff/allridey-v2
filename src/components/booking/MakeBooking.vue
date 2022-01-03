@@ -106,7 +106,7 @@
             countryid: 7, // Default country id (Australia)
           },
           // ! email option 0 = off, 1 = default, 2 = always send
-          emailoption: 0,
+          emailoption: 1,
           foundusid: 63,
           remark: "",
           areaofuseid: "",
@@ -129,10 +129,6 @@
       },
       submitBooking(mode) {
         this.pleaseWait = true
-        // send email straight away only if quote
-        if (mode == 1) {
-          this.parameters.emailoption = 1
-        }
         this.$store.dispatch("bookingparams", this.parameters)
         this.$emit('create-booking')
       },

@@ -82,7 +82,7 @@
         <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5 rounded">
           <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with Allridey</p>
           <p v-else class='text-xl font-bold'>Thanks for booking with Allridey.</p>
-          <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote.</p>
+          <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote. <button class="text-blue-700" @click="sendEmail"><i class="fal fa-envelope"></i> get an email copy of your quote.</button></p>
           <p class="text-sm"><span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below.</span></p>
           <div class="grid grid-cols-2 text-sm">
             <span class="font-bold">Reference number:</span>
@@ -105,9 +105,9 @@
 </template>
 
 <script>
+  import Mixins from '@/Mixins'
   export default {
-    props: {
-    },
+    mixins: [Mixins],
     data() {
       return {
         booking: {},
@@ -155,8 +155,15 @@
           time[0] = +time[0] % 12 || 12; // Adjust hours
         }
         return time.join (''); // return adjusted time or original string
+      },
+      sendEmail() {
+        let params = JSON.stringify({
+          "method":"sendemail",
+          "reservationref":this.booking.reservationref,
+        })
+        Mixins.methods.apiCall(params)
       }
-    }
+    },
   }
 </script>
 
