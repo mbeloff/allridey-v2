@@ -54,10 +54,13 @@
         gallery: [],
         articles: [
           {
-            title: "Sale on Now",
-            content: "Get 50% off the daily rate for all hires.",
+            title: "2022 Sale on Now",
+            content: "Get 50% off the daily rate for all hires .",
             img: "https://res.cloudinary.com/allridey/image/upload/v1641269764/assets/allridey_sale.jpg",
             cols: "md:col-span-1",
+            linktext: "Grab a Quote",
+            linksto: "Search",
+            scroll: "search-form",
           },
           {
             title: "Car rental. Simple",
