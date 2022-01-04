@@ -9,7 +9,7 @@
         <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
       </div>
 
-      <div>
+      <div ref="payForm">
         <iframe ref="wcframe" :src="payurl" width="400" height="900" scrolling="no"></iframe>
       </div>
     </div>
@@ -46,7 +46,13 @@
         } else if (event.data.TxnType) {
           this.paymentResponse = event.data
         }
-      }, false);
+      }, false);    
+
+       this.$refs.payForm.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest"
+      }) 
     },
     mixins: [Mixins],
     computed: {},

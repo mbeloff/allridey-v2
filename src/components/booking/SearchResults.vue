@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left rounded w-full search-results relative">   
+  <div ref="searchResults" class="text-left rounded w-full searchResults relative">   
     <p class="text-center absolute inset-x-0 top-0"  v-if="numAvailable == 0">No results found</p>
     <!-- <div v-for="(cat, i) in getCats(categories)" class="my-2"> -->
       <!-- <div class="flex bg-gray-600 text-white px-2">
@@ -47,7 +47,12 @@
       })
       }
       this.categories = arr
-      this.$emit('mounted')      
+      this.$emit('mounted')   
+      this.$refs.searchResults.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest"
+      })   
     },
     computed: {
       filteredVehicles() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left p-2">
+  <div ref="summary" class="text-left p-2">
     <!-- <div class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-red-100 border-red-300 border items-center text-red-700" v-if="pymnt == 'failed'">
      <i class="far fa-exclamation fa-fw"></i><p>Sorry, your payment was unsuccessful. We've saved your request as a quote. 
        </p>
@@ -121,6 +121,12 @@
     },
     mounted() {
       this.sendEmail()
+
+      this.$refs.summary.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest"
+      }) 
     },
     computed: {
       bookinginfo() {
