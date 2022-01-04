@@ -45,7 +45,7 @@
                       <select name="putime" id="putime" class="my-input" v-model="formData.pickuptime">
                         <!-- use putimearray to update times on date change -->
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">
-                          {{to12hr(time)}} <span v-if="!putimearr.find(el => el == time)">{{ '- after hours fee' }}</span>
+                          {{to12hr(time)}} <span v-if="!putimearr.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span>
                         </option>
                         <!-- <option v-if="!putimearr.length" value="10:00" disabled selected>Closed</option> -->
                       </select>
@@ -68,7 +68,7 @@
                       <i class="form-i fal fa-clock fa-fw"></i>
                       <select name="dotime" id="dotime" class="my-input" v-model="formData.dropofftime">
                         <!-- dotimearray -->
-                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}} <span v-if="!dotimearr.find(el => el == time)">{{ '- after hours fee' }}</span></option>
+                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}} <span v-if="!dotimearr.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span></option>
                         <!-- <option v-if="!dotimearr.length" value="10:00" disabled selected>Closed</option> -->
                       </select>
                     </div>
