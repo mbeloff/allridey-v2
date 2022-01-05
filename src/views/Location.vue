@@ -9,21 +9,20 @@
       </div>
       <div class="p-5 text-left flex flex-col gap-2">
         <p class="font-bold text-lg text-blue-700">Allridey {{data.location}}</p>
-        <div class="mb-2 flex flex-col gap-2 text-sm" v-if="data.city == 'Hobart'">
-          <p>With our depot conveniently located by Hobart airport and shuttle service available for pick up and drop off, we make car rental easy as well as affordable.</p>
-          <p>Climb a mountain and view captivating modern art in the same day. Eat fish and chips from a floating fish punt, or dine in the finest and freshest of restaurants. Add thriving markets, an unsurpassed natural setting and a tangible sense of history, and Tasmania's capital city really does have it all.</p>
+        <div class="mb-2 flex flex-col gap-2 text-sm" v-html="data.webdescription">
+          
         </div>
 
         <div class="flex items-center">
-          <i class="far fa-map-marker fa-fw text-blue-700"></i>
+          <i class="far fa-map-marker fa-fw text-blue-700 mr-2"></i>
           <span>{{data.address}}, {{data.suburb}} {{data.postcode}} {{data.state}}</span>
         </div>
         <div class="flex items-center">
-          <i class="far fa-envelope fa-fw text-blue-700"></i>
+          <i class="far fa-envelope fa-fw text-blue-700 mr-2"></i>
           <a class="text-blue-600 hover:underline" :href="`mailto:` + this.$store.state.email">{{this.$store.state.email}}</a>
         </div>
         <div class="flex">
-          <i class="far fa-clock fa-fw text-blue-700 mt-1.5"></i>
+          <i class="far fa-clock fa-fw text-blue-700 mt-1.5 mr-2"></i>
           <div>
             <div class="w-56 flex justify-between items-center">
               <span class="w-24">mon-fri:</span> <span class="w-32">9am - 4pm</span></div>
@@ -31,6 +30,8 @@
               <span class="w-24">sat:</span> <span class="w-32">9am - 12pm</span></div>
             <div class="w-56 flex justify-between items-center">
               <span class="w-24">sun:</span> <span class="w-32">closed</span></div>
+            <p class="text-sm mt-2">After hours contactless pick up and drop off are available. Fees may apply.</p>
+
           </div>
         </div>
 

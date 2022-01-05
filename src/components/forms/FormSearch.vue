@@ -10,7 +10,7 @@
               <label for="puloc" class="my-label has-icon">Pickup Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid" @change="update()">
+                <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid">
                   <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
@@ -19,7 +19,7 @@
               <label for="doloc" class="my-label has-icon">Dropoff Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" @change="update()">
+                <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" disabled>
                   <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
@@ -142,6 +142,7 @@
       },
       "formData.pickuplocationid": function (val) {
         this.pickuphours(val)
+        this.updateLocation()
       },
       "formData.dropofflocationid": function (val) {
         this.dropoffhours(val)
@@ -308,6 +309,9 @@
         }
         return time.join(''); // return adjusted time or original string
       },
+      updateLocation() {
+        this.formData.dropofflocationid = this.formData.pickuplocationid
+      }
     },
   }
 </script>
