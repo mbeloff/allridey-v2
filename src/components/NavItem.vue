@@ -5,7 +5,7 @@
       <div v-if="hover" class="absolute left-1/2 text-left  center-x font-normal">
       <div class="h-4"></div>
       <div class="relative rounded dropdown-container shadow-2xl text-blue-900">
-        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200  block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
+        <router-link :class="{ 'dropdown-label' : !item.id, 'dropdown-item' : item.id }" :to="{ name: label, params: { name: convert(item[itemlabel]), id: item.id } }" class="hover:bg-gray-200 block whitespace-nowrap first:rounded-t last:rounded-b" v-for="(item, i) in items" :key="item.id">{{item[itemlabel]}}</router-link>
       </div>
       <!-- 
         hover animation for router link
@@ -45,11 +45,11 @@
 <style lang="postcss">
 
     .dropdown-label {
-      @apply px-5 py-1.5 pointer-events-none  font-bold text-sm bg-blue-900 text-gray-200
+      @apply px-10 py-3 pointer-events-none font-bold text-sm bg-blue-900 text-gray-200
     }
 
     .dropdown-item {
-      @apply px-4 py-1.5 border-white  transition-spacing bg-white
+      @apply px-8 py-3 border-white transition-spacing bg-white
     }
 
 

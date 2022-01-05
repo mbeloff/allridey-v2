@@ -71,7 +71,7 @@
             linksto: "Search",
             scroll: "search-form",
             overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
-            color: 'blue'
+            // color: 'blue'
           },
           {
             title: "Our fleet",
