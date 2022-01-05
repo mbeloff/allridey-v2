@@ -86,7 +86,7 @@
     </div>
     
 
-    <div v-if="openPayment" class="absolute max-w-screen w-full min-h-screen h-full bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
+    <div v-if="openPayment" class="absolute max-w-screen w-full h-max bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
       <div class="bg-white rounded p-2">
         <loading-overlay v-if="payLoading">
         ...loading
@@ -269,7 +269,6 @@
           "reservationref": this.resref,
           "amount": obj.AmountSettlement._text,
           "success": obj.Success._text,
-          // "success": 1,
           "paytype": obj.CardName._text,
           "paydate": this.getPaydate(obj.DateSettlement._text),
           "supplierid": 2,

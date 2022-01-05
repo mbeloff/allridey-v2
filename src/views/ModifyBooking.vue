@@ -170,6 +170,6 @@
 <style lang="postcss">
 
     .active {
-      @apply from-blue-800 to-blue-900
+      @apply from-blue-800 to-blue-900 shadow-blue-800/30
     }
 </style>
