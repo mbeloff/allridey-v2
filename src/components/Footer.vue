@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import vraUrl from '../assets/ALLRIDEY-VRA.pdf?url'
+import vraUrl from '../assets/ALLRIDEY-VRA.pdf'
 export default {
   data() {
     return {
