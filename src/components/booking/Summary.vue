@@ -13,27 +13,33 @@
 
         <!--LEFT SIDE -->
         <div class="md:w-2/6 order-2 md:order-1 bg-white shadow-xl rounded">
+        
           <img :src="booking.urlpathfordocuments + booking.vehicleimage" alt="" class="m-auto rounded-t">
           <div class="bg-white px-2 py-1 text-sm">
-            <p class="font-bold">Trip Information:</p>
-            <div class="flex justify-between py-2">
-              <span class="flex-shrink">
-                Pickup:
-              </span>
-              <div class="grid font-bold">
-                <span class="text-right">{{booking.pickuplocationname}}</span>
-                <span>{{tConvert(booking.pickuptime)}} - {{booking.pickupdate.replaceAll('/', ' ')}}</span>
-              </div>              
+           <div class="w-full flex gap-3 items-center text-sm text-gray-500 py-4">
+            <div class="text-right flex-grow">
+              <p class="uppercase text-sm font-bold text-gray-500 mb-1">Picking Up</p>
+              <ul>
+                <li>{{bookinginfo.bookinginfo[0].pickuplocationname}}</li>
+                <li>{{bookinginfo.bookinginfo[0].pickupdate.replaceAll('/', ' ') + ' ' + tConvert(bookinginfo.bookinginfo[0].pickuptime)}}</li>
+
+              </ul>
             </div>
-            <div class="flex justify-between py-2">
-              <span class="flex-shrink">
-                Dropoff:
-              </span>
-              <div class="grid font-bold">
-                <span class="text-right">{{booking.dropofflocationname}}</span>
-                <span>{{tConvert(booking.dropofftime)}} - {{booking.dropoffdate.replaceAll('/', ' ')}}</span>
-              </div>              
+            <div class="flex-shrink grid place-items-center">
+              <div class="grid grid-flow-col place-items-center">
+                <i class="fal fa-ellipsis-h mr-0.5"></i> <i class="fal fa-arrow-right"></i>
+              </div>
+
             </div>
+            <div class="text-left flex-grow ">
+              <p class="uppercase text-sm font-bold text-gray-500 mb-1">Dropping Off</p>
+              <ul>
+                <li>{{bookinginfo.bookinginfo[0].dropofflocationname}}</li>
+                <li>{{bookinginfo.bookinginfo[0].dropoffdate.replaceAll('/', ' ') + ' ' + tConvert(bookinginfo.bookinginfo[0].dropofftime)}}</li>
+
+              </ul>
+            </div>
+          </div>
             <p class="font-bold">Daily Rental Rate:</p>
             <div class="flex justify-between py-2">
               <span class="flex-shrink">
@@ -124,7 +130,7 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
       this.pymnt = this.$route.query.pymnt
     },
     mounted() {
-      this.sendEmail()
+      // this.sendEmail()
       this.loading = false
       this.$refs.summary.scrollIntoView({
         behavior: "smooth",
