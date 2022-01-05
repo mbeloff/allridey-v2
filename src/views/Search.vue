@@ -183,21 +183,21 @@
 
 <style lang="postcss">
 .bg-main {
-    background-image: url(https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_fill,h_600,ar_1/v1639371251/assets/1823.jpg)
+    background-image: url(https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_fill,h_600,ar_1/v1639371251/assets/1823)
     }
   @media only screen and (min-width: 768px) {
     .bg-main {
-    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1024,ar_3/v1/allridey/1823.jpg)
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1024,ar_3/v1/allridey/1823)
     }
   }
   @media only screen and (min-width: 1024px) {
     .bg-main {
-    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1200,ar_3/v1/allridey/1823.jpg)
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1200,ar_3/v1/allridey/1823)
     }
   }
   @media only screen and (min-width: 1600px) {
     .bg-main {
-    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1600,ar_3/v1/allridey/1823.jpg)
+    background-image: url(https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_fill,w_1600,ar_3/v1/allridey/1823)
     }
   }
   </style>

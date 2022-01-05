@@ -56,7 +56,7 @@
           {
             title: "2022 Sale on Now",
             content: "Get 50% off the daily rate for all hires .",
-            img: "https://res.cloudinary.com/allridey/image/upload/v1641269764/assets/allridey_sale.jpg",
+            img: "https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale",
             cols: "md:col-span-1",
             linktext: "Grab a Quote",
             linksto: "Search",
@@ -65,7 +65,7 @@
           {
             title: "Car rental. Simple",
             content: "Get an instant quote and quickly book online. Cheap car and van rental in Hobart",
-            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1628040145/allridey/ajddSjc.jpg",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1628040145/allridey/ajddSjc",
             cols: "md:col-span-2",
             linktext: "Book Now",
             linksto: "Search",
@@ -76,16 +76,16 @@
           {
             title: "Our fleet",
             content: "We have a range of economical cars and 8 seat vans at great daily rates. If you find a cheaper price, we'll beat it by 10%.",
-            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627347849/allridey/jbkad.jpg",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627347849/allridey/jbkad",
             cols: "md:col-span-2",
             // linksto: "Search",
             color: 'yellow',
-            overlayimg: 'https://res.cloudinary.com/allridey/image/upload/c_scale,w_500/q_auto,f_auto/v1640042972/assets/allridey-micra.png'
+            overlayimg: 'https://res.cloudinary.com/allridey/image/upload/c_scale,w_500/q_auto,f_auto/v1640042972/assets/allridey-micra'
           },
           {
             title: "Roadside Assist",
             content: "We're only a phone call away with 24 hour support and roadside assist included with your hire.",
-            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627348031/allridey/Kdbad2.jpg",
+            img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627348031/allridey/Kdbad2",
             cols: "md:col-span-1",
             overlaytext: '<i class="fal fa-user-headset tranform rotate-3"></i>',
             // linksto: "Search",
