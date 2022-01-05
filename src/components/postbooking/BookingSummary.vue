@@ -203,7 +203,7 @@
         this.payLoading = true
         this.openPayment = true
         var body = JSON.stringify({
-          amount: 1,
+          amount: this.bookingdata.bookinginfo[0].balancedue,
           currency: this.bookingdata.bookinginfo[0].currencyname,
           resref: this.resref
         });
