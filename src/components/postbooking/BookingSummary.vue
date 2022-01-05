@@ -86,17 +86,17 @@
     </div>
     
 
-    <div v-if="openPayment" class="fixed max-w-screen w-full h-screen bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
-      <div class="bg-white rounded p-2 overflow-scroll">
+    <div v-if="openPayment" class="absolute max-w-screen w-full min-h-screen h-full bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
+      <div class="bg-white rounded p-2">
         <loading-overlay v-if="payLoading">
         ...loading
         </loading-overlay>
-        <p class="font-bold text-center">Payment</p>
-        <div v-if="paymentResponse.Success">
-          <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
-
-        </div>
-        <iframe ref="wcframe" :src="payurl" width="400" height="470" scrolling="no"></iframe>
+        <div v-if="paymentResponse.Success && paymentResponse.Success._text == 0 && paymentResponse.CardHolderName._text != 'User Cancelled'">
+        <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
+      </div>
+        <div ref="payForm">
+        <iframe ref="wcframe" :src="payurl" width="400" height="900" scrolling="no"></iframe>
+      </div>
         <button @click="openPayment = false" class="italic text-red-500 text-right float-right">go back <i class="ml-1 fal fa-times-square"></i></button>
       </div>
 
@@ -202,6 +202,9 @@
       createPayment() {       
         this.payLoading = true
         this.openPayment = true
+
+         
+
         var body = JSON.stringify({
           amount: this.bookingdata.bookinginfo[0].balancedue,
           currency: this.bookingdata.bookinginfo[0].currencyname,
@@ -218,6 +221,11 @@
             let res = JSON.parse(result).Request.URI._text
             this.payurl = res
             this.payLoading = false
+            this.$refs.payForm.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "nearest"
+            }) 
           })
           .catch(error => {
             console.log('request transaction failed: ', error)
@@ -225,6 +233,10 @@
       },
       handlePayment() {
         this.payLoading = true
+        if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
+          this.openPayment = false
+          return
+        }
         if (this.paymentResponse.Success._text == 1) {   
         let params = JSON.stringify(this.gatherParams())
         Mixins.methods.postapiCall(params).then(res => {
