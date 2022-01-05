@@ -223,8 +223,7 @@
             this.payLoading = false
             this.$refs.payForm.scrollIntoView({
               behavior: "smooth",
-              block: "center",
-              inline: "nearest"
+              block: "start",
             }) 
           })
           .catch(error => {
