@@ -40,10 +40,10 @@
         <img v-if="!gallery.length" class="object-contain object-center mx-auto rounded" :src="this.step3.availablecars[0].imageurl" alt="">
         <keen-slider v-if="gallery.length" :slides="gallery" class="rounded-t"></keen-slider>          
 
-        <div class="bg-white px-2 py-1 ">
-          <p class="font-bold">Daily Rental Rate:</p>
-          <p v-if="step3.availablecars[0].discountname" class="bg-green-500 text-white text-center">discount applied: {{step3.availablecars[0].discountname}}</p>
-          <div class="flex justify-between">
+        <div class="bg-white py-1 ">
+          <p class="font-bold px-2">Daily Rental Rate:</p>
+          <p v-if="step3.availablecars[0].totaldiscountamount > 0" class="bg-green-500 text-white text-center">discount of ${{ step3.availablecars[0].totaldiscountamount }} applied ({{step3.availablecars[0].discountname}})</p>
+          <div class="flex justify-between px-2">
             <span>
               {{ step3.seasonalrates[0].numberofdays + " days @ " + currencysymbol + step3.seasonalrates[0].dailyrateafterdiscount}}
             </span>
@@ -51,7 +51,7 @@
           </div>
           
           <!-- //? EXTRAS -->
-          <div class="mt-2">
+          <div class="mt-2 px-2">
             <div v-if="totals.mandatory.length || totals.optional.length">
               <p class="font-bold">Fees:</p>
               <div v-for="fee in totals.optional" class="flex justify-between">
@@ -328,8 +328,7 @@ import KeenSlider from '@/components/Gallery.vue'
         Mixins.methods.apiCall(JSON.stringify(this.$store.state.bookingparams)).then(data => {
           this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(data)))
           this.ref = JSON.parse(JSON.stringify(data)).reservationref         
-        })
-        
+        })        
       },
       bookingMade() {
         this.$emit('bookingMade', this.mode, this.ref)
@@ -363,15 +362,19 @@ import KeenSlider from '@/components/Gallery.vue'
 <style lang="postcss">
 
     .selected {
-      @apply border-opacity-100 bg-gray-200
+      @apply bg-gray-200 
     }
 
     .selected .fee {
       @apply text-blue-900 divide-gray-300 opacity-100
     }
 
+    .selected .price {
+      @apply opacity-100
+    }
+
     .fee {
-      @apply divide-y divide-gray-200 opacity-50
+      @apply divide-y divide-gray-200 opacity-80
     }
 
     .fee-name {
@@ -379,7 +382,7 @@ import KeenSlider from '@/components/Gallery.vue'
     }
 
     .price {
-      @apply py-1 font-bold w-20
+      @apply py-1 font-bold w-20 opacity-50
     }
 
     .fee-description {

@@ -82,7 +82,7 @@
         <div class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5 rounded">
           <p v-if="booking.isquotation" class='text-xl font-bold'>Thank you for requesting a quote with Allridey</p>
           <p v-else class='text-xl font-bold'>Thanks for booking with Allridey.</p>
-          <p class="text-sm">We've sent you an email for your records. <button class="text-blue-700" @click="sendEmail"><i class="fal fa-envelope mr-1"></i>Click here to re-send email.</button></p>
+          
           <p class="text-sm" v-if="pymnt == 'failed'">No payment was received, we've saved your request as a quote.</p>
           <p class="text-sm"><span v-if="booking.isquotation">You can convert this quote into a booking by clicking the button below.</span></p>
           <div class="grid grid-cols-2 text-sm">
@@ -93,7 +93,7 @@
             <span class="font-bold">Name:</span><span>{{ customer.firstname }} {{ customer.lastname }}</span>
             <span class="font-bold">Email:</span><span class="break-all">{{customer.email}}</span>
           </div>
-          
+          <p class="text-xs">We've sent you an email for your records.</p>
         </div>
         <div class="flex">
           <a v-if="booking.isquotation" :href="booking.quoteconversionurl" class="btn btn-primary text-center mx-auto mb-2">Convert to Booking</a>

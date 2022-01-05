@@ -18,8 +18,7 @@
             <p v-if="data.numberofchildren"><i class="fal fa-bed fa-fw mr-2 text-blue-800"></i>Sleeps {{data.numberofchildren}}
             </p>
             <p v-for="feature in list" v-html="renderFeature(feature)"></p>
-            <p><i class="fal fa-tachometer-fast fa-fw text-blue-800 mr-2"></i>
-              250km/day included</p>
+            <p><i class="fal fa-tachometer-fast fa-fw text-blue-800 mr-2"></i>250km/day included</p>
           </div>
           <!-- v-if location and vehicle avaialble -->
            <!-- <div class="text-xs gap-1 flex flex-col mt-auto mb-2 text-gray-600">
