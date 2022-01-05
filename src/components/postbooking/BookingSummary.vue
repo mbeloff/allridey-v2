@@ -81,7 +81,7 @@
 
     </div>
     <div v-if="total && total.length">
-      <button v-show="changesAreSaved()" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">{{bookingdata.bookinginfo[0].isquotation ? 'Convert To Booking' : 'Pay Balance'}}</button>
+      <button v-show="changesAreSaved() && this.bookingdata.bookinginfo[0].balancedue" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">{{bookingdata.bookinginfo[0].isquotation ? 'Convert To Booking' : 'Pay Balance'}}</button>
       <button @click="$emit('saveChanges')" v-show="!changesAreSaved()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">save changes <i class="fal fa-cloud-upload"></i></button>
     </div>
     
