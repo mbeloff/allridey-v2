@@ -7,7 +7,7 @@
       <div class="grid md:grid-flow-col gap-1 px-1">
         <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Customer Details</label>
         <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Upgrade Extras</label>
-        <label v-if="bookingdata.length && !isQuotation()" for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
+        <label v-if="!isQuotation()" for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
         <input name="drivers" id="drivers" type="radio" value="drivers" v-model="tab" hidden>
         <input name="extras" id="extras" type="radio" value="extras" v-model="tab" hidden>
         <input name="uploads" id="uploads" type="radio" value="uploads" v-model="tab" hidden>
