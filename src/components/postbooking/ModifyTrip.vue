@@ -29,8 +29,8 @@
         </select>
     </div>
     <div class="grid group">
-      <label for="remark" class=" my-label">Comments</label>
-      <textarea maxlength="250" type="text" name="remark" id="remark" class="my-input" v-model="bookingdata.bookinginfo[0].remark"></textarea>
+      <label for="remark" class=" my-label w-full">Comments</label>
+      <textarea maxlength="250" type="text" name="remark" id="remark" class="my-input w-full" v-model="bookingdata.bookinginfo[0].remark"></textarea>
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-3 md:col-start-2">
