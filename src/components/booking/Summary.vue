@@ -130,7 +130,7 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
       this.pymnt = this.$route.query.pymnt
     },
     mounted() {
-      // this.sendEmail()
+      this.sendEmail()
       this.loading = false
       this.$refs.summary.scrollIntoView({
         behavior: "smooth",
