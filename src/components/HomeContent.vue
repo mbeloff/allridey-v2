@@ -11,7 +11,7 @@
       </span>
       <!-- <p class="text-xl mt-4 mb-4">Find cars and campervans in <span v-if="locationcount > 0">{{locationcount}}</span> locations across Australia and New Zealand</p> -->
       <p class="text-xl mt-4 mb-4">Car Rental</p>
-      <p>Allridey offers great value car and van rentals with locations in Hobart and Exmouth. We've got the best prices - get an instant quote and book online today.</p>
+      <p>Allridey offers great value car and van rentals with locations around Australia. We've got the best prices - get an instant quote and book online today.</p>
     </div>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-x-0 gap-y-10 md:gap-10">    
@@ -64,7 +64,7 @@
           },
           {
             title: "Car rental. Simple",
-            content: "Get an instant quote and quickly book online. Cheap car and van hire in Hobart and Exmouth",
+            content: "Get an instant quote and quickly book online. Cheap car and van hire in Brisbane, Cairns, Exmouth and Hobart",
             img: "https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1628040145/allridey/ajddSjc",
             cols: "md:col-span-2",
             linktext: "Book Now",

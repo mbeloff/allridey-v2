@@ -54,28 +54,6 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
         default: false,
       },
       bookingdata: Object,
-      customer: {
-        type: Object,
-        default: {
-          "customerid": 0,
-          "firstname": "",
-          "lastname": "",
-          "dateofbirth": "",
-          "email": "",
-          "phone": "",
-          "mobile": "",
-          "address": "",
-          "city": "",
-          "state": "",
-          "postcode": "",
-          "countryid": 7,
-          "country": "Australia",
-          "licenseno": "",
-          "licenseexpires": "",
-          "licenseissued": "Australia"
-        }
-      },
-      countries: Array
     },
   }
 </script>

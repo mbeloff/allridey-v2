@@ -12,7 +12,7 @@
           <p class="uppercase text-sm font-bold text-gray-500 mb-1">Picking Up</p>
           <ul>
             <li>{{this.step3.locationfees[0].location}}</li>
-            <li>{{this.step3.locationfees[0].dayofweekname + ' ' + this.step3.locationfees[0].locdate.substring(0, this.step3.locationfees[0].locdate.length - 4) + ' ' + this.step3.locationfees[0].loctime}}</li>
+            <li>{{this.step3.locationfees[0].dayofweekname + ' ' + this.step3.locationfees[0].locdate.substring(0, this.step3.locationfees[0].locdate.length - 4) + ' ' + tConvert(this.step3.locationfees[0].loctime)}}</li>
 
           </ul>
         </div>
@@ -26,7 +26,7 @@
           <p class="uppercase text-sm font-bold text-gray-500 mb-1">Dropping Off</p>
           <ul>
             <li>{{this.step3.locationfees[1].location}}</li>
-            <li>{{this.step3.locationfees[1].dayofweekname + ' ' + this.step3.locationfees[1].locdate.substring(0, this.step3.locationfees[1].locdate.length - 4) + ' ' + this.step3.locationfees[1].loctime}}</li>
+            <li>{{this.step3.locationfees[1].dayofweekname + ' ' + this.step3.locationfees[1].locdate.substring(0, this.step3.locationfees[1].locdate.length - 4) + ' ' + tConvert(this.step3.locationfees[1].loctime)}}</li>
           </ul>
         </div>
       </div>
@@ -354,6 +354,17 @@ import KeenSlider from '@/components/Gallery.vue'
           }
         })
         return arr
+      },
+      tConvert(time) {
+        // Check correct time format and split into components
+        time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+        if (time.length > 1) { // If time format correct
+          time = time.slice(1); // Remove full string match value
+          time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+          time[0] = +time[0] % 12 || 12; // Adjust hours
+        }
+        return time.join(''); // return adjusted time or original string
       },
     }
   }

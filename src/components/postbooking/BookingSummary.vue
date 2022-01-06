@@ -41,19 +41,19 @@
               <span class="flex-shrink">
                 {{bookingdata.rateinfo[0].numberofdays + ' days @ ' + symbol + bookingdata.rateinfo[0].dailyrateafterdiscount}}
               </span>
-              <span class="font-bold">{{symbol + rate[0].total}}</span>
+              <span class="font-bold">{{symbol + rate[0].total.toFixed(2)}}</span>
             </div>
 
             <div class="">
               <p class="font-bold text-center">Fees:</p>
               <div class="flex justify-between" v-if="insurance.length">
-                <span> Damage Cover </span><span class="font-bold ml-5">{{symbol + insurance[0].total}}</span>
+                <span> Damage Cover </span><span class="font-bold ml-5">{{symbol + insurance[0].total.toFixed(2)}}</span>
               </div>
               <div class="flex justify-between" v-if="kms.length">
-                <span> Km Charges </span><span class="font-bold ml-5">{{symbol + kms[0].total}}</span>
+                <span> Km Charges </span><span class="font-bold ml-5">{{symbol + kms[0].total.toFixed(2)}}</span>
               </div>
               <div class="flex justify-between" v-for="fee in fees" :key="fee.id">
-                <span> {{fee.name}} </span><span class="font-bold">{{symbol + fee.total}}</span>
+                <span> {{fee.name}} </span><span class="font-bold">{{symbol + fee.total.toFixed(2)}}</span>
               </div>
               <br>
             </div>
