@@ -49,7 +49,7 @@
   }
 
   .btn-secondary {
-    @apply text-blue-700 rounded bg-gray-200 border shadow-inner
+    @apply text-blue-700 rounded bg-gray-200 shadow-inner
   }
 
   .btn-secondary:hover {

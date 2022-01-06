@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form-i {
+      @apply text-blue-800 mr-2
+    }
+}

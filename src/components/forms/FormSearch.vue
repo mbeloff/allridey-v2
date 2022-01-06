@@ -16,9 +16,9 @@
               </div>
             </div>
             <div class="flex flex-col flex-grow group">
-              <label for="doloc" class="my-label has-icon">Dropoff Location</label>
+              <label for="doloc" class="my-label text-gray-400 group-hover:text-gray-400 has-icon">Dropoff Location <i class="fas fa-link fa-fw pl-1"></i></label>
               <div class="flex flex-row place-items-center">
-                <i class="form-i fal fa-map-marker fa-fw"></i>
+                <i class=" form-i fal fa-map-marker fa-fw text-gray-400 group-hover:text-gray-400"></i>
                 <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" disabled>
                   <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
@@ -313,7 +313,6 @@
 </script>
 
 <style lang="postcss">
-    .form-i {
-      @apply text-blue-800 mr-2
-    }
+
+    
 </style>
