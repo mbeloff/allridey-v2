@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 w-full h-full py-10 px-2">
+  <div class="bg-gray-300 w-full h-full py-10 px-2">
     <div class="max-w-screen-lg mx-auto bg-white rounded shadow-xl place-items-center justify-center relative">
       <div v-if="loading" class="absolute grid place-items-center w-full h-full bg-gray-200 bg-opacity-80">
         <spinner></spinner>
@@ -34,7 +34,7 @@
 
           </div>
         </div>
-
+        <router-link :to="{name: 'Search', params: { loc: $route.params.name }}"  class="btn btn-primary flex-initial w-max mt-4">Book Now</router-link>
       </div>
 
 
@@ -84,7 +84,7 @@
           let name = this.$attrs.name
           let id
           this.all.forEach(el => {
-            if (this.convert(el.location) == name) {
+            if (this.replaceSpace(el.location) == name) {
               id = el.id
             }
           })
@@ -109,9 +109,9 @@
           this.loading = false
         }, 1000);
       },
-      convert(str) {
+      replaceSpace(str) {
         return str.replace(/\s+/g, '-').toLowerCase();
-      }
+      },
     }
   }
 </script>

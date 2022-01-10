@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 w-full h-full py-10">
+  <div class="bg-gray-300 w-full h-full py-10">
     <div class="bg-white rounded shadow-xl max-w-screen-lg mx-auto py-5 flex flex-col place-items-center justify-center relative">
       <div v-if="loading" class="absolute bg-gray-200 bg-opacity-80 mx-auto h-full w-full grid place-items-center">
           <spinner></spinner>
@@ -24,7 +24,7 @@
               <p>{{location.state}}</p>
             </div>
             
-          <router-link :to="{name: 'Location', params: {name:convert(location.location), id:location.id}}" class="btn btn-secondary mt-auto" :class="{ 'text-green-600' : location.state == 'NZ'}">more info</router-link>
+          <router-link :to="{name: 'Location', params: {name:replaceSpace(location.location), id:location.id}}" class="btn btn-secondary mt-auto" :class="{ 'text-green-600' : location.state == 'NZ'}">more info</router-link>
           </div>         
         </div>
       </div>
@@ -68,7 +68,7 @@
     mixins: [Mixins],
     methods: {},
     methods: {
-      convert(str) {
+      replaceSpace(str) {
         return str.replace(/\s+/g, '-').toLowerCase();
       }
     }

@@ -11,9 +11,9 @@
     
 
     <div class="w-screen md:max-w-screen-lg mx-auto flex flex-col gap-5 py-10 px-2">
-      <!-- <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
+      <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
         <loading-overlay></loading-overlay>
-      </div>       -->
+      </div>      
       <search-results @mounted="setLoading(false)" @select-vehicle="status = 3" v-if="status == 2 && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>   
       <div v-if="errs.length" class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10">
         <p>No results found, please adjust your search</p>

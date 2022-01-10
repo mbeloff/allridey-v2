@@ -76,18 +76,18 @@
         </div>
         <div class="flex flex-col sm:flex-row justify-between gap-2">
           <!-- // ? agent code input -->
-            <!-- <div class="flex flex-col group">
+          <!-- <div class="flex flex-col group">
               <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-user-headset fa-fw"></i>
                 <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.formData.agentcode" placeholder="(agent use only)">
               </div>
             </div> -->
-           <div class="text-right flex-grow">
-          <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="text-gray-200 far fa-search"></i></button>
+          <div class="text-right flex-grow">
+            <button @click="getStep2()" class="btn btn-primary ml-7 mt-4">SEARCH <i class="text-gray-200 far fa-search"></i></button>
           </div>
         </div>
-        
+
 
       </div>
     </div>
@@ -105,7 +105,7 @@
       return {
 
         alltimes: [
-          '00:00', '00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','08:00','08:30','09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00','19:30', '20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'
+          '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'
         ],
         daterange: {},
         formData: {
@@ -120,13 +120,19 @@
           ageid: 9,
           agentcode: ""
         },
-        pickuptime: {open:"", close:""},
-        dropofftime: {open:"", close:""},
+        pickuptime: {
+          open: "",
+          close: ""
+        },
+        dropofftime: {
+          open: "",
+          close: ""
+        },
         locations: [],
         dateconfig: {
-        type: 'string',
-        mask: 'DD/MM/YYYY', // Uses 'iso' if missing
-      },
+          type: 'string',
+          mask: 'DD/MM/YYYY', // Uses 'iso' if missing
+        },
       }
     },
     watch: {
@@ -151,7 +157,7 @@
       },
     },
     computed: {
-      
+
       loading() {
         return this.isEmpty(this.step1)
       },
@@ -178,7 +184,7 @@
     methods: {
       pickuphours(id) {
         let parts = this.daterange.start.split('/')
-        let newDate =  new Date(parts[2],parts[1]-1,parts[0])
+        let newDate = new Date(parts[2], parts[1] - 1, parts[0])
         let dayofweek = newDate.getDay() + 1
         let hours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (hours == undefined) {
@@ -187,11 +193,11 @@
         } else {
           this.pickuptime.open = hours.openingtime
           this.pickuptime.close = hours.closingtime
-        }        
+        }
       },
       dropoffhours(id) {
         let parts = this.daterange.end.split('/')
-        let newDate =  new Date(parts[2],parts[1]-1,parts[0])
+        let newDate = new Date(parts[2], parts[1] - 1, parts[0])
         let dayofweek = newDate.getDay() + 1
         let hours = this.step1.officetimes.find(el => el.locationid == id && el.dayofweek == dayofweek)
         if (hours == undefined) {
@@ -200,7 +206,7 @@
         } else {
           this.dropofftime.open = hours.openingtime
           this.dropofftime.close = hours.closingtime
-        }      
+        }
       },
       isEmpty(obj) {
         if (Object.keys(obj).length === 0) {
@@ -244,7 +250,7 @@
       },
       getStep2() {
         this.$emit('errs', [])
-        this.$store.dispatch('step2', {}).then(this.$emit('searching', true));       
+        this.$store.dispatch('step2', {}).then(this.$emit('searching', true));
         this.$store.dispatch('searchParams', this.formData)
         if (this.validate() == true) {
           var params = JSON.stringify(this.formData)
@@ -252,8 +258,8 @@
             this.$store.dispatch('step2', res);
             this.$emit('update-step2')
             this.$router.push({
-            name: 'Results'
-          })
+              name: 'Results'
+            })
           })
         }
       },
@@ -264,11 +270,11 @@
         Mixins.methods.apiCall(step1).then(data => {
           this.$store.dispatch('step1', data);
           this.init(data)
-        })        
+        })
       },
       init(data) {
         this.locations = data.locations
-        this.getDefaultLocation(data.locations)
+        this.setInitialLocation(data.locations)
         // this.splitLocations(data.locations)
         this.initDates()
       },
@@ -279,40 +285,47 @@
       //   arr.splice(index,0,{location:'-----',id:null})
       //   this.locations = arr
       // },
-      getDefaultLocation(arr) {
-        let defaultId = arr.find(el => el.isdefault).id
-        this.formData.pickuplocationid = defaultId
-        this.formData.dropofflocationid = defaultId
-      },
-      initDates() {
-        var tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        var nextweek = new Date();
-        nextweek.setDate(nextweek.getDate() + 7);
-        this.daterange = {
-          start: tomorrow.toLocaleDateString('en-AU'),
-          end: nextweek.toLocaleDateString('en-AU'),
+      setInitialLocation(arr) {
+        if (this.$route.params.loc && arr.find(el => el.location.toLowerCase() == this.$route.params.loc.replace(/-+/g, ' ').toLowerCase())) {
+          let param = this.$route.params.loc.toLowerCase().replace(/-+/g, ' ').toLowerCase()
+          let id = arr.find(el => el.location.toLowerCase() == param).id
+          this.formData.pickuplocationid = id
+          this.formData.dropofflocationid = id
+        } else {
+          let defaultId = arr.find(el => el.isdefault).id
+          this.formData.pickuplocationid = defaultId
+          this.formData.dropofflocationid = defaultId
         }
-      },     
-      to12hr(time) {
-        // Check correct time format and split into components
-        time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+        },
+        initDates() {
+            var tomorrow = new Date()
+            tomorrow.setDate(tomorrow.getDate() + 1)
+            var nextweek = new Date();
+            nextweek.setDate(nextweek.getDate() + 7);
+            this.daterange = {
+              start: tomorrow.toLocaleDateString('en-AU'),
+              end: nextweek.toLocaleDateString('en-AU'),
+            }
+          },
+          to12hr(time) {
+            // Check correct time format and split into components
+            time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
-        if (time.length > 1) { // If time format correct
-          time = time.slice(1); // Remove full string match value
-          time[5] = +time[0] < 12 ? 'am' : 'pm'; // Set AM/PM
-          time[0] = +time[0] % 12 || 12; // Adjust hours
-        }
-        return time.join(''); // return adjusted time or original string
+            if (time.length > 1) { // If time format correct
+              time = time.slice(1); // Remove full string match value
+              time[5] = +time[0] < 12 ? 'am' : 'pm'; // Set AM/PM
+              time[0] = +time[0] % 12 || 12; // Adjust hours
+            }
+            return time.join(''); // return adjusted time or original string
+          },
+          updateLocation() {
+            this.formData.dropofflocationid = this.formData.pickuplocationid
+          }
       },
-      updateLocation() {
-        this.formData.dropofflocationid = this.formData.pickuplocationid
-      }
-    },
-  }
+    }
 </script>
 
 <style lang="postcss">
 
-    
+
 </style>
