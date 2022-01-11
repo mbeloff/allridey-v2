@@ -255,6 +255,8 @@ import KeenSlider from '@/components/Gallery.vue'
       },
     },
     mounted() {
+      window.scrollTo(0,0);
+
       if (this.step3.insuranceoptions.length){
       let insuranceid = this.step3.insuranceoptions[0].id
       this.step3.insuranceoptions.forEach(function (el) {

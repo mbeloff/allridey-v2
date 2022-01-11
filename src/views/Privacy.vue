@@ -2,7 +2,7 @@
 <div class="container mx-auto">
    <div class="px-3 mx-auto my-10 leading-7 text-justify text-gray-700 lg:text-left lg:px-20">
     <h1>Privacy Policy</h1>
-    <p>Last updated: December 1, 2021</p>
+    <p class="italic text-sm">Last updated: December 1, 2021</p>
     <p>
       This Privacy Policy describes Our policies and procedures on the
       collection, use and disclosure of Your information when You use Our
@@ -433,6 +433,9 @@ export default {
   computed: {
     data() {
     }
+  },
+  mounted() {
+    window.scrollTo(0,0);
   },
 }
 </script>

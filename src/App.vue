@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper min-h-screen max-w-screen grid">
     <Nav v-if="this.$route.name != 'CheckPayment'" />
-    <div class="z-0">
+    <div class="z-0 min-h-screen">
       <router-view />
     </div>
 

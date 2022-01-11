@@ -63,6 +63,7 @@
       } else {
         this.getall()
       }
+      window.scrollTo(0,0);
     },
     watch: {
       // ! get location via attr.id or derive from attr.name
@@ -75,6 +76,13 @@
           this.loading = true
           this.getLocation(this.id)
         }
+      },
+      '$route.params.name': {
+        handler: function(search) {
+           window.scrollTo(0,0);
+        },
+        deep: true,
+        immediate: true
       }
     },
     mixins: [Mixins],

@@ -43,6 +43,9 @@
         // loading: true,
       }
     },
+    mounted() {
+      window.scrollTo(0,0);
+    },
     computed: {
       locations() {
          return [...this.$store.state.locations].filter(el => el.ispickupavailable || el.isdropoffavailable)
@@ -66,7 +69,6 @@
       },
     },
     mixins: [Mixins],
-    methods: {},
     methods: {
       replaceSpace(str) {
         return str.replace(/\s+/g, '-').toLowerCase();
