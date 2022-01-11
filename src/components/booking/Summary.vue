@@ -130,13 +130,9 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
       this.pymnt = this.$route.query.pymnt
     },
     mounted() {
-      this.sendEmail()
+      // this.sendEmail()
       this.loading = false
-      this.$refs.summary.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "nearest"
-      }) 
+      window.scrollTo(0,0);  
     },
     computed: {
       bookinginfo() {
@@ -173,13 +169,13 @@ import LoadingOverlay from '@/components/LoadingOverlay.vue'
         }
         return time.join (''); // return adjusted time or original string
       },
-      sendEmail() {
-        let params = JSON.stringify({
-          "method":"sendemail",
-          "reservationref":this.booking.reservationref,
-        })
-        Mixins.methods.apiCall(params)
-      }
+      // sendEmail() {
+      //   let params = JSON.stringify({
+      //     "method":"sendemail",
+      //     "reservationref":this.booking.reservationref,
+      //   })
+      //   Mixins.methods.apiCall(params)
+      // }
     },
   }
 </script>

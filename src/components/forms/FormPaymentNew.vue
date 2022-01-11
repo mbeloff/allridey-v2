@@ -48,11 +48,7 @@
         }
       }, false);    
 
-       this.$refs.payForm.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "nearest"
-      }) 
+      window.scrollTo(0,0); 
     },
     mixins: [Mixins],
     computed: {},
@@ -60,6 +56,7 @@
       'paymentResponse': 'handlePayment',
       'confirmedPayment': function () {
         this.trackPayment()
+        this.sendEmail()
         this.$router.push({
           path: 'summary?pymnt=success',
           query: {
@@ -69,9 +66,17 @@
       }
     },
     methods: {
+      sendEmail() {
+        let params = JSON.stringify({
+          "method":"sendemail",
+          "reservationref":this.reservation.reservationref,
+        })
+        Mixins.methods.apiCall(params)
+      },
       handlePayment() {
         this.loading = true
         if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
+          this.sendEmail()
           this.$router.push({
             path: 'summary?pymnt=failed',
             query: {
@@ -82,8 +87,7 @@
         if (this.paymentResponse.Success._text == 1) {
           let params = JSON.stringify(this.gatherParams())
           Mixins.methods.apiCall(params).then(res => {
-
-            this.refreshBookingInfo()
+          this.refreshBookingInfo()
           }).catch(err => console.log(err))
         } else if (this.paymentResponse.Success._text == 0) {
           this.requestWindcaveTransaction()

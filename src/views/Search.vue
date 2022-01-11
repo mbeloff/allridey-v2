@@ -148,9 +148,17 @@
         this.count++
         this.$forceUpdate()        
       },
+      sendEmail(ref) {
+        let params = JSON.stringify({
+          "method":"sendemail",
+          "reservationref":ref,
+        })
+        Mixins.methods.apiCall(params)
+      },
       submit(mode, ref) {
         this.getBookingInfo(ref)
-        if (mode == 1) {          
+        if (mode == 1) {  
+          this.sendEmail(ref)        
           this.status = 5          
           this.$router.push({name: 'Summary'})
           this.$forceUpdate()
