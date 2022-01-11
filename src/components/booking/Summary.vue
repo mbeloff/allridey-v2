@@ -72,7 +72,11 @@
           <div class="bg-blue-900 text-white px-2 rounded-b py-1">
             <div class="flex justify-end">
               <span class="font-bold mr-2 ">TOTAL COST: </span>
-              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol}}</span><span id="booktotal">{{booking.totalcost.toFixed(2)}}</span>
+              <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol}}</span>
+              <!-- // ? id for  -->
+              <span v-if="booking.isquotation">{{booking.totalcost.toFixed(2)}}</span>
+              <span v-else id="booktotal">{{booking.totalcost.toFixed(2)}}</span>
+              
             </div>
             <div class="text-right italic text-xs">
               <span>includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }}</span>
