@@ -55,7 +55,7 @@
         articles: [
           {
             title: "2022 Sale on Now",
-            content: "Get 50% off the daily rate for all hires in Hobart.",
+            content: "For a limited time, get 50 - 70% off the daily rate for all hires in Hobart.",
             img: "https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale",
             cols: "md:col-span-1",
             linktext: "Grab a Quote",
