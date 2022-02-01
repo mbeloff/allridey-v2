@@ -7,6 +7,7 @@ import Checkin from './views/Checkin.vue'
 import ModifyBooking from './views/ModifyBooking.vue'
 import Privacy from './views/Privacy.vue'
 import NotFound from './views/NotFound.vue'
+import Contact from './views/Contact.vue'
 import { trackRouter } from "vue-gtag-next"
 const history = createWebHistory();
 
@@ -14,6 +15,7 @@ const routes = [
   { name: "Home", path: "/", component: Search, props: true },
   { name: "Search", path: "/search/:loc?", component: Search, props: true },
   { name: "Results", path: "/results", component: Search, props: true},
+  { name: "Contact", path: "/contact", component: Contact},
   { name: "Options", path: "/options", component: Search, props: true},
   { name: "Payment", path: "/payment", component: Search, props: true},
   { name: "Summary", path: "/summary", component: Search, props: true},

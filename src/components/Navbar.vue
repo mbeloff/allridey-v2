@@ -9,6 +9,8 @@
           <router-link :to="{ name: 'Search'}" class="menu-item">Book Now</router-link>
           
           <nav-item class="menu-item" :firstlabel="'Locations'" :label="'Location'" :items="locations" :itemlabel="'location'"></nav-item>
+
+          <router-link :to="{ name: 'Contact'}" class="menu-item">Contact</router-link>
           <a href="tel:0417740307" class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600">0417 740 307</a>
           <router-link :to="{ name: 'Checkin'}" class="ml-4 menu-item menu-button"><i class="fal fa-sign-in mr-1"></i> Check in</router-link>
         </div>        
@@ -24,6 +26,8 @@
         <router-link :to="{ name: 'Search' }" class="hover:bg-gray-200 px-5 py-3">Book Now</router-link>
         
         <router-link :to="{ name: 'Locations' }" class="hover:bg-gray-200 px-5 py-3">Locations</router-link>
+
+        <router-link :to="{ name: 'Contact'}" class="menu-item">Contact</router-link>
 
         <router-link :to="{ name: 'Checkin' }" class="hover:bg-gray-200 px-5 py-3 menu-item menu-button max-w-max rounded-full mx-auto text-sm"><i class="fal fa-sign-in mr-1"></i> Check In</router-link>
         <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
