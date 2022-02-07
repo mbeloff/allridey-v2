@@ -169,9 +169,16 @@
         }
       },
       trackQuote() {
-        this.$gtag.event('submit_quote', {
+        this.$gtag.event('add_to_wishlist', {
+          'currency': "AUD",
           'event_category' : 'ecommerce',
-          'value' : this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+          'value' : this.bookinginfo.bookinginfo[0].totalcost,
+          'items': [{
+                'item_name': this.bookinginfo.bookinginfo[0].vehiclecategory, // Product Name- Type: String
+                'price': this.bookinginfo.bookinginfo[0].totalcost, // Product price - Type: numeric
+                'item_brand': 'Allridey', //Product brand - Type: string
+                'days': this.bookinginfo.bookinginfo[0].numberofdays,
+          }]
         })
       },
       getBookingInfo(ref) {

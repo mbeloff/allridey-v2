@@ -52,7 +52,8 @@
         behavior: "smooth",
         block: "center",
         inline: "nearest"
-      })   
+      })
+      this.ecommView(this.step2.availablecars)   
     },
     computed: {
       filteredVehicles() {
@@ -85,6 +86,26 @@
     methods: {
       selectVehicle(data, step) {
         this.$emit('select-vehicle', data, step)
+      },
+      ecommView(cars) {
+        let items = []
+        cars.forEach(car => {
+          items.push({
+                'item_name': car.categoryfriendlydescription, // Product Name- Type: String
+                'item_id': car.vehiclecategoryid.toString(), // Product ID/SKU- Type: String
+                'price': car.totalrateafterdiscount, // Product price - Type: numeric
+                'item_brand': 'Allridey', //Product brand - Type: string
+                'item_category': car.vehiclecategorytypeid.toString(), // Product category Main - Type: string
+                'item_list_name': 'Search Results', // Product List Name - Type: string
+                'original_price': car.totalratebeforediscount,
+                'days': car.numberofdays,
+          })
+        })
+        this.$gtag.event('view_item_list', {
+          'currency': "AUD",
+          'event_category' : 'ecommerce',
+          'items': items
+        })
       },
       // getCats(catids) {
       //   let arr = []

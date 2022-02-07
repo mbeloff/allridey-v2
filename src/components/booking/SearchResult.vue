@@ -96,6 +96,22 @@
     },
     mixins: [Mixins],
     methods: {
+      ecommView() {
+        this.$gtag.event('select_content', {
+          'currency': "AUD",
+          'content_type' : 'product',
+          'event_category' : 'ecommerce',
+          'items': [{
+                'item_name': this.data.categoryfriendlydescription, // Product Name- Type: String
+                'item_id': this.data.vehiclecategoryid.toString(), // Product ID/SKU- Type: String
+                'price': this.data.totalrateafterdiscount, // Product price - Type: numeric
+                'item_brand': 'Allridey', //Product brand - Type: string
+                'item_category': this.data.vehiclecategorytypeid.toString(), // Product category Main - Type: string
+                'original_price': this.data.totalratebeforediscount,
+                'days': this.data.numberofdays,
+          }]
+        })
+      },
       getGallery() {
         let Host =
           import.meta.env.VITE_HOST
@@ -112,7 +128,7 @@
         fetch(Host + "/.netlify/functions/getGallery", requestOptions)
           .then(response => response.text())
           .then(res => JSON.parse(res))
-          .then(files => {           
+          .then(files => {
             files.forEach(el => this.gallery.unshift(baseurl + transform + el + '.jpg'))
             this.gallery.unshift(this.data.imageurl)
           })
@@ -133,6 +149,7 @@
         }
       },
       getStep3() {
+        this.ecommView()
         var params = JSON.stringify({
           'method': 'step3',
           'vehiclecategorytypeid': this.data.vehiclecategorytypeid,
@@ -150,10 +167,10 @@
           this.$store.dispatch('step3', data);
           this.$emit("select-vehicle", data, 3)
           this.$router.push({
-          name: "Options"
+            name: "Options"
+          })
         })
-        })
-        
+
       },
       getFeeOfType(type) {
         let arr = []
@@ -173,6 +190,7 @@
           return false
         }
       },
+      
     }
   }
 </script>

@@ -46,9 +46,9 @@
         } else if (event.data.TxnType) {
           this.paymentResponse = event.data
         }
-      }, false);    
+      }, false);
 
-      window.scrollTo(0,0); 
+      window.scrollTo(0, 0);
     },
     mixins: [Mixins],
     computed: {},
@@ -68,8 +68,8 @@
     methods: {
       sendEmail() {
         let params = JSON.stringify({
-          "method":"sendemail",
-          "reservationref":this.reservation.reservationref,
+          "method": "sendemail",
+          "reservationref": this.reservation.reservationref,
         })
         Mixins.methods.apiCall(params)
       },
@@ -87,7 +87,7 @@
         if (this.paymentResponse.Success._text == 1) {
           let params = JSON.stringify(this.gatherParams())
           Mixins.methods.apiCall(params).then(res => {
-          this.refreshBookingInfo()
+            this.refreshBookingInfo()
           }).catch(err => console.log(err))
         } else if (this.paymentResponse.Success._text == 0) {
           this.requestWindcaveTransaction()
@@ -105,17 +105,25 @@
         return month + '/' + year
       },
       trackPayment() {
-        let obj = this.paymentResponse
-        this.$gtag.purchase({
-          currency: "AUD",
-          transaction_id: this.$store.state.bookinginfo.bookinginfo[0].reservationdocumentno,
-          value: obj.AmountSettlement._text,
-          items: [{
-            item_name: this.$store.state.bookinginfo.bookinginfo[0].vehiclecategory,
-            location_id: this.$store.state.bookinginfo.bookinginfo[0].pickuplocationname,
-            price: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
-          }]
-        })
+          let items = [{
+              item_name: this.$store.state.bookinginfo.bookinginfo[0].vehiclecategory,
+              location_id: this.$store.state.bookinginfo.bookinginfo[0].pickuplocationname,
+              price: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+            }]
+          this.$store.state.extrafees.forEach(fee => {
+            items.push({
+              'item_name': fee.name,
+              'price' : fee.totalfeeamount,
+              'quantity': fee.qty,
+            })
+          })
+          this.$gtag.event('purchase',{
+            currency: "AUD",
+            'event_category' : 'ecommerce',
+            transaction_id: this.$store.state.bookinginfo.bookinginfo[0].reservationdocumentno,
+            value: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+            items: items
+          })
       },
       gatherParams() {
         let obj = this.paymentResponse
