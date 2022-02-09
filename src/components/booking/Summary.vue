@@ -79,7 +79,7 @@
               
             </div>
             <div class="text-right italic text-xs">
-              <span>includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }}</span>
+              <span>(includes GST of: </span><span> {{ booking.currencysymbol + booking.gst }})</span>
             </div>
             <div v-if="payment.length != 0" class="flex justify-end mt-2 text-sm">
               <span class="font-bold mr-2 ">BALANCE DUE: </span>

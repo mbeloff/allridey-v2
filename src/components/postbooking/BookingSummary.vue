@@ -73,7 +73,7 @@
             <span class="text-right" v-if="totals && totals.length">{{bookingdata.bookinginfo[0].currencyname + ' ' + symbol + (total[0].total - bookingdata.bookinginfo[0].payment).toFixed(2)}}</span>
           </div>
           <div class="text-right italic text-xs" v-if="totals && totals.length">
-            <span>includes GST of: </span><span> {{ symbol + tax[0].total }}</span>
+            <span>(includes GST of: </span><span> {{ symbol + tax[0].total }})</span>
           </div>
         </div>
       </div>
