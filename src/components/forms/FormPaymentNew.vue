@@ -1,5 +1,6 @@
 <template>
   <div class="w-full h-full p-1">
+    <!-- <button class="btn btn-primary" @click="refreshBookingInfo()">test</button> -->
     <div class="mx-auto flex flex-col gap-3 flex-1 rounded py-2 relative" style="max-width: 400px">
       <loading-overlay v-if="loading">
         ...loading
@@ -54,15 +55,19 @@
     computed: {},
     watch: {
       'paymentResponse': 'handlePayment',
-      'confirmedPayment': function () {
-        this.trackPayment()
-        this.sendEmail()
-        this.$router.push({
-          path: 'summary?pymnt=success',
-          query: {
-            pymnt: 'success'
-          }
-        })
+      'confirmedPayment': {
+        handler () {
+          console.log('confPayment changed')
+          this.trackPayment()
+          this.sendEmail()
+          this.$router.push({
+            path: 'summary?pymnt=success',
+            query: {
+              pymnt: 'success'
+            }
+          })
+        },
+        deep: true
       }
     },
     methods: {
@@ -106,11 +111,11 @@
       },
       trackPayment() {
           let items = [{
-              item_name: this.$store.state.bookinginfo.bookinginfo[0].vehiclecategory,
-              location_id: this.$store.state.bookinginfo.bookinginfo[0].pickuplocationname,
-              price: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+              item_name: this.confirmedPayment.bookinginfo[0].vehiclecategory,
+              location_id: this.confirmedPayment.bookinginfo[0].pickuplocationname,
+              price: this.confirmedPayment.bookinginfo[0].totalcost,
             }]
-          this.$store.state.extrafees.forEach(fee => {
+          this.confirmedPayment.extrafees.forEach(fee => {
             items.push({
               'item_name': fee.name,
               'price' : fee.totalfeeamount,
@@ -120,8 +125,8 @@
           this.$gtag.event('purchase',{
             currency: "AUD",
             'event_category' : 'ecommerce',
-            transaction_id: this.$store.state.bookinginfo.bookinginfo[0].reservationdocumentno,
-            value: this.$store.state.bookinginfo.bookinginfo[0].totalcost,
+            transaction_id: this.confirmedPayment.bookinginfo[0].reservationdocumentno,
+            value: this.confirmedPayment.bookinginfo[0].totalcost,
             items: items
           })
       },
