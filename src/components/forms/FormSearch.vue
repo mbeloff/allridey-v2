@@ -10,7 +10,7 @@
               <label for="puloc" class="my-label has-icon">Pickup Location</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-map-marker fa-fw"></i>
-                <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.formData.pickuplocationid">
+                <select v-if="step1" name="puloc" id="puloc" class="my-input" v-model="this.form.pickuplocationid">
                   <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
@@ -19,7 +19,7 @@
               <label for="doloc" class="my-label text-gray-400 group-hover:text-gray-400 has-icon">Dropoff Location <i class="fas fa-link fa-fw pl-1"></i></label>
               <div class="flex flex-row place-items-center">
                 <i class=" form-i fal fa-map-marker fa-fw text-gray-400 group-hover:text-gray-400"></i>
-                <select name="doloc" id="doloc" class="my-input" v-model="this.formData.dropofflocationid" disabled>
+                <select name="doloc" id="doloc" class="my-input" v-model="this.form.dropofflocationid" disabled>
                   <option v-for="(loc, i) in locations" :key="loc.id" :value="loc.id" :disabled="!loc.id">{{loc.location}}</option>
                 </select>
               </div>
@@ -42,9 +42,9 @@
                     <label class="my-label has-icon" for="putime">Pickup Time</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-clock fa-fw"></i>
-                      <select name="putime" id="putime" class="my-input" v-model="formData.pickuptime">
+                      <select name="putime" id="putime" class="my-input" v-model="form.pickuptime">
                         <option v-for="(time, i) in alltimes" :key="i" :value="time">
-                          {{to12hr(time)}} <span v-if="!putimearr.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span>
+                          {{to12hr(time)}} <span v-if="!openingHoursPickup.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span>
                         </option>
                       </select>
                     </div>
@@ -64,8 +64,8 @@
                     <label class="my-label has-icon" for="dotime">Dropoff Time</label>
                     <div class="flex flex-row place-items-center">
                       <i class="form-i fal fa-clock fa-fw"></i>
-                      <select name="dotime" id="dotime" class="my-input" v-model="formData.dropofftime">
-                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}} <span v-if="!dotimearr.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span></option>
+                      <select name="dotime" id="dotime" class="my-input" v-model="form.dropofftime">
+                        <option v-for="(time, i) in alltimes" :key="i" :value="time">{{to12hr(time)}} <span v-if="!openingHoursDropoff.find(el => el == time) || time == '00:00'">{{ '- after hours fee' }}</span></option>
                       </select>
                     </div>
                   </div>
@@ -80,7 +80,7 @@
               <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
               <div class="flex flex-row place-items-center">
                 <i class="form-i fal fa-user-headset fa-fw"></i>
-                <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.formData.agentcode" placeholder="(agent use only)">
+                <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.form.agentcode" placeholder="(agent use only)">
               </div>
             </div> -->
           <div class="text-right flex-grow">
@@ -103,12 +103,11 @@
     },
     data() {
       return {
-
         alltimes: [
           '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'
         ],
         daterange: {},
-        formData: {
+        form: {
           method: 'step2',
           vehiclecategorytypeid: '0',
           pickuplocationid: undefined,
@@ -137,40 +136,45 @@
     },
     watch: {
       "daterange": function (val) {
-        // this.formData.pickupdate = val.start.toLocaleDateString('en-AU')
-        // this.formData.dropoffdate = val.end.toLocaleDateString('en-AU')
-        this.formData.pickupdate = val.start
-        this.formData.dropoffdate = val.end
+        this.form.pickupdate = val.start
+        this.form.dropoffdate = val.end
       },
-      "formData.pickuplocationid": function (val) {
+      "form.pickuplocationid": function (val) {
         this.pickuphours(val)
-        this.updateLocation()
+        this.updateDropoffLocation()
       },
-      "formData.dropofflocationid": function (val) {
+      "form.dropofflocationid": function (val) {
         this.dropoffhours(val)
       },
-      "formData.pickupdate": function () {
-        this.pickuphours(this.formData.pickuplocationid)
+      "form.pickupdate": function () {
+        this.pickuphours(this.form.pickuplocationid)
       },
-      "formData.dropoffdate": function () {
-        this.dropoffhours(this.formData.dropofflocationid)
+      "form.dropoffdate": function () {
+        this.dropoffhours(this.form.dropofflocationid)
       },
     },
     computed: {
-
       loading() {
         return this.isEmpty(this.step1)
       },
       step1() {
         return this.$store.state.step1
       },
-      putimearr() {
+      openingHoursPickup() {
         let all = [...this.alltimes]
         return all.slice(all.indexOf(this.pickuptime.open), all.indexOf(this.pickuptime.close) + 1)
       },
-      dotimearr() {
+      openingHoursDropoff() {
         let all = [...this.alltimes]
         return all.slice(all.indexOf(this.dropofftime.open), all.indexOf(this.dropofftime.close) + 1)
+      },
+      pickupDateRaw() {
+        let str = this.form.pickupdate.split('/')
+        return new Date(str[2],str[1]-1, str[0])
+      },
+      dropoffDateRaw() {
+        let str = this.form.dropoffdate.split('/')
+        return new Date(str[2],str[1]-1, str[0])
       }
     },
     mounted() {
@@ -225,21 +229,28 @@
       },
       validate() {
         // push custom error message before search
-        let pudt = this.getDateTimeObject(this.formData.pickupdate, this.formData.pickuptime)
-        let dodt = this.getDateTimeObject(this.formData.dropoffdate, this.formData.dropofftime)
+        let pickupDateTime = this.getDateTimeObject(this.form.pickupdate, this.form.pickuptime)
+        let dropoffDateTime = this.getDateTimeObject(this.form.dropoffdate, this.form.dropofftime)
         let errs = []
-        if (pudt < new Date()) {
+        if (pickupDateTime < new Date()) {
           errs.push('Pickup date is in the past')
         }
-        if (Date.parse(dodt) <= Date.parse(pudt)) {
+        if (Date.parse(dropoffDateTime) <= Date.parse(pickupDateTime)) {
           errs.push('Dropoff date/time must by after pickup date/time')
         }
-        // if (!this.putimearr.length) {
-        //   errs.push('There are no pickup times available for your selected dates. Please select a different Pickup Date')
-        // }
-        // if (!this.dotimearr.length) {
-        //   errs.push('There are no dropoff times available for your selected dates. Please select a different Dropoff Date')
-        // }
+
+        // pickup blocked?
+        let pickupHol = this.isDateBlocked(this.form.pickuplocationid, this.pickupDateRaw, 'P')
+        if (pickupHol) {
+          errs.push('Pickup date is not available - ' + pickupHol)
+        }
+
+        // dropoff blocked
+        let dropoffHol = this.isDateBlocked(this.form.dropofflocationid, this.dropoffDateRaw, 'D')
+        if (dropoffHol) {
+          errs.push('Dropoff date is not available - ' + dropoffHol)
+        }
+
         if (errs.length > 0) {
           this.$emit('errs', errs)
           this.$emit('searching', false)
@@ -247,13 +258,25 @@
         } else {
           return true
         }
+
+      },
+      isDateBlocked(id, date, type) {
+        let holiday
+        this.step1.holidays.forEach(el => {
+          let start = new Date(el.startdate)
+          let end = new Date(el.enddate)
+          if (id == el.locationid && (date >= start && date <= end) && el.type == type) {
+            holiday = el.holidayname
+          }
+        })
+        return holiday
       },
       getStep2() {
         this.$emit('errs', [])
         this.$store.dispatch('step2', {}).then(this.$emit('searching', true));
-        this.$store.dispatch('searchParams', this.formData)
+        this.$store.dispatch('searchParams', this.form)
         if (this.validate() == true) {
-          var params = JSON.stringify(this.formData)
+          var params = JSON.stringify(this.form)
           Mixins.methods.apiCall(params).then(res => {
             this.$store.dispatch('step2', res);
             this.$emit('update-step2')
@@ -289,12 +312,12 @@
         if (this.$route.params.loc && arr.find(el => el.location.toLowerCase() == this.$route.params.loc.replace(/-+/g, ' ').toLowerCase())) {
           let param = this.$route.params.loc.toLowerCase().replace(/-+/g, ' ').toLowerCase()
           let id = arr.find(el => el.location.toLowerCase() == param).id
-          this.formData.pickuplocationid = id
-          this.formData.dropofflocationid = id
+          this.form.pickuplocationid = id
+          this.form.dropofflocationid = id
         } else {
           let defaultId = arr.find(el => el.isdefault).id
-          this.formData.pickuplocationid = defaultId
-          this.formData.dropofflocationid = defaultId
+          this.form.pickuplocationid = defaultId
+          this.form.dropofflocationid = defaultId
         }
         },
         initDates() {
@@ -318,8 +341,8 @@
             }
             return time.join(''); // return adjusted time or original string
           },
-          updateLocation() {
-            this.formData.dropofflocationid = this.formData.pickuplocationid
+          updateDropoffLocation() {
+            this.form.dropofflocationid = this.form.pickuplocationid
           }
       },
     }

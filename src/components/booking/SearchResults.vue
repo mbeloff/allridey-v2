@@ -1,6 +1,6 @@
 <template>
   <div ref="searchResults" class="text-left rounded w-full searchResults relative">   
-    <p class="text-center absolute inset-x-0 top-0"  v-if="numAvailable == 0">No results found</p>
+    <!-- <p class="text-center absolute inset-x-0 top-0"  v-if="numAvailable == 0">No results found</p> -->
     <!-- <div v-for="(cat, i) in getCats(categories)" class="my-2"> -->
       <!-- <div class="flex bg-gray-600 text-white px-2">
         <p>{{cat.vehiclecategorytype}}</p>
@@ -22,8 +22,7 @@
 </template>
 <script>
   import LoadingOverlay from '@/components/LoadingOverlay.vue'
-  import SearchResult from '@/components/booking/SearchResult.vue'
-  
+  import SearchResult from '@/components/booking/SearchResult.vue'  
   export default {
     
     components: {
