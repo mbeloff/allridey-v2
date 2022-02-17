@@ -114,6 +114,7 @@
               item_name: this.confirmedPayment.bookinginfo[0].vehiclecategory,
               location_id: this.confirmedPayment.bookinginfo[0].pickuplocationname,
               price: this.confirmedPayment.bookinginfo[0].totalcost,
+              quanity: 1
             }]
           this.confirmedPayment.extrafees.forEach(fee => {
             items.push({
