@@ -69,7 +69,7 @@
           </div>
 
           <!-- CALCULATED TOTAL -->
-          <div class="bg-blue-900 text-white px-2 rounded-b py-1">
+          <div class="bg-blue-900 text-white px-2 rounded-b py-4">
             <div class="flex justify-end">
               <span class="font-bold mr-2 ">TOTAL COST: </span>
               <span class="text-right">{{booking.currencyname + ' ' + booking.currencysymbol}}</span>
