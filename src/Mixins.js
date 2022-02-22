@@ -1,17 +1,14 @@
 import store from './store.js'
 export default {
   methods: {    
+
     signRequest(method) {
       let Host = import.meta.env.VITE_HOST
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
 
       var raw = method;
       var requestOptions = {
         method: 'POST',
-        headers: myHeaders,
         body: raw,
-        redirect: 'follow'
       };
       return fetch( Host + "/.netlify/functions/signRequest", requestOptions)
         .then(response => response.text())
@@ -21,11 +18,12 @@ export default {
         .catch(error => {console.log('Couldn\'t get token!', error)
     });
     },
+
     async apiCall(method) {
-      let signString = await this.signRequest(method);
+      let signature = await this.signRequest(method);
       let formdata = new FormData();
       formdata.append("request", method);
-      formdata.append("signature", signString);
+      formdata.append("signature", signature);
       return fetch("https://apis.rentalcarmanager.com/booking/v3.2?apikey=QXVBbGxSaWRleTUzNFt1bmRlZmluZWRdfE1pY2hhZWxXaWNrZWR8ZXVucGNGdEI=", {
           method: "POST",
           body: formdata,
@@ -45,6 +43,7 @@ export default {
           return error
         })    
     },
+
     getToken() {
       let Host =
         import.meta.env.VITE_HOST
@@ -62,6 +61,7 @@ export default {
         .catch(error => console.log('error', error));
       // return store.state.token
     },
+    
     async postapiCall(method) {
       let token = store.state.token
       let expires = new Date(store.state.tokenExp).getTime()

@@ -65,6 +65,11 @@
       this.getCountries()
     },
     mounted() {},
+    computed: {
+      isQuotation() {
+        return this.bookingdata.bookinginfo[0].isquotation
+      }
+    },
     methods: {
       getCountries() {
         let method = JSON.stringify({
@@ -74,9 +79,6 @@
           .then(results => {
             this.countries = results.results
           })
-      },
-      isQuotation() {
-        return this.bookingdata.bookinginfo[0].isQuotation
       },
       defaultCustomer() {
         return {

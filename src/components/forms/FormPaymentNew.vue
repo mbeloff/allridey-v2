@@ -57,7 +57,7 @@
       'paymentResponse': 'handlePayment',
       'confirmedPayment': {
         handler () {
-          console.log('confPayment changed')
+          console.log('payment confirmed')
           this.trackPayment()
           this.sendEmail()
           this.$router.push({

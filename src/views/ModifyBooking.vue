@@ -7,7 +7,7 @@
       <div class="grid md:grid-flow-col gap-1 px-1">
         <label for="drivers" class="btn btn-primary" :class="{'active':tab=='drivers'}">Customer Details</label>
         <label for="extras" class="btn btn-primary" :class="{'active':tab=='extras'}">Upgrade Extras</label>
-        <label v-if="!isQuotation()" for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
+        <label v-if="isQuotation == false" for="uploads" class="btn btn-primary" :class="{'active':tab=='uploads'}">Upload Documents</label>
         <input name="drivers" id="drivers" type="radio" value="drivers" v-model="tab" hidden>
         <input name="extras" id="extras" type="radio" value="extras" v-model="tab" hidden>
         <input name="uploads" id="uploads" type="radio" value="uploads" v-model="tab" hidden>
@@ -44,12 +44,13 @@
         loading: false,
         tab: "drivers",
         totals: [],
-        insurancefee: 0,
+        insurancefee: "",
         mandatoryfees: [],
         optionalfees: [],
         resref: "",
         customer: {},
-        ready: false
+        ready: false,
+        isQuotation: null
       }
     },
     created() {
@@ -57,9 +58,6 @@
       this.resref = this.$store.state.pbresref
     },
     methods: {
-      isQuotation() {
-        return this.bookingdata.bookinginfo[0].isquotation
-      },
       bookingInfo() {
         let resref = this.$store.state.pbresref
         this.loading = true
@@ -99,12 +97,16 @@
       },
       getIns(data) {
         let id = data.find(el=>el.isinsurancefee)
-        return id.extrafeeid
+        if (id) {
+          return id.extrafeeid
+        }
+        return null
       },
       init(data) {
         let feedata = data.extrafees
         this.bookingdata = data
         this.customer = data.customerinfo[0]
+        this.isQuotation = data.bookinginfo[0].isquotation
         this.insurancefee = this.getIns(feedata)
         this.mandatoryfees = this.getMans(feedata)
         this.optionalfees = this.getOpts(feedata)
