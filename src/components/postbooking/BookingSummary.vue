@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="text-left shadow-xl bg-white rounded relative">
+      <!-- <button class="btn btn-primary" @click="test()">test</button> -->
       <div>
         <loading-overlay v-if="loading"></loading-overlay>
         <p class="text-3xl px-2 py-3 text-center">{{ (this.bookingdata.bookinginfo[0].isquotation ? 'Quote' : 'Booking') + ' Summary'}}</p>
@@ -78,28 +79,25 @@
         </div>
       </div>
 
-
     </div>
     <div v-if="total && total.length">
       <button v-show="changesAreSaved() && this.bookingdata.bookinginfo[0].balancedue" @click="createPayment()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">{{bookingdata.bookinginfo[0].isquotation ? 'Convert To Booking' : 'Pay Balance'}}</button>
       <button @click="$emit('saveChanges')" v-show="!changesAreSaved()" class="bg-white text-yellow-400 my-4 text-3xl w-full py-2 font-bold rounded">save changes <i class="fal fa-cloud-upload"></i></button>
     </div>
-    
 
     <div v-if="openPayment" class="absolute max-w-screen w-full h-full min-h-max bg-black bg-opacity-70 z-50 top-0 left-0 grid items-center justify-center px-2">
       <div class="bg-white rounded p-2">
         <loading-overlay v-if="payLoading">
-        ...loading
+          ...loading
         </loading-overlay>
         <div v-if="paymentResponse.Success && paymentResponse.Success._text == 0 && paymentResponse.CardHolderName._text != 'User Cancelled'">
-        <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
-      </div>
+          <p class="bg-yellow-500 text-yellow-900 text-sm">{{paymentResponse.ResponseText._text}}</p>
+        </div>
         <div ref="payForm">
-        <iframe ref="wcframe" :src="payurl" width="400" height="900" scrolling="no"></iframe>
-      </div>
+          <iframe ref="wcframe" :src="payurl" width="400" height="900" scrolling="no"></iframe>
+        </div>
         <button @click="openPayment = false" class="italic text-red-500 text-right float-right">go back <i class="ml-1 fal fa-times-square"></i></button>
       </div>
-
     </div>
   </div>
 
@@ -131,7 +129,6 @@
         },
         deep: true
       },
-      
     },
     mounted() {
       window.addEventListener("message", (event) => {
@@ -171,8 +168,10 @@
       tax() {
         return this.getFees('country tax')
       },
+      isQuotation() {
+        return this.bookingdata.bookinginfo[0].isquotation
+      }
     },
-
     methods: {
       getFees(type, type2) {
         let fees = []
@@ -199,12 +198,9 @@
         }
         return time.join(''); // return adjusted time or original string
       },
-      createPayment() {       
+      createPayment() {
         this.payLoading = true
         this.openPayment = true
-
-         
-
         var body = JSON.stringify({
           amount: this.bookingdata.bookinginfo[0].balancedue,
           currency: this.bookingdata.bookinginfo[0].currencyname,
@@ -215,7 +211,8 @@
           body: body,
           redirect: 'follow'
         };
-        fetch(import.meta.env.VITE_HOST + "/.netlify/functions/reqtrans", requestOptions)
+        fetch(
+          import.meta.env.VITE_HOST + "/.netlify/functions/reqtrans", requestOptions)
           .then(response => response.text())
           .then(result => {
             let res = JSON.parse(result).Request.URI._text
@@ -224,7 +221,7 @@
             this.$refs.payForm.scrollIntoView({
               behavior: "smooth",
               block: "start",
-            }) 
+            })
           })
           .catch(error => {
             console.log('request transaction failed: ', error)
@@ -236,22 +233,22 @@
           this.openPayment = false
           return
         }
-        if (this.paymentResponse.Success._text == 1) {   
-        let params = JSON.stringify(this.gatherParams())
-        Mixins.methods.postapiCall(params).then(res => {
-          if (res.status == 'OK') {
-            this.openPayment = false
-            this.$emit('update')
-          } else if (res.status == 'ERR') {
-            alert(res.error)
-          }         
-        })
-        } else if (this.paymentResponse.Success._text == 0) {       
+        if (this.paymentResponse.Success._text == 1) {
+          let params = JSON.stringify(this.gatherParams())
+          Mixins.methods.postapiCall(params).then(res => {
+            if (res.status == 'OK') {
+              this.openPayment = false
+              this.$emit('update')
+            } else if (res.status == 'ERR') {
+              alert(res.error)
+            }
+          })
+        } else if (this.paymentResponse.Success._text == 0) {
           this.createPayment()
           this.count++
-        }  
+        }
       },
-      getPaydate(dateStr) {
+      formatPayDate(dateStr) {
         let year = dateStr.substring(0, 4)
         let month = dateStr.substring(4, 6)
         let day = dateStr.substring(6, 8)
@@ -264,28 +261,60 @@
       },
       gatherParams() {
         let obj = this.paymentResponse
-        let params = {
-          "method": "confirmpayment",
-          "reservationref": this.resref,
-          "amount": obj.AmountSettlement._text,
-          "success": obj.Success._text,
-          "paytype": obj.CardName._text,
-          "paydate": this.getPaydate(obj.DateSettlement._text),
-          "supplierid": 2,
-          "transactid": obj.TxnId._text,
-          "dpstxnref": obj.DpsTxnRef._text,
-          "cardholder": obj.CardHolderName._text,
-          "paysource": "Windcave Online Payment",
-          "cardnumber": obj.CardNumber._text,
-          "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
-          "transtype": "Payment",
-          "payscenario": 1,
-          "emailoption": 0
+        let params = {}
+        if (this.bookingdata.bookinginfo[0].isquotation) {
+          params = {
+            "method": "convertquote",
+            "reservationref": this.resref,
+            "insuranceid": this.insurance[0].id,
+            "extrakmsid": this.bookingdata.bookinginfo[0].kmcharges_id,
+            "customer": {
+              "lastname": this.bookingdata.customerinfo[0].lastname,
+              "email": this.bookingdata.customerinfo[0].email,
+            },
+            "emailoption": 0,
+            "payment": {
+              "amount": obj.AmountSettlement._text,
+              "success": obj.Success._text,
+              "paytype": obj.CardName._text,
+              "paydate": this.formatPayDate(obj.DateSettlement._text),
+              "supplierid": 2,
+              "transactid": obj.TxnId._text,
+              "dpstxnref": obj.DpsTxnRef._text,
+              "cardholder": obj.CardHolderName._text,
+              "paysource": "Windcave Online Payment",
+              "cardnumber": obj.CardNumber._text,
+              "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
+              "transtype": "Payment",
+              "payscenario": 1,
+            }
+          }
+        } else {
+          params = {
+            "method": "confirmpayment",
+            "reservationref": this.resref,
+            "amount": obj.AmountSettlement._text,
+            "success": obj.Success._text,
+            "paytype": obj.CardName._text,
+            "paydate": this.formatPayDate(obj.DateSettlement._text),
+            "supplierid": 2,
+            "transactid": obj.TxnId._text,
+            "dpstxnref": obj.DpsTxnRef._text,
+            "cardholder": obj.CardHolderName._text,
+            "paysource": "Windcave Online Payment",
+            "cardnumber": obj.CardNumber._text,
+            "cardexpiry": this.cardExpiry(obj.DateExpiry._text),
+            "transtype": "Payment",
+            "payscenario": 1,
+            "emailoption": 0
+          }
+          return params
         }
-        return params
+
+
       },
       changesAreSaved() {
-        return this.bookingdata.bookinginfo[0].balancedue == ( this.total[0].total - this.bookingdata.bookinginfo[0].payment )
+        return this.bookingdata.bookinginfo[0].balancedue == (this.total[0].total - this.bookingdata.bookinginfo[0].payment)
       }
     }
   }
