@@ -173,11 +173,13 @@
           'currency': "AUD",
           'event_category' : 'ecommerce',
           'value' : this.bookinginfo.bookinginfo[0].totalcost,
+          
           'items': [{
                 'item_name': this.bookinginfo.bookinginfo[0].vehiclecategory, // Product Name- Type: String
                 'price': this.bookinginfo.bookinginfo[0].totalcost, // Product price - Type: numeric
                 'item_brand': 'Allridey', //Product brand - Type: string
                 'days': this.bookinginfo.bookinginfo[0].numberofdays,
+                'discount': this.bookinginfo.rateinfo[0].dailyratebeforediscount * this.bookinginfo.rateinfo[0].numberofdays,
           }]
         })
       },

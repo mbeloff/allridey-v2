@@ -1,6 +1,5 @@
 <template>
   <div class="w-full h-full p-1">
-    <!-- <button class="btn btn-primary" @click="refreshBookingInfo()">test</button> -->
     <div class="mx-auto flex flex-col gap-3 flex-1 rounded py-2 relative" style="max-width: 400px">
       <loading-overlay v-if="loading">
         ...loading
@@ -59,7 +58,7 @@
       'confirmedPayment': {
         handler () {
           console.log('payment confirmed')
-          this.trackPayment()
+          this.trackPayment(this.bookingdata)
           this.sendEmail()
           this.$router.push({
             path: 'summary?pymnt=success',
@@ -110,14 +109,14 @@
         let year = dateStr.substring(2, 4)
         return month + '/' + year
       },
-      trackPayment() {
+      trackPayment(data) {
         let items = [{
-            item_name: this.bookingdata.bookinginfo[0].vehiclecategory,
-            price: this.bookingdata.rateinfo[0].ratesubtotal,
+            item_name: data.bookinginfo[0].vehiclecategory,
+            price: data.rateinfo[0].ratesubtotal,
             quanity: 1,
-            discount: this.bookingdata.rateinfo[0].dailyratebeforediscount * this.bookingdata.rateinfo[0].numberofdays
+            discount: data.rateinfo[0].dailyratebeforediscount * data.rateinfo[0].numberofdays
           }]
-        this.bookingdata.extrafees.forEach(fee => {
+        data.extrafees.forEach(fee => {
           items.push({
             'item_name': fee.name,
             'price' : fee.totalfeeamount,
@@ -127,10 +126,10 @@
         this.$gtag.event('purchase',{
           currency: "AUD",
           'event_category' : 'ecommerce',
-          transaction_id: this.bookingdata.bookinginfo[0].reservationdocumentno,
-          value: this.bookingdata.bookinginfo[0].totalcost,
+          transaction_id: data.bookinginfo[0].reservationdocumentno,
+          value: data.bookinginfo[0].totalcost,
           items: items,
-          coupon: this.bookingdata.rateinfo[0].discountname.replaceAll(' ','_')
+          coupon: data.rateinfo[0].discountname.replaceAll(' ','_')
         })
       },
       gatherParams() {
