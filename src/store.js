@@ -13,7 +13,6 @@ export default createStore({
     step3: {},
     locations: [],
     searchParams: {},
-    bookingparams: {},
     bookinginfo: {
       bookinginfo: [{}],
       companyinfo: [{}],
@@ -61,9 +60,6 @@ export default createStore({
     step3(state, payload) {
       state.step3 = payload
     },
-    bookingparams(state, payload) {
-      state.bookingparams = payload
-    },
     bookinginfo(state, payload) {
       state.bookinginfo = payload
     },
@@ -101,9 +97,6 @@ export default createStore({
     },
     step3(context, payload) {
       context.commit('step3', payload)
-    },
-    bookingparams(context, payload) {
-      context.commit('bookingparams', payload)
     },
     bookinginfo(context, payload) {
       context.commit('bookinginfo', payload)

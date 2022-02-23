@@ -111,9 +111,6 @@
       searchParams() {
         return this.$store.state.searchParams
       },
-      bookingparams() {
-        return this.$store.state.bookingparams
-      },
       bookinginfo() {
         return this.$store.state.bookinginfo
       },
