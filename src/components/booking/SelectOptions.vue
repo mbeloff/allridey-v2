@@ -155,7 +155,7 @@
         </div>
       </div>
     </div>
-    <make-booking @create-booking="createBooking" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :searchParams="searchParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
+    <make-booking @create-booking="setRef" @modeChange="changeMode" :key="count" :optionalfees="optionalfees" :searchParams="searchParams" :calcTotals="calcTotals" :step3="step3"></make-booking>
   </div>
 </template>
 
@@ -326,11 +326,8 @@ import KeenSlider from '@/components/Gallery.vue'
           el.qty--
         }
       },
-      createBooking() {
-        Mixins.methods.apiCall(JSON.stringify(this.$store.state.bookingparams)).then(data => {
-          this.$store.dispatch('resinfo', JSON.parse(JSON.stringify(data)))
-          this.ref = JSON.parse(JSON.stringify(data)).reservationref         
-        })        
+      setRef() {
+        this.ref = this.$store.state.resinfo.reservationref
       },
       bookingMade() {
         this.$emit('bookingMade', this.mode, this.ref)

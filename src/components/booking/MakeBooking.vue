@@ -13,7 +13,7 @@
       </div>
     </transition>
 
-    <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking(mode)">
+    <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking()">
       <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
       <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max" :class="{ 'border border-blue-700' : showOptional }">
         <input type="checkbox" name="showops" id="showops" class="mr-2 hidden" v-model="showOptional">
@@ -127,10 +127,13 @@
           })
         }, 100);
       },
-      submitBooking(mode) {
+      submitBooking() {
         this.pleaseWait = true
-        this.$store.dispatch("bookingparams", this.parameters)
-        this.$emit('create-booking')
+        Mixins.methods.apiCall(JSON.stringify(this.parameters)).then(data => {
+          this.$store.dispatch('resinfo', data)
+          this.$emit('create-booking')   
+        })   
+        
       },
       setMode(mode) {
         this.mode = mode
