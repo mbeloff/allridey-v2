@@ -25,7 +25,8 @@
       LoadingOverlay
     },
     props: {
-      reservation: Object
+      reservation: Object,
+      bookingdata: Object
     },
     data() {
       return {
@@ -110,26 +111,27 @@
         return month + '/' + year
       },
       trackPayment() {
-          let items = [{
-              item_name: this.confirmedPayment.bookinginfo[0].vehiclecategory,
-              location_id: this.confirmedPayment.bookinginfo[0].pickuplocationname,
-              price: this.confirmedPayment.bookinginfo[0].totalcost,
-              quanity: 1
-            }]
-          this.confirmedPayment.extrafees.forEach(fee => {
-            items.push({
-              'item_name': fee.name,
-              'price' : fee.totalfeeamount,
-              'quantity': fee.qty,
-            })
+        let items = [{
+            item_name: this.bookingdata.bookinginfo[0].vehiclecategory,
+            price: this.bookingdata.rateinfo[0].ratesubtotal,
+            quanity: 1,
+            discount: this.bookingdata.rateinfo[0].dailyratebeforediscount * this.bookingdata.rateinfo[0].numberofdays
+          }]
+        this.bookingdata.extrafees.forEach(fee => {
+          items.push({
+            'item_name': fee.name,
+            'price' : fee.totalfeeamount,
+            'quantity': fee.qty,
           })
-          this.$gtag.event('purchase',{
-            currency: "AUD",
-            'event_category' : 'ecommerce',
-            transaction_id: this.confirmedPayment.bookinginfo[0].reservationdocumentno,
-            value: this.confirmedPayment.bookinginfo[0].totalcost,
-            items: items
-          })
+        })
+        this.$gtag.event('purchase',{
+          currency: "AUD",
+          'event_category' : 'ecommerce',
+          transaction_id: this.bookingdata.bookinginfo[0].reservationdocumentno,
+          value: this.bookingdata.bookinginfo[0].totalcost,
+          items: items,
+          coupon: this.bookingdata.rateinfo[0].discountname.replaceAll(' ','_')
+        })
       },
       gatherParams() {
         let obj = this.paymentResponse

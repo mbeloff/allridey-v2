@@ -20,7 +20,7 @@
         <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
       </div>
       <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
-      <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo"></form-payment>
+      <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo" :bookingdata="bookinginfo"></form-payment>
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
       <home-content v-if="status < 2"></home-content>        
