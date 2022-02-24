@@ -2,9 +2,9 @@
   <div class="bg-gray-100 h-full bg-center bg-cover relative" :class="{ 'full-bg' : this.status < 3}">
     <div class="bg-cover bg-center bg-main">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
-        <booking-nav v-if="status > 2" @changeStep="changeStep" :status="status"></booking-nav>
+        <booking-nav v-if="this.status > 2" @changeStep="changeStep" :status="status"></booking-nav>
         <keep-alive>
-        <form-search id="search-form" v-if="status < 3" @errs="showErrs" @searching="setLoading" @update-step2="status = 2"></form-search>
+        <form-search id="search-form" v-if="this.status < 3" @errs="showErrs" @searching="setLoading" @update-step2="this.status = 2"></form-search>
         </keep-alive>
       </div>      
     </div>
@@ -14,12 +14,12 @@
       <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
         <loading-overlay></loading-overlay>
       </div>      
-      <search-results @mounted="setLoading(false)" @select-vehicle="status = 3" v-if="status == 2 && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>   
+      <search-results @mounted="setLoading(false)" @select-vehicle="this.status = 3" v-if="this.status == 2 && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>   
       <div v-if="errs.length" class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10">
         <p>No results found, please adjust your search</p>
         <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
       </div>
-      <selected-vehicle @bookingMade="submit" v-if="status == 3 && step3"></selected-vehicle>
+      <selected-vehicle @bookingMade="submit" v-if="this.status == 3 && step3"></selected-vehicle>
       <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo" :bookingdata="bookinginfo"></form-payment>
       <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
@@ -172,9 +172,9 @@
           'value' : this.bookinginfo.bookinginfo[0].totalcost,
           
           'items': [{
-                'item_name': this.bookinginfo.bookinginfo[0].vehiclecategory, // Product Name- Type: String
-                'price': this.bookinginfo.bookinginfo[0].totalcost, // Product price - Type: numeric
-                'item_brand': 'Allridey', //Product brand - Type: string
+                'item_name': this.bookinginfo.bookinginfo[0].vehiclecategory,
+                'price': this.bookinginfo.bookinginfo[0].totalcost,
+                'item_brand': 'Allridey',
                 'days': this.bookinginfo.bookinginfo[0].numberofdays,
                 'discount': this.bookinginfo.rateinfo[0].dailyratebeforediscount * this.bookinginfo.rateinfo[0].numberofdays,
           }]

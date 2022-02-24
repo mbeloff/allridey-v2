@@ -81,6 +81,7 @@
             <option value="6+">6+</option>
           </select>
       </div>
+
       <div class="flex flex-col flex-grow group">
         <label for="transmission" class=" my-label">Transmission</label>
           <select id="transmission" class="my-input" v-model="parameters.transmission">
@@ -89,13 +90,20 @@
             <option value="2">Manual</option>
             </select>
       </div>
+
       <div class="flex flex-col flex-grow group">
         <label for="remark" class=" my-label">Comments/Requests</label>
           <textarea maxlength="250" rows="3" id="remark" class="my-input flex-initial" v-model="parameters.remark"></textarea>
       </div>
+
+      <div class="flex flex-col self-start group mt-1">
+        <label for="foundus" class=" my-label">How did you hear about us?</label>
+          <select id="foundus" class="my-input" v-model="parameters.foundusid">
+            <option :value="foundusGeneric.id">-</option>
+            <option v-for="(item, i) in foundus.filter(el => el.isdefault == false)" :value="item.id" :key="item.id">{{item.rentalsource}}</option>            
+            </select>
+      </div>
     </div>
-
-
   </div>
 </template>
 
@@ -111,7 +119,14 @@
     },
     props: {
       parameters: Object,
-      step3: Object
+      step3: Object,
+      foundus: Array
+    },
+    computed: {
+      foundusGeneric() {
+        let item = this.foundus.find(el => el.isdefault)
+        return item     
+      },
     },
   }
 </script>

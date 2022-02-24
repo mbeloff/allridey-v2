@@ -12,26 +12,21 @@
         </transition>
       </div>
     </transition>
-
     <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking()">
       <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
       <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max" :class="{ 'border border-blue-700' : showOptional }">
-        <input type="checkbox" name="showops" id="showops" class="mr-2 hidden" v-model="showOptional">
-        <label ref="showops" for="showops" class="text-left text-sm font-bold text-blue-800 flex items-center" @click="scroll('showops')">
+        <input type="checkbox" name="showOptions" id="showOptions" class="mr-2 hidden" v-model="showOptional">
+        <label ref="showOptions" for="showOptions" class="text-left text-sm font-bold text-blue-800 flex items-center" @click="scroll('showOptions')">
           <i class="fal fa-check-circle fa-2x mr-2" :class="{ 'text-blue-800' : showOptional, 'text-gray-300' : !showOptional}"></i>
           <span>Make pickup quick and easy by providing more details ahead of time?</span>
         </label>
       </div>
       <div ref="container">
         <transition name="fade-fast">
-          <form-optional v-if="showOptional" :step3="step3" :parameters="parameters"></form-optional>
+          <form-optional v-if="showOptional" :step3="step3" :parameters="parameters" :foundus="foundus"></form-optional>  
         </transition>
-      </div>
-
-        
-        <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5 relative" :disabled="pleaseWait">{{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black"></loading-overlay></button>
-
-
+      </div>        
+      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5 relative" :disabled="pleaseWait">{{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black"></loading-overlay></button>
     </form>
   </div>
 </template>
@@ -50,7 +45,7 @@
       LoadingOverlay
     },
     mounted() {
-      this.updateBookingParameters()
+      this.initParams()
       this.$smoothElement({
         el: this.$refs.container,
       })
@@ -71,19 +66,19 @@
         showOptional: false,
         parameters: {
           method: "booking",
-          vehiclecategorytypeid: 0,
-          pickuplocationid: 0,
+          vehiclecategorytypeid: "",
+          pickuplocationid: "",
           pickupdate: "",
           pickuptime: "",
-          dropofflocationid: 0,
+          dropofflocationid: "",
           dropoffdate: "",
           dropofftime: "",
           flightin: "",
           flightout: "",
           arrivalpoint: "",
           departurepoint: "",
-          ageid: 0,
-          vehiclecategoryid: 0,
+          ageid: "",
+          vehiclecategoryid: "",
           bookingtype: 1,
           insuranceid: "",
           extrakmsid: "",
@@ -105,9 +100,8 @@
             address: "",
             countryid: 7, // Default country id (Australia)
           },
-          // ! email option 0 = off, 1 = default, 2 = always send
           emailoption: 0,
-          foundusid: 63,
+          foundusid: 2,
           remark: "",
           areaofuseid: "",
           newsletter: true,
@@ -133,13 +127,12 @@
           this.$store.dispatch('resinfo', data)
           this.$emit('create-booking')   
         })   
-        
       },
       setMode(mode) {
         this.mode = mode
         this.$emit('modeChange', mode)
       },
-      updateBookingParameters() {
+      initParams() {
         this.parameters.vehiclecategorytypeid = this.searchParams.vehiclecategorytypeid
         this.parameters.vehiclecategoryid = this.calcTotals.vehiclecategoryid
         this.parameters.pickuplocationid = this.searchParams.pickuplocationid
@@ -152,9 +145,8 @@
         this.parameters.insuranceid = this.calcTotals.insuranceid
         this.parameters.extrakmsid = this.calcTotals.extrakmsid
         this.parameters.optionalfees = this.calcTotals.optionalfees
-      }
+      },
     },
-
     computed: {
       btnText() {
         if (this.mode == 1) {
@@ -162,7 +154,10 @@
         } else if (this.mode == 2) {
           return 'Make Payment'
         }
-      }
+      },
+      foundus() {
+        return this.step3.rentalsource
+      },
     }
   }
 </script>
