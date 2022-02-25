@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
   import Mixins from '@/Mixins'
   import LoadingOverlay from '@/components/LoadingOverlay.vue'
   export default {
@@ -154,11 +155,12 @@
       },
     },
     computed: {
+      ...mapState([
+        'step1',
+        'searchParams'
+        ]),
       loading() {
         return this.isEmpty(this.step1)
-      },
-      step1() {
-        return this.$store.state.step1
       },
       openingHoursPickup() {
         let all = [...this.alltimes]
@@ -170,11 +172,11 @@
       },
       pickupDateRaw() {
         let str = this.form.pickupdate.split('/')
-        return new Date(str[2],str[1]-1, str[0])
+        return new Date(str[2], str[1] - 1, str[0])
       },
       dropoffDateRaw() {
         let str = this.form.dropoffdate.split('/')
-        return new Date(str[2],str[1]-1, str[0])
+        return new Date(str[2], str[1] - 1, str[0])
       }
     },
     mounted() {
@@ -308,43 +310,45 @@
       //   this.locations = arr
       // },
       setInitialLocation(arr) {
-        if (this.$route.params.loc && arr.find(el => el.location.toLowerCase() == this.$route.params.loc.replace(/-+/g, ' ').toLowerCase())) {
-          let param = this.$route.params.loc.toLowerCase().replace(/-+/g, ' ').toLowerCase()
-          let id = arr.find(el => el.location.toLowerCase() == param).id
-          this.form.pickuplocationid = id
-          this.form.dropofflocationid = id
-        } else {
-          let defaultId = arr.find(el => el.isdefault).id
-          this.form.pickuplocationid = defaultId
-          this.form.dropofflocationid = defaultId
+        let defaultId = arr.find(el => el.isdefault).id
+        this.form.pickuplocationid = defaultId
+        this.form.dropofflocationid = defaultId
+        if (this.searchParams.pickuplocationid) {
+          this.form.pickuplocationid = this.searchParams.pickuplocationid
         }
-        },
-        initDates() {
-            var tomorrow = new Date()
-            tomorrow.setDate(tomorrow.getDate() + 1)
-            var nextweek = new Date();
-            nextweek.setDate(nextweek.getDate() + 7);
-            this.daterange = {
-              start: tomorrow.toLocaleDateString('en-AU'),
-              end: nextweek.toLocaleDateString('en-AU'),
-            }
-          },
-          to12hr(time) {
-            // Check correct time format and split into components
-            time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
-            if (time.length > 1) { // If time format correct
-              time = time.slice(1); // Remove full string match value
-              time[5] = +time[0] < 12 ? 'am' : 'pm'; // Set AM/PM
-              time[0] = +time[0] % 12 || 12; // Adjust hours
-            }
-            return time.join(''); // return adjusted time or original string
-          },
-          updateDropoffLocation() {
-            this.form.dropofflocationid = this.form.pickuplocationid
+        if (this.$route.params.loc) {
+          let param = this.$route.params.loc.replaceAll('-', ' ').toLowerCase()
+          if (param && arr.find(el => el.location.toLowerCase() == param)) {
+            let id = arr.find(el => el.location.toLowerCase() == param).id
+            this.form.pickuplocationid = id
+            this.form.dropofflocationid = id
           }
+        }
       },
-    }
+      initDates() {
+        var tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        var nextweek = new Date();
+        nextweek.setDate(nextweek.getDate() + 7);
+        this.daterange = {
+          start: tomorrow.toLocaleDateString('en-AU'),
+          end: nextweek.toLocaleDateString('en-AU'),
+        }
+      },
+      to12hr(time) {
+        time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+        if (time.length > 1) { // If time format correct
+          time = time.slice(1); // Remove full string match value
+          time[5] = +time[0] < 12 ? 'am' : 'pm'; // Set AM/PM
+          time[0] = +time[0] % 12 || 12; // Adjust hours
+        }
+        return time.join(''); // return adjusted time or original string
+      },
+      updateDropoffLocation() {
+        this.form.dropofflocationid = this.form.pickuplocationid
+      }
+    },
+  }
 </script>
 
 <style lang="postcss">

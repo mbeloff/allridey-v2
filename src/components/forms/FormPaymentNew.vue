@@ -17,15 +17,12 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
   import Mixins from '@/Mixins'
   import LoadingOverlay from '@/components//LoadingOverlay.vue'
   export default {
     components: {
       LoadingOverlay
-    },
-    props: {
-      reservation: Object,
-      bookingdata: Object
     },
     data() {
       return {
@@ -52,7 +49,11 @@
       window.scrollTo(0, 0);
     },
     mixins: [Mixins],
-    computed: {},
+    computed: {
+      ...mapState([
+        'bookinginfo',
+        'resinfo'])
+    },
     watch: {
       'paymentResponse': 'handlePayment',
       'confirmedPayment': {
@@ -74,7 +75,7 @@
       sendEmail() {
         let params = JSON.stringify({
           "method": "sendemail",
-          "reservationref": this.reservation.reservationref,
+          "reservationref": this.resinfo.reservationref,
         })
         Mixins.methods.apiCall(params)
       },
@@ -157,7 +158,7 @@
       getBookingInfo() {
         let params = JSON.stringify({
           "method": "bookinginfo",
-          "reservationref": this.reservation.reservationref
+          "reservationref": this.resinfo.reservationref
         })
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
@@ -167,7 +168,7 @@
       refreshBookingInfo() {
         let params = JSON.stringify({
           "method": "bookinginfo",
-          "reservationref": this.reservation.reservationref
+          "reservationref": this.resinfo.reservationref
         })
         Mixins.methods.apiCall(params).then(res => {
           this.$store.dispatch('bookinginfo', res)
