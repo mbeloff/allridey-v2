@@ -24,9 +24,6 @@ export default {
     status: Number
   },
   methods: {
-    changeStep(num) {
-      this.$emit("changeStep", num)
-    },
     iStatus(step, status) {
       if (step == status && status != 5) {
         return "text-gray-500 fal fa-circle"

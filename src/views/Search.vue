@@ -2,9 +2,9 @@
   <div class="bg-gray-100 h-full bg-center bg-cover relative" :class="{ 'full-bg' : this.status < 3}">
     <div class="bg-cover bg-center bg-main">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
-        <booking-nav v-if="this.status > 2" @changeStep="changeStep" :status="status"></booking-nav>
+        <booking-nav v-if="this.status > 2" :status="this.status"></booking-nav>
         <keep-alive>
-        <form-search id="search-form" v-if="this.status < 3" @errs="showErrs" @searching="setLoading" @update-step2="this.status = 2"></form-search>
+        <form-search id="search-form" v-if="this.status < 3" @errs="showErrs" @searching="setLoading"></form-search>
         </keep-alive>
       </div>      
     </div>
@@ -14,22 +14,23 @@
       <div v-if="loading" class="bg-white rounded shadow-xl w-full py-5 flex place-items-center justify-center h-48 relative">
         <loading-overlay></loading-overlay>
       </div>      
-      <search-results @mounted="setLoading(false)" @select-vehicle="this.status = 3" v-if="this.status == 2 && !isEmpty(this.$store.state.step2)"  :key="this.count" ></search-results>   
+      <search-results @mounted="setLoading(false)" @select-vehicle="updateStatus(3)" v-if="this.status == 2 && step2.availablecars"  :key="this.count" ></search-results>   
       <div v-if="errs.length" class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10">
         <p>No results found, please adjust your search</p>
         <p class="text-sm text-red-500" v-for="err in errs">{{err}}</p>
       </div>
       <selected-vehicle @bookingMade="submit" v-if="this.status == 3 && step3"></selected-vehicle>
-      <form-payment v-if="status == 4 && $store.state.gotBooking" :reservation="resinfo" :bookingdata="bookinginfo"></form-payment>
-      <summary-page v-if="status == 5 && $store.state.gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
+      <form-payment v-if="this.status == 4 && gotBooking" :reservation="resinfo" :bookingdata="bookinginfo"></form-payment>
+      <summary-page v-if="this.status == 5 && gotBooking && $store.state.bookinginfo.bookinginfo.length > 0"></summary-page>  
       
-      <home-content v-if="status < 2"></home-content>        
+      <home-content v-if="this.status < 2"></home-content>        
       
     </div>
   </div>
   
 </template>
 <script>
+  import {mapGetters, mapState} from 'vuex'
   import Mixins from '@/Mixins'
   import FormSearch from '@/components/forms/FormSearch.vue'
   import BookingNav from '@/components/booking/BookingNav.vue'
@@ -68,24 +69,23 @@
     watch: {     
      '$route.name': {
         handler: function(name) {
-           if  (name == 'Home' || name == 'Search') {
-             this.status = 1
-           } else if (name == 'Results') {
-             if (this.isEmpty(this.step2)) {
-               this.$router.push({name: 'Search'}) 
-             } else {
-               this.status = 2
-             }
-           } else if (name == 'Options') {
-              if (this.isEmpty(this.searchParams)) {
-               this.$router.push({name: 'Search'})
-             } else {
-              this.status = 3
-             }
-           } else if (name == 'Payment') {
-             this.status = 4
-           } else if (name == 'Summary') {
-               this.status = 5
+           switch (name) {
+             case 'Home' || 'Search':
+               this.status = 1;
+               break;
+              case 'Results':
+                this.step2.availablecars ? this.status = 2 : 
+                this.$router.push({name: 'Search'})
+                break;
+              case 'Options':
+                 this.step3.availablecars ? this.status = 3 : 
+                 this.$router.push({name: 'Search'})
+                break;
+              case 'Payment':
+                this.status = 4
+                break
+              case 'Summary':
+                this.status = 5
            }
         },
         deep: true,
@@ -99,44 +99,25 @@
       }
     },
     computed: {
-      step1() {
-        return this.$store.state.step1
-      },
-      step2() {
-        return this.$store.state.step2
-      },
-      step3() {
-        return this.$store.state.step3
-      },
-      searchParams() {
-        return this.$store.state.searchParams
-      },
-      bookinginfo() {
-        return this.$store.state.bookinginfo
-      },
-      resinfo() {
-        return this.$store.state.resinfo
-      }
+      ...mapState([
+        'step1',
+        'step2',
+        'step3',
+        'searchParams',
+        'bookinginfo',
+        'resinfo',
+        'gotBooking'
+      ]),
     },
     methods: { 
       setLoading(e) {
         this.loading = e
-      },
-      isEmpty(obj) {
-        if (Object.keys(obj).length === 0) {
-          return true
-        } else {
-          return false
-        }
       },
       showErrs(e) {
         this.errs = e
       },
       searching(e) {
         this.loading = e
-      },
-      changeStep(e) {
-        this.updateStatus(e)
       },
       updateStatus(e) {
         this.status = e;

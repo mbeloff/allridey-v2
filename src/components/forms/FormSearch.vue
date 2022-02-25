@@ -279,7 +279,6 @@
           var params = JSON.stringify(this.form)
           Mixins.methods.apiCall(params).then(res => {
             this.$store.dispatch('step2', res);
-            this.$emit('update-step2')
             this.$router.push({
               name: 'Results'
             })
