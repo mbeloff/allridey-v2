@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Search from './views/Search.vue'
-import CheckPayment from './views/CheckPayment.vue'
 import Locations from './views/LocationList.vue'
 import Location from './views/Location.vue'
 import Checkin from './views/Checkin.vue'
@@ -19,7 +18,6 @@ const routes = [
   { name: "Options", path: "/options", component: Search},
   { name: "Payment", path: "/payment", component: Search},
   { name: "Summary", path: "/summary", component: Search},
-  { name: "CheckPayment", path: "/checkpayment", component: CheckPayment },
   {name: "Locations", path: "/locations", component: Locations},
   {name: "Location", path: "/location/:name?", component: Location, props: true},
   {name: "Checkin", path: "/checkin", component: Checkin},
