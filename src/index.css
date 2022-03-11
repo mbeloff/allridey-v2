@@ -4,6 +4,6 @@
 
 @layer components {
   .form-i {
-      @apply text-blue-800 mr-2
-    }
+    @apply text-blue-800 mr-2;
+  }
 }

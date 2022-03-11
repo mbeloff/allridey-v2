@@ -4,9 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -15,5 +13,5 @@ export default defineConfig({
   server: {
     // https: true,
     // host: '192.168.1.23'
-  }
+  },
 })

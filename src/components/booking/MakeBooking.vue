@@ -1,186 +1,245 @@
 <template>
   <div>
     <div class="grid grid-flow-col place-items-center gap-2 mt-10">
-      <button @click="setMode(1), scroll('scrollMarker')" class="btn btn-secondary ml-auto" :class="{'bg-blue-600 text-white' : mode == 1}">Email Quote</button>
-      <button @click="setMode(2), scroll('scrollMarker')" class="btn btn-secondary mr-auto" :class="{'bg-blue-600 text-white' : mode == 2}">Make Booking</button>
+      <button
+        class="btn btn-secondary ml-auto"
+        :class="{ 'bg-blue-600 text-white': mode == 1 }"
+        @click="setMode(1), scroll('scrollMarker')"
+      >
+        Email Quote
+      </button>
+      <button
+        class="btn btn-secondary mr-auto"
+        :class="{ 'bg-blue-600 text-white': mode == 2 }"
+        @click="setMode(2), scroll('scrollMarker')"
+      >
+        Make Booking
+      </button>
     </div>
     <transition name="slide-down">
-      <div ref="scrollMarker" v-if="mode" class="relative grid place-items-center my-5 text-blue-600">
-        <i class="fas fa-chevron-down"></i>
+      <div
+        v-if="mode"
+        ref="scrollMarker"
+        class="relative grid place-items-center my-5 text-blue-600"
+      >
+        <i class="fas fa-chevron-down" />
         <transition name="slide-down">
-          <i class="fas fa-chevron-down absolute -top-1.5"></i>
+          <i class="fas fa-chevron-down absolute -top-1.5" />
         </transition>
       </div>
     </transition>
-    <form ref="bookingform" action="javascript:void(0)" @submit="submitBooking()">
-      <form-customer :parameters="parameters" :mode="mode" v-if="mode && parameters"></form-customer>
-      <div v-if="mode" class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max" :class="{ 'border border-blue-700' : showOptional }">
-        <input type="checkbox" name="showOptions" id="showOptions" class="mr-2 hidden" v-model="showOptional">
-        <label ref="showOptions" for="showOptions" class="text-left text-sm font-bold text-blue-800 flex items-center" @click="scroll('showOptions')">
-          <i class="fal fa-check-circle fa-2x mr-2" :class="{ 'text-blue-800' : showOptional, 'text-gray-300' : !showOptional}"></i>
-          <span>Make pickup quick and easy by providing more details ahead of time?</span>
+    <form
+      ref="bookingform"
+      action="javascript:void(0)"
+      @submit="submitBooking()"
+    >
+      <form-customer
+        v-if="mode && parameters"
+        :parameters="parameters"
+        :mode="mode"
+      />
+      <div
+        v-if="mode"
+        class="bg-white rounded my-5 p-2 px-4 shadow-xl flex items-center w-full md:w-max"
+        :class="{ 'border border-blue-700': showOptional }"
+      >
+        <input
+          id="showOptions"
+          v-model="showOptional"
+          type="checkbox"
+          name="showOptions"
+          class="mr-2 hidden"
+        />
+        <label
+          ref="showOptions"
+          for="showOptions"
+          class="text-left text-sm font-bold text-blue-800 flex items-center"
+          @click="scroll('showOptions')"
+        >
+          <i
+            class="fal fa-check-circle fa-2x mr-2"
+            :class="{
+              'text-blue-800': showOptional,
+              'text-gray-300': !showOptional,
+            }"
+          />
+          <span
+            >Make pickup quick and easy by providing more details ahead of
+            time?</span
+          >
         </label>
       </div>
       <div ref="container">
         <transition name="fade-fast">
-          <form-optional v-if="showOptional" :step3="step3" :parameters="parameters" :foundus="foundus"></form-optional>  
+          <form-optional
+            v-if="showOptional"
+            :step3="step3"
+            :parameters="parameters"
+            :foundus="foundus"
+          />
         </transition>
-      </div>        
-      <button @click="$refs.bookingform.submit()" v-if="mode" class="btn btn-primary mt-5 relative" :disabled="pleaseWait">{{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black"></loading-overlay></button>
+      </div>
+      <button
+        v-if="mode"
+        class="btn btn-primary mt-5 relative"
+        :disabled="pleaseWait"
+        @click="$refs.bookingform.submit()"
+      >
+        {{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black" />
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-  import LoadingOverlay from '@/components/LoadingOverlay.vue'
-  import smoothHeight from 'vue-smooth-height';
-  import FormCustomer from '@/components/forms/FormCustomer.vue'
-  import FormOptional from '@/components/forms/FormOptional.vue'
-  import Mixins from '@/Mixins'
-  export default {
-    mixins: [Mixins, smoothHeight],
-    components: {
-      FormCustomer,
-      FormOptional,
-      LoadingOverlay
-    },
-    mounted() {
-      this.initParams()
-      this.$smoothElement({
-        el: this.$refs.container,
-      })
-      this.parameters.agentcode = this.$store.state.searchParams.agentcode
-      this.pleaseWait = false
-    },
-    props: {
-      optionalfees: Object,
-      calcTotals: Object,
-      searchParams: Object,
-      step3: Object,
-    },
-    watch: {},
-    data() {
-      return {
-        pleaseWait: false,
-        mode: null,
-        showOptional: false,
-        parameters: {
-          method: "booking",
-          vehiclecategorytypeid: "",
-          pickuplocationid: "",
-          pickupdate: "",
-          pickuptime: "",
-          dropofflocationid: "",
-          dropoffdate: "",
-          dropofftime: "",
-          flightin: "",
-          flightout: "",
-          arrivalpoint: "",
-          departurepoint: "",
-          ageid: "",
-          vehiclecategoryid: "",
-          bookingtype: 1,
-          insuranceid: "",
-          extrakmsid: "",
-          transmission: 0,
-          numbertravelling: "",
-          customer: {
-            firstname: "",
-            lastname: "",
-            dateofbirth: "01/01/1990",
-            licenseno: "",
-            licenseissued: 7, // Default country id (Australia)
-            licenseexpires: "",
-            email: "",
-            mobile: "",
-            phone: "",
-            state: "",
-            city: "",
-            postcode: "",
-            address: "",
-            countryid: 7, // Default country id (Australia)
-          },
-          emailoption: 0,
-          foundusid: 2,
-          remark: "",
-          areaofuseid: "",
-          newsletter: true,
-          refno: "",
-          optionalfees: [],
-          agentcode: ''
-        }
-      }
-    },
-    methods: {
-      scroll(ref) {
-        setTimeout(() => {
-          this.$refs[ref].scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "nearest"
-          })
-        }, 100);
-      },
-      submitBooking() {
-        this.pleaseWait = true
-        Mixins.methods.apiCall(JSON.stringify(this.parameters)).then(data => {
-          this.$store.dispatch('resinfo', data)
-          this.$emit('create-booking')   
-        })   
-      },
-      setMode(mode) {
-        this.mode = mode
-        this.$emit('modeChange', mode)
-      },
-      initParams() {
-        this.parameters.vehiclecategorytypeid = this.searchParams.vehiclecategorytypeid
-        this.parameters.vehiclecategoryid = this.calcTotals.vehiclecategoryid
-        this.parameters.pickuplocationid = this.searchParams.pickuplocationid
-        this.parameters.pickuptime = this.searchParams.pickuptime
-        this.parameters.pickupdate = this.searchParams.pickupdate
-        this.parameters.dropofflocationid = this.searchParams.dropofflocationid
-        this.parameters.dropofftime = this.searchParams.dropofftime
-        this.parameters.dropoffdate = this.searchParams.dropoffdate
-        this.parameters.ageid = this.searchParams.ageid
-        this.parameters.insuranceid = this.calcTotals.insuranceid
-        this.parameters.extrakmsid = this.calcTotals.extrakmsid
-        this.parameters.optionalfees = this.calcTotals.optionalfees
-      },
-    },
-    computed: {
-      btnText() {
-        if (this.mode == 1) {
-          return 'Get Quote'
-        } else if (this.mode == 2) {
-          return 'Make Payment'
-        }
-      },
-      foundus() {
-        return this.step3.rentalsource
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import smoothHeight from 'vue-smooth-height'
+import FormCustomer from '@/components/forms/FormCustomer.vue'
+import FormOptional from '@/components/forms/FormOptional.vue'
+import Mixins from '@/Mixins'
+export default {
+  components: {
+    FormCustomer,
+    FormOptional,
+    LoadingOverlay,
+  },
+  mixins: [Mixins, smoothHeight],
+  props: {
+    optionalfees: Object,
+    calcTotals: Object,
+    searchParams: Object,
+    step3: Object,
+  },
+  emits: ['modeChange', 'create-booking'],
+  data() {
+    return {
+      pleaseWait: false,
+      mode: null,
+      showOptional: false,
+      parameters: {
+        method: 'booking',
+        vehiclecategorytypeid: '',
+        pickuplocationid: '',
+        pickupdate: '',
+        pickuptime: '',
+        dropofflocationid: '',
+        dropoffdate: '',
+        dropofftime: '',
+        flightin: '',
+        flightout: '',
+        arrivalpoint: '',
+        departurepoint: '',
+        ageid: '',
+        vehiclecategoryid: '',
+        bookingtype: 1,
+        insuranceid: '',
+        extrakmsid: '',
+        transmission: 0,
+        numbertravelling: '',
+        customer: {
+          firstname: '',
+          lastname: '',
+          dateofbirth: '01/01/1990',
+          licenseno: '',
+          licenseissued: 7, // Default country id (Australia)
+          licenseexpires: '',
+          email: '',
+          mobile: '',
+          phone: '',
+          state: '',
+          city: '',
+          postcode: '',
+          address: '',
+          countryid: 7, // Default country id (Australia)
+        },
+        emailoption: 0,
+        foundusid: 2,
+        remark: '',
+        areaofuseid: '',
+        newsletter: true,
+        refno: '',
+        optionalfees: [],
+        agentcode: '',
       },
     }
-  }
+  },
+  computed: {
+    btnText() {
+      return this.mode == 1 ? 'Get Quote' : 'Make Payment'
+    },
+    foundus() {
+      return this.step3.rentalsource
+    },
+  },
+  watch: {},
+  mounted() {
+    this.initParams()
+    this.$smoothElement({
+      el: this.$refs.container,
+    })
+    this.parameters.agentcode = this.$store.state.searchParams.agentcode
+    this.pleaseWait = false
+  },
+
+  methods: {
+    scroll(ref) {
+      setTimeout(() => {
+        this.$refs[ref].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
+        })
+      }, 100)
+    },
+    submitBooking() {
+      this.pleaseWait = true
+      Mixins.methods.apiCall(JSON.stringify(this.parameters)).then((data) => {
+        this.$store.dispatch('resinfo', data)
+        this.$emit('create-booking')
+      })
+    },
+    setMode(mode) {
+      this.mode = mode
+      this.$emit('modeChange', mode)
+    },
+    initParams() {
+      this.parameters.vehiclecategorytypeid =
+        this.searchParams.vehiclecategorytypeid
+      this.parameters.vehiclecategoryid = this.calcTotals.vehiclecategoryid
+      this.parameters.pickuplocationid = this.searchParams.pickuplocationid
+      this.parameters.pickuptime = this.searchParams.pickuptime
+      this.parameters.pickupdate = this.searchParams.pickupdate
+      this.parameters.dropofflocationid = this.searchParams.dropofflocationid
+      this.parameters.dropofftime = this.searchParams.dropofftime
+      this.parameters.dropoffdate = this.searchParams.dropoffdate
+      this.parameters.ageid = this.searchParams.ageid
+      this.parameters.insuranceid = this.calcTotals.insuranceid
+      this.parameters.extrakmsid = this.calcTotals.extrakmsid
+      this.parameters.optionalfees = this.calcTotals.optionalfees
+    },
+  },
+}
 </script>
 
 <style lang="postcss">
-  .slide-down-enter-active,
-  .slide-down-leave-active {
-    transition: transform 2s ease, opacity 0.35s ease;
-  }
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: transform 2s ease, opacity 0.35s ease;
+}
 
-  .slide-down-enter-from,
-  .slide-down-leave-to {
-    transform: translateY(-100%);
-    opacity: 0
-  }
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
 
-  .fade-fast-enter-active,
-  .fade-fast-leave-active {
-    transition: opacity .5s;
-  }
+.fade-fast-enter-active,
+.fade-fast-leave-active {
+  transition: opacity 0.5s;
+}
 
-  .fade-fast-enter-from,
-  .fade-fast-leave-to {
-    opacity: 0;
-  }
+.fade-fast-enter-from,
+.fade-fast-leave-to {
+  opacity: 0;
+}
 </style>

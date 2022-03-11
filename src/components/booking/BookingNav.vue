@@ -1,19 +1,36 @@
 <template>
-  <div class="bg-white rounded opacity-90 shadow-xl shadow-green-800/30 w-full grid grid-flow-row sm:grid-flow-col sm:divide-x divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm">
-    <p class="py-1.5 sm:py-6 sm:rounded-l" :class="btnStyle(1, this.status), btnDisable(1, this.status)">
-      <i class="" :class="iStatus(1, this.status)"></i> Search
+  <div
+    class="bg-white rounded opacity-90 shadow-xl shadow-green-800/30 w-full grid grid-flow-row sm:grid-flow-col sm:divide-x divide-y sm:divide-y-0 divide-gray-300 border border-gray-300 text-xs sm:text-sm"
+  >
+    <p
+      class="py-1.5 sm:py-6 sm:rounded-l"
+      :class="(btnStyle(1, stage), btnDisable(1, stage))"
+    >
+      <i class="" :class="iStatus(1, stage)"></i> Search
     </p>
-    <p class="py-1.5 sm:py-6" :class="btnStyle(2, this.status), btnDisable(2, this.status)">
-      <i class="" :class="iStatus(2, this.status)"></i> Select
+    <p
+      class="py-1.5 sm:py-6"
+      :class="(btnStyle(2, stage), btnDisable(2, stage))"
+    >
+      <i class="" :class="iStatus(2, stage)"></i> Select
     </p>
-    <p class="py-1.5 sm:py-6" :class="btnStyle(3, this.status), btnDisable(3, this.status)">
-      <i class="" :class="iStatus(3, this.status)"></i> Extras
+    <p
+      class="py-1.5 sm:py-6"
+      :class="(btnStyle(3, stage), btnDisable(3, stage))"
+    >
+      <i class="" :class="iStatus(3, stage)"></i> Extras
     </p>
-    <p class="py-1.5 sm:py-6" :class="btnStyle(4, this.status), btnDisable(4, this.status)">
-      <i class="" :class="iStatus(4, this.status)"></i> Pay
+    <p
+      class="py-1.5 sm:py-6"
+      :class="(btnStyle(4, stage), btnDisable(4, stage))"
+    >
+      <i class="" :class="iStatus(4, stage)"></i> Pay
     </p>
-    <p class="py-1.5 sm:py-6 sm:rounded-r" :class="btnStyle(5, this.status), btnDisable(5, this.status)">
-      <i class="" :class="iStatus(5, this.status)"></i> Summary
+    <p
+      class="py-1.5 sm:py-6 sm:rounded-r"
+      :class="(btnStyle(5, stage), btnDisable(5, stage))"
+    >
+      <i class="" :class="iStatus(5, stage)"></i> Summary
     </p>
   </div>
 </template>
@@ -21,54 +38,53 @@
 <script>
 export default {
   props: {
-    status: Number
+    stage: Number,
   },
   methods: {
-    iStatus(step, status) {
-      if (step == status && status != 5) {
-        return "text-gray-500 fal fa-circle"
-      } else if (step < status || step == 5 && status == 5) {
+    iStatus(step, stage) {
+      if (step == stage && stage != 5) {
+        return 'text-gray-500 fal fa-circle'
+      } else if (step < stage || (step == 5 && stage == 5)) {
         return 'text-green-500 fas fa-check-circle'
       } else {
         return 'invisible fas fa-check-circle'
       }
     },
-    btnStyle(step, status) {
-      if ((step == 4 || step == 3 || step == 2) && status == 5) {
+    btnStyle(step, stage) {
+      if ((step == 4 || step == 3 || step == 2) && stage == 5) {
         return 'bg-gray-200 disabled hidden'
       }
-      if (step == status) {
-        return "active"
-      } else if (step < status) {
+      if (step == stage) {
+        return 'active'
+      } else if (step < stage) {
         return 'completed'
       } else {
         return 'bg-gray-200 disabled'
       }
     },
-    btnDisable(step, status) {
-      if (step > 1 && step < status) {
+    btnDisable(step, stage) {
+      if (step > 1 && step < stage) {
         return 'disabled text-gray-400'
-      } else if (step > status) {
+      } else if (step > stage) {
         return 'disabled text-gray-400'
-      } else if (step == 5 && status == 5 || step == status) {
+      } else if ((step == 5 && stage == 5) || step == stage) {
         return 'disabled text-gray-600'
       } else {
         return 'text-gray-500'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="postcss">
 .disabled {
-  pointer-events: none
+  pointer-events: none;
 }
 
-  .completed {
-    @apply bg-gray-200
-  }
-  .active {
-    @apply bg-white
-  }
-
+.completed {
+  @apply bg-gray-200;
+}
+.active {
+  @apply bg-white;
+}
 </style>

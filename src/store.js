@@ -1,7 +1,5 @@
-import {
-  createStore
-} from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   plugins: [createPersistedState({ storage: window.sessionStorage })],
@@ -19,27 +17,27 @@ export default createStore({
       customerinfo: [{}],
       extrafees: [],
       paymentinfo: [],
-      rateinfo: []
+      rateinfo: [],
     },
     resinfo: {
-      reservationref: "",
-      reservationno: "",
-      customerid: ""
+      reservationref: '',
+      reservationno: '',
+      customerid: '',
     },
     gotBooking: false,
     hasSession: false,
-    token: "",
-    tokenExp: "",
-    pbresref: ""
+    token: '',
+    tokenExp: '',
+    pbresref: '',
   },
   mutations: {
     pbresref(state, payload) {
       state.pbresref = payload
     },
-    token(state, payload){
+    token(state, payload) {
       state.token = payload
     },
-    tokenExp(state, payload){
+    tokenExp(state, payload) {
       state.tokenExp = payload
     },
     locations(state, payload) {
@@ -71,13 +69,13 @@ export default createStore({
     },
   },
   actions: {
-    pbresref(context, payload){
+    pbresref(context, payload) {
       context.commit('pbresref', payload)
     },
-    token(context, payload){
+    token(context, payload) {
       context.commit('token', payload)
     },
-    tokenExp(context, payload){
+    tokenExp(context, payload) {
       context.commit('tokenExp', payload)
     },
     session(context, payload) {
@@ -109,4 +107,3 @@ export default createStore({
     },
   },
 })
-
