@@ -127,7 +127,10 @@ export default {
         storageprovider: 'cloudinary',
         sequencenumber: doc.seqno,
       }
-      Mixins.methods.postapiCall(method).then(this.documentlist())
+      Mixins.methods.postapiCall(method).then((res) => {
+        console.log(res)
+        this.documentlist()
+      })
     },
     documentlist() {
       let method = {
@@ -136,9 +139,10 @@ export default {
         reservationref: this.resref,
       }
       Mixins.methods.postapiCall(method).then((res) => {
-        this.doclist = res.results.sort((a, b) =>
+        let newdoclist = res.results.sort((a, b) =>
           a.customerlastname.localeCompare(b.customerlastname)
         )
+        this.doclist = newdoclist
       })
     },
     editupload(id) {
