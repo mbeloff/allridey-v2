@@ -2,12 +2,12 @@
   <div class="flex flex-col md:flex-row gap-3 items-start">
     <!-- LEFT SIDE -->
     <div class="w-full md:w-2/6 order-2 md:order-1 px-1">
-      <section-summary
+      <booking-summary
         v-if="bookingdata && bookingdata.bookinginfo"
         :resref="resref"
         :totals="totals"
         :bookingdata="bookingdata"
-      ></section-summary>
+      ></booking-summary>
     </div>
     <!-- RIGHT SIDE -->
     <div
@@ -83,14 +83,14 @@
 
 <script>
 import ModifyTrip from '@/components/postbooking/ModifyTrip.vue'
-import SectionSummary from '@/components/postbooking/BookingSummary.vue'
+import BookingSummary from '@/components/postbooking/BookingSummary.vue'
 import ModifyDriver from '@/components/postbooking/ModifyDriver.vue'
 import Mixins from '@/Mixins'
 export default {
   components: {
     ModifyDriver,
     ModifyTrip,
-    SectionSummary,
+    BookingSummary,
   },
 
   mixins: [Mixins],
