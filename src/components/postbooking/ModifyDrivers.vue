@@ -73,7 +73,6 @@
         <modify-driver
           v-if="showNewDriver && extradrivers.length < 4"
           :countries="countries"
-          :customer="customer"
           :new-driver="true"
           @update="updateExtraDriver()"
         ></modify-driver>

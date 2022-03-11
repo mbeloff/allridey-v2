@@ -7,7 +7,7 @@
       <label for="fName" class="text-xs mb-1 my-label">First Name</label>
       <input
         id="fName"
-        v-model="customer.firstname"
+        v-model="customerdata.firstname"
         maxlength="30"
         required
         type="text"
@@ -20,7 +20,7 @@
       <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
       <input
         id="lName"
-        v-model="customer.lastname"
+        v-model="customerdata.lastname"
         maxlength="40"
         required
         type="text"
@@ -33,7 +33,7 @@
       <label for="email" class="text-xs mb-1 my-label">Email</label>
       <input
         id="email"
-        v-model="customer.email"
+        v-model="customerdata.email"
         maxlength="50"
         required
         type="email"
@@ -46,7 +46,7 @@
       <label for="phone" class="text-xs mb-1 my-label">Phone</label>
       <input
         id="phone"
-        v-model="customer.mobile"
+        v-model="customerdata.mobile"
         maxlength="25"
         required
         type="tel"
@@ -73,7 +73,7 @@
       <label for="licenseno" class="text-xs my-label">License #</label>
       <input
         id="licenseno"
-        v-model="customer.licenseno"
+        v-model="customerdata.licenseno"
         maxlength="70"
         type="text"
         class="my-input"
@@ -100,7 +100,7 @@
       >
       <select
         id="licenseissued"
-        v-model="customer.licenseissued"
+        v-model="customerdata.licenseissued"
         class="my-input"
       >
         <option
@@ -117,7 +117,7 @@
       <label for="" class="text-xs my-label">Street Address</label>
       <input
         id="address"
-        v-model="customer.address"
+        v-model="customerdata.address"
         maxlength="80"
         type="text"
         class="my-input"
@@ -127,7 +127,7 @@
       <label for="" class="text-xs my-label">City</label>
       <input
         id="city"
-        v-model="customer.city"
+        v-model="customerdata.city"
         maxlength="50"
         type="text"
         class="my-input"
@@ -137,7 +137,7 @@
       <label for="state" class="my-label">State</label>
       <input
         id="state"
-        v-model="customer.state"
+        v-model="customerdata.state"
         maxlength="30"
         type="text"
         class="my-input"
@@ -145,7 +145,7 @@
     </div>
     <div class="flex flex-col group">
       <label for="country" class="my-label">Country</label>
-      <select id="country" v-model="customer.countryid" class="my-input">
+      <select id="country" v-model="customerdata.countryid" class="my-input">
         <option
           v-for="country in countries"
           :key="country.id"
@@ -159,7 +159,7 @@
       <label for="postcode" class="my-label">Postcode</label>
       <input
         id="postcode"
-        v-model="customer.postcode"
+        v-model="customerdata.postcode"
         maxlength="10"
         type="text"
         class="my-input"
@@ -170,14 +170,14 @@
       <button
         v-if="!newDriver && !isPrimary"
         class="btn-red"
-        @click="extraDriver(-customer.customerid)"
+        @click="extraDriver(-customerdata.customerid)"
       >
         Delete <i class="far fa-times"></i>
       </button>
       <button
         v-if="!isPrimary"
         class="btn-green col-start-2"
-        @click="extraDriver(customer.customerid)"
+        @click="extraDriver(customerdata.customerid)"
       >
         {{ !newDriver ? 'Update' : 'Add' }} <i class="far fa-cloud-upload"></i>
       </button>
@@ -242,6 +242,7 @@ export default {
   emits: ['save-changes', 'update'],
   data() {
     return {
+      customerdata: {},
       dateofbirth: new Date(),
       licenseexpires: new Date(),
       months: [
@@ -262,14 +263,16 @@ export default {
   },
   watch: {
     dateofbirth: function () {
-      this.customer.dateofbirth = this.dateofbirth.toLocaleDateString('en-AU')
+      this.customerdata.dateofbirth =
+        this.dateofbirth.toLocaleDateString('en-AU')
     },
     licenseexpires: function () {
-      this.customer.licenseexpires =
+      this.customerdata.licenseexpires =
         this.licenseexpires.toLocaleDateString('en-AU')
     },
   },
   mounted() {
+    this.customerdata = this.customer
     if (this.newDriver == false) {
       if (this.customer.dateofbirth) {
         let dob = this.replaceMonth(this.customer.dateofbirth)
@@ -307,11 +310,13 @@ export default {
         reservationref: this.$store.state.pbresref,
         customerid: id,
         customer: {
-          ...this.customer,
+          ...this.customerdata,
         },
       }
-      Mixins.methods.postapiCall(method).catch((err) => console.log(err))
-      this.$emit('update')
+      Mixins.methods
+        .postapiCall(method)
+        .then(this.$emit('update'))
+        .catch((err) => console.log(err))
     },
   },
 }

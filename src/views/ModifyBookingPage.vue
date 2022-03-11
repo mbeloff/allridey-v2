@@ -82,12 +82,10 @@
 import Mixins from '@/Mixins.js'
 import ModifyDrivers from '@/components/postbooking/ModifyDrivers.vue'
 import ModifyExtras from '@/components/postbooking/ModifyExtras.vue'
-// import SectionSummary from '@/components/postbooking/BookingSummary.vue'
 import ModifyUploads from '@/components/postbooking/ModifyUploads.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 export default {
   components: {
-    // SectionSummary,
     ModifyUploads,
     ModifyExtras,
     LoadingOverlay,
