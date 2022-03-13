@@ -6,7 +6,7 @@
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Arrival Flight</label>
       <input
-        v-model="bookingdata.bookinginfo[0].flightin"
+        v-model="workingdata.bookinginfo[0].flightin"
         maxlength="50"
         type="text"
         class="my-input"
@@ -15,7 +15,7 @@
     <div class="flex flex-col flex-grow group">
       <label for="" class="text-xs my-label">Arrival Collection Point</label>
       <input
-        v-model="bookingdata.bookinginfo[0].arrivalpoint"
+        v-model="workingdata.bookinginfo[0].arrivalpoint"
         maxlength="80"
         type="text"
         class="my-input"
@@ -24,7 +24,7 @@
     <div class="flex flex-col group">
       <label for="state" class="my-label">Departure Flight</label>
       <input
-        v-model="bookingdata.bookinginfo[0].flightout"
+        v-model="workingdata.bookinginfo[0].flightout"
         maxlength="50"
         type="text"
         class="my-input"
@@ -33,7 +33,7 @@
     <div class="flex flex-col flex-grow group">
       <label for="postcode" class="my-label">Departure Dropoff Point</label>
       <input
-        v-model="bookingdata.bookinginfo[0].departurepoint"
+        v-model="workingdata.bookinginfo[0].departurepoint"
         maxlength="80"
         type="text"
         class="my-input"
@@ -45,7 +45,7 @@
       >
       <select
         id="travelling"
-        v-model="bookingdata.bookinginfo[0].numbertravelling"
+        v-model="workingdata.bookinginfo[0].numbertravelling"
         name="travelling"
         class="my-input flex-initial"
       >
@@ -61,7 +61,7 @@
       <label for="remark" class="my-label w-full">Comments</label>
       <textarea
         id="remark"
-        v-model="bookingdata.bookinginfo[0].remark"
+        v-model="workingdata.bookinginfo[0].remark"
         maxlength="250"
         type="text"
         name="remark"
@@ -70,7 +70,7 @@
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-3 md:col-start-2">
-      <button class="btn-green col-start-2" @click="$emit('save-changes')">
+      <button class="btn-green col-start-2" @click="$emit('save-changes', workingdata)">
         Update <i class="far fa-cloud-upload"></i>
       </button>
     </div>
@@ -93,6 +93,11 @@ export default {
     bookingdata: Object,
   },
   emits: ['save-changes'],
+  data() {
+    return {
+      workingdata: this.bookingdata
+    }
+  }
 }
 </script>
 

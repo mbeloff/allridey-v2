@@ -21,7 +21,7 @@
           :loading="savingChanges"
           :bookingdata="bookingdata"
           :customer="customer"
-          @save-changes="editBooking()"
+          @save-changes="editBooking($event, customer)"
         ></modify-trip>
       </div>
 
@@ -34,7 +34,7 @@
           :customer="customer"
           :countries="countries"
           :is-primary="true"
-          @save-changes="editBooking()"
+          @save-changes="editBooking(bookingdata, $event)"
         ></modify-driver>
       </div>
 
@@ -152,12 +152,12 @@ export default {
         licenseissued: 'Australia',
       }
     },
-    editBooking() {
+    editBooking(data, customer) {
       this.savingChanges = true
-      let bookingtype = this.bookingdata.bookinginfo[0].isquotation ? 1 : 2
+      let bookingtype = data.bookinginfo[0].isquotation ? 1 : 2
       let insuranceid = null
       let optionalfees = []
-      this.bookingdata.extrafees.forEach((el) => {
+      data.extrafees.forEach((el) => {
         if (el.isinsurancefee) {
           insuranceid = el.extrafeeid
         }
@@ -170,19 +170,19 @@ export default {
       })
       let method = {
         method: 'editbooking',
-        reservationref: this.bookingdata.bookinginfo[0].reservationref,
-        flightin: this.bookingdata.bookinginfo[0].flightin,
-        flightout: this.bookingdata.bookinginfo[0].flightout,
-        arrivalpoint: this.bookingdata.bookinginfo[0].arrivalpoint,
-        departurepoint: this.bookingdata.bookinginfo[0].departurepoint,
-        remark: this.bookingdata.bookinginfo[0].remark,
+        reservationref: data.bookinginfo[0].reservationref,
+        flightin: data.bookinginfo[0].flightin,
+        flightout: data.bookinginfo[0].flightout,
+        arrivalpoint: data.bookinginfo[0].arrivalpoint,
+        departurepoint: data.bookinginfo[0].departurepoint,
+        remark: data.bookinginfo[0].remark,
         bookingtype: bookingtype,
         insuranceid: insuranceid,
         optionalfees: optionalfees,
-        extrakmsid: this.bookingdata.bookinginfo[0].kmcharges_id,
-        numbertravelling: this.bookingdata.bookinginfo[0].numbertravelling,
+        extrakmsid: data.bookinginfo[0].kmcharges_id,
+        numbertravelling: data.bookinginfo[0].numbertravelling,
         customer: {
-          ...this.customer,
+          ...customer,
         },
       }
       Mixins.methods.postapiCall(method).then((res) => {
