@@ -14,6 +14,7 @@
         class="my-input"
         :disabled="isPrimary"
         :class="{ 'text-gray-400': isPrimary }"
+        placeholder="required"
       />
     </div>
     <div class="flex flex-col flex-grow group">
@@ -27,6 +28,7 @@
         class="my-input"
         :disabled="isPrimary"
         :class="{ 'text-gray-400': isPrimary }"
+        placeholder="required"
       />
     </div>
     <div class="flex flex-col flex-grow group">
@@ -40,6 +42,7 @@
         class="my-input"
         :disabled="isPrimary"
         :class="{ 'text-gray-400': isPrimary }"
+        placeholder="required"
       />
     </div>
     <div class="flex flex-col flex-grow group">
@@ -170,21 +173,21 @@
       <button
         v-if="!newDriver && !isPrimary"
         class="btn-red"
-        @click="extraDriver(-customerdata.customerid)"
+        @click="deleteExtraDriver(-customerdata.customerid)"
       >
         Delete <i class="far fa-times"></i>
       </button>
       <button
         v-if="!isPrimary"
         class="btn-green col-start-2"
-        @click="extraDriver(customerdata.customerid)"
+        @click="addExtraDriver(customerdata.customerid)"
       >
         {{ !newDriver ? 'Update' : 'Add' }} <i class="far fa-cloud-upload"></i>
       </button>
       <button
         v-if="isPrimary"
         class="btn-green col-start-2"
-        @click="$emit('save-changes')"
+        @click="$emit('save-changes', customerdata)"
       >
         Update <i class="far fa-cloud-upload"></i>
       </button>
@@ -199,7 +202,9 @@ export default {
   components: {
     LoadingOverlay,
   },
+
   mixins: [Mixins],
+
   props: {
     loading: {
       type: Boolean,
@@ -239,7 +244,9 @@ export default {
     },
     countries: Array,
   },
+
   emits: ['save-changes', 'update'],
+
   data() {
     return {
       customerdata: {},
@@ -261,6 +268,7 @@ export default {
       ],
     }
   },
+
   watch: {
     dateofbirth: function () {
       this.customerdata.dateofbirth =
@@ -271,6 +279,7 @@ export default {
         this.licenseexpires.toLocaleDateString('en-AU')
     },
   },
+
   mounted() {
     this.customerdata = this.customer
     if (this.newDriver == false) {
@@ -295,6 +304,7 @@ export default {
       this.licenseexpires = new Date()
     }
   },
+
   methods: {
     replaceMonth(str) {
       let newStr = str.replaceAll('/', ' ')
@@ -304,8 +314,9 @@ export default {
       })
       return newStr
     },
-    extraDriver(id) {
-      let method = {
+
+    addExtraDriver(id) {
+      let params = {
         method: 'extradriver',
         reservationref: this.$store.state.pbresref,
         customerid: id,
@@ -313,9 +324,35 @@ export default {
           ...this.customerdata,
         },
       }
+      if (
+        !this.customerdata.firstname ||
+        !this.customerdata.lastname ||
+        !this.customerdata.email
+      ) {
+        alert('please fill all required fields')
+        return
+      }
       Mixins.methods
-        .postapiCall(method)
-        .then(this.$emit('update'))
+        .postapiCall(params)
+        .then((res) => {
+          console.log(res)
+          this.$emit('update')
+        })
+        .catch((err) => console.log(err))
+    },
+
+    deleteExtraDriver(id) {
+      let params = {
+        method: 'extradriver',
+        reservationref: this.$store.state.pbresref,
+        customerid: id,
+      }
+      Mixins.methods
+        .postapiCall(params)
+        .then((res) => {
+          console.log(res)
+          this.$emit('update')
+        })
         .catch((err) => console.log(err))
     },
   },
