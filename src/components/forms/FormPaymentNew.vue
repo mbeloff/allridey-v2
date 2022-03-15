@@ -59,7 +59,7 @@ import {mapState} from 'vuex'
       'confirmedPayment': {
         handler () {
           console.log('payment confirmed')
-          this.trackPayment(this.bookingdata)
+          this.trackPayment(this.bookinginfo)
           this.sendEmail()
           this.$router.push({
             path: 'summary?pymnt=success',
