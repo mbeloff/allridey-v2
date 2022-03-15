@@ -33,7 +33,9 @@ export default {
   components: {
     LoadingOverlay,
   },
+
   mixins: [Mixins],
+
   data() {
     return {
       loading: true,
@@ -45,6 +47,7 @@ export default {
       paymentResponse: {},
     }
   },
+
   computed: {
     ...mapState(['bookinginfo', 'resinfo']),
   },
@@ -53,8 +56,7 @@ export default {
     paymentResponse: 'handlePayment',
     confirmedPayment: {
       handler() {
-        console.log('payment confirmed')
-        this.trackPayment(this.bookinginfo)
+        this.trackPayment()
         this.sendEmail()
         this.$router.push({
           path: 'summary?pymnt=success',
@@ -66,6 +68,7 @@ export default {
       deep: true,
     },
   },
+
   mounted() {
     this.getBookingInfo()
     window.addEventListener(
@@ -89,6 +92,7 @@ export default {
       })
       Mixins.methods.apiCall(params)
     },
+
     handlePayment() {
       this.loading = true
       if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
@@ -104,7 +108,7 @@ export default {
         let params = JSON.stringify(this.gatherParams())
         Mixins.methods
           .apiCall(params)
-          .then((res) => {
+          .then(() => {
             this.refreshBookingInfo()
           })
           .catch((err) => console.log(err))
@@ -112,30 +116,37 @@ export default {
         this.requestWindcaveTransaction()
       }
     },
+
     getPaydate(dateStr) {
       let year = dateStr.substring(0, 4)
       let month = dateStr.substring(4, 6)
       let day = dateStr.substring(6, 8)
       return day + '/' + month + '/' + year
     },
+
     cardExpiry(dateStr) {
       let month = dateStr.substring(0, 2)
       let year = dateStr.substring(2, 4)
       return month + '/' + year
     },
-    trackPayment(data) {
-      console.log('gtag')
+
+    trackPayment() {
       let items = [
         {
-          item_name: data.bookinginfo[0].vehiclecategory,
-          price: data.rateinfo[0].ratesubtotal,
-          quanity: 1,
+          item_name: this.bookinginfo.bookinginfo[0].vehiclecategory,
+          price: this.bookinginfo.rateinfo[0].ratesubtotal,
+          quantity: 1,
           discount:
-            data.rateinfo[0].dailyratebeforediscount *
-            data.rateinfo[0].numberofdays,
+            this.bookinginfo.rateinfo[0].dailyratebeforediscount *
+            this.bookinginfo.rateinfo[0].numberofdays,
+        },
+        {
+          item_name: this.bookinginfo.bookinginfo[0].kmcharges_description,
+          price: this.bookinginfo.bookinginfo[0].kmcharges_totalfordailyrate,
+          quantity: 1,
         },
       ]
-      data.extrafees.forEach((fee) => {
+      this.bookinginfo.extrafees.forEach((fee) => {
         items.push({
           item_name: fee.name,
           price: fee.totalfeeamount,
@@ -145,10 +156,10 @@ export default {
       this.$gtag.event('purchase', {
         currency: 'AUD',
         event_category: 'ecommerce',
-        transaction_id: data.bookinginfo[0].reservationdocumentno,
-        value: data.bookinginfo[0].totalcost,
+        transaction_id: this.bookinginfo.bookinginfo[0].reservationdocumentno,
+        value: this.bookinginfo.bookinginfo[0].totalcost,
         items: items,
-        coupon: data.rateinfo[0].discountname.replaceAll(' ', '_'),
+        coupon: this.bookinginfo.rateinfo[0].discountname.replaceAll(' ', '_'),
       })
     },
 
@@ -175,6 +186,7 @@ export default {
       }
       return params
     },
+
     getBookingInfo() {
       let params = JSON.stringify({
         method: 'bookinginfo',
@@ -185,6 +197,7 @@ export default {
         this.requestWindcaveTransaction()
       })
     },
+
     refreshBookingInfo() {
       let params = JSON.stringify({
         method: 'bookinginfo',
@@ -195,6 +208,7 @@ export default {
         this.confirmedPayment = res
       })
     },
+
     requestWindcaveTransaction() {
       let balancedue = this.$store.state.bookinginfo.bookinginfo[0].balancedue
       let currency = this.$store.state.bookinginfo.bookinginfo[0].currencyname

@@ -205,14 +205,18 @@ export default {
   components: {
     LoadingOverlay,
   },
+
   mixins: [Mixins],
+
   props: {
     bookingdata: Object,
     totals: Object,
     loading: Boolean,
     resref: String,
   },
+
   emits: ['save-changes', 'update'],
+
   data() {
     return {
       payurl: '',
@@ -221,6 +225,7 @@ export default {
       paymentResponse: {},
     }
   },
+
   computed: {
     symbol() {
       return this.bookingdata.bookinginfo[0].currencysymbol
@@ -247,6 +252,7 @@ export default {
       return this.bookingdata.bookinginfo[0].isquotation
     },
   },
+
   watch: {
     paymentResponse: {
       handler() {
@@ -255,9 +261,11 @@ export default {
       deep: true,
     },
   },
+
   created() {
     this.openPayment = false
   },
+
   mounted() {
     window.addEventListener(
       'message',
@@ -286,6 +294,7 @@ export default {
       })
       return fees
     },
+
     tConvert(time) {
       // Check correct time format and split into components
       time = time
@@ -300,6 +309,7 @@ export default {
       }
       return time.join('') // return adjusted time or original string
     },
+
     createPayment() {
       this.payLoading = true
       this.openPayment = true
@@ -331,38 +341,76 @@ export default {
           console.log('request transaction failed: ', error)
         })
     },
+
     handlePayment() {
       this.payLoading = true
       if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
         this.openPayment = false
         return
       }
-      if (this.paymentResponse.Success._text == 1) {
+      if (this.paymentResponse.Success._text == 0) {
+        this.createPayment()
+        this.count++
+      } else if (this.paymentResponse.Success._text == 1) {
         let params = this.gatherParams()
         Mixins.methods.postapiCall(params).then((res) => {
           if (res.status == 'OK') {
+            this.trackPayment()
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {
             alert(res.error)
           }
         })
-      } else if (this.paymentResponse.Success._text == 0) {
-        this.createPayment()
-        this.count++
       }
     },
+
+    trackPayment() {
+      let items = [
+        {
+          item_name: this.bookingdata.bookinginfo[0].vehiclecategory,
+          price: this.bookingdata.rateinfo[0].ratesubtotal,
+          quantity: 1,
+          discount:
+            this.bookingdata.rateinfo[0].dailyratebeforediscount *
+            this.bookingdata.rateinfo[0].numberofdays,
+        },
+        {
+          item_name: this.bookingdata.bookinginfo[0].kmcharges_description,
+          price: this.bookingdata.bookinginfo[0].kmcharges_totalfordailyrate,
+          quantity: 1
+        }
+      ]
+      this.bookingdata.extrafees.forEach((fee) => {
+        items.push({
+          item_name: fee.name,
+          price: fee.totalfeeamount,
+          quantity: fee.qty,
+        })
+      })
+      this.$gtag.event('purchase', {
+        currency: 'AUD',
+        event_category: 'ecommerce',
+        transaction_id: this.bookingdata.bookinginfo[0].reservationdocumentno,
+        value: this.bookingdata.bookinginfo[0].totalcost,
+        items: items,
+        coupon: this.bookingdata.rateinfo[0].discountname.replaceAll(' ', '_'),
+      })
+    },
+
     formatPayDate(dateStr) {
       let year = dateStr.substring(0, 4)
       let month = dateStr.substring(4, 6)
       let day = dateStr.substring(6, 8)
       return day + '/' + month + '/' + year
     },
+
     cardExpiry(dateStr) {
       let month = dateStr.substring(0, 2)
       let year = dateStr.substring(2, 4)
       return month + '/' + year
     },
+
     gatherParams() {
       let obj = this.paymentResponse
       let params = {}
@@ -415,6 +463,7 @@ export default {
         return params
       }
     },
+
     changesAreSaved() {
       return (
         this.bookingdata.bookinginfo[0].balancedue ==
