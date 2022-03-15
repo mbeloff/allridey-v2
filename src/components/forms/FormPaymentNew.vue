@@ -54,7 +54,7 @@ export default {
     confirmedPayment: {
       handler() {
         console.log('payment confirmed')
-        this.trackPayment(this.bookingdata)
+        this.trackPayment(this.bookinginfo)
         this.sendEmail()
         this.$router.push({
           path: 'summary?pymnt=success',
@@ -124,6 +124,7 @@ export default {
       return month + '/' + year
     },
     trackPayment(data) {
+      console.log('gtag')
       let items = [
         {
           item_name: data.bookinginfo[0].vehiclecategory,
