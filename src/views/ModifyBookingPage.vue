@@ -116,12 +116,12 @@ export default {
       let resref = this.$store.state.pbresref
       this.loading = true
       this.ready = false
-      let method = {
+      let params = {
         method: 'bookinginfo',
         reservationref: resref,
       }
       Mixins.methods
-        .postapiCall(method)
+        .postapiCall(params)
         .then((res) => {
           if (res.status == 'OK') {
             if (

@@ -59,7 +59,7 @@
               <button
                 v-show="doc.isuploaded"
                 class="btn-red mt-2"
-                @click="editupload(doc.documentlinkid)"
+                @click="deleteUpload(doc.documentlinkid)"
               >
                 delete
               </button>
@@ -90,7 +90,7 @@ export default {
     }
   },
   created() {
-    this.documentlist()
+    this.getDocumentList()
   },
   methods: {
     openCloudinaryWidget(doc) {
@@ -129,10 +129,10 @@ export default {
       }
       Mixins.methods.postapiCall(method).then((res) => {
         console.log(res)
-        this.documentlist()
+        this.getDocumentList()
       })
     },
-    documentlist() {
+    getDocumentList() {
       let method = {
         method: 'documentlist',
         workflowcode: 'checkin',
@@ -145,13 +145,13 @@ export default {
         this.doclist = newdoclist
       })
     },
-    editupload(id) {
+    deleteUpload(id) {
       let method = {
         method: 'editupload',
         reservationref: this.resref,
         documentlinkid: -id,
       }
-      Mixins.methods.postapiCall(method).then(this.documentlist())
+      Mixins.methods.postapiCall(method).then(this.getDocumentList())
     },
     iconClass(doc) {
       return {
