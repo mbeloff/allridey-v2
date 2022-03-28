@@ -32,7 +32,6 @@ exports.handler = async function (event) {
     'https://sec.windcave.com/pxaccess/pxpay.aspx',
     requestOptions
   )
-    // const res = await fetch("https://uat.paymentexpress.com/pxaccess/pxpay.aspx", requestOptions)
     .then((response) => response.text())
     .catch((error) => console.log('error', error))
   const json = convert.xml2json(res, { compact: true })

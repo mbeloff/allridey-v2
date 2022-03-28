@@ -3,14 +3,6 @@
     ref="searchResults"
     class="text-left rounded w-full searchResults relative"
   >
-    <!-- <p class="text-center absolute inset-x-0 top-0"  v-if="numAvailable == 0">No results found</p> -->
-    <!-- <div v-for="(cat, i) in getCats(categories)" class="my-2"> -->
-    <!-- <div class="flex bg-gray-600 text-white px-2">
-        <p>{{cat.vehiclecategorytype}}</p>
-      </div> -->
-    <!-- <search-result @select-vehicle="selectVehicle" v-for="(car, i) in getCars(cat.id)" :key="car.vehiclecategory" :data="car" :manfees="getFees(car.vehiclecategorytypeid, car.vehiclecategoryid)" :allData="step2" >
-      </search-result>
-    </div> -->
     <div v-if="filteredVehicles.length" class="text-right">
       <label class="text-sm mr-2" for="sort">sort by:</label>
       <select id="sort" v-model="filter" class="my-input" name="sort">
@@ -36,14 +28,18 @@ export default {
   components: {
     SearchResult,
   },
+
   emits: ['select-vehicle', 'results-mounted'],
+
   data() {
     return {
       categories: [],
       loading: false,
       filter: 'default',
+      showAlert: true,
     }
   },
+
   computed: {
     filteredVehicles() {
       const sorters = {
@@ -75,6 +71,7 @@ export default {
       return count
     },
   },
+
   mounted() {
     let arr = []
     if (this.step2.availablecars) {
@@ -96,6 +93,7 @@ export default {
     })
     this.ecommView(this.step2.availablecars)
   },
+
   methods: {
     selectVehicle(data, step) {
       this.$emit('select-vehicle', data, step)
@@ -120,6 +118,7 @@ export default {
         items: items,
       })
     },
+
     // getCats(catids) {
     //   let arr = []
     //   let all = this.step2.categorytypes
@@ -141,6 +140,7 @@ export default {
     //   })
     //   return arr
     // },
+
     calcEstimate(car) {
       let totalRate = car.totalrateafterdiscount
       let totalFees = 0
@@ -154,6 +154,7 @@ export default {
       })
       return totalRate + totalFees
     },
+
     getFees(categorytypeid, categoryid) {
       let arr = []
       this.step2.mandatoryfees.forEach(function (el) {
