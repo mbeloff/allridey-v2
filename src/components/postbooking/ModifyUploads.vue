@@ -6,6 +6,7 @@
         :resref="resref"
         :totals="totals"
         :bookingdata="bookingdata"
+        @update="$emit('update')"
       ></section-summary>
     </div>
     <!-- RIGHT SIDE -->
@@ -84,6 +85,7 @@ export default {
     totals: Array,
     resref: String,
   },
+  emits: ['update'],
   data() {
     return {
       doclist: {},

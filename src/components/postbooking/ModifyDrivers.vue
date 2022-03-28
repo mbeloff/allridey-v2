@@ -7,6 +7,7 @@
         :resref="resref"
         :totals="totals"
         :bookingdata="bookingdata"
+        @update="$emit('update')"
       ></booking-summary>
     </div>
     <!-- RIGHT SIDE -->

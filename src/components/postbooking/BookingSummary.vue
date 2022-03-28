@@ -358,13 +358,14 @@ export default {
       } else if (this.paymentResponse.Success._text == 1) {
         let params = this.gatherParams()
         Mixins.methods.postapiCall(params).then((res) => {
-          console.log(res)
+          
           if (res.status == 'OK') {
             this.trackPayment()
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {
-            alert(res.error)
+            alert('Something went wrong. Please contact us.')
+            console.log(res.error)
           }
         })
       }
@@ -466,14 +467,16 @@ export default {
           payscenario: 2,
           emailoption: 0,
         }
-        return params
       }
+      return params
     },
 
     changesAreSaved() {
       return (
         this.bookingdata.bookinginfo[0].balancedue ==
-        (this.total[0].total - this.bookingdata.bookinginfo[0].payment).toFixed(2)
+        (this.total[0].total - this.bookingdata.bookinginfo[0].payment).toFixed(
+          2
+        )
       )
     },
   },
