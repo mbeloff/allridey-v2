@@ -74,7 +74,10 @@ export default {
     window.addEventListener(
       'message',
       (event) => {
-        if (event.origin !== import.meta.env.VITE_HOST) {
+        if (
+          event.origin !==
+          (import.meta.env.VITE_HOST || import.meta.env.BRANCH_DEPLOY_VITE_HOST)
+        ) {
           return
         } else if (event.data.TxnType) {
           this.paymentResponse = event.data
