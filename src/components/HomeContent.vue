@@ -50,7 +50,7 @@
         </div>
         <div class="rounded-b p-2 flex flex-col gap-2">
           <p class="font-bold">{{ article.title }}</p>
-          <p class="text-sm">{{ article.content }}</p>
+          <p class="text-sm" v-html="article.content"></p>
           <router-link
             v-if="article.linksto"
             :to="{ name: article.linksto }"
@@ -74,9 +74,9 @@ export default {
       gallery: [],
       articles: [
         {
-          title: '2022 Sale on Now',
+          title: 'Sale',
           content:
-            'For a limited time, get 50 - 70% off the daily rate for all hires in Hobart.',
+            '70% off the daily rate for all Hobart hires. Limited time only.<span class="text-red-400"> Sale now ended. Check back for more specials soon.</span>',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',
