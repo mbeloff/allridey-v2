@@ -134,8 +134,8 @@
             }}</span>
           </div>
           <div v-if="totals && totals.length" class="text-right italic text-xs">
-            <span>(includes GST of: </span
-            ><span> {{ symbol + tax[0].total }})</span>
+            <span>(</span
+            ><span> {{ symbol + tax[0].total }} gst included)</span>
           </div>
         </div>
       </div>
@@ -279,6 +279,7 @@ export default {
       false
     )
   },
+
   methods: {
     getFees(type, type2) {
       let fees = []
@@ -315,6 +316,7 @@ export default {
       this.openPayment = true
       var body = JSON.stringify({
         amount: this.bookingdata.bookinginfo[0].balancedue,
+        // amount: 1,
         currency: this.bookingdata.bookinginfo[0].currencyname,
         resref: this.resref,
       })
@@ -339,11 +341,13 @@ export default {
         })
         .catch((error) => {
           console.log('request transaction failed: ', error)
+          this.payLoading = false
         })
     },
 
     handlePayment() {
       this.payLoading = true
+      console.log(this.paymentResponse.Success._text)
       if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
         this.openPayment = false
         return
@@ -354,6 +358,7 @@ export default {
       } else if (this.paymentResponse.Success._text == 1) {
         let params = this.gatherParams()
         Mixins.methods.postapiCall(params).then((res) => {
+          console.log(res)
           if (res.status == 'OK') {
             this.trackPayment()
             this.openPayment = false
@@ -378,8 +383,8 @@ export default {
         {
           item_name: this.bookingdata.bookinginfo[0].kmcharges_description,
           price: this.bookingdata.bookinginfo[0].kmcharges_totalfordailyrate,
-          quantity: 1
-        }
+          quantity: 1,
+        },
       ]
       this.bookingdata.extrafees.forEach((fee) => {
         items.push({
@@ -415,6 +420,7 @@ export default {
       let obj = this.paymentResponse
       let params = {}
       if (this.bookingdata.bookinginfo[0].isquotation) {
+        console.log('converting quote')
         params = {
           method: 'convertquote',
           reservationref: this.resref,
@@ -438,10 +444,10 @@ export default {
             cardnumber: obj.CardNumber._text,
             cardexpiry: this.cardExpiry(obj.DateExpiry._text),
             transtype: 'Payment',
-            payscenario: 1,
           },
         }
       } else {
+        console.log('confirming payment')
         params = {
           method: 'confirmpayment',
           reservationref: this.resref,
@@ -457,7 +463,7 @@ export default {
           cardnumber: obj.CardNumber._text,
           cardexpiry: this.cardExpiry(obj.DateExpiry._text),
           transtype: 'Payment',
-          payscenario: 1,
+          payscenario: 2,
           emailoption: 0,
         }
         return params
@@ -467,7 +473,7 @@ export default {
     changesAreSaved() {
       return (
         this.bookingdata.bookinginfo[0].balancedue ==
-        this.total[0].total - this.bookingdata.bookinginfo[0].payment
+        (this.total[0].total - this.bookingdata.bookinginfo[0].payment).toFixed(2)
       )
     },
   },
