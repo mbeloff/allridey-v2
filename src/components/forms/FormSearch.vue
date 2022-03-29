@@ -460,7 +460,8 @@ export default {
     getStep2() {
       this.$emit('errs', [])
       this.$store.dispatch('step2', {}).then(this.$emit('searching', true))
-      this.$store.dispatch('searchParams', this.form)
+      let savedParams = JSON.parse(JSON.stringify(this.form))
+      this.$store.dispatch('searchParams', savedParams)
       if (!this.validate()) return
       var params = JSON.stringify(this.form)
       Mixins.methods.apiCall(params).then((res) => {
