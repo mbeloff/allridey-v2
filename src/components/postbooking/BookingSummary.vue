@@ -353,7 +353,7 @@ export default {
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {
-            alert('Something went wrong. Please contact us.')
+            alert('Something went wrong while updating your booking. Please contact us - sales@allridey.com.au.')
             console.log(res.error)
           }
         })
