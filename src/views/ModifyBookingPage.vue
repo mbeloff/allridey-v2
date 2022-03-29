@@ -114,7 +114,6 @@ export default {
   },
   methods: {
     bookingInfo() {
-      console.log('getting booking info')
       let resref = this.$store.state.pbresref
       this.loading = true
       this.ready = false
@@ -149,7 +148,6 @@ export default {
           this.loading = false
         })
         .catch((err) => {
-          // this.error = err
           console.log('get booking info (error): ' + err)
           this.$router.push({
             name: 'Checkin',
@@ -164,7 +162,6 @@ export default {
       return null
     },
     init(data) {
-      console.log('setting booking data')
       let feedata = data.extrafees
       this.bookingdata = data
       this.customer = data.customerinfo[0]

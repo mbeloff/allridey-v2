@@ -336,7 +336,6 @@ export default {
 
     handlePayment() {
       this.payLoading = true
-      console.log(this.paymentResponse.Success._text)
       if (this.paymentResponse.CardHolderName._text == 'User Cancelled') {
         this.openPayment = false
         return
@@ -347,14 +346,16 @@ export default {
       } else if (this.paymentResponse.Success._text == 1) {
         let params = this.gatherParams()
         Mixins.methods.postapiCall(params).then((res) => {
-          
           if (res.status == 'OK') {
             this.trackPayment()
             this.openPayment = false
             this.$emit('update')
           } else if (res.status == 'ERR') {
-            alert('Something went wrong while updating your booking. Please contact us - sales@allridey.com.au.')
-            console.log(res.error)
+            alert(
+              'Something went wrong while updating your booking. Please contact us - sales@allridey.com.au.'
+            )
+            this.openPayment = false
+            this.$emit('update')
           }
         })
       }
@@ -410,7 +411,6 @@ export default {
       let obj = this.paymentResponse
       let params = {}
       if (this.bookingdata.bookinginfo[0].isquotation) {
-        console.log('converting quote')
         params = {
           method: 'convertquote',
           reservationref: this.resref,
@@ -437,7 +437,6 @@ export default {
           },
         }
       } else {
-        console.log('confirming payment')
         params = {
           method: 'confirmpayment',
           reservationref: this.resref,
