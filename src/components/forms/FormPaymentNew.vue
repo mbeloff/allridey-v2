@@ -6,12 +6,6 @@
     >
       <loading-overlay v-if="loading"> ...loading </loading-overlay>
       <p v-if="loading" class="font-bold text-center">Please Wait</p>
-      <div v-if="paymentResponse.Success && paymentResponse.Success._text == 0">
-        <p class="bg-yellow-500 text-yellow-900 text-sm">
-          {{ paymentResponse.ResponseText._text }}
-        </p>
-      </div>
-
       <div ref="payForm">
         <iframe
           ref="wcframe"

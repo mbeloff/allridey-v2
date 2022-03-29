@@ -167,17 +167,6 @@
     >
       <div class="bg-white rounded p-2">
         <loading-overlay v-if="payLoading"> ...loading </loading-overlay>
-        <div
-          v-if="
-            paymentResponse.Success &&
-            paymentResponse.Success._text == 0 &&
-            paymentResponse.CardHolderName._text != 'User Cancelled'
-          "
-        >
-          <p class="bg-yellow-500 text-yellow-900 text-sm">
-            {{ paymentResponse.ResponseText._text }}
-          </p>
-        </div>
         <div ref="payForm">
           <iframe
             ref="wcframe"
