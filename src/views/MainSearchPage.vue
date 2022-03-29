@@ -94,7 +94,6 @@ export default {
       'step1',
       'step2',
       'step3',
-      'searchParams',
       'bookinginfo',
       'resinfo',
       'gotBooking',

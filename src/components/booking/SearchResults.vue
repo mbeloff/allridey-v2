@@ -56,9 +56,6 @@ export default {
     step2() {
       return this.$store.state.step2
     },
-    searchParams() {
-      return this.$store.state.searchParams
-    },
     numAvailable() {
       let count = 0
       if (this.step2.availablecars) {
