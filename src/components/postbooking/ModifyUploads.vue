@@ -40,7 +40,7 @@
             <div
               class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink"
             >
-              <span class="fa-stack fa-2x mx-auto">
+              <span class="fa-stack text-lg mx-auto">
                 <i
                   :class="iconClass(doc)"
                   class="fa-thin fa-stack-2x text-gray-500"
@@ -52,14 +52,14 @@
               </span>
               <button
                 v-show="doc.isuploaded != 1"
-                class="btn-green mt-2"
+                class="btn-green mt-1"
                 @click="openCloudinaryWidget(doc)"
               >
                 upload
               </button>
               <button
                 v-show="doc.isuploaded"
-                class="btn-red mt-2"
+                class="btn-red mt-1"
                 @click="deleteUpload(doc.documentlinkid)"
               >
                 delete
