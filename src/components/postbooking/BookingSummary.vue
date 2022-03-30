@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="total.length && balancedue">
     <div class="text-left shadow-xl bg-white rounded relative">
       <div>
         <loading-overlay v-if="loading"></loading-overlay>
@@ -9,6 +9,7 @@
             ' Summary'
           }}
         </p>
+        <p v-if="!isQuotation" class="text-center text-sm">reservation: {{bookingdata.bookinginfo[0].reservationdocumentno}}</p>
         <div class="px-2 py-1 text-sm">
           <div
             class="w-full flex gap-3 items-center text-sm text-gray-500 py-4"
@@ -53,12 +54,14 @@
               </ul>
             </div>
           </div>
-          <div class="text-center py-2">
-            <p class="font-bold">Vehicle Category:</p>
-            <p class="py-2">{{ bookingdata.bookinginfo[0].vehiclecategory }}</p>
+          <div class="flex justify-between items-center py-2">
+            <span class="font-bold">Vehicle Category:</span>
+            <span class="py-2">{{
+              bookingdata.bookinginfo[0].vehiclecategory
+            }}</span>
           </div>
           <div v-if="totals && totals.length">
-            <p class="font-bold text-center">Daily Rental Rate:</p>
+            <p class="font-bold">Daily Rental Rate:</p>
             <div class="flex justify-between py-2">
               <span class="flex-shrink">
                 {{
@@ -74,7 +77,7 @@
             </div>
 
             <div class="">
-              <p class="font-bold text-center">Fees:</p>
+              <p class="font-bold">Fees:</p>
               <div v-if="insurance.length" class="flex justify-between">
                 <span> Damage Cover </span
                 ><span class="font-bold ml-5">{{
@@ -99,43 +102,51 @@
               </div>
               <br />
             </div>
-
-            <div
-              v-if="bookingdata.paymentinfo.length != 0"
-              class="flex justify-end gap-2"
-            >
-              <span>Payment received: </span
-              ><span>
-                {{
-                  symbol + bookingdata.bookinginfo[0].payment.toFixed(2)
-                }}</span
-              >
-            </div>
           </div>
         </div>
 
-        <div class="bg-blue-800 text-blue-100 p-2 rounded-b relative h-16">
+        <div class="bg-blue-800 text-blue-100 p-2 rounded-b relative">
           <loading-overlay
             v-if="loading"
             class="rounded-t-none"
           ></loading-overlay>
-          <div v-if="!loading" class="flex justify-end mb-2">
-            <span
-              v-if="bookingdata.bookinginfo[0].isquotation"
-              class="font-bold mr-2"
-              >TOTAL:
-            </span>
-            <span v-else class="font-bold mr-2">BALANCE DUE: </span>
+          <div class="flex justify-between text-lg">
+            <span class="font-bold">Total:</span>
             <span v-if="totals && totals.length" class="text-right">{{
               bookingdata.bookinginfo[0].currencyname +
               ' ' +
               symbol +
-              (total[0].total - bookingdata.bookinginfo[0].payment).toFixed(2)
+              total[0].total
             }}</span>
           </div>
           <div v-if="totals && totals.length" class="text-right italic text-xs">
-            <span>(</span
-            ><span> {{ symbol + tax[0].total }} gst included)</span>
+            <span>(gst included: {{ symbol + tax[0].total }})</span>
+          </div>
+
+          <div
+            v-if="bookingdata.paymentinfo.length != 0"
+            class="flex justify-between gap-2 text-sm"
+          >
+            <span>Payment received: </span
+            ><span>
+              {{ symbol + bookingdata.bookinginfo[0].payment.toFixed(2) }}</span
+            >
+          </div>
+          <div
+            v-if="!isQuotation"
+            class="flex justify-between items-center my-2 text-xl bg-white -mx-2 px-2"
+            :class="{
+              'text-blue-700': balancedue <= 0,
+              'text-red-500': balancedue > 0,
+            }"
+          >
+            <span class="font-bold mr-2">BALANCE DUE: </span>
+            <span>{{
+              bookingdata.bookinginfo[0].currencyname +
+              ' ' +
+              symbol +
+              balancedue
+            }}</span>
           </div>
         </div>
       </div>
@@ -239,6 +250,11 @@ export default {
     },
     isQuotation() {
       return this.bookingdata.bookinginfo[0].isquotation
+    },
+    balancedue() {
+      return (
+        this.total[0].total - this.bookingdata.bookinginfo[0].payment
+      ).toFixed(2)
     },
   },
 
