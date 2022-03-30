@@ -62,11 +62,13 @@
       >
         <button
           v-if="extradrivers && extradrivers.length < 4"
-          :class="{ 'bg-green-500 text-white': showNewDriver }"
           class="btn-green my-2"
           @click="showNewDriver = !showNewDriver"
         >
-          <i class="fas fa-plus-circle"></i> Add a Driver
+          <span v-if="showNewDriver"
+            ><i class="fas fa-minus-circle"></i> Cancel</span
+          >
+          <span v-else><i class="fas fa-plus-circle"></i> Add a Driver</span>
         </button>
 
         <p v-if="showNewDriver" class="text-xl font-bold text-left">
