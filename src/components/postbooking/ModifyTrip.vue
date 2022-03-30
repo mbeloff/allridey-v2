@@ -4,8 +4,9 @@
   >
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
-      <label for="" class="text-xs my-label">Arrival Flight</label>
+      <label for="flightin" class="text-xs my-label">Arrival Flight</label>
       <input
+      id="flightin"
         v-model="workingdata.bookinginfo[0].flightin"
         maxlength="50"
         type="text"
@@ -13,8 +14,9 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="" class="text-xs my-label">Arrival Collection Point</label>
+      <label for="arrivalpoint" class="text-xs my-label">Arrival Collection Point</label>
       <input
+      id="arrivalpoint"
         v-model="workingdata.bookinginfo[0].arrivalpoint"
         maxlength="80"
         type="text"
@@ -22,8 +24,9 @@
       />
     </div>
     <div class="flex flex-col group">
-      <label for="state" class="my-label">Departure Flight</label>
+      <label for="flightout" class="my-label">Departure Flight</label>
       <input
+      id="flightout"
         v-model="workingdata.bookinginfo[0].flightout"
         maxlength="50"
         type="text"
@@ -31,8 +34,9 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="postcode" class="my-label">Departure Dropoff Point</label>
+      <label for="departurepoint" class="my-label">Departure Dropoff Point</label>
       <input
+      id="departurepoint"
         v-model="workingdata.bookinginfo[0].departurepoint"
         maxlength="80"
         type="text"
