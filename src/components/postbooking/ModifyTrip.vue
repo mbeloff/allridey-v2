@@ -6,7 +6,7 @@
     <div class="flex flex-col flex-grow group">
       <label for="flightin" class="text-xs my-label">Arrival Flight</label>
       <input
-      id="flightin"
+        id="flightin"
         v-model="workingdata.bookinginfo[0].flightin"
         maxlength="50"
         type="text"
@@ -14,9 +14,11 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="arrivalpoint" class="text-xs my-label">Arrival Collection Point</label>
+      <label for="arrivalpoint" class="text-xs my-label"
+        >Arrival Collection Point</label
+      >
       <input
-      id="arrivalpoint"
+        id="arrivalpoint"
         v-model="workingdata.bookinginfo[0].arrivalpoint"
         maxlength="80"
         type="text"
@@ -26,7 +28,7 @@
     <div class="flex flex-col group">
       <label for="flightout" class="my-label">Departure Flight</label>
       <input
-      id="flightout"
+        id="flightout"
         v-model="workingdata.bookinginfo[0].flightout"
         maxlength="50"
         type="text"
@@ -34,9 +36,11 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="departurepoint" class="my-label">Departure Dropoff Point</label>
+      <label for="departurepoint" class="my-label"
+        >Departure Dropoff Point</label
+      >
       <input
-      id="departurepoint"
+        id="departurepoint"
         v-model="workingdata.bookinginfo[0].departurepoint"
         maxlength="80"
         type="text"
@@ -74,7 +78,10 @@
     </div>
 
     <div class="grid grid-cols-2 gap-3 h-8 mt-3 md:col-start-2">
-      <button class="btn-green col-start-2" @click="$emit('save-changes', workingdata)">
+      <button
+        class="btn-green col-start-2"
+        @click="$emit('save-changes', workingdata)"
+      >
         Update <i class="far fa-cloud-upload"></i>
       </button>
     </div>
@@ -99,9 +106,9 @@ export default {
   emits: ['save-changes'],
   data() {
     return {
-      workingdata: this.bookingdata
+      workingdata: this.bookingdata,
     }
-  }
+  },
 }
 </script>
 
