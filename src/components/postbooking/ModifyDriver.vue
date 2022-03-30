@@ -4,9 +4,11 @@
   >
     <loading-overlay v-if="loading"></loading-overlay>
     <div class="flex flex-col flex-grow group">
-      <label for="fName" class="text-xs mb-1 my-label">First Name</label>
+      <label :for="'fName' + cid" class="text-xs mb-1 my-label"
+        >First Name</label
+      >
       <input
-        id="fName"
+        :id="'fName' + cid"
         v-model="customerdata.firstname"
         maxlength="30"
         required
@@ -18,9 +20,11 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="lName" class="text-xs mb-1 my-label">Last Name</label>
+      <label :for="'lName' + cid" class="text-xs mb-1 my-label"
+        >Last Name</label
+      >
       <input
-        id="lName"
+        :id="'lName' + cid"
         v-model="customerdata.lastname"
         maxlength="40"
         required
@@ -32,9 +36,9 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="email" class="text-xs mb-1 my-label">Email</label>
+      <label :for="'email' + cid" class="text-xs mb-1 my-label">Email</label>
       <input
-        id="email"
+        :id="'email' + cid"
         v-model="customerdata.email"
         maxlength="50"
         required
@@ -46,9 +50,9 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="phone" class="text-xs mb-1 my-label">Phone</label>
+      <label :for="'phone' + cid" class="text-xs mb-1 my-label">Phone</label>
       <input
-        id="phone"
+        :id="'phone' + cid"
         v-model="customerdata.mobile"
         maxlength="25"
         required
@@ -64,18 +68,23 @@
       class="flex flex-col flex-grow group"
     >
       <template #default="{ inputValue, inputEvents }">
-        <label for="" class="my-label">Date of Birth</label>
+        <label :for="'dob' + cid" class="my-label">Date of Birth</label>
         <div class="flex flex-row place-items-center">
           <i class="mr-2 fal fa-calendar fa-fw"></i>
-          <input class="my-input w-8" :value="inputValue" v-on="inputEvents" />
+          <input
+            :id="'dob' + cid"
+            class="my-input w-8"
+            :value="inputValue"
+            v-on="inputEvents"
+          />
         </div>
       </template>
     </date-picker>
 
     <div class="flex flex-col flex-grow group">
-      <label for="licenseno" class="text-xs my-label">License #</label>
+      <label :for="'licenseno' + cid" class="text-xs my-label">License #</label>
       <input
-        id="licenseno"
+        :id="'licenseno' + cid"
         v-model="customerdata.licenseno"
         maxlength="70"
         type="text"
@@ -90,19 +99,24 @@
       class="flex flex-col flex-grow group"
     >
       <template #default="{ inputValue, inputEvents }">
-        <label for="" class="my-label">License Expiry</label>
+        <label :for="'licexp' + cid" class="my-label">License Expiry</label>
         <div class="flex flex-row place-items-center">
           <i class="mr-2 form-i fal fa-calendar fa-fw"></i>
-          <input class="my-input w-8" :value="inputValue" v-on="inputEvents" />
+          <input
+            :id="'licexp' + cid"
+            class="my-input w-8"
+            :value="inputValue"
+            v-on="inputEvents"
+          />
         </div>
       </template>
     </date-picker>
     <div class="flex flex-col flex-grow group">
-      <label for="licenseissued" class="text-xs my-label"
+      <label :for="'licenseissued' + cid" class="text-xs my-label"
         >License Issued In</label
       >
       <select
-        id="licenseissued"
+        :id="'licenseissued' + cid"
         v-model="customerdata.licenseissued"
         class="my-input"
       >
@@ -117,9 +131,11 @@
     </div>
 
     <div class="flex flex-col flex-grow group">
-      <label for="" class="text-xs my-label">Street Address</label>
+      <label :for="'address' + cid" class="text-xs my-label"
+        >Street Address</label
+      >
       <input
-        id="address"
+        :id="'address' + cid"
         v-model="customerdata.address"
         maxlength="80"
         type="text"
@@ -127,9 +143,9 @@
       />
     </div>
     <div class="flex flex-col flex-grow group">
-      <label for="" class="text-xs my-label">City</label>
+      <label :for="'city' + cid" class="text-xs my-label">City</label>
       <input
-        id="city"
+        :id="'city' + cid"
         v-model="customerdata.city"
         maxlength="50"
         type="text"
@@ -137,9 +153,9 @@
       />
     </div>
     <div class="flex flex-col group">
-      <label for="state" class="my-label">State</label>
+      <label :for="'state' + cid" class="my-label">State</label>
       <input
-        id="state"
+        :id="'state' + cid"
         v-model="customerdata.state"
         maxlength="30"
         type="text"
@@ -147,8 +163,12 @@
       />
     </div>
     <div class="flex flex-col group">
-      <label for="country" class="my-label">Country</label>
-      <select id="country" v-model="customerdata.countryid" class="my-input">
+      <label :for="'country' + cid" class="my-label">Country</label>
+      <select
+        :id="'country' + cid"
+        v-model="customerdata.countryid"
+        class="my-input"
+      >
         <option
           v-for="country in countries"
           :key="country.id"
@@ -159,9 +179,9 @@
       </select>
     </div>
     <div class="flex flex-col flex-grow group mb-4 md:mb-0">
-      <label for="postcode" class="my-label">Postcode</label>
+      <label :for="'postcode' + cid" class="my-label">Postcode</label>
       <input
-        id="postcode"
+        :id="'postcode' + cid"
         v-model="customerdata.postcode"
         maxlength="10"
         type="text"
@@ -244,7 +264,6 @@ export default {
     },
     countries: Array,
   },
-
   emits: ['save-changes', 'update'],
 
   data() {
@@ -269,6 +288,12 @@ export default {
     }
   },
 
+  computed: {
+    cid() {
+      return this.$.vnode.key
+    },
+  },
+
   watch: {
     dateofbirth: function () {
       this.customerdata.dateofbirth =
@@ -279,7 +304,6 @@ export default {
         this.licenseexpires.toLocaleDateString('en-AU')
     },
   },
-
   mounted() {
     this.customerdata = this.customer
     if (this.newDriver == false) {

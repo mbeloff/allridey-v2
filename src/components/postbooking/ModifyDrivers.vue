@@ -15,7 +15,7 @@
       v-if="bookingdata && bookingdata.bookinginfo"
       class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2 gap-4"
     >
-      <!-- TIP INFO -->
+      <!-- TRIP INFO -->
       <div class="flex flex-col relative p-2 md:p-5 bg-white rounded">
         <p class="text-xl font-bold text-left">Trip Details</p>
         <modify-trip
@@ -30,6 +30,7 @@
       <div class="flex flex-col relative p-2 md:p-5 bg-white rounded">
         <p class="text-xl font-bold text-left">Customer Details</p>
         <modify-driver
+          :key="customer.customerid"
           :loading="savingChanges"
           :bookingdata="bookingdata"
           :customer="customer"
