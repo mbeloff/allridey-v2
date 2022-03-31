@@ -40,8 +40,8 @@
           <i class="far fa-envelope fa-fw text-blue-700 mr-2"></i>
           <a
             class="text-blue-600 hover:underline"
-            :href="`mailto:` + $store.state.email"
-            >{{ $store.state.email }}</a
+            :href="`mailto:` + data.email"
+            >{{ data.email }}</a
           >
         </div>
         <div class="flex">
@@ -91,11 +91,14 @@ export default {
   },
   computed: {
     id() {
+      if (this.$attrs.id) {
+        return this.$attrs.id
+      }
       if (!this.$attrs.id) {
         let name = this.$attrs.name
         let id
         this.all.forEach((el) => {
-          if (this.replaceSpace(el.location) == name) {
+          if (el.location.replaceAll(' ', '-').toLowerCase() == name) {
             id = el.id
           }
         })
@@ -147,9 +150,6 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 1000)
-    },
-    replaceSpace(str) {
-      return str.replace(/\s+/g, '-').toLowerCase()
     },
   },
 }

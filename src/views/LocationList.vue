@@ -3,12 +3,7 @@
     <div
       class="bg-white rounded shadow-xl max-w-screen-lg mx-auto py-5 flex flex-col place-items-center justify-center relative"
     >
-      <div
-        v-if="loading"
-        class="absolute bg-gray-200 bg-opacity-80 mx-auto h-full w-full grid place-items-center"
-      >
-        <spinner></spinner>
-      </div>
+      <loading-overlay v-if="loading" />
       <div class="text-4xl font-extrabold py-5">
         <span class="text-blue-700"> Our Locations </span>
       </div>
@@ -45,7 +40,7 @@
               :to="{
                 name: 'Location',
                 params: {
-                  name: replaceSpace(location.location),
+                  name: location.location.replaceAll(' ', '-').toLowerCase(),
                   id: location.id,
                 },
               }"
@@ -62,15 +57,12 @@
 
 <script>
 import Mixins from '../Mixins'
-import Spinner from '../components/SpinnerIcon.vue'
+import LoadingOverlay from '../components/LoadingOverlay.vue'
 export default {
-  components: { Spinner },
+  components: { LoadingOverlay },
+
   mixins: [Mixins],
-  data() {
-    return {
-      // loading: true,
-    }
-  },
+
   computed: {
     locations() {
       return [...this.$store.state.locations].filter(
@@ -90,18 +82,9 @@ export default {
       }
     },
   },
-  watch: {
-    locationcount: function () {
-      this.loading = false
-    },
-  },
+
   mounted() {
     window.scrollTo(0, 0)
-  },
-  methods: {
-    replaceSpace(str) {
-      return str.replace(/\s+/g, '-').toLowerCase()
-    },
   },
 }
 </script>
