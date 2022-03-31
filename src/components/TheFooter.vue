@@ -8,20 +8,26 @@
           class="hover:underline"
           :to="{
             path:
-              '/location/' + location.city.toLowerCase().replace(/\s+/g, '-'),
+              '/location/' + location.city.toLowerCase().replaceAll(' ', '-'),
           }"
           >Car Hire {{ location.city }}</router-link
         >
       </div>
-      <div class="gap-2 text-sm text-left flex flex-col">
-        <a class="hover:underline" href="/ALLRIDEY-vra.pdf" download
-          ><i class="far fa-file-pdf mr-2 text-blue-500"></i>Terms and
-          Conditions</a
+      <div class="gap-2 text-sm text-left flex flex-col justify-between">
+        <router-link :to="{ name: 'Contact' }"
+          ><i class="far fa-comment-alt mr-2 text-blue-500 fa-fw"></i> Contact
+          Us</router-link
         >
-        <router-link class="hover:underline" :to="'privacy'" download
-          ><i class="far fa-file-pdf mr-2 text-blue-500"></i>Privacy
-          Policy</router-link
-        >
+        <div class="flex flex-col gap-1">
+          <a class="hover:underline" href="/ALLRIDEY-vra.pdf" download
+            ><i class="far fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Terms and
+            Conditions</a
+          >
+          <router-link class="hover:underline" :to="'privacy'" download
+            ><i class="far fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Privacy
+            Policy</router-link
+          >
+        </div>
       </div>
     </div>
 
