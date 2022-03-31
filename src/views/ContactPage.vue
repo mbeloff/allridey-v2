@@ -207,6 +207,9 @@ export default {
       },
     }
   },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
   methods: {
     submit() {
       this.loading = true
@@ -229,16 +232,16 @@ export default {
           this.loading = false
           console.log(result)
           if (result == 'Ok') {
-            ;(this.success = true),
-              (this.form = {
-                fname: '',
-                lname: '',
-                email: '',
-                phone: '',
-                resno: '',
-                depot: '',
-                message: '',
-              })
+            this.success = true
+            this.form = {
+              fname: '',
+              lname: '',
+              email: '',
+              phone: '',
+              resno: '',
+              depot: '',
+              message: '',
+            }
           }
         })
         .catch((error) => {
