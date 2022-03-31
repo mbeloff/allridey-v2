@@ -6,11 +6,12 @@
       <p v-show="error" class="text-red-500 text-center">{{ error }}</p>
     </div>
 
-    <form class="max-w-sm mx-auto text-left flex flex-col">
-      <div class="flex flex-col flex-grow group">
+    <form for="resno" class="max-w-sm mx-auto text-left flex flex-col">
+      <label class="flex flex-col flex-grow group">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-book fa-fw"></i>
           <input
+            id="resno"
             v-model="resno"
             :class="{ 'input-error': missinginput && !resno.length }"
             class="my-input uppercase"
@@ -19,11 +20,12 @@
             placeholder="Reservation number"
           />
         </div>
-      </div>
-      <div class="flex flex-col flex-grow group mt-2">
+      </label>
+      <label for="lastname" class="flex flex-col flex-grow group mt-2">
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-user fa-fw"></i>
           <input
+            id="lastname"
             v-model="lastname"
             :class="{ 'input-error': missinginput && !lastname.length }"
             class="my-input uppercase"
@@ -32,7 +34,7 @@
             placeholder="Last name"
           />
         </div>
-      </div>
+      </label>
       <button
         class="text-4xl text-right font-bold group focus:outline-none w-56"
         @click.prevent="findBooking(resno, lastname)"
@@ -57,8 +59,6 @@ export default {
   mixins: [Mixins],
   data() {
     return {
-      // resno: "U1157",
-      // lastname: "TEST",
       resno: '',
       lastname: '',
       missinginput: false,
