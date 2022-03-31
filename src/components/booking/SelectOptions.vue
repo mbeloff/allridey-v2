@@ -77,108 +77,104 @@
           :slides="gallery"
           class="rounded-t"
         ></keen-slider>
-
-        <div class="bg-white py-1">
-          <p class="font-bold px-2">Daily Rental Rate:</p>
-          <p
-            v-if="step3.availablecars[0].totaldiscountamount > 0"
-            class="bg-green-500 text-white text-center"
-          >
-            discount of ${{
-              step3.availablecars[0].totaldiscountamount
-            }}
-            applied ({{ step3.availablecars[0].discountname }})
-          </p>
-          <div class="flex justify-between px-2">
-            <span>
-              {{
-                step3.seasonalrates[0].numberofdays +
-                ' days @ ' +
-                currencysymbol +
-                step3.seasonalrates[0].dailyrateafterdiscount
+        <div class="relative">
+          <loading-overlay v-if="calculating"></loading-overlay>
+          <div class="bg-white py-1">
+            <p class="font-bold px-2">Daily Rental Rate:</p>
+            <p
+              v-if="step3.availablecars[0].totaldiscountamount > 0"
+              class="bg-green-500 text-white text-center"
+            >
+              discount of ${{
+                step3.availablecars[0].totaldiscountamount
               }}
-            </span>
-            <span class="w-14 font-bold">{{
-              currencysymbol + step3.seasonalrates[0].ratesubtotal.toFixed(2)
-            }}</span>
-          </div>
+              applied ({{ step3.availablecars[0].discountname }})
+            </p>
+            <div class="flex justify-between px-2">
+              <span>
+                {{
+                  step3.seasonalrates[0].numberofdays +
+                  ' days @ ' +
+                  currencysymbol +
+                  step3.seasonalrates[0].dailyrateafterdiscount
+                }}
+              </span>
+              <span class="w-14 font-bold">{{
+                currencysymbol + step3.seasonalrates[0].ratesubtotal.toFixed(2)
+              }}</span>
+            </div>
 
-          <!-- //? EXTRAS -->
-          <div class="mt-2 px-2">
-            <div v-if="totals.mandatory.length || totals.optional.length">
-              <p class="font-bold">Fees:</p>
-              <div
-                v-for="fee in totals.optional"
-                :key="fee.id"
-                class="flex justify-between"
-              >
-                <span>{{ fee.name }}</span
-                ><span v-if="fee.qty > 1" class="mr-auto ml-3"
-                  >x {{ fee.qty }}</span
-                ><span class="font-bold w-14">{{
-                  currencysymbol + fee.total.toFixed(2)
-                }}</span>
-              </div>
+            <!-- //? EXTRAS -->
+            <div class="mt-2 px-2">
+              <div v-if="totals.mandatory.length || totals.optional.length">
+                <p class="font-bold">Fees:</p>
+                <div
+                  v-for="fee in totals.optional"
+                  :key="fee.id"
+                  class="flex justify-between"
+                >
+                  <span>{{ fee.name }}</span
+                  ><span v-if="fee.qty > 1" class="mr-auto ml-3"
+                    >x {{ fee.qty }}</span
+                  ><span class="font-bold w-14">{{
+                    currencysymbol + fee.total.toFixed(2)
+                  }}</span>
+                </div>
 
-              <div
-                v-for="fee in totals.damage"
-                :key="fee.id"
-                class="flex justify-between"
-              >
-                <span>Damage Cover</span
-                ><span class="font-bold w-14">{{
-                  currencysymbol + fee.total.toFixed(2)
-                }}</span>
+                <div
+                  v-for="fee in totals.damage"
+                  :key="fee.id"
+                  class="flex justify-between"
+                >
+                  <span>Damage Cover</span
+                  ><span class="font-bold w-14">{{
+                    currencysymbol + fee.total.toFixed(2)
+                  }}</span>
+                </div>
+                <div
+                  v-for="fee in totals.kms"
+                  :key="fee.id"
+                  class="flex justify-between"
+                >
+                  <span>Km Charges</span
+                  ><span class="font-bold w-14">{{
+                    currencysymbol + fee.total.toFixed(2)
+                  }}</span>
+                </div>
+                <div
+                  v-for="fee in totals.mandatory"
+                  :key="fee.id"
+                  class="flex justify-between"
+                >
+                  <span>{{ fee.name }}</span
+                  ><span class="font-bold w-14">{{
+                    currencysymbol + fee.total.toFixed(2)
+                  }}</span>
+                </div>
+                <br />
               </div>
-              <div
-                v-for="fee in totals.kms"
-                :key="fee.id"
-                class="flex justify-between"
-              >
-                <span>Km Charges</span
-                ><span class="font-bold w-14">{{
-                  currencysymbol + fee.total.toFixed(2)
-                }}</span>
-              </div>
-              <div
-                v-for="fee in totals.mandatory"
-                :key="fee.id"
-                class="flex justify-between"
-              >
-                <span>{{ fee.name }}</span
-                ><span class="font-bold w-14">{{
-                  currencysymbol + fee.total.toFixed(2)
-                }}</span>
-              </div>
-              <br />
             </div>
           </div>
-        </div>
 
-        <!-- // ? CALCULATED TOTAL -->
-        <div
-          v-if="totals.all.length > 0"
-          class="bg-blue-900 text-white px-2 py-4 rounded-b"
-        >
-          <div class="flex justify-end text-base">
-            <span class="font-bold">TOTAL COST: </span>
-            <span
-              v-if="calculating"
-              class="w-24 text-right grid place-items-center justify-items-end"
-            >
-              <spinner></spinner>
-            </span>
-            <span v-else class="w-24 text-right">{{
-              currencysymbol +
-              totals.all[totals.all.findIndex((el) => el.name === 'TOTAL')]
-                .total
-            }}</span>
-          </div>
-          <div v-if="totals.tax[0].total" class="text-right italic text-xs">
-            <span v-for="tax in totals.tax" :key="tax.id"
-              >(includes GST of:
-              {{ ' ' + currencysymbol + totals.tax[0].total }})</span
-            >
+          <!-- // ? CALCULATED TOTAL -->
+          <div
+            v-if="totals.all.length > 0"
+            class="bg-blue-900 text-white px-2 py-4 rounded-b relative"
+          >
+            <div class="flex justify-end text-base">
+              <span class="font-bold">TOTAL COST: </span>
+              <span class="w-24 text-right">{{
+                currencysymbol +
+                totals.all[totals.all.findIndex((el) => el.name === 'TOTAL')]
+                  .total
+              }}</span>
+            </div>
+            <div v-if="totals.tax[0].total" class="text-right italic text-xs">
+              <span v-for="tax in totals.tax" :key="tax.id"
+                >(includes GST of:
+                {{ ' ' + currencysymbol + totals.tax[0].total }})</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -331,13 +327,13 @@
 <script>
 import KeenSlider from '@/components/PhotoGallery.vue'
 import Mixins from '@/Mixins'
-import Spinner from '@/components/SpinnerIcon.vue'
 import MakeBooking from '@/components/booking/MakeBooking.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 export default {
   components: {
-    Spinner,
     MakeBooking,
     KeenSlider,
+    LoadingOverlay,
   },
   mixins: [Mixins],
   emits: ['booking-made'],

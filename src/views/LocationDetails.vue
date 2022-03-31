@@ -3,12 +3,7 @@
     <div
       class="max-w-screen-lg mx-auto bg-white rounded shadow-xl place-items-center justify-center relative"
     >
-      <div
-        v-if="loading"
-        class="absolute grid place-items-center w-full h-full bg-gray-200 bg-opacity-80"
-      >
-        <spinner></spinner>
-      </div>
+      <loading-overlay v-if="loading" />
       <div class="w-full h-56">
         <iframe
           class="rounded-t"
@@ -75,11 +70,11 @@
 </template>
 
 <script>
-import Spinner from '../components/SpinnerIcon.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import Mixins from '../Mixins'
 export default {
   components: {
-    Spinner,
+    LoadingOverlay,
   },
   mixins: [Mixins],
   data() {
