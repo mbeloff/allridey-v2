@@ -316,7 +316,7 @@
       :key="count"
       :optionalfees="optionalfees"
       :search-params="searchParams"
-      :calc-totals="calcTotals"
+      :totals-params="totalsParams"
       :step3="step3"
       @create-booking="setRef"
       @mode-change="changeMode"
@@ -329,6 +329,7 @@ import KeenSlider from '@/components/PhotoGallery.vue'
 import Mixins from '@/Mixins'
 import MakeBooking from '@/components/booking/MakeBooking.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import { mapState } from 'vuex'
 export default {
   components: {
     MakeBooking,
@@ -362,12 +363,7 @@ export default {
     }
   },
   computed: {
-    step3() {
-      return this.$store.state.step3
-    },
-    searchParams() {
-      return this.$store.state.searchParams
-    },
+    ...mapState(['step3', 'searchParams',]),
     currencysymbol() {
       return this.step3.locationfees[0].currencysymbol
     },
@@ -393,7 +389,7 @@ export default {
       })
       return arr
     },
-    calcTotals() {
+    totalsParams() {
       return {
         method: 'calctotal',
         pickuplocationid: this.searchParams.pickuplocationid,
@@ -411,7 +407,7 @@ export default {
     },
   },
   watch: {
-    calcTotals: function () {
+    totalsParams: function () {
       this.getTotals()
       this.count++
     },
@@ -457,7 +453,7 @@ export default {
     getGallery() {
       let catid = this.step3.availablecars[0].vehiclecategoryid
       let baseimg = this.step3.availablecars[0].imageurl
-      let Host = import.meta.env.VITE_HOST
+      let host = import.meta.env.VITE_HOST
       let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
       let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
       let raw = JSON.stringify({
@@ -468,7 +464,7 @@ export default {
         body: raw,
         redirect: 'follow',
       }
-      fetch(Host + '/.netlify/functions/getGallery', requestOptions)
+      fetch(host + '/.netlify/functions/getGallery', requestOptions)
         .then((response) => response.text())
         .then((res) => JSON.parse(res))
         .then((files) => {
@@ -502,7 +498,7 @@ export default {
     },
     getTotals() {
       this.calculating = true
-      Mixins.methods.apiCall(JSON.stringify(this.calcTotals)).then((res) => {
+      Mixins.methods.apiCall(JSON.stringify(this.totalsParams)).then((res) => {
         this.totals.all = res.totals
         this.totals.daily = this.getTotalOfType(res.totals, 'total rate')
         this.totals.mandatory = this.getTotalOfType(res.totals, 'mandatory')

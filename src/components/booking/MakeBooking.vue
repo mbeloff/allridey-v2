@@ -106,7 +106,7 @@ export default {
   mixins: [Mixins, smoothHeight],
   props: {
     optionalfees: Object,
-    calcTotals: Object,
+    totalsParams: Object,
     searchParams: Object,
     step3: Object,
   },
@@ -205,7 +205,7 @@ export default {
     initParams() {
       this.parameters.vehiclecategorytypeid =
         this.searchParams.vehiclecategorytypeid
-      this.parameters.vehiclecategoryid = this.calcTotals.vehiclecategoryid
+      this.parameters.vehiclecategoryid = this.totalsParams.vehiclecategoryid
       this.parameters.pickuplocationid = this.searchParams.pickuplocationid
       this.parameters.pickuptime = this.searchParams.pickuptime
       this.parameters.pickupdate = this.searchParams.pickupdate
@@ -213,9 +213,9 @@ export default {
       this.parameters.dropofftime = this.searchParams.dropofftime
       this.parameters.dropoffdate = this.searchParams.dropoffdate
       this.parameters.ageid = this.searchParams.ageid
-      this.parameters.insuranceid = this.calcTotals.insuranceid
-      this.parameters.extrakmsid = this.calcTotals.extrakmsid
-      this.parameters.optionalfees = this.calcTotals.optionalfees
+      this.parameters.insuranceid = this.totalsParams.insuranceid
+      this.parameters.extrakmsid = this.totalsParams.extrakmsid
+      this.parameters.optionalfees = this.totalsParams.optionalfees
     },
   },
 }
