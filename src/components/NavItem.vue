@@ -18,7 +18,7 @@
             :class="{ 'dropdown-label': !item.id, 'dropdown-item': item.id }"
             :to="{
               name: label,
-              params: { name: convert(item[itemlabel]), id: item.id },
+              params: { name: item[itemlabel].replaceAll(' ','').toLowerCase(), id: item.id },
             }"
             class="hover:bg-gray-200 block whitespace-nowrap first:rounded-t last:rounded-b"
             >{{ item[itemlabel] }}</router-link
@@ -50,12 +50,7 @@ export default {
     $route() {
       this.hover = false
     },
-  },
-  methods: {
-    convert(str) {
-      return str.replace(/\s+/g, '-').toLowerCase()
-    },
-  },
+  },  
 }
 </script>
 
