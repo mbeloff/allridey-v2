@@ -6,11 +6,11 @@
     <transition name="dropdown">
       <div
         v-if="hover"
-        class="absolute left-1/2 text-left center-x font-normal"
+        class="absolute font-normal text-left left-1/2 center-x"
       >
         <div class="h-4"></div>
         <div
-          class="relative rounded dropdown-container shadow-2xl text-blue-900"
+          class="relative text-blue-900 rounded shadow-2xl dropdown-container"
         >
           <router-link
             v-for="item in items"
@@ -18,9 +18,12 @@
             :class="{ 'dropdown-label': !item.id, 'dropdown-item': item.id }"
             :to="{
               name: label,
-              params: { name: item[itemlabel].replaceAll(' ','').toLowerCase(), id: item.id },
+              params: {
+                name: item[itemlabel].replaceAll(' ', '-').toLowerCase(),
+                id: item.id,
+              },
             }"
-            class="hover:bg-gray-200 block whitespace-nowrap first:rounded-t last:rounded-b"
+            class="block hover:bg-gray-200 whitespace-nowrap first:rounded-t last:rounded-b"
             >{{ item[itemlabel] }}</router-link
           >
         </div>
@@ -50,7 +53,7 @@ export default {
     $route() {
       this.hover = false
     },
-  },  
+  },
 }
 </script>
 
