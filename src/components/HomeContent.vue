@@ -69,6 +69,7 @@
 
 <script>
 export default {
+  name: 'HomeContent',
   data() {
     return {
       gallery: [],
@@ -76,7 +77,7 @@ export default {
         {
           title: 'Sale',
           content:
-            '70% off the daily rate for all Hobart hires. Limited time only.<span class="text-red-400"> Sale now ended. Check back for more specials soon.</span>',
+            '70% off the daily rate for all Hobart hires. Limited time only.<span class="text-red-400"> Sale ended 04/22. Check back for more specials soon.</span>',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',
