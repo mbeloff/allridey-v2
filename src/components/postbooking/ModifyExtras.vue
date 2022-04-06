@@ -38,7 +38,7 @@
       class="flex flex-col w-full md:w-4/6 flex-shrink order-1 md:order-2 p-2 md:p-5 bg-white rounded"
     >
       <div v-if="gotOptions" class="relative text-left text-sm">
-        <!-- Kilometres -->
+        <!-- Damage Cover -->
         <div class="mb-4">
           <p class="font-bold mb-4 text-xl">Damage Cover:</p>
           <div
@@ -60,7 +60,7 @@
               />
               <label :for="'dc' + extra.id" class="fee w-full">
                 <div class="flex">
-                  <span class="fee-name"
+                  <span class="py-1 tracking-tight flex-1"
                     >{{ extra.feedescription }}
                     <i
                       v-show="locked(extra.id, 'insurance')"
@@ -78,6 +78,7 @@
           </div>
         </div>
         <div class="mb-4">
+          <!-- Kilometres -->
           <p class="font-bold mb-4 text-xl">Kilometre Inclusions:</p>
           <div
             v-for="extra in options.kmcharges.filter(
@@ -100,17 +101,16 @@
               />
               <label :for="'km' + extra.id" class="fee w-full">
                 <div class="flex">
-                  <span class="fee-name"
+                  <span class="py-1 tracking-tight flex-1"
                     >{{ extra.description }}
                     <i
                       v-show="locked(extra.id, 'kms')"
                       class="fas fa-lock-alt opacity-70 text-xs ml-1"
                     ></i
                   ></span>
-                  <div class="flex items-center font-bold">
+                  <div class="py-1 font-bold w-20 opacity-50 price">
                     <i class="fas fa-plus-circle mr-2"></i
-                    >{{ symbol + extra.dailyrate }}
-                    <span class="text-xs font-normal">/day</span>
+                    >{{ symbol + extra.totalamount }}
                   </div>
                 </div>
               </label>
@@ -157,7 +157,7 @@
               />
               <label :for="'extra' + extra.id" class="fee">
                 <div class="flex justify-between">
-                  <span class="fee-name"
+                  <span class="py-1 tracking-tight flex-1"
                     >{{ extra.name }} {{ extra.qtyapply ? 'x ' + extra.qty : ''
                     }}<i
                       v-show="locked(extra.id, 'optional')"
@@ -165,10 +165,13 @@
                     ></i
                   ></span>
 
-                  <p v-if="extra.type == 'Percentage'" class="font-bold price">
+                  <p
+                    v-if="extra.type == 'Percentage'"
+                    class="py-1 font-bold w-20 opacity-50 price"
+                  >
                     {{ symbol + extra.totalfeeamount }}
                   </p>
-                  <div v-else class="font-bold price">
+                  <div v-else class="py-1 font-bold w-20 opacity-50 price">
                     <span
                       ><i class="fas fa-plus-circle mr-2"></i
                       >{{ symbol + extra.fees * extra.qty }}</span
@@ -180,9 +183,18 @@
                     >
                   </div>
                 </div>
-                <p v-if="extra.feedescription" class="fee-description">
-                  {{ extra.feedescription }}
-                </p>
+                <div>
+                  <p
+                    v-if="extra.feedescription1"
+                    class="pl-2 pt-1.5"
+                    v-html="extra.feedescription1"
+                  ></p>
+                  <p
+                    v-if="extra.feedescription2"
+                    class="pl-2 pt-1.5"
+                    v-html="extra.feedescription2"
+                  ></p>
+                </div>
               </label>
             </div>
           </div>
