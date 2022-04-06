@@ -202,7 +202,7 @@
             />
             <label :for="'damage' + damage.id" class="fee">
               <div class="flex justify-between">
-                <span class="fee-name">{{ damage.name }}</span>
+                <span class="py-1 tracking-tight flex-1">{{ damage.name }}</span>
 
                 <p class="font-bold price">
                   <i class="fas fa-plus-circle mr-2"></i
@@ -212,7 +212,7 @@
               </div>
               <p
                 v-if="damage.feedescription1"
-                class="fee-description"
+                class="pl-2 pt-1.5"
                 v-html="damage.feedescription1"
               ></p>
             </label>
@@ -252,10 +252,17 @@
                 v-model="extra.sel"
                 type="checkbox"
                 class="mr-1 hidden"
+                :disabled="shuttleDisabled(extra.id)"
               />
               <label :for="'extra' + extra.id" class="fee">
                 <div class="flex justify-between">
-                  <span class="fee-name">{{ extra.name }}</span>
+                  <span class="py-1 tracking-tight flex-1"
+                    >{{ extra.name }}
+                    <span v-if="shuttleDisabled(extra.id)"
+                      ><i
+                        class="fas fa-lock-alt opacity-70 text-xs ml-1"
+                      ></i></span
+                  ></span>
 
                   <p v-if="extra.type == 'Percentage'" class="font-bold price">
                     {{ currencysymbol + extra.totalfeeamount }}
@@ -272,9 +279,18 @@
                     >
                   </div>
                 </div>
-                <p v-if="extra.feedescription" class="fee-description">
-                  {{ extra.feedescription }}
-                </p>
+                <div>
+                  <p
+                    v-if="extra.feedescription1"
+                    class="pl-2 pt-1.5"
+                    v-html="extra.feedescription1"
+                  ></p>
+                  <p
+                    v-if="extra.feedescription2"
+                    class="pl-2 pt-1.5"
+                    v-html="extra.feedescription2"
+                  ></p>
+                </div>
               </label>
             </div>
           </div>
@@ -300,7 +316,7 @@
               />
               <label :for="'km' + km.id" class="fee w-full">
                 <div class="flex">
-                  <span class="fee-name">{{ km.description }}</span>
+                  <span class="py-1 tracking-tight flex-1">{{ km.description }}</span>
                   <span class="price"
                     ><i class="fas fa-plus-circle mr-2"></i
                     >{{ currencysymbol + km.totalamount }}</span
@@ -363,7 +379,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['step3', 'searchParams',]),
+    ...mapState(['step3', 'searchParams']),
     currencysymbol() {
       return this.step3.locationfees[0].currencysymbol
     },
@@ -509,6 +525,11 @@ export default {
         this.calculating = false
       })
     },
+    shuttleDisabled(id) {
+      if (id == 111 && this.mandatoryfees.find((el) => el.id == (112 || 113))) {
+        return true
+      }
+    },
     getTotalOfType(list, type) {
       let arr = []
       list.forEach(function (el) {
@@ -553,15 +574,7 @@ export default {
   @apply divide-y divide-gray-200 opacity-80;
 }
 
-.fee-name {
-  @apply py-1 tracking-tight flex-1;
-}
-
 .price {
   @apply py-1 font-bold w-20 opacity-50;
-}
-
-.fee-description {
-  @apply pl-2 pt-1.5;
 }
 </style>
