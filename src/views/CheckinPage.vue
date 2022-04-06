@@ -86,7 +86,7 @@ export default {
   mounted() {
     Mixins.methods.getToken()
     if (this.$route.query.valid == 'false') {
-      this.error = 'The requested booking is no longer available'
+      this.error = 'The requested quote or reservation is no longer available'
     }
   },
   methods: {
