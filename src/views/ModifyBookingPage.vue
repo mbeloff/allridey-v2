@@ -113,6 +113,25 @@ export default {
     this.resref = this.$store.state.pbresref
   },
   methods: {
+    invalidBooking(resinfo) {
+      // check status of reservation
+      if (
+        resinfo.bookinginfo[0].reservationstatus ==
+        ('Cancelled' || 'Hired' || 'Non Revenue' || 'Returned')
+      )
+        return true
+
+      // check if quote has expired (created more than 3 days ago)
+      let datecreated_date = new Date(
+        resinfo.bookinginfo[0].reservationcreateddate
+      )
+      let today = new Date()
+      let diff = today.getTime() - datecreated_date.getTime()
+      let diffDays = Math.ceil(diff / (1000 * 3600 * 24))
+      if (this.isQuotation && diffDays > 3) return true
+
+      return false
+    },
     bookingInfo() {
       let resref = this.$store.state.pbresref
       this.loading = true
@@ -123,24 +142,21 @@ export default {
       }
       Mixins.methods
         .postapiCall(params)
-        .then((res) => {
-          if (res.status == 'OK') {
-            if (
-              res.results.bookinginfo[0].reservationstatus ==
-              ('Cancelled' || 'Hired' || 'Non Revenue' || 'Returned')
-            ) {
+        .then((response) => {
+          if (response.status == 'OK') {
+            if (this.invalidBooking(response.results)) {
               this.$router.push({ name: 'Checkin', query: { valid: false } })
             }
             this.loading = false
-            this.init(res.results)
-          } else if (res.status == 'ERR') {
-            console.log(res.error)
+            this.init(response.results)
+          } else if (response.status == 'ERR') {
+            console.log(response.error)
             this.$router.push({
               name: 'Checkin',
             })
           }
-          if (res.Message) {
-            console.log(res.Message)
+          if (response.Message) {
+            console.log(response.Message)
             this.$router.push({
               name: 'Checkin',
             })
@@ -148,7 +164,7 @@ export default {
           this.loading = false
         })
         .catch((err) => {
-          console.log('get booking info (error): ' + err)
+          console.log("could't get booking info: " + err)
           this.$router.push({
             name: 'Checkin',
           })
