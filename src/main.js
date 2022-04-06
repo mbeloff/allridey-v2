@@ -14,6 +14,7 @@ createApp(App)
   .use(router)
   .use(store)
   .use(VueGtag, {
+    isEnabled: import.meta.env.PROD,
     property: {
       id: 'G-3DHLGGKJJR',
     },
