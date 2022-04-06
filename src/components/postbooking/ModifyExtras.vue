@@ -69,7 +69,7 @@
                   ></span>
                   <div class="flex items-center font-bold">
                     <i class="fas fa-plus-circle mr-2"></i
-                    >{{ symbol + extra.fees }}
+                    >{{ currencysymbol + extra.fees }}
                     <span class="text-xs font-normal">/day</span>
                   </div>
                 </div>
@@ -81,36 +81,36 @@
           <!-- Kilometres -->
           <p class="font-bold mb-4 text-xl">Kilometre Inclusions:</p>
           <div
-            v-for="extra in options.kmcharges.filter(
+            v-for="km in options.kmcharges.filter(
               (el) =>
                 el.totalamount >=
                 bookingdata.bookinginfo[0].kmcharges_totalfordailyrate
             )"
-            :key="extra.id"
+            :key="km.id"
             class="flex flex-col p-1 mb-1 border border-opacity-0 rounded"
-            :class="{ selected: extra.id == selectedkm }"
+            :class="{ selected: km.id == selectedkm }"
           >
             <div class="flex items-center">
               <input
-                :id="'km' + extra.id"
+                :id="'km' + km.id"
                 v-model="selectedkm"
                 type="radio"
-                :checked="extra.id == selectedkm"
+                :checked="km.id == selectedkm"
                 class="mr-1 hidden"
-                :value="extra.id"
+                :value="km.id"
               />
-              <label :for="'km' + extra.id" class="fee w-full">
+              <label :for="'km' + km.id" class="fee w-full">
                 <div class="flex">
                   <span class="py-1 tracking-tight flex-1"
-                    >{{ extra.description }}
+                    >{{ km.description }}
                     <i
-                      v-show="locked(extra.id, 'kms')"
+                      v-show="locked(km.id, 'kms')"
                       class="fas fa-lock-alt opacity-70 text-xs ml-1"
                     ></i
                   ></span>
                   <div class="py-1 font-bold w-20 opacity-50 price">
                     <i class="fas fa-plus-circle mr-2"></i
-                    >{{ symbol + extra.totalamount }}
+                    >{{ currencysymbol + km.totalamount }}
                   </div>
                 </div>
               </label>
@@ -169,12 +169,12 @@
                     v-if="extra.type == 'Percentage'"
                     class="py-1 font-bold w-20 opacity-50 price"
                   >
-                    {{ symbol + extra.totalfeeamount }}
+                    {{ currencysymbol + extra.totalfeeamount }}
                   </p>
                   <div v-else class="py-1 font-bold w-20 opacity-50 price">
                     <span
                       ><i class="fas fa-plus-circle mr-2"></i
-                      >{{ symbol + extra.fees * extra.qty }}</span
+                      >{{ currencysymbol + extra.fees * extra.qty }}</span
                     >
                     <span
                       v-if="extra.type == 'Daily'"
@@ -238,7 +238,7 @@ export default {
     }
   },
   computed: {
-    symbol() {
+    currencysymbol() {
       return this.bookingdata.bookinginfo[0].currencysymbol
     },
     initialinsurance() {
