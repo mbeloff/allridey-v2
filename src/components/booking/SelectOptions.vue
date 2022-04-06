@@ -202,7 +202,7 @@
             />
             <label :for="'damage' + damage.id" class="fee">
               <div class="flex justify-between">
-                <span class="py-1 tracking-tight flex-1">{{ damage.name }}</span>
+                <span class="fee-name">{{ damage.name }}</span>
 
                 <p class="font-bold price">
                   <i class="fas fa-plus-circle mr-2"></i
@@ -256,7 +256,7 @@
               />
               <label :for="'extra' + extra.id" class="fee">
                 <div class="flex justify-between">
-                  <span class="py-1 tracking-tight flex-1"
+                  <span class="fee-name"
                     >{{ extra.name }}
                     <span v-if="shuttleDisabled(extra.id)"
                       ><i
@@ -316,7 +316,7 @@
               />
               <label :for="'km' + km.id" class="fee w-full">
                 <div class="flex">
-                  <span class="py-1 tracking-tight flex-1">{{ km.description }}</span>
+                  <span class="fee-name">{{ km.description }}</span>
                   <span class="price"
                     ><i class="fas fa-plus-circle mr-2"></i
                     >{{ currencysymbol + km.totalamount }}</span
@@ -572,6 +572,10 @@ export default {
 
 .fee {
   @apply divide-y divide-gray-200 opacity-80;
+}
+
+.fee-name {
+  @apply py-1 tracking-tight flex-1;
 }
 
 .price {
