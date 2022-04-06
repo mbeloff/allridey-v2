@@ -59,7 +59,7 @@
                 :value="extra"
               />
               <label :for="'dc' + extra.id" class="fee w-full">
-                <div class="flex">
+                <div class="flex justify-between">
                   <span class="py-1 tracking-tight flex-1"
                     >{{ extra.feedescription }}
                     <i
@@ -73,6 +73,11 @@
                     <span class="text-xs font-normal">/day</span>
                   </div>
                 </div>
+                <p
+                  v-if="extra.feedescription1"
+                  class="pl-2 pt-1.5"
+                  v-html="extra.feedescription1"
+                ></p>
               </label>
             </div>
           </div>
