@@ -1,8 +1,9 @@
 <template>
-  <div class="bg-gray-200 h-full grid place-items-center">
+  <div class="bg-gray-100 h-full grid place-items-center py-10">
     <div
-      class="bg-white grid place-items-center gap-2 py-5 rounded-lg text-left"
+      class="bg-white grid place-items-center gap-2 py-5 rounded-lg text-left min-h-[250px] min-w-[380px] relative"
     >
+      <loading-overlay v-if="!vaulturl"></loading-overlay>
       <iframe
         v-if="vaulturl"
         :src="vaulturl"
@@ -10,21 +11,25 @@
         width="380"
         height="250"
       ></iframe>
-
-      <div class="flex gap-2 text-left justify-start">
-        <i class="fab fa-cc-visa fa-2x"></i>
-        <i class="fab fa-cc-mastercard fa-2x"></i>
-      </div>
       <div class="max-w-[380px] w-full px-2">
         <p class="text-sm">{{ note }}</p>
       </div>
+      <div class="flex gap-2 justify-start">
+        <i class="fab fa-cc-visa fa-2x"></i>
+        <i class="fab fa-cc-mastercard fa-2x"></i>
+      </div>
+      <button class="btn-red absolute -bottom-10" @click="abortPayment()">
+        Cancel Payment
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import Mixins from '@/Mixins.js'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 export default {
+  components: { LoadingOverlay },
   mixins: [Mixins],
   props: { resref: { type: String } },
   data() {
@@ -110,6 +115,15 @@ export default {
             pymnt: 'success',
           },
         })
+      })
+    },
+    abortPayment() {
+      this.sendEmail()
+      this.$router.push({
+        name: 'Summary',
+        query: {
+          pymnt: 'failed',
+        },
       })
     },
     trackPayment() {

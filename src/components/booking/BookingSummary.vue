@@ -100,7 +100,7 @@
               v-else-if="$route.query.pymnt == 'failed'"
               class="flex justify-end"
             >
-              <span class="italic">no payment received</span>
+              <span class="italic">no payment saved</span>
             </div>
           </div>
 
@@ -149,7 +149,7 @@
             </p>
 
             <p v-if="pymnt == 'failed'" class="text-sm">
-              No payment was received, we've saved your request as a quote.
+              No payment info was saved, we've kept your request as a quote.
             </p>
             <p class="text-sm">
               <span v-if="booking.isquotation"
