@@ -8,6 +8,7 @@ import ModifyBooking from './views/ModifyBookingPage.vue'
 import Privacy from './views/PrivacyPolicy.vue'
 import NotFound from './views/NotFound.vue'
 import Contact from './views/ContactPage.vue'
+import VaultEntry from './views/VaultEntry.vue'
 import { trackRouter } from 'vue-gtag-next'
 const history = createWebHistory()
 
@@ -18,6 +19,7 @@ const routes = [
   { name: 'Contact', path: '/contact', component: Contact },
   { name: 'Options', path: '/options', component: Search },
   { name: 'Payment', path: '/payment', component: Search },
+  { name: 'Vault', path: '/vault/:resref', component: VaultEntry, props: true },
   { name: 'Summary', path: '/summary', component: Search },
   { name: 'CheckPayment', path: '/checkpayment', component: CheckPayment },
   { name: 'Locations', path: '/locations', component: Locations },

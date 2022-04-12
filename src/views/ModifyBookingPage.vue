@@ -115,11 +115,7 @@ export default {
   methods: {
     invalidBooking(resinfo) {
       // check status of reservation
-      if (
-        resinfo.bookinginfo[0].reservationstatus ==
-        ('Cancelled' || 'Hired' || 'Non Revenue' || 'Returned')
-      )
-        return true
+      if (resinfo.bookinginfo[0].reservationstatus != 'Reservation') return true
 
       // check if quote has expired (created more than 3 days ago)
       let datecreated_date = new Date(

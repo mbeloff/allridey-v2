@@ -1,4 +1,5 @@
 <template>
+  
   <div
     class="bg-gray-100 h-full bg-center bg-cover relative"
     :class="{ 'full-bg': step < 3 }"
@@ -77,9 +78,6 @@ export default {
     LoadingOverlay,
     HomeContent,
   },
-  // props: {
-  //   payment: {},
-  // },
   data() {
     return {
       step: 1,
@@ -176,9 +174,19 @@ export default {
         this.$forceUpdate()
       }
       if (mode == 2) {
-        this.step = 4
+        this.step = 5
+
+        // send to windcave payment page
+        // this.$router.push({
+        //   name: 'Payment',
+        // })
+
+        // send to card vault entry page
         this.$router.push({
-          name: 'Payment',
+          name: 'Vault',
+          params: {
+            resref: ref,
+          },
         })
       }
     },
