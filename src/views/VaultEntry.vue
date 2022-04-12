@@ -1,21 +1,23 @@
 <template>
   <div class="bg-gray-200 h-full grid place-items-center">
     <div
-      class="overflow-scroll bg-white grid place-items-center gap-2 p-5 rounded-lg text-left w-[450px]"
+      class="bg-white grid place-items-center gap-2 py-5 rounded-lg text-left"
     >
       <iframe
         v-if="vaulturl"
         :src="vaulturl"
         frameborder="0"
-        width="400"
-        height="270"
+        width="380"
+        height="250"
       ></iframe>
 
       <div class="flex gap-2 text-left justify-start">
         <i class="fab fa-cc-visa fa-2x"></i>
         <i class="fab fa-cc-mastercard fa-2x"></i>
       </div>
-      <p class="text-sm px-4">{{ note }}</p>
+      <div class="max-w-[380px] w-full px-2">
+        <p class="text-sm">{{ note }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@ export default {
     this.getVaultUrl()
   },
   mounted() {
+    window.scrollTo(0, 0)
     let eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent'
