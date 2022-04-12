@@ -86,7 +86,7 @@ export default {
   mounted() {
     Mixins.methods.getToken()
     if (this.$route.query.valid == 'false') {
-      this.error = 'The requested quote or reservation is no longer available'
+      this.error = 'Online check-in is not available for the requested reservation at this time.'
     }
   },
   methods: {
