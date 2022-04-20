@@ -466,6 +466,9 @@ export default {
       var params = JSON.stringify(this.form)
       Mixins.methods.apiCall(params).then((res) => {
         this.$store.dispatch('step2', res)
+        if (res.availablecars.find(el=>el.available) == undefined) {
+          this.$emit('errs', ['No vehicles available for selected dates.'])
+        }
         this.$router.push({
           name: 'Results',
         })
