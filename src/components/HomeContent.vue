@@ -58,7 +58,7 @@
             @click="scroll(article.scroll)"
             >{{ article.linktext }}
             <i
-              class="far fa-chevron-right transition ease-out duration-500 transform group-hover:translate-x-1"
+              class="fal fa-chevron-right transition ease-out duration-500 transform group-hover:translate-x-1"
             ></i
           ></router-link>
         </div>
@@ -93,7 +93,7 @@ export default {
           linktext: 'Book Now',
           linksto: 'Search',
           scroll: 'search-form',
-          overlaytext: 'bookings <br> in a flash <i class="fas fa-bolt"></i>',
+          overlaytext: 'bookings <br> in a flash <i class="fal fa-bolt"></i>',
           // color: 'blue'
         },
         {

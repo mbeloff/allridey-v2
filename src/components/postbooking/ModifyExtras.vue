@@ -11,7 +11,7 @@
         <div class="flex gap-2 justify-between">
           <button class="btn-red" @click="modal = false">
             <span class="text-base"
-              >cancel <i class="far fa-times-square"></i
+              >cancel <i class="fal fa-times-square"></i
             ></span>
           </button>
           <button class="btn-green" @click="editBooking()">
@@ -64,11 +64,11 @@
                     >{{ extra.feedescription }}
                     <i
                       v-show="locked(extra.id, 'insurance')"
-                      class="fas fa-lock-alt opacity-70 text-xs ml-1"
+                      class="fal fa-lock-alt opacity-70 text-xs ml-1"
                     ></i
                   ></span>
                   <div class="flex items-center font-bold">
-                    <i class="fas fa-plus-circle mr-2"></i
+                    <i class="fal fa-plus-circle mr-2"></i
                     >{{ currencysymbol + extra.fees }}
                     <span class="text-xs font-normal">/day</span>
                   </div>
@@ -110,11 +110,11 @@
                     >{{ km.description }}
                     <i
                       v-show="locked(km.id, 'kms')"
-                      class="fas fa-lock-alt opacity-70 text-xs ml-1"
+                      class="fal fa-lock-alt opacity-70 text-xs ml-1"
                     ></i
                   ></span>
                   <div class="py-1 font-bold w-20 opacity-50 price">
-                    <i class="fas fa-plus-circle mr-2"></i
+                    <i class="fal fa-plus-circle mr-2"></i
                     >{{ currencysymbol + km.totalamount }}
                   </div>
                 </div>
@@ -135,7 +135,7 @@
               :class="{ 'opacity-70 text-xs': !extra.selected }"
             >
               <i
-                class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid place-items-center fal fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
                 @click="incQty(extra)"
               ></i>
               <input
@@ -145,7 +145,7 @@
                 class="w-6 text-center"
               />
               <i
-                class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid place-items-center fal fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
                 @click="decQty(extra)"
               ></i>
             </div>
@@ -166,7 +166,7 @@
                     >{{ extra.name }} {{ extra.qtyapply ? 'x ' + extra.qty : ''
                     }}<i
                       v-show="locked(extra.id, 'optional')"
-                      class="ml-2 fas fa-lock-alt opacity-70 text-xs"
+                      class="ml-2 fal fa-lock-alt opacity-70 text-xs"
                     ></i
                   ></span>
 
@@ -178,7 +178,7 @@
                   </p>
                   <div v-else class="py-1 font-bold w-20 opacity-50 price">
                     <span
-                      ><i class="fas fa-plus-circle mr-2"></i
+                      ><i class="fal fa-plus-circle mr-2"></i
                       >{{ currencysymbol + extra.fees * extra.qty }}</span
                     >
                     <span
@@ -207,7 +207,7 @@
 
         <div class="flex w-full h-8">
           <button class="btn-green ml-auto" @click="modal = true">
-            save changes <i class="far fa-cloud-upload"></i>
+            save changes <i class="fal fa-cloud-upload"></i>
           </button>
         </div>
       </div>

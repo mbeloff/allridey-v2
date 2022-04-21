@@ -40,7 +40,7 @@
               <label
                 for="doloc"
                 class="my-label text-gray-400 group-hover:text-gray-400 has-icon"
-                >Dropoff Location <i class="fas fa-link fa-fw pl-1"></i
+                >Dropoff Location <i class="fal fa-link fa-fw pl-1"></i
               ></label>
               <div class="flex flex-row place-items-center">
                 <i
@@ -189,7 +189,7 @@
             </div> -->
           <div class="text-right flex-grow">
             <button class="btn btn-primary ml-7 mt-4" @click="getStep2()">
-              SEARCH <i class="text-gray-200 far fa-search"></i>
+              SEARCH <i class="text-gray-200 fal fa-search"></i>
             </button>
           </div>
         </div>

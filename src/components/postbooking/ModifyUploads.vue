@@ -33,7 +33,7 @@
               <span
                 v-if="doc.isuploaded"
                 class="text-green-600 font-normal text-sm"
-                ><i class="far fa-check"></i> uploaded</span
+                ><i class="fal fa-check"></i> uploaded</span
               >
             </div>
 
@@ -47,7 +47,7 @@
                 ></i>
                 <i
                   :class="{ 'opacity-0': doc.isuploaded == 0 }"
-                  class="fas fa-check fa-stack-1x text-green-500"
+                  class="fal fa-check fa-stack-1x text-green-500"
                 ></i>
               </span>
               <button

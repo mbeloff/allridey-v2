@@ -42,7 +42,7 @@
         <p class="text-4xl mt-4 text-left">online</p>
         <span>check in</span>
         <i
-          class="z-0 fas fa-arrow-right align-middle transition ease-out duration-500 transform group-hover:translate-x-1 group-hover:text-blue-600"
+          class="z-0 fal fa-arrow-right align-middle transition ease-out duration-500 transform group-hover:translate-x-1 group-hover:text-blue-600"
         ></i>
       </button>
     </form>

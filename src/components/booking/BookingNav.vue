@@ -45,9 +45,9 @@ export default {
       if (step == stage && stage != 5) {
         return 'text-gray-500 fal fa-circle'
       } else if (step < stage || (step == 5 && stage == 5)) {
-        return 'text-green-500 fas fa-check-circle'
+        return 'text-green-500 fal fa-check-circle'
       } else {
-        return 'invisible fas fa-check-circle'
+        return 'invisible fal fa-check-circle'
       }
     },
     btnStyle(step, stage) {

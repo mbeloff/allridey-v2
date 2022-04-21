@@ -206,7 +206,7 @@
                   damage.name
                 }}</span>
                 <p class="font-bold price">
-                  <i class="fas fa-plus-circle mr-2"></i
+                  <i class="fal fa-plus-circle mr-2"></i
                   >{{ currencysymbol + damage.fees
                   }}<span class="text-xs font-normal">/day</span>
                 </p>
@@ -230,7 +230,7 @@
               class="flex flex-col justify-around items-center w-8"
             >
               <i
-                class="grid place-items-center far fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid place-items-center fal fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
                 @click="incQty(extra)"
               ></i>
               <input
@@ -240,7 +240,7 @@
                 class="w-6 text-center"
               />
               <i
-                class="grid place-items-center far fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid place-items-center fal fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
                 @click="decQty(extra)"
               ></i>
             </div>
@@ -261,7 +261,7 @@
                     >{{ extra.name }}
                     <span v-if="shuttleDisabled(extra.id)"
                       ><i
-                        class="fas fa-lock-alt opacity-70 text-xs ml-1"
+                        class="fal fa-lock-alt opacity-70 text-xs ml-1"
                       ></i></span
                   ></span>
 
@@ -270,7 +270,7 @@
                   </p>
                   <div v-else class="font-bold price">
                     <span
-                      ><i class="fas fa-plus-circle mr-2"></i
+                      ><i class="fal fa-plus-circle mr-2"></i
                       >{{ currencysymbol + extra.fees * extra.qty }}</span
                     >
                     <span
@@ -321,7 +321,7 @@
                     km.description
                   }}</span>
                   <span class="price"
-                    ><i class="fas fa-plus-circle mr-2"></i
+                    ><i class="fal fa-plus-circle mr-2"></i
                     >{{ currencysymbol + km.totalamount }}</span
                   >
                 </div>

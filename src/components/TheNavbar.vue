@@ -46,8 +46,8 @@
           class="min-w-max font-bold text-blue-600 ml-auto mr-4"
           >0417 740 307</a
         >
-        <i v-if="!expand" class="fas fa-bars fa-2x fa-fw"></i>
-        <i v-if="expand" class="fas fa-times fa-2x fa-fw"></i>
+        <i v-if="!expand" class="fal fa-bars fa-2x fa-fw"></i>
+        <i v-if="expand" class="fal fa-times fa-2x fa-fw"></i>
       </div>
     </div>
     <transition name="slide">

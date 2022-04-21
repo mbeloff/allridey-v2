@@ -15,16 +15,16 @@
       </div>
       <div class="gap-2 text-sm text-left flex flex-col justify-between">
         <router-link :to="{ name: 'Contact' }"
-          ><i class="far fa-comment-alt mr-2 text-blue-500 fa-fw"></i> Contact
+          ><i class="fal fa-comment-alt mr-2 text-blue-500 fa-fw"></i> Contact
           Us</router-link
         >
         <div class="flex flex-col gap-1">
           <a class="hover:underline" href="/ALLRIDEY-vra.pdf" download
-            ><i class="far fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Terms and
+            ><i class="fal fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Terms and
             Conditions</a
           >
           <router-link class="hover:underline" :to="'privacy'" download
-            ><i class="far fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Privacy
+            ><i class="fal fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Privacy
             Policy</router-link
           >
         </div>
@@ -33,7 +33,7 @@
 
     <div>
       <a :href="`mailto:` + $store.state.email"
-        ><i class="far fa-envelope mr-2 text-blue-500"></i
+        ><i class="fal fa-envelope mr-2 text-blue-500"></i
         >{{ $store.state.email }}</a
       >
       <a href="/" class="left flex"

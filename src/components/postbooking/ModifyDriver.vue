@@ -195,21 +195,21 @@
         class="btn-red"
         @click="deleteExtraDriver(-customerdata.customerid)"
       >
-        Delete <i class="far fa-times"></i>
+        Delete <i class="fal fa-times"></i>
       </button>
       <button
         v-if="!isPrimary"
         class="btn-green col-start-2"
         @click="addExtraDriver(customerdata.customerid)"
       >
-        {{ !newDriver ? 'Update' : 'Add' }} <i class="far fa-cloud-upload"></i>
+        {{ !newDriver ? 'Update' : 'Add' }} <i class="fal fa-cloud-upload"></i>
       </button>
       <button
         v-if="isPrimary"
         class="btn-green col-start-2"
         @click="$emit('save-changes', customerdata)"
       >
-        Update <i class="far fa-cloud-upload"></i>
+        Update <i class="fal fa-cloud-upload"></i>
       </button>
     </div>
   </div>

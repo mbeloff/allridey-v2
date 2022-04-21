@@ -5,7 +5,7 @@
       v-if="pymnt == 'success'"
       class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700"
     >
-      <i class="far fa-check fa-fw" />
+      <i class="fal fa-check fa-fw" />
       <p>Payment Saved.</p>
     </div>
     <div class="rounded w-full flex flex-col gap-3">

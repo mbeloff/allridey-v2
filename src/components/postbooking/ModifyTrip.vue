@@ -82,7 +82,7 @@
         class="btn-green col-start-2"
         @click="$emit('save-changes', workingdata)"
       >
-        Update <i class="far fa-cloud-upload"></i>
+        Update <i class="fal fa-cloud-upload"></i>
       </button>
     </div>
   </div>

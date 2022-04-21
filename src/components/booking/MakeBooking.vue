@@ -22,9 +22,9 @@
         ref="scrollMarker"
         class="relative grid place-items-center my-5 text-blue-600"
       >
-        <i class="fas fa-chevron-down" />
+        <i class="fal fa-chevron-down" />
         <transition name="slide-down">
-          <i class="fas fa-chevron-down absolute -top-1.5" />
+          <i class="fal fa-chevron-down absolute -top-1.5" />
         </transition>
       </div>
     </transition>

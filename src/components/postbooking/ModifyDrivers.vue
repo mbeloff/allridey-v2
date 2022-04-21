@@ -66,9 +66,9 @@
           @click="showNewDriver = !showNewDriver"
         >
           <span v-if="showNewDriver"
-            ><i class="fas fa-minus-circle"></i> Cancel</span
+            ><i class="fal fa-minus-circle"></i> Cancel</span
           >
-          <span v-else><i class="fas fa-plus-circle"></i> Add a Driver</span>
+          <span v-else><i class="fal fa-plus-circle"></i> Add a Driver</span>
         </button>
 
         <p v-if="showNewDriver" class="text-xl font-bold text-left">

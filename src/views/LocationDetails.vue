@@ -25,14 +25,14 @@
         ></div>
 
         <div class="flex items-center">
-          <i class="far fa-map-marker fa-fw text-blue-700 mr-2"></i>
+          <i class="fal fa-map-marker fa-fw text-blue-700 mr-2"></i>
           <span
             >{{ data.address }}, {{ data.suburb }} {{ data.postcode }}
             {{ data.state }}</span
           >
         </div>
         <div class="flex items-center">
-          <i class="far fa-envelope fa-fw text-blue-700 mr-2"></i>
+          <i class="fal fa-envelope fa-fw text-blue-700 mr-2"></i>
           <a
             class="text-blue-600 hover:underline"
             :href="`mailto:` + data.email"
@@ -40,7 +40,7 @@
           >
         </div>
         <div class="flex">
-          <i class="far fa-clock fa-fw text-blue-700 mt-1.5 mr-2"></i>
+          <i class="fal fa-clock fa-fw text-blue-700 mt-1.5 mr-2"></i>
           <div>
             <div class="w-56 flex justify-between items-center">
               <span class="w-24">mon-fri:</span>
