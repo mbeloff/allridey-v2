@@ -55,12 +55,10 @@ export default {
     eventer(messageEvent, function myFunc(e) {
       let key = e.message ? 'message' : 'data'
       let data = e[key]
-      console.log(data)
       if (data) {
         let split = data.split(',')
         if (split[5] == 'ADD') {
           // save payment with rcm api
-          console.log(data)
           _.vaultEntry(data)
           window.removeEventListener(messageEvent, myFunc)
         }
@@ -75,7 +73,6 @@ export default {
         reservationref: this.resref,
       })
       Mixins.methods.apiCall(params).then((result) => {
-        console.log(result)
         this.vaulturl = atob(result.url)
         this.note = result.vaultnote
       })
@@ -89,9 +86,7 @@ export default {
         emailoption: 0,
       })
       Mixins.methods.apiCall(params).then((result) => {
-        console.log(result)
         if (result.paymentsaved == true) {
-          console.log('payment saved')
           this.refreshBookingInfo()
         } else {
           alert('payment not saved')
