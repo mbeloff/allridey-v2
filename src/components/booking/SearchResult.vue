@@ -211,7 +211,7 @@ export default {
     },
     renderFeature(item) {
       if (item == 'a/m') {
-        return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Auto & Manual'
+        return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Auto & Manual Available'
       }
       if (item == 'a') {
         return '<i class="fal fa-fw fa-cogs mr-2 text-blue-800"></i>Automatic'
