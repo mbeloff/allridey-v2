@@ -35,16 +35,17 @@
                 class="text-green-600 font-normal text-sm"
                 ><i class="fal fa-check"></i> uploaded</span
               >
+              <span v-else class="text-orange-500 font-normal text-sm">
+                <i class="fal fa-exclamation-triangle"></i>
+                required</span
+              >
             </div>
 
             <div
               class="grid items-center text-center p-2 rounded bg-gray-100 flex-shrink"
             >
               <span class="fa-stack text-lg mx-auto">
-                <i
-                  :class="iconClass(doc)"
-                  class="fa-thin fa-stack-2x text-gray-500"
-                ></i>
+                <i class="fa-thin fa-stack-2x text-gray-500"></i>
                 <i
                   :class="{ 'opacity-0': doc.isuploaded == 0 }"
                   class="fal fa-check fa-stack-1x text-green-500"
@@ -154,16 +155,6 @@ export default {
         documentlinkid: -id,
       }
       Mixins.methods.postapiCall(method).then(this.getDocumentList())
-    },
-    iconClass(doc) {
-      return {
-        'opacity-20': doc.isuploaded == 1,
-        'fa-id-card':
-          doc.title == 'Take a photo of the front of your driving license',
-        'fa-image-user': doc.title == 'Take a Selfie',
-        'fa-credit-card-blank fa-flip-vertical':
-          doc.title == 'Take a photo of the back of your driving license',
-      }
     },
   },
 }

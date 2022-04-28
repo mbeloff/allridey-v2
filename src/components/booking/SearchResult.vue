@@ -40,7 +40,7 @@
               v-html="renderFeature(feature)"
             ></p>
             <p>
-              <i class="fal fa-tachometer-fast fa-fw text-blue-800 mr-2"></i
+              <i class="fal fa-tachometer-alt-fast fa-fw text-blue-800 mr-2"></i
               >250km/day included
             </p>
           </div>
