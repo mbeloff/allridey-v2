@@ -44,9 +44,10 @@
               >250km/day included
             </p>
           </div>
+          <p v-if="data.available == 2" class="text-sm text-red-500">{{data.availablemessage}}</p>
         </div>
         <div
-          v-if="isAvailable() == 'Available for booking'"
+          v-if="data.available"
           class="flex flex-col justify-end p-1 md:p-2 md:w-40 bg-gray-100 rounded-b md:rounded-l-none md:rounded-r"
         >
           <div
@@ -107,10 +108,18 @@
             </div>
           </div>
           <button
+          v-if="data.available == 1"
             class="btn btn-secondary bg-gray-200 w-full"
             @click="getStep3()"
           >
             Book Now
+          </button>
+          <button
+          v-if="data.available == 2"
+            class="btn btn-secondary bg-gray-200 w-full"
+            @click="getStep3()"
+          >
+            Request Now
           </button>
         </div>
       </div>
@@ -254,17 +263,6 @@ export default {
         }
       })
       return arr
-    },
-    isAvailable() {
-      if (
-        this.data.availablemessage === 'Not available due to incomplete rates.'
-      ) {
-        return false
-      } else if (this.data.availablemessage.length > 0) {
-        return this.data.availablemessage
-      } else {
-        return false
-      }
     },
   },
 }

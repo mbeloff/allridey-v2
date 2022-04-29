@@ -13,7 +13,7 @@
         :class="{ 'bg-blue-600 text-white': mode == 2 }"
         @click="setMode(2), scroll('scrollMarker')"
       >
-        Make Booking
+        {{ available == 1 ? 'Book Now' : 'Request Now' }}
       </button>
     </div>
     <transition name="slide-down">
@@ -85,7 +85,7 @@
         :disabled="pleaseWait"
         @click="$refs.bookingform.submit()"
       >
-        {{ btnText }} <loading-overlay v-if="pleaseWait" class="text-black" />
+        Submit <loading-overlay v-if="pleaseWait" class="text-black" />
       </button>
     </form>
   </div>
@@ -164,11 +164,11 @@ export default {
     }
   },
   computed: {
-    btnText() {
-      return this.mode == 1 ? 'Get Quote' : 'Make Payment'
-    },
     foundus() {
       return this.step3.rentalsource
+    },
+    available() {
+      return this.step3.availablecars[0].available
     },
   },
   watch: {},

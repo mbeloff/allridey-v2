@@ -49,7 +49,7 @@ export default {
         pricehigh: (a, b) => this.calcEstimate(b) - this.calcEstimate(a),
       }
       return this.step2.availablecars
-        .filter((car) => car.availablemessage == 'Available for booking')
+        .filter((car) => car.available == 1||2)
         .slice()
         .sort(sorters[this.filter])
     },
