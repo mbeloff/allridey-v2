@@ -18,13 +18,12 @@
     <div class="flex flex-col flex-1">
       <!-- Vehicle Details -->
       <div class="flex flex-col md:flex-row print:flex-row flex-1">
-        <div class="flex flex-col flex-1 p-1">
-          <div class="px-2 pt-2">
+        <div class="flex flex-col flex-1 p-2">
             <p class="text-blue-800 text-xl font-bold">
               {{ data.categoryfriendlydescription }}
             </p>
             <p class="text-sm text-gray-500">{{ data.vehicledescription2 }}</p>
-          </div>
+
           <div class="flex flex-col mb-1 p-2 text-sm">
             <p>
               <i class="fal fa-fw fa-male mr-2 text-blue-800"></i>Seats
