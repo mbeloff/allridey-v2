@@ -1,5 +1,5 @@
 <template>
-  <div ref="summary" class="text-left p-2">
+  <div v-if="booking" ref="summary" class="text-left p-2">
     <loading-overlay v-if="loading" />
     <div
       v-if="pymnt == 'success'"
@@ -145,7 +145,7 @@
               Thank you for requesting a quote with Allridey
             </p>
             <p v-else class="text-xl font-bold">
-              Thanks for booking with Allridey.
+              Thank you for requesting a booking with Allridey.
             </p>
 
             <p v-if="pymnt == 'failed'" class="text-sm">
@@ -176,7 +176,7 @@
               v-if="booking.isquotation"
               :href="booking.quoteconversionurl"
               class="btn btn-primary text-center mx-auto mb-2"
-              >Convert to Booking</a
+              >Convert to a Booking</a
             >
           </div>
         </div>
@@ -186,6 +186,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import Mixins from '@/Mixins'
 export default {
@@ -193,30 +194,20 @@ export default {
   mixins: [Mixins],
   data() {
     return {
-      booking: {},
       pymnt: undefined,
       loading: true,
     }
   },
   computed: {
-    bookinginfo() {
-      return this.$store.state.bookinginfo
-    },
-    customer() {
-      return this.bookinginfo.customerinfo[0]
-    },
-    fees() {
-      return this.bookinginfo.extrafees
-    },
-    payment() {
-      return this.bookinginfo.paymentinfo
-    },
-    rate() {
-      return this.bookinginfo.rateinfo
-    },
+    ...mapState({
+      booking: state => state.bookinginfo.bookinginfo[0],
+      customer: state => state.bookinginfo.customerinfo[0],
+      fees: state => state.bookinginfo.extrafees,
+      payment: state => state.bookinginfo.paymentinfo,
+      rate: state => state.bookinginfo.rateinfo,
+    }),
   },
   beforeMount() {
-    this.booking = this.$store.state.bookinginfo.bookinginfo[0]
     this.pymnt = this.$route.query.pymnt
   },
   mounted() {
