@@ -30,11 +30,11 @@
             class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
             >0417 740 307</a
           >
-          <router-link
+          <!-- <router-link
             :to="{ name: 'Checkin' }"
             class="ml-4 menu-item menu-button"
             ><i class="fal fa-sign-in mr-1"></i> Check in</router-link
-          >
+          > -->
         </div>
       </div>
       <div
