@@ -406,9 +406,9 @@ export default {
         this.form.dropofftime
       )
       let errs = []
-      if (pickupDateTime < new Date()) {
-        errs.push('Selected pickup date is in the past')
-      }
+      // if (pickupDateTime < new Date()) {
+      //   errs.push('Selected pickup date is in the past')
+      // }
       if (Date.parse(dropoffDateTime) <= Date.parse(pickupDateTime)) {
         errs.push('Dropoff date/time must by after pickup date/time')
       }
@@ -467,7 +467,7 @@ export default {
       Mixins.methods.apiCall(params).then((res) => {
         this.$store.dispatch('step2', res)
         if (res.availablecars.find(el=>el.available) == undefined) {
-          this.$emit('errs', ['No vehicles available for selected dates.'])
+          this.$emit('errs', [''])
         }
         this.$router.push({
           name: 'Results',
