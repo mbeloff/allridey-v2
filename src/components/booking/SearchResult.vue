@@ -107,18 +107,10 @@
             </div>
           </div>
           <button
-          v-if="data.available == 1"
             class="btn btn-secondary bg-gray-200 w-full"
             @click="getStep3()"
           >
-            Book Now
-          </button>
-          <button
-          v-if="data.available == 2"
-            class="btn btn-secondary bg-gray-200 w-full"
-            @click="getStep3()"
-          >
-            Request Now
+            Select
           </button>
         </div>
       </div>
