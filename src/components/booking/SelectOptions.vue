@@ -338,6 +338,7 @@
       :search-params="searchParams"
       :totals-params="totalsParams"
       :step3="step3"
+      :shuttle="shuttleSelected"
       @create-booking="setRef"
       @mode-change="changeMode"
     ></make-booking>
@@ -396,6 +397,13 @@ export default {
         })
       })
       return arr
+    },
+    shuttleSelected() {
+      return this.totals.optional.find((el) =>
+        el.name.toLowerCase().includes('shuttle')
+      )
+        ? true
+        : false
     },
     selectedExtras() {
       let arr = []

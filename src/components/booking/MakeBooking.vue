@@ -76,6 +76,7 @@
             :step3="step3"
             :parameters="parameters"
             :foundus="foundus"
+            :shuttle="shuttle"
           />
         </transition>
       </div>
@@ -109,6 +110,7 @@ export default {
     totalsParams: Object,
     searchParams: Object,
     step3: Object,
+    shuttle: Boolean
   },
   emits: ['modeChange', 'create-booking'],
   data() {

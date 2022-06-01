@@ -117,7 +117,7 @@
       Trip Details <span class="font-normal text-gray-400">optional</span>
     </p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
-      <div class="flex flex-col flex-grow group">
+      <div v-if="shuttle" class="flex flex-col flex-grow group">
         <label for="flightin" class="text-xs my-label">Arrival Flight</label>
         <input
           id="flightin"
@@ -127,7 +127,7 @@
           class="my-input"
         />
       </div>
-      <div class="flex flex-col flex-grow group">
+      <div v-if="shuttle" class="flex flex-col flex-grow group">
         <label for="arrivalpoint" class="text-xs my-label">Pick up Point</label>
         <input
           id="arrivalpoint"
@@ -137,7 +137,7 @@
           class="my-input"
         />
       </div>
-      <div class="flex flex-col flex-grow group">
+      <div v-if="shuttle" class="flex flex-col flex-grow group">
         <label for="flightout" class="text-xs my-label">Departure Flight</label>
         <input
           id="flightout"
@@ -147,7 +147,7 @@
           class="my-input"
         />
       </div>
-      <div class="flex flex-col flex-grow group">
+      <div v-if="shuttle" class="flex flex-col flex-grow group">
         <label for="departurepoint" class="text-xs my-label"
           >Drop off point</label
         >
@@ -226,6 +226,7 @@ export default {
     parameters: Object,
     step3: Object,
     foundus: Array,
+    shuttle: Boolean,
   },
   data() {
     return {
