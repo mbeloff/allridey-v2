@@ -6,6 +6,7 @@ export default createStore({
   state: {
     phone: '0417 740 307',
     email: 'sales@allridey.com.au',
+    checkinurl: 'https://checkin.allridey.com.au/',
     step1: {},
     step2: {},
     step3: {},

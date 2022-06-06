@@ -174,7 +174,7 @@
           <div class="flex">
             <a
               v-if="booking.isquotation"
-              :href="booking.quoteconversionurl"
+              :href="'https://checkin.allridey.com.au/?name='+customer.lastname+'&res='+booking.reservationno"
               class="btn btn-primary text-center mx-auto mb-2"
               >Convert to a Booking</a
             >
@@ -200,11 +200,11 @@ export default {
   },
   computed: {
     ...mapState({
-      booking: state => state.bookinginfo.bookinginfo[0],
-      customer: state => state.bookinginfo.customerinfo[0],
-      fees: state => state.bookinginfo.extrafees,
-      payment: state => state.bookinginfo.paymentinfo,
-      rate: state => state.bookinginfo.rateinfo,
+      booking: (state) => state.bookinginfo.bookinginfo[0],
+      customer: (state) => state.bookinginfo.customerinfo[0],
+      fees: (state) => state.bookinginfo.extrafees,
+      payment: (state) => state.bookinginfo.paymentinfo,
+      rate: (state) => state.bookinginfo.rateinfo,
     }),
   },
   beforeMount() {

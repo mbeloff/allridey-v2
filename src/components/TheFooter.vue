@@ -18,6 +18,10 @@
           ><i class="fal fa-comment-alt mr-2 text-blue-500 fa-fw"></i> Contact
           Us</router-link
         >
+        <a :href="$store.state.checkinurl"
+          ><i class="fal fa-sign-in mr-2 text-blue-500 fa-fw"></i> Online
+          Checkin</a
+        >
         <div class="flex flex-col gap-1">
           <a class="hover:underline" href="/ALLRIDEY-vra.pdf" download
             ><i class="fal fa-file-pdf mr-2 text-blue-500 fa-fw"></i>Terms and

@@ -26,15 +26,13 @@
             >Contact</router-link
           >
           <a
-            href="tel:0417740307"
+            :href="`tel:${$store.state.phone.replaceAll(' ','')}`"
             class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
-            >0417 740 307</a
+            >{{ $store.state.phone }}</a
           >
-          <!-- <router-link
-            :to="{ name: 'Checkin' }"
-            class="ml-4 menu-item menu-button"
-            ><i class="fal fa-sign-in mr-1"></i> Check in</router-link
-          > -->
+          <a :href="$store.state.checkinurl" class="ml-4 menu-item menu-button"
+            ><i class="fal fa-sign-in mr-1"></i> Check in</a
+          >
         </div>
       </div>
       <div
@@ -71,11 +69,11 @@
           >Contact</router-link
         >
 
-        <!-- <router-link
-          :to="{ name: 'Checkin' }"
+        <a
+          :href="$store.state.checkinurl"
           class="hover:bg-gray-200 px-5 py-3 menu-item menu-button max-w-max rounded-full mx-auto text-sm"
-          ><i class="fal fa-sign-in mr-1"></i> Check In</router-link
-        > -->
+          ><i class="fal fa-sign-in mr-1"></i> Check In</a
+        >
         <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
       </div>
     </transition>
