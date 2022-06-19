@@ -11,9 +11,9 @@
         width="380"
         height="250"
       ></iframe>
-      <div class="max-w-[380px] w-full px-2">
+      <!-- <div class="max-w-[380px] w-full px-2">
         <p class="text-sm">{{ note }}</p>
-      </div>
+      </div> -->
       <div class="flex gap-2 justify-start">
         <i class="fab fa-cc-visa fa-2x"></i>
         <i class="fab fa-cc-mastercard fa-2x"></i>
