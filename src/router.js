@@ -3,8 +3,6 @@ import Search from './views/MainSearchPage.vue'
 import CheckPayment from './views/CheckPayment.vue'
 import Locations from './views/LocationList.vue'
 import Location from './views/LocationDetails.vue'
-import Checkin from './views/CheckinPage.vue'
-import ModifyBooking from './views/ModifyBookingPage.vue'
 import Privacy from './views/PrivacyPolicy.vue'
 import NotFound from './views/NotFound.vue'
 import Contact from './views/ContactPage.vue'
@@ -29,8 +27,6 @@ const routes = [
     component: Location,
     props: true,
   },
-  { name: 'Checkin', path: '/checkin', component: Checkin },
-  { name: 'ModifyBooking', path: '/modifybooking', component: ModifyBooking },
   { name: 'Privacy', path: '/privacy', component: Privacy },
   { path: '/australia', redirect: '/' },
   {
