@@ -1,4 +1,4 @@
-const CryptoJS = require('crypto-js/crypto-js')
+const crypto = require('crypto');
 const headers = {
   'Access-Control-Allow-Origin': process.env.VITE_HOST,
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -7,8 +7,7 @@ const headers = {
 exports.handler = async function (event) {
   var secret = process.env.RCM_SECRET
   let msg = event.body
-  var hash = CryptoJS.HmacSHA256(msg, secret)
-  var hashInHex = CryptoJS.enc.Hex.stringify(hash)
+  var hashInHex = crypto.createHmac('sha256', secret).update(msg).digest('hex')
 
   let signature = '{"signature":"' + hashInHex + '"}'
 
