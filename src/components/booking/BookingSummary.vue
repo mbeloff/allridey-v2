@@ -145,7 +145,7 @@
               Thank you for requesting a quote with Allridey
             </p>
             <p v-else class="text-xl font-bold">
-              Thank you for requesting a booking with Allridey.
+              Thank you for booking with Allridey.
             </p>
 
             <p v-if="pymnt == 'failed'" class="text-sm">
