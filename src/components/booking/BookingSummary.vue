@@ -1,13 +1,6 @@
 <template>
   <div v-if="booking" ref="summary" class="text-left p-2">
     <loading-overlay v-if="loading" />
-    <div
-      v-if="pymnt == 'success'"
-      class="rounded max-w-md mx-auto p-2 flex flex-row gap-3 mb-10 bg-green-100 border-green-300 border items-center text-green-700"
-    >
-      <i class="fal fa-check fa-fw" />
-      <p>Payment Saved.</p>
-    </div>
     <div class="rounded w-full flex flex-col gap-3">
       <div class="flex flex-col md:flex-row gap-3 items-start">
         <!--LEFT SIDE -->
