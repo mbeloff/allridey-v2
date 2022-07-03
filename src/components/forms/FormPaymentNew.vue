@@ -22,7 +22,7 @@
 <script>
 import { mapState } from 'vuex'
 import Mixins from '@/Mixins'
-import LoadingOverlay from '@/components//LoadingOverlay.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 export default {
   components: {
     LoadingOverlay,

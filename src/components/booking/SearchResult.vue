@@ -6,7 +6,7 @@
       <img
         v-if="!gallery.length"
         class="object-contain object-center mx-auto rounded"
-        :src="data.imageurl"
+        :src="'https:' + data.imageurl"
         alt=""
       />
       <keen-slider
@@ -19,10 +19,10 @@
       <!-- Vehicle Details -->
       <div class="flex flex-col md:flex-row print:flex-row flex-1">
         <div class="flex flex-col flex-1 p-2">
-            <p class="text-blue-800 text-xl font-bold">
-              {{ data.categoryfriendlydescription }}
-            </p>
-            <p class="text-sm text-gray-500">{{ data.vehicledescription2 }}</p>
+          <p class="text-blue-800 text-xl font-bold">
+            {{ data.categoryfriendlydescription }}
+          </p>
+          <p class="text-sm text-gray-500">{{ data.vehicledescription2 }}</p>
 
           <div class="flex flex-col mb-1 p-2 text-sm">
             <p>
@@ -43,7 +43,9 @@
               >250km/day included
             </p>
           </div>
-          <p v-if="data.available == 2" class="text-sm text-red-500">{{data.availablemessage}}</p>
+          <p v-if="data.available == 2" class="text-sm text-red-500">
+            {{ data.availablemessage }}
+          </p>
         </div>
         <div
           v-if="data.available"
@@ -205,7 +207,7 @@ export default {
           files.forEach((el) =>
             this.gallery.unshift(baseurl + transform + el + '.jpg')
           )
-          this.gallery.unshift(this.data.imageurl)
+          this.gallery.unshift('https:'+this.data.imageurl)
         })
         .catch((error) => console.log('error', error))
     },

@@ -69,7 +69,7 @@
         <img
           v-if="!gallery.length"
           class="object-contain object-center mx-auto rounded"
-          :src="step3.availablecars[0].imageurl"
+          :src="'https:'+step3.availablecars[0].imageurl"
           alt=""
         />
         <keen-slider
@@ -480,7 +480,7 @@ export default {
   methods: {
     getGallery() {
       let catid = this.step3.availablecars[0].vehiclecategoryid
-      let baseimg = this.step3.availablecars[0].imageurl
+      let baseimg = 'https:'+this.step3.availablecars[0].imageurl
       let host = import.meta.env.VITE_HOST
       let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
       let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
