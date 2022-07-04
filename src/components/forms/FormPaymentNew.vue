@@ -178,7 +178,7 @@ export default {
         cardexpiry: this.cardExpiry(obj.DateExpiry._text),
         transtype: 'Payment',
         payscenario: 1,
-        emailoption: 1,
+        emailoption: 0,
       }
       return params
     },

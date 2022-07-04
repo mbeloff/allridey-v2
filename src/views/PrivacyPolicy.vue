@@ -435,9 +435,6 @@
 
 <script>
 export default {
-  computed: {
-    data() {},
-  },
   mounted() {
     window.scrollTo(0, 0)
   },
