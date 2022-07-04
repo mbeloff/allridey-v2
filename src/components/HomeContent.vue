@@ -77,7 +77,7 @@ export default {
         {
           title: 'Sale',
           content:
-            'Save 50% on the daily rate for all hires in Adelaide, Brisbane, Cairns and Hobart. Limited time only.<span class="text-red-500">sale ended 11/5/22</span>',
+            'Save 50% on the daily rate for all hires in Hobart. Limited time only',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',
