@@ -73,6 +73,7 @@
               mode="date"
               :update-on-input="false"
               is-range
+              :rows="2"
               :min-date="new Date()"
               :model-config="dateconfig"
             >
