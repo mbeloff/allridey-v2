@@ -155,13 +155,6 @@
                           :value="time"
                         >
                           {{ to12hr(time) }}
-                          <span
-                            v-if="
-                              !openingHoursDropoff.find((el) => el == time) ||
-                              time == '00:00'
-                            "
-                            >{{ '- after hours fee' }}</span
-                          >
                         </option>
                       </select>
                     </div>
@@ -459,7 +452,7 @@ export default {
       var params = JSON.stringify(this.form)
       Mixins.methods.apiCall(params).then((res) => {
         this.$store.dispatch('step2', res)
-        if (res.availablecars.find(el=>el.available) == undefined) {
+        if (res.availablecars.find((el) => el.available) == undefined) {
           this.$emit('errs', [''])
         }
         this.$router.push({
