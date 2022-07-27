@@ -2,15 +2,15 @@
   <div>
     <div class="grid grid-flow-col place-items-center gap-2 mt-10">
       <button
-        class="btn btn-secondary ml-auto"
-        :class="{ 'bg-blue-600 text-white': mode == 1 }"
+        class="btn btn-primary ml-auto"
+        :class="{ 'ring-4': mode == 1 }"
         @click="setMode(1), scroll('scrollMarker')"
       >
         Email Quote
       </button>
       <button
-        class="btn btn-secondary mr-auto"
-        :class="{ 'bg-blue-600 text-white': mode == 2 }"
+        class="btn btn-primary mr-auto"
+        :class="{ 'ring-4': mode == 2 }"
         @click="setMode(2), scroll('scrollMarker')"
       >
         {{ available == 1 ? 'Book Now' : 'Request Now' }}
@@ -110,7 +110,7 @@ export default {
     totalsParams: Object,
     searchParams: Object,
     step3: Object,
-    shuttle: Boolean
+    shuttle: Boolean,
   },
   emits: ['modeChange', 'create-booking'],
   data() {
