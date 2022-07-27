@@ -113,13 +113,6 @@
                           :value="time"
                         >
                           {{ to12hr(time) }}
-                          <span
-                            v-if="
-                              !openingHoursPickup.find((el) => el == time) ||
-                              time == '00:00'
-                            "
-                            >{{ '- after hours fee' }}</span
-                          >
                         </option>
                       </select>
                     </div>
