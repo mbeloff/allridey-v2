@@ -71,8 +71,8 @@
               v-model="daterange"
               class="flex flex-col items-center gap-2"
               mode="date"
-              :update-on-input="false"
               is-range
+              drag-attribute
               :min-date="new Date()"
               :model-config="dateconfig"
             >
@@ -88,7 +88,7 @@
                         id="pudate"
                         name="pudate"
                         class="my-input pl-3"
-                        :class="isDragging ? 'text-gray-600' : 'text-gray-900'"
+                        readonly
                         :value="inputValue.start"
                         v-on="inputEvents.start"
                       />
@@ -129,8 +129,8 @@
                       <input
                         id="dodate"
                         name="dodate"
+                        readonly
                         class="my-input pl-3"
-                        :class="isDragging ? 'text-gray-600' : 'text-gray-900'"
                         :value="inputValue.end"
                         v-on="inputEvents.end"
                       />
@@ -197,14 +197,14 @@ export default {
   data() {
     return {
       alltimes: [
-        '00:00',
-        '00:30',
-        '01:00',
-        '01:30',
-        '02:00',
-        '02:30',
-        '03:00',
-        '03:30',
+        // '00:00',
+        // '00:30',
+        // '01:00',
+        // '01:30',
+        // '02:00',
+        // '02:30',
+        // '03:00',
+        // '03:30',
         '04:00',
         '04:30',
         '05:00',
@@ -241,9 +241,9 @@ export default {
         '21:00',
         '21:30',
         '22:00',
-        '22:30',
-        '23:00',
-        '23:30',
+        // '22:30',
+        // '23:00',
+        // '23:30',
       ],
       daterange: {},
       loading: true,
