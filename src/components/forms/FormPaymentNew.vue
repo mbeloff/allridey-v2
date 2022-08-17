@@ -206,13 +206,16 @@ export default {
     },
 
     requestWindcaveTransaction() {
+      let vault = this.$store.state.storeCardOnly
       let balancedue = this.$store.state.bookinginfo.bookinginfo[0].balancedue
       let currency = this.$store.state.bookinginfo.bookinginfo[0].currencyname
       let resref = this.$store.state.bookinginfo.bookinginfo[0].reservationref
       if (balancedue > 0) {
         let Host = import.meta.env.VITE_HOST
+        // set amount to 0.00 and type to 'Validate' or 'Auth' if you just want to capture card details
         var body = JSON.stringify({
-          amount: balancedue.toFixed(2),
+          amount: vault ? 0.0 : balancedue.toFixed(2),
+          type: vault ? 'Validate' : 'Purchase',
           currency: currency,
           resref: resref,
         })

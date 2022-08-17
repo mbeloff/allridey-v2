@@ -10,6 +10,7 @@ exports.handler = async function (event) {
   let body = JSON.parse(event.body)
   var pxpayuser = process.env.PXPAY_USER
   var pxpaykey = process.env.PXPAY_KEY
+  var txntype = body.type
   var amount = body.amount
   var currency = body.currency
   var ref = body.resref
@@ -22,7 +23,9 @@ exports.handler = async function (event) {
     pxpayuser +
     '</PxPayUserId>\r\n<PxPayKey>' +
     pxpaykey +
-    '</PxPayKey>\r\n<TxnType>Purchase</TxnType>\r\n<AmountInput>' +
+    '</PxPayKey>\r\n<TxnType>' +
+    txntype +
+    '</TxnType>\r\n<EnableAddBillCard>1</EnableAddBillCard>\r\n<AmountInput>' +
     amount +
     '</AmountInput>\r\n<CurrencyInput>' +
     currency +

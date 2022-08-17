@@ -175,17 +175,16 @@ export default {
       }
       if (mode == 2) {
         this.step = 5
+        this.$store.dispatch('vault', false)
         if (
           this.step3.availablecars[0].availablemessage.startsWith(
             'Limited availability'
           )
         ) {
+          this.$store.dispatch('vault', true)
           // send to card vault entry page
           this.$router.push({
-            name: 'Vault',
-            params: {
-              resref: ref,
-            },
+            name: 'Payment',
           })
         } else {
           // send to windcave payment page

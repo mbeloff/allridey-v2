@@ -76,7 +76,7 @@
               :min-date="new Date()"
               :model-config="dateconfig"
             >
-              <template #default="{ inputValue, inputEvents, isDragging }">
+              <template #default="{ inputValue, inputEvents }">
                 <div class="flex flex-col md:flex-row flex-1 w-full gap-2">
                   <div class="flex flex-col flex-1 group">
                     <label for="pudate" class="my-label has-icon"
