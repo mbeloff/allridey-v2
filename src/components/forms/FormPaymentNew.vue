@@ -170,7 +170,7 @@ export default {
         paytype: obj.CardName._text,
         paydate: this.getPaydate(obj.DateSettlement._text),
         supplierid: 2,
-        transactid: obj.TxnId._text,
+        transactid: obj.DpsBillingId._text,
         dpstxnref: obj.DpsTxnRef._text,
         cardholder: obj.CardHolderName._text,
         paysource: 'Windcave Online Payment',
@@ -178,7 +178,6 @@ export default {
         cardexpiry: this.cardExpiry(obj.DateExpiry._text),
         transtype: 'Payment',
         payscenario: 1,
-        emailoption: 0,
       }
       return params
     },
