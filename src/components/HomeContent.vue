@@ -13,7 +13,7 @@
       <p class="text-xl mt-4 mb-4">Car Rental</p>
       <p>
         Allridey offers great value car and van rentals with
-        {{ locationcount }} locations around Australia. We've got the best
+        {{ locationcount }} locations around Australia and New Zealand. We've got the best
         prices - get an instant quote and book online today.
       </p>
     </div>

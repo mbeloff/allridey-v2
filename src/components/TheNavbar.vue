@@ -18,7 +18,7 @@
             class="menu-item"
             :firstlabel="'Locations'"
             :label="'Location'"
-            :items="locations"
+            :items="split"
             :itemlabel="'location'"
           ></nav-item>
 
@@ -100,13 +100,13 @@ export default {
         (el) => el.ispickupavailable || el.isdropoffavailable
       )
     },
-    // split() {
-    //   let au = [{location:'Australia', id:null}]
-    //   let auArr = this.locations.filter(el => el.country == 'Australia')
-    //   let nz = [{location:'New Zealand', id:null}]
-    //   let nzArr = this.locations.filter(el => el.country == 'New Zealand')
-    //   return au.concat(auArr, nz, nzArr)
-    // },
+    split() {
+      let au = [{location:'Australia', id:null}]
+      let auArr = this.locations.filter(el => el.country == 'Australia')
+      let nz = [{location:'New Zealand', id:null}]
+      let nzArr = this.locations.filter(el => el.country == 'New Zealand')
+      return au.concat(auArr, nz, nzArr)
+    },
   },
   watch: {
     $route() {
