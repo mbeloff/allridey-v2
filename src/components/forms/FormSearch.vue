@@ -472,17 +472,17 @@ export default {
     init(data) {
       this.locations = data.locations
       this.setInitialLocation(data.locations)
-      // this.splitLocations(data.locations)
+      this.splitLocations(data.locations)
       this.initDates()
       this.loading = false
     },
-    // ? split locations to sort aus/nz location list
-    // splitLocations(list) {
-    //   let arr = [...list]
-    //   let index = arr.indexOf(arr.find(el => el.location == 'Auckland'))
-    //   arr.splice(index,0,{location:'-----',id:null})
-    //   this.locations = arr
-    // },
+   // ? split locations to sort aus/nz location list
+    splitLocations(list) {
+      let arr = [...list]
+      let index = arr.indexOf(arr.find(el => el.location == 'Christchurch'))
+      arr.splice(index,0,{location:'-----',id:null})
+      this.locations = arr
+    },
     setInitialLocation(arr) {
       // Set pickup location to previously searched value, or current route location parameter
       let defaultId = arr.find((el) => el.isdefault).id
