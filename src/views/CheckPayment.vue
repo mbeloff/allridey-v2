@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     processPayResult() {
-      let Host = import.meta.env.VITE_HOST
+      // let Host = import.meta.env.VITE_HOST
       var myHeaders = new Headers()
 
       var body = JSON.stringify({
@@ -29,7 +29,7 @@ export default {
         body: body,
         redirect: 'follow',
       }
-      fetch(Host + '/.netlify/functions/processtrans', requestOptions)
+      fetch('/.netlify/functions/processtrans', requestOptions)
         .then((response) => response.text())
         .then((result) => {
           let res = JSON.parse(result).Response

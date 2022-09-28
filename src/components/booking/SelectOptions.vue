@@ -481,7 +481,7 @@ export default {
     getGallery() {
       let catid = this.step3.availablecars[0].vehiclecategoryid
       let baseimg = 'https:'+this.step3.availablecars[0].imageurl
-      let host = import.meta.env.VITE_HOST
+      // let host = import.meta.env.VITE_HOST
       let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
       let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
       let raw = JSON.stringify({
@@ -492,7 +492,7 @@ export default {
         body: raw,
         redirect: 'follow',
       }
-      fetch(host + '/.netlify/functions/getGallery', requestOptions)
+      fetch('/.netlify/functions/getGallery', requestOptions)
         .then((response) => response.text())
         .then((res) => JSON.parse(res))
         .then((files) => {

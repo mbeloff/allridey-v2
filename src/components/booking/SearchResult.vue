@@ -189,7 +189,7 @@ export default {
       })
     },
     getGallery() {
-      let Host = import.meta.env.VITE_HOST
+      // let Host = import.meta.env.VITE_HOST
       let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
       let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
       let raw = JSON.stringify({
@@ -200,7 +200,7 @@ export default {
         body: raw,
         redirect: 'follow',
       }
-      fetch(Host + '/.netlify/functions/getGallery', requestOptions)
+      fetch('/.netlify/functions/getGallery', requestOptions)
         .then((response) => response.text())
         .then((res) => JSON.parse(res))
         .then((files) => {

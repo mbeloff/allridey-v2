@@ -211,7 +211,7 @@ export default {
       let currency = this.$store.state.bookinginfo.bookinginfo[0].currencyname
       let resref = this.$store.state.bookinginfo.bookinginfo[0].reservationref
       if (balancedue > 0) {
-        let Host = import.meta.env.VITE_HOST
+        // let Host = import.meta.env.VITE_HOST
         // set amount to 0.00 and type to 'Validate' or 'Auth' if you just want to capture card details
         var body = JSON.stringify({
           amount: vault ? 0.0 : balancedue.toFixed(2),
@@ -224,7 +224,7 @@ export default {
           body: body,
           redirect: 'follow',
         }
-        fetch(Host + '/.netlify/functions/reqtrans', requestOptions)
+        fetch('/.netlify/functions/reqtrans', requestOptions)
           .then((response) => response.text())
           .then((result) => {
             let res = JSON.parse(result).Request.URI._text

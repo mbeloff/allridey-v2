@@ -1,14 +1,14 @@
 export default {
   methods: {
     signRequest(method) {
-      let Host = import.meta.env.VITE_HOST
+      // let Host = import.meta.env.VITE_HOST
 
       var raw = method
       var requestOptions = {
         method: 'POST',
         body: raw,
       }
-      return fetch(Host + '/.netlify/functions/signRequest', requestOptions)
+      return fetch('/.netlify/functions/signRequest', requestOptions)
         .then((response) => response.text())
         .then((result) => {
           return JSON.parse(result).signature
