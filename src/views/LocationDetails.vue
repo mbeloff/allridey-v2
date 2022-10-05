@@ -53,7 +53,7 @@
             <div class="w-56 flex justify-between items-center">
               <span class="w-24">sun:</span> <span class="w-32">closed</span>
             </div>
-            <p class="text-sm mt-2">
+            <p v-if="data.afterhourbookingaccepted" class="text-sm mt-2">
               After hours contactless pick up and drop off are available. Fees
               may apply.
             </p>
