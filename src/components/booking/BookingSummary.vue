@@ -167,7 +167,12 @@
           <div class="flex">
             <a
               v-if="booking.isquotation"
-              :href="'https://checkin.allridey.com.au/?name='+customer.lastname+'&res='+booking.reservationno"
+              :href="
+                'https://checkin.allridey.com.au/?name=' +
+                customer.email +
+                '&res=' +
+                booking.reservationno
+              "
               class="btn btn-primary text-center mx-auto mb-2"
               >Convert to a Booking</a
             >
