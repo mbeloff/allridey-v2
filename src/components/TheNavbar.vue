@@ -26,7 +26,7 @@
             >Contact</router-link
           >
           <a
-            :href="`tel:${$store.state.phone.replaceAll(' ','')}`"
+            :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
             class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
             >{{ $store.state.phone }}</a
           >
@@ -51,7 +51,7 @@
     <transition name="slide">
       <div
         v-if="expand"
-        class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full py-2"
+        class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full py-2 font-bold text-sm"
       >
         <router-link
           :to="{ name: 'Search' }"
@@ -101,10 +101,10 @@ export default {
       )
     },
     split() {
-      let au = [{location:'Australia', id:null}]
-      let auArr = this.locations.filter(el => el.country == 'Australia')
-      let nz = [{location:'New Zealand', id:null}]
-      let nzArr = this.locations.filter(el => el.country == 'New Zealand')
+      let au = [{ location: 'Australia', id: null }]
+      let auArr = this.locations.filter((el) => el.country == 'Australia')
+      let nz = [{ location: 'New Zealand', id: null }]
+      let nzArr = this.locations.filter((el) => el.country == 'New Zealand')
       return au.concat(auArr, nz, nzArr)
     },
   },

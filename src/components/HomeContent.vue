@@ -13,8 +13,8 @@
       <p class="text-xl mt-4 mb-4">Car Rental</p>
       <p>
         Allridey offers great value car and van rentals with
-        {{ locationcount }} locations around Australia and New Zealand. We've got the best
-        prices - get an instant quote and book online today.
+        {{ locationcount }} locations around Australia and New Zealand. We've
+        got the best prices - get an instant quote and book online today.
       </p>
     </div>
   </div>
@@ -113,8 +113,18 @@ export default {
             "We're only a phone call away with 24 hour support and roadside assist included with your hire.",
           img: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627348031/allridey/Kdbad2',
           cols: 'md:col-span-1',
-          overlaytext: '<i class="fal fa-user-headset tranform rotate-3"></i>',
+          overlaytext: '<i class="fal fa-user-headset transform rotate-3"></i>',
           // linksto: "Search",
+          color: 'green',
+        },
+        {
+          title: "We'll Beat Any Price",
+          content:
+            "We're all about giving you the best deal. If you find a cheaper price somewhere else after making a quote or a booking. Terms and Conditions apply",
+          img: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1625712411/allridey/jvqwe.jpg',
+          cols: 'md:col-span-full',
+          linksto: 'PriceBeat',
+          linktext: 'See offer',
           color: 'green',
         },
       ],
