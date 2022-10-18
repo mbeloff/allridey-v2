@@ -1,5 +1,6 @@
 <template>
   <div class="flex gap-2 flex-col text-left max-w-screen-lg mx-auto px-2 pb-20">
+    <img src="https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1625712411/allridey/jvqwe.jpg" alt="" class="max-h-[200px] object-cover rounded-lg md:rounded-none">
     <div class="my-10">
       <p class="text-4xl">Price Beat Guarantee</p>
       <p class="font-light">terms and conditions</p>
