@@ -77,7 +77,7 @@ export default {
         {
           title: 'Sale',
           content:
-            'Save 50% on the daily rate for all hires in Hobart. Limited time only',
+            'Book now and save 50% on the daily rate in Hobart. Pickup any time before December 1st. Limited time only',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',
