@@ -25,11 +25,19 @@
           <router-link :to="{ name: 'Contact' }" class="menu-item"
             >Contact</router-link
           >
-          <a
-            :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
-            class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
-            >{{ $store.state.phone }}</a
-          >
+          <div class="flex flex-col ml-auto">
+            <a
+              :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
+              class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
+              >AUS: {{ $store.state.phone }}</a
+            >
+            <a
+              :href="`tel:${$store.state.phonenz.replaceAll(' ', '')}`"
+              class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
+              >NZ: {{ $store.state.phonenz }}</a
+            >
+          </div>
+
           <a :href="$store.state.checkinurl" class="ml-4 menu-item menu-button"
             ><i class="fal fa-sign-in mr-1"></i> Check in</a
           >

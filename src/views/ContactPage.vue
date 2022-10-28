@@ -158,11 +158,19 @@
             Contact Details
           </p>
           <p>
-            Phone:
+            AUS:
             <a
               class="hover:underline decoration-blue-500 text-blue-700 hover:text-blue-500"
               :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
               >{{ $store.state.phone }}</a
+            >
+          </p>
+          <p>
+            NZ:
+            <a
+              class="hover:underline decoration-blue-500 text-blue-700 hover:text-blue-500"
+              :href="`tel:${$store.state.phonenz.replaceAll(' ', '')}`"
+              >{{ $store.state.phonenz }}</a
             >
           </p>
           <p>
