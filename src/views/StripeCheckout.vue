@@ -14,7 +14,7 @@
 <script setup>
 import StripePayment from '@/components/stripe/StripePayment.vue'
 import VerifyStripe from '@/components/stripe/VerifyStripe.vue'
-import Mixins from '@/mixins'
+import Mixins from '../Mixins'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onBeforeMount, computed, watch } from 'vue'
 import { useStore } from 'vuex'
