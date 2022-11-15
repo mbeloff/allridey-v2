@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-20 shadow-lg bg-white z-10 relative print:hidden">
-    <div class="flex justify-between container h-full mx-auto px-2">
+    <div class="flex justify-between h-full mx-auto px-2">
       <div class="left flex content-center items-center gap-x-4 w-full">
         <router-link :to="{ name: 'Home' }" href="/" class="left flex">
           <img

@@ -150,7 +150,7 @@ export default {
         })
       })
       this.$gtag.event('purchase', {
-        currency: 'AUD',
+        currency: this.$store.state.bookinginfo.bookinginfo[0].currencyname,
         event_category: 'ecommerce',
         transaction_id: this.bookinginfo.bookinginfo[0].reservationdocumentno,
         value: this.bookinginfo.bookinginfo[0].totalcost,

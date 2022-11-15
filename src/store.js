@@ -8,6 +8,7 @@ export default createStore({
     phonenz: '0225 807 588',
     email: 'sales@allridey.com.au',
     checkinurl: 'https://checkin.allridey.com.au/',
+    status: null,
     step1: {},
     step2: {},
     step3: {},
@@ -61,6 +62,9 @@ export default createStore({
     gotBooking(state, payload) {
       state.gotBooking = payload
     },
+    status(state, payload) {
+      state.status = payload
+    },
   },
   actions: {
     vault(context, payload) {
@@ -92,6 +96,9 @@ export default createStore({
     },
     gotBooking(context, payload) {
       context.commit('gotBooking', payload)
+    },
+    status(context, payload) {
+      context.commit('status', payload)
     },
   },
 })

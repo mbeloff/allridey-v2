@@ -95,6 +95,7 @@ export default {
       'bookinginfo',
       'resinfo',
       'gotBooking',
+      'status'
     ]),
   },
   watch: {
@@ -189,7 +190,7 @@ export default {
         } else {
           // send to windcave payment page
           this.$router.push({
-            name: 'Payment',
+            name: 'Checkout',
           })
         }
       }

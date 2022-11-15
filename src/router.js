@@ -3,6 +3,7 @@ import Search from './views/MainSearchPage.vue'
 import CheckPayment from './views/CheckPayment.vue'
 import Locations from './views/LocationList.vue'
 import Location from './views/LocationDetails.vue'
+import Checkout from './views/StripeCheckout.vue'
 import Privacy from './views/PrivacyPolicy.vue'
 import NotFound from './views/NotFound.vue'
 import Contact from './views/ContactPage.vue'
@@ -17,6 +18,7 @@ const routes = [
   { name: 'Contact', path: '/contact', component: Contact },
   { name: 'Options', path: '/options', component: Search },
   { name: 'Payment', path: '/payment', component: Search },
+  { name: 'Checkout', path: '/checkout', component: Checkout },
   { name: 'Summary', path: '/summary', component: Search },
   { name: 'PriceBeat', path: '/offers/price-beat', component: PriceBeat },
   { name: 'CheckPayment', path: '/checkpayment', component: CheckPayment },
