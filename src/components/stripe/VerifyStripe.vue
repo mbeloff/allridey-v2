@@ -31,7 +31,7 @@
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
-import Mixins from '@/mixins'
+import Mixins from '../../mixins'
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
