@@ -214,10 +214,11 @@ const finishTransaction = (params) => {
   Mixins.methods
     .apiCall(JSON.stringify(params))
     .then((res) => {
+      console.log(res)
       refreshBookingAndShowSummary()
     })
     .catch((err) => {
-      console.log('card not saved')
+      console.log('card not saved', err)
       router.push({ name: 'Summary' })
     })
 }

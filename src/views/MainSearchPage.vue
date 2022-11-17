@@ -95,7 +95,7 @@ export default {
       'bookinginfo',
       'resinfo',
       'gotBooking',
-      'status'
+      'status',
     ]),
   },
   watch: {
