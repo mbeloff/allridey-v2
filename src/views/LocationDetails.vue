@@ -3,6 +3,7 @@
     <div
       class="max-w-screen-lg mx-auto bg-white rounded shadow-xl place-items-center justify-center relative"
     >
+      {{ data.data }}
       <loading-overlay v-if="loading" />
       <div class="w-full h-56">
         <iframe
@@ -72,11 +73,51 @@
 <script>
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import Mixins from '../Mixins'
+import { computed } from 'vue'
+import { useHead, useSeoMeta } from '@vueuse/head'
+import { useRoute } from 'vue-router'
 export default {
   components: {
     LoadingOverlay,
   },
   mixins: [Mixins],
+  setup() {
+    const route = useRoute()
+    const location = computed(() => {
+      if (route.params.name) {
+        return (
+          route.params.name[0].toUpperCase() +
+          route.params.name.substring(1).replaceAll('-', ' ')
+        )
+      } else {
+        return null
+      }
+    })
+    useHead({
+      title: computed(
+        () => 'Car Hire in ' + (location.value || 'Australia and New Zealand')
+      ),
+      link: [
+        {
+          rel: 'canonical',
+          href: computed(() => {
+            return 'https://allridey.com.au/location/' + route.params.name
+          }),
+        },
+      ],
+    })
+    useSeoMeta({
+      description:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogDescription:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogTitle: 'Allridey Car Hire Locations',
+      ogSite_name: 'Allridey',
+      url: computed(() => {
+        return 'https://allridey.com.au/location/' + route.params.name
+      }),
+    })
+  },
   data() {
     return {
       loading: true,

@@ -58,10 +58,43 @@
 <script>
 import Mixins from '../Mixins'
 import LoadingOverlay from '../components/LoadingOverlay.vue'
+import { computed } from 'vue'
+import { useHead, useSeoMeta } from '@vueuse/head'
+import { useStore } from 'vuex'
 export default {
   components: { LoadingOverlay },
-
   mixins: [Mixins],
+  setup() {
+    const store = useStore()
+    useHead({
+      title: computed(
+        () =>
+          (store.state.locations?.length || '') +
+          ' Locations in Australia and New Zealand'
+      ),
+      titleTemplate: (title) => `${title} | Allridey`,
+      // script: [{ src: 'https://example.com/script.js' }],
+      link: [
+        {
+          rel: 'canonical',
+          href: computed(() => {
+            return 'https://allridey.com.au/locations'
+          }),
+        },
+      ],
+    })
+    useSeoMeta({
+      description:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogDescription:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogTitle: 'Allridey Car Hire Locations',
+      ogSite_name: 'Allridey',
+      // ogImage: 'https://example.com/image.png',
+      // twitterCard: 'summary_large_image',
+      url: 'https://allridey.com.au',
+    })
+  },
 
   computed: {
     locations() {

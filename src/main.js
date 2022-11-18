@@ -9,8 +9,12 @@ import 'tippy.js/dist/backdrop.css'
 import 'tippy.js/animations/shift-away.css'
 import 'tippy.js/dist/tippy.css'
 import VueGtag from 'vue-gtag-next'
+import { createHead } from '@vueuse/head'
+
+const head = createHead()
 
 createApp(App)
+  .use(head)
   .use(router)
   .use(store)
   .use(VueGtag, {
@@ -30,5 +34,6 @@ createApp(App)
       trigger: 'mouseenter click',
     },
   })
+
   .component('DatePicker', DatePicker)
   .mount('#app')

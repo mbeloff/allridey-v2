@@ -198,8 +198,36 @@
 
 <script>
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
+import { useHead, useSeoMeta } from '@vueuse/head'
+import { computed } from 'vue'
 export default {
   components: { LoadingOverlay },
+  setup() {
+    useHead({
+      title: computed(() => 'Contact Us'),
+      titleTemplate: (title) => `${title} | Allridey`,
+      // script: [{ src: 'https://example.com/script.js' }],
+      link: [
+        {
+          rel: 'canonical',
+          href: computed(() => {
+            return 'https://allridey.com.au/contact'
+          }),
+        },
+      ],
+    })
+    useSeoMeta({
+      description:
+        'Get in touch with Allridey for the best deals on car hire in Aurstralia and New Zealand',
+      ogDescription:
+        'Get in touch with Allridey for the best deals on car hire in Aurstralia and New Zealand',
+      ogTitle: 'Contact Allridey Car Hire',
+      ogSite_name: 'Allridey',
+      // ogImage: 'https://example.com/image.png',
+      // twitterCard: 'summary_large_image',
+      url: 'https://allridey.com.au/contact',
+    })
+  },
   data() {
     return {
       loading: false,

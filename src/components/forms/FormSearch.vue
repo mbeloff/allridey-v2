@@ -72,7 +72,6 @@
               class="flex flex-col items-center gap-2"
               mode="date"
               is-range
-              drag-attribute
               :min-date="new Date()"
               :model-config="dateconfig"
             >
@@ -476,11 +475,11 @@ export default {
       this.initDates()
       this.loading = false
     },
-   // ? split locations to sort aus/nz location list
+    // ? split locations to sort aus/nz location list
     splitLocations(list) {
       let arr = [...list]
-      let index = arr.indexOf(arr.find(el => el.location == 'Christchurch'))
-      arr.splice(index,0,{location:'-----',id:null})
+      let index = arr.indexOf(arr.find((el) => el.location == 'Christchurch'))
+      arr.splice(index, 0, { location: '-----', id: null })
       this.locations = arr
     },
     setInitialLocation(arr) {

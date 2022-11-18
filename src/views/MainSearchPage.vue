@@ -67,6 +67,7 @@ import FormPayment from '@/components/forms/FormPaymentNew.vue'
 import BookingSummary from '@/components/booking/BookingSummary.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import HomeContent from '@/components/HomeContent.vue'
+import { useHead, useSeoMeta } from '@vueuse/head'
 export default {
   components: {
     FormSearch,
@@ -77,6 +78,27 @@ export default {
     BookingSummary,
     LoadingOverlay,
     HomeContent,
+  },
+  setup() {
+    useHead({
+      title: 'Cheap Car Hire Australia and New Zealand',
+      titleTemplate: (title) => `${title} | Allridey`,
+      link: [
+        {
+          rel: 'canonical',
+          href: 'https://allridey.com.au/',
+        },
+      ],
+    })
+    useSeoMeta({
+      description:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogDescription:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogTitle: 'Allridey Car Hire',
+      ogSite_name: 'Allridey',
+      url: 'https://allridey.com.au',
+    })
   },
   data() {
     return {

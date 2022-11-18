@@ -10,14 +10,40 @@
 </template>
 
 <script>
+import { defineComponent, computed } from 'vue'
+import { useHead, useSeoMeta } from '@vueuse/head'
 import Nav from './components/TheNavbar.vue'
 import Footer from './components/TheFooter.vue'
-export default {
+
+export default defineComponent({
   components: {
     Nav,
     Footer,
   },
-}
+  setup() {
+    useHead({
+      title: 'Cheap Car Hire Australia and New Zealand',
+      titleTemplate: (title) => `${title} | Allridey`,
+      link: [
+        {
+          rel: 'canonical',
+          href: computed(() => {
+            return 'https://allridey.com.au/'
+          }),
+        },
+      ],
+    })
+    useSeoMeta({
+      description:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogDescription:
+        "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
+      ogTitle: 'Allridey Car Hire',
+      ogSite_name: 'Allridey',
+      url: 'https://allridey.com.au',
+    })
+  },
+})
 </script>
 
 <style lang="postcss">
