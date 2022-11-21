@@ -26,8 +26,7 @@
 
           <div class="flex flex-col mb-1 p-2 text-sm">
             <p>
-              <i class="fal fa-fw fa-male mr-2 text-blue-800"></i>Seats
-              {{ data.numberofadults }}
+              <i class="fal fa-fw fa-person-seat mr-2 text-blue-800"></i>{{ data.numberofadults }} seat belts
             </p>
             <p v-if="data.numberofchildren">
               <i class="fal fa-bed fa-fw mr-2 text-blue-800"></i>Sleeps
