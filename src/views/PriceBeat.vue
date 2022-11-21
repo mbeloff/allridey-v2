@@ -6,8 +6,8 @@
       class="max-h-[200px] object-cover rounded-lg md:rounded-none"
     />
     <div class="my-10">
-      <p class="text-4xl">Price Beat Guarantee</p>
-      <p class="font-light">terms and conditions</p>
+      <h1 class="text-4xl">Price Beat Guarantee</h1>
+      <h3 class="font-light">terms and conditions</h3>
     </div>
     <div class="flex flex-col gap-2">
       <p>
@@ -96,9 +96,33 @@
 
 <script setup>
 import { onBeforeMount } from 'vue'
-
+import { useHead, useSeoMeta } from '@vueuse/head'
 onBeforeMount(() => {
   window.scrollTo(0, 0)
+})
+
+useHead({
+  title: "Allridey's Price Beat Guarantee",
+  titleTemplate: (title) => `${title} | Allridey`,
+  // script: [{ src: 'https://example.com/script.js' }],
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://allridey.com.au/offers/price-beat',
+    },
+  ],
+})
+useSeoMeta({
+  title: "Allridey's Price Beat Guarantee",
+  description:
+    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it by 10%",
+  ogDescription:
+    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it by 10%",
+  ogTitle: 'Allridey Price Beat Guarantee',
+  ogSite_name: 'Allridey',
+  // ogImage: 'https://example.com/image.png',
+  // twitterCard: 'summary_large_image',
+  url: 'https://allridey.com.au/offers/price-beat',
 })
 </script>
 

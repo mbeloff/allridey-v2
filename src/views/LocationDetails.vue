@@ -107,6 +107,9 @@ export default {
       ],
     })
     useSeoMeta({
+      title: computed(
+        () => 'Car Hire in ' + (location.value || 'Australia and New Zealand')
+      ),
       description:
         "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
       ogDescription:

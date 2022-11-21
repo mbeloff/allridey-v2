@@ -77,13 +77,16 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: computed(() => {
-            return 'https://allridey.com.au/locations'
-          }),
+          href: 'https://allridey.com.au/locations',
         },
       ],
     })
     useSeoMeta({
+      title: computed(
+        () =>
+          (store.state.locations?.length || '') +
+          ' Locations in Australia and New Zealand'
+      ),
       description:
         "Allridey is the best choice for budget car rental with locations all around Australia and New Zealand. If you're looking for no-fuss car hire at great rates, you've come to the right place. Book online today",
       ogDescription:
