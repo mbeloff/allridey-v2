@@ -37,11 +37,10 @@
               </div>
             </div>
             <div class="flex flex-col flex-grow group">
-              <label
-                for="doloc"
-                class="my-label text-gray-400 group-hover:text-gray-400 has-icon"
-                >Dropoff Location <i class="fal fa-link fa-fw pl-1"></i
-              ></label>
+              <label for="doloc" class="my-label has-icon"
+                >Dropoff Location
+                <!-- <i class="fal fa-link fa-fw pl-1"></i> -->
+              </label>
               <div class="flex flex-row place-items-center">
                 <i
                   class="form-i fal fa-map-marker fa-fw text-gray-400 group-hover:text-gray-400"
@@ -51,7 +50,6 @@
                   v-model="form.dropofflocationid"
                   name="doloc"
                   class="my-input"
-                  disabled
                 >
                   <option
                     v-for="loc in locations"
@@ -305,7 +303,7 @@ export default {
     },
     'form.pickuplocationid': function (val) {
       this.pickuphours(val)
-      this.updateDropoffLocation()
+      // this.updateDropoffLocation()
     },
     'form.dropofflocationid': function (val) {
       this.dropoffhours(val)

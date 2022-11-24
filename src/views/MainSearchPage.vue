@@ -80,13 +80,15 @@ export default {
     HomeContent,
   },
   setup() {
+
     useHead({
       title: 'Cheap Car Hire Australia and New Zealand',
       titleTemplate: (title) => `${title} | Allridey`,
       link: [
         {
           rel: 'canonical',
-          href: 'https://allridey.com.au/',
+          href: 'https://allridey.com.au/search/'
+
         },
       ],
     })
