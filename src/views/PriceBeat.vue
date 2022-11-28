@@ -25,8 +25,7 @@
           :href="`mailto:` + $store.state.email"
           >{{ $store.state.email }}</a
         >. Once you provide your quote or booking number along with the quote
-        from the competitor, we'll confirm your reservation at the cheaper rate,
-        and reduce it by a further 10%!
+        from the competitor, we'll confirm your reservation at the cheaper rate.
       </p>
     </div>
     <hr />
@@ -115,9 +114,9 @@ useHead({
 useSeoMeta({
   title: "Allridey's Price Beat Guarantee",
   description:
-    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it by 10%",
+    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it",
   ogDescription:
-    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it by 10%",
+    "Get the best rental deals with Allridey! If you find a cheaper price with a competitor, we'll beat it",
   ogTitle: 'Allridey Price Beat Guarantee',
   ogSite_name: 'Allridey',
   // ogImage: 'https://example.com/image.png',
