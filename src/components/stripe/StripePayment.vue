@@ -7,7 +7,7 @@
       <div class="mb-4">
         <p class="font-bold text-primary text-2xl">
           <span class="font-normal">{{ booking.currencyname }}</span
-          >{{ booking.currencysymbol + booking.balancedue.toFixed(2) }}
+          >{{ booking.currencysymbol + paymentamount.toFixed(2) }}
         </p>
         <p class="text-xs font-light text-gray-500">
           Reservation reference number: {{ booking.reservationref }}
@@ -107,12 +107,20 @@ const stripe = Stripe(pk)
 
 const paymentintent = ref()
 
+const paymentamount = computed(() => {
+  if (props.booking.reservationstatus == 'Reservation') {
+    return props.booking.balancedue
+  } else {
+    return 1
+  }
+})
+
 onBeforeMount(() => {
   fetch('/.netlify/functions/stripepayment', {
     method: 'POST',
     body: JSON.stringify({
       customer: customer.value,
-      amount: (props.booking.balancedue * 100).toFixed(0),
+      amount: (paymentamount.value * 100).toFixed(0),
       currency: props.booking.currencyname,
     }),
   })

@@ -476,7 +476,7 @@ export default {
     // ? split locations to sort aus/nz location list
     splitLocations(list) {
       let arr = [...list]
-      let index = arr.indexOf(arr.find((el) => el.location == 'Christchurch'))
+      let index = arr.indexOf(arr.find((el) => el.location == 'Auckland'))
       arr.splice(index, 0, { location: '-----', id: null })
       this.locations = arr
     },

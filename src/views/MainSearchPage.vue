@@ -43,7 +43,6 @@
         </p>
       </div>
       <selected-vehicle v-if="step == 3 && step3" @booking-made="submit" />
-      <form-payment v-if="step == 4 && gotBooking" />
       <booking-summary
         v-if="
           step == 5 &&
@@ -63,7 +62,7 @@ import FormSearch from '@/components/forms/FormSearch.vue'
 import BookingNav from '@/components/booking/BookingNav.vue'
 import SearchResults from '@/components/booking/SearchResults.vue'
 import SelectedVehicle from '@/components/booking/SelectOptions.vue'
-import FormPayment from '@/components/forms/FormPaymentNew.vue'
+
 import BookingSummary from '@/components/booking/BookingSummary.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import HomeContent from '@/components/HomeContent.vue'
@@ -74,7 +73,7 @@ export default {
     BookingNav,
     SearchResults,
     SelectedVehicle,
-    FormPayment,
+    // FormPayment,
     BookingSummary,
     LoadingOverlay,
     HomeContent,
@@ -206,10 +205,10 @@ export default {
             'Limited availability'
           )
         ) {
-          this.$store.dispatch('vault', true)
+          // this.$store.dispatch('vault', true)
           // send to card vault entry page
           this.$router.push({
-            name: 'Payment',
+            name: 'Checkout',
           })
         } else {
           // send to windcave payment page

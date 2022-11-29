@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import Search from './views/MainSearchPage.vue'
-import CheckPayment from './views/CheckPayment.vue'
+
 import Locations from './views/LocationList.vue'
 import Location from './views/LocationDetails.vue'
 import Checkout from './views/StripeCheckout.vue'
@@ -21,7 +21,6 @@ const routes = [
   { name: 'Checkout', path: '/checkout', component: Checkout },
   { name: 'Summary', path: '/summary', component: Search },
   { name: 'PriceBeat', path: '/offers/price-beat', component: PriceBeat },
-  { name: 'CheckPayment', path: '/checkpayment', component: CheckPayment },
   { name: 'Locations', path: '/locations', component: Locations },
   {
     name: 'Location',
