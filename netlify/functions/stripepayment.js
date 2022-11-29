@@ -9,13 +9,15 @@ exports.handler = async function (event) {
   }
   const stripe = new Stripe(sk)
   const customer = await stripe.customers.create(body.customer)
-
+  console.log(body.isAuth)
+  console.log(body.amount)
   const params = {
     customer: customer.id,
     setup_future_usage: 'off_session',
     amount: body.amount,
     // amount: body.amount,
     currency: body.currency,
+    capture_method: body.isAuth ? 'manual' : 'automatic',
   }
   const paymentIntent = await stripe.paymentIntents.create(params)
   return {

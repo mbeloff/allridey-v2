@@ -53,9 +53,6 @@
             </button>
           </div>
         </div>
-        <!-- <PaymentStripeVerify
-          v-if="redirected == 'succeeded'"
-        ></PaymentStripeVerify> -->
       </div>
       <p
         id="error-message"
@@ -116,12 +113,14 @@ const paymentamount = computed(() => {
 })
 
 onBeforeMount(() => {
+  console.log(props.booking.reservationstatus)
   fetch('/.netlify/functions/stripepayment', {
     method: 'POST',
     body: JSON.stringify({
       customer: customer.value,
       amount: (paymentamount.value * 100).toFixed(0),
       currency: props.booking.currencyname,
+      isAuth: props.booking.reservationstatus == 'Reservation Request',
     }),
   })
     .then((res) => res.text())

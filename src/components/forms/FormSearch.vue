@@ -487,6 +487,7 @@ export default {
       this.form.dropofflocationid = defaultId
       if (this.searchParams.pickuplocationid) {
         this.form.pickuplocationid = this.searchParams.pickuplocationid
+        this.form.dropofflocationid = this.searchParams.dropofflocationid
       }
       if (this.$route.params.loc) {
         let param = this.$route.params.loc.replaceAll('-', ' ').toLowerCase()

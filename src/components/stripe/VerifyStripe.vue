@@ -21,7 +21,7 @@
       <p>{{ message }}</p>
     </div>
     <div v-if="loading">
-      <TheSpinner class="pb-4"></TheSpinner>
+      <!-- <TheSpinner class="pb-4"></TheSpinner> -->
       <p class="text-center text-sm">...please wait</p>
     </div>
   </div>
@@ -86,6 +86,11 @@ if (paymentClientSecret) {
           getCard(paymentIntent.payment_method)
           break
         }
+        case 'requires_capture': {
+          message.value = success
+          getCard(paymentIntent.payment_method)
+          break
+        }
 
         case 'processing': {
           message.value = processing
@@ -127,7 +132,7 @@ if (paymentClientSecret) {
       method: 'confirmpayment',
       reservationref: props.booking.reservationref,
       amount: (payment.value.amount / 100).toFixed(2),
-      success: payment.value.status == 'succeeded',
+      success: true,
       paydate: new Date(payment.value.created * 1000).toLocaleDateString(
         'en-AU'
       ),
@@ -135,7 +140,10 @@ if (paymentClientSecret) {
       supplierid: 5,
       paysource: 'Allridey Stripe Online',
       transactid: card.customer,
-      transtype: 'Payment',
+      transtype:
+        props.booking.reservationstatus == 'Reservation Request'
+          ? 'Auth'
+          : 'Payment',
       dpstxnref: payment.value.id,
       cardnumber: '############' + card.card.last4,
       cardexpiry: expiry,
