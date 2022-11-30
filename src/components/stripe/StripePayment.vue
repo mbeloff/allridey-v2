@@ -64,8 +64,6 @@
 <script setup>
 import { ref, computed, watchEffect, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
-const store = useStore()
 const route = useRoute()
 const props = defineProps({
   customer: {

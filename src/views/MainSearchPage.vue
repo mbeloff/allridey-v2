@@ -62,7 +62,6 @@ import FormSearch from '@/components/forms/FormSearch.vue'
 import BookingNav from '@/components/booking/BookingNav.vue'
 import SearchResults from '@/components/booking/SearchResults.vue'
 import SelectedVehicle from '@/components/booking/SelectOptions.vue'
-
 import BookingSummary from '@/components/booking/BookingSummary.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import HomeContent from '@/components/HomeContent.vue'
@@ -73,7 +72,6 @@ export default {
     BookingNav,
     SearchResults,
     SelectedVehicle,
-    // FormPayment,
     BookingSummary,
     LoadingOverlay,
     HomeContent,

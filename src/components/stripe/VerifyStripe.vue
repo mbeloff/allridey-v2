@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import { useGtag } from 'vue-gtag-next'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
@@ -40,6 +41,25 @@ const props = defineProps({
     type: Object,
   },
 })
+
+const { query } = useGtag()
+const trackPurchase = () => {
+  let items = [
+    {
+      item_name: props.booking.vehiclecategory,
+      price: props.booking.totalcost,
+      quantity: 1,
+    },
+  ]
+  query('event', 'purchase', {
+    currency: props.booking.currencyname,
+    event_category: 'ecommerce',
+    transaction_id: props.booking.reservationref,
+    value: props.booking.totalcost,
+    items: items,
+  })
+}
+
 const pk =
   props.booking.currencyname == 'AUD'
     ? import.meta.env.VITE_STRIPE_PK_AU
@@ -83,11 +103,13 @@ if (paymentClientSecret) {
       switch (paymentIntent.status) {
         case 'succeeded': {
           message.value = success
+          trackPurchase()
           getCard(paymentIntent.payment_method)
           break
         }
         case 'requires_capture': {
           message.value = success
+          trackPurchase()
           getCard(paymentIntent.payment_method)
           break
         }
