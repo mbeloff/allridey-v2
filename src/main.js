@@ -12,13 +12,12 @@ import VueGtag from 'vue-gtag-next'
 import { createHead } from '@vueuse/head'
 
 const head = createHead()
-console.log(import.meta.env.VITE_NZ_TAG_BUDI, import.meta.env.VITE_AU_TAG_BUDI)
 createApp(App)
   .use(head)
   .use(router)
   .use(store)
   .use(VueGtag, {
-    // isEnabled: import.meta.env.PROD,
+    isEnabled: import.meta.env.PROD,
     property: [
       {
         id: 'G-3DHLGGKJJR',
