@@ -104,13 +104,7 @@
               <span class="text-right">{{
                 booking.currencyname + ' ' + booking.currencysymbol
               }}</span>
-              <!-- // ? id for  -->
-              <span v-if="booking.isquotation">{{
-                booking.totalcost.toFixed(2)
-              }}</span>
-              <span v-else id="booktotal">{{
-                booking.totalcost.toFixed(2)
-              }}</span>
+              <span id="booktotal">{{ booking.totalcost.toFixed(2) }}</span>
             </div>
             <div class="text-right italic text-xs">
               <span>(includes GST of: </span
