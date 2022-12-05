@@ -12,8 +12,6 @@ import VueGtag from 'vue-gtag-next'
 import { createHead } from '@vueuse/head'
 
 const head = createHead()
-const nztag = import.meta.env.VITE_NZ_TAG_BUDI
-const autag = import.meta.env.VITE_AU_TAG_BUDI
 createApp(App)
   .use(head)
   .use(router)
@@ -26,10 +24,10 @@ createApp(App)
         default: true,
       },
       {
-        id: nztag,
+        id: import.meta.env.VITE_NZ_TAG_BUDI,
       },
       {
-        id: autag,
+        id: import.meta.env.VITE_AU_TAG_BUDI,
       },
     ],
   })
