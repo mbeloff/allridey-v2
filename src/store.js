@@ -4,8 +4,8 @@ import createPersistedState from 'vuex-persistedstate'
 export default createStore({
   plugins: [createPersistedState({ storage: window.sessionStorage })],
   state: {
-    phone: '0417 740 307',
-    phonenz: '0225 807 588',
+    phone: '+61 417 740 307',
+    phonenz: '+64 225 807 588',
     email: 'sales@allridey.com.au',
     checkinurl: 'https://checkin.allridey.com.au/',
     status: null,
