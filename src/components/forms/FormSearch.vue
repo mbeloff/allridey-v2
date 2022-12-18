@@ -452,6 +452,14 @@ export default {
         if (res.availablecars.find((el) => el.available) == undefined) {
           this.$emit('errs', [''])
         }
+        
+        let locationerror = res.locationfees.find(
+          (el) => el.availablemessage
+        ).availablemessage
+        if (locationerror) {
+          this.$emit('errs', [locationerror])
+        }
+
         this.$router.push({
           name: 'Results',
         })
