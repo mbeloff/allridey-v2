@@ -40,6 +40,7 @@ export default {
             // console.log(JSON.parse(method).method, data.status,data)
             return data.results
           }
+          return data
         })
         .catch((error) => {
           console.log(JSON.parse(method).method, error)

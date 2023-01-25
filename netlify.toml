@@ -1,2 +1,5 @@
 [[plugins]]
 package = "./plugins/ntl-context-env"
+
+[dev]
+targetPort = 3000

@@ -74,23 +74,87 @@
       </date-picker>
       <div class="flex flex-col flex-grow group"></div>
     </div>
+
+    <div v-if="parameters.agentcode" class="pt-4">
+      <p class="font-bold text-lg mb-3">Agent Use</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 gap-y-1">
+        <div class="flex flex-col flex-grow group pointer-events-none">
+          <label for="agentcode" class="text-xs mb-1 my-label"
+            >Agency Code</label
+          >
+          <div class="flex flex-row place-items-center">
+            <input
+              id="agentcode"
+              v-model="parameters.agentcode"
+              maxlength="30"
+              disabled
+              required
+              type="text"
+              class="my-input text-gray-500 bg-gray-100"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col flex-grow group">
+          <label for="agentname" class="text-xs mb-1 my-label"
+            >Agent Name</label
+          >
+          <div class="flex flex-row place-items-center">
+            <input
+              id="agentname"
+              v-model="parameters.agentname"
+              maxlength="40"
+              required
+              type="text"
+              class="my-input"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col flex-grow group">
+          <label for="agentemail" class="text-xs mb-1 my-label"
+            >Agent Email</label
+          >
+          <div class="flex flex-row place-items-center">
+            <input
+              id="agentemail"
+              v-model="parameters.agentemail"
+              maxlength="50"
+              required
+              type="email"
+              class="my-input"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col flex-grow group">
+          <label for="agentrefno" class="text-xs mb-1 my-label"
+            >Agent Voucher/Ref</label
+          >
+          <div class="flex flex-row place-items-center">
+            <input
+              id="agentrefno"
+              v-model="parameters.agentrefno"
+              maxlength="25"
+              required
+              type="text"
+              class="my-input"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col flex-grow group"></div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    mode: Number,
-    parameters: Object,
-  },
-  data() {
-    return {
-      dateconfig: {
-        type: 'string',
-        mask: 'DD/MM/YYYY', // Uses 'iso' if missing
-      },
-    }
-  },
+<script setup>
+import { defineProps } from 'vue'
+const props = defineProps({
+  mode: Number,
+  parameters: Object,
+})
+
+const dateconfig = {
+  type: 'string',
+  mask: 'DD/MM/YYYY', //
 }
 </script>
 

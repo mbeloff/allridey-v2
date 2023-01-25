@@ -31,7 +31,7 @@
 import { useGtag } from 'vue-gtag-next'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import Mixins from '../../Mixins.js'
 const route = useRoute()
 const router = useRouter()

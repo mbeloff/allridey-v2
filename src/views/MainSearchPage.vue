@@ -35,7 +35,7 @@
       />
       <div
         v-if="errs.length"
-        class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10"
+        class="max-w-screen-lg mx-auto bg-white shadow-xl w-full rounded flex flex-col py-10 px-2"
       >
         <p>No results found, please adjust your search</p>
         <p v-for="(err, i) in errs" :key="i" class="text-sm text-red-500">
@@ -77,15 +77,13 @@ export default {
     HomeContent,
   },
   setup() {
-
     useHead({
       title: 'Cheap Car Hire Australia and New Zealand',
       titleTemplate: (title) => `${title} | Allridey`,
       link: [
         {
           rel: 'canonical',
-          href: 'https://allridey.com.au/search/'
-
+          href: 'https://allridey.com.au/search/',
         },
       ],
     })
@@ -167,6 +165,7 @@ export default {
     },
     showErrs(e) {
       this.errs = e
+      this.loading = false
     },
     searching(e) {
       this.loading = e

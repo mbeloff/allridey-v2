@@ -156,7 +156,14 @@
               <span class="font-bold">Email:</span
               ><span class="break-all">{{ customer.email }}</span>
             </div>
-            <p class="text-xs">We've sent you an email for your records.</p>
+
+            <p v-if="booking.agent" class="text-xs">
+              An copy of this request has been emailed to
+              {{ booking.agentemail }}.
+            </p>
+            <p v-else class="text-xs">
+              We've sent you an email for your records.
+            </p>
           </div>
           <div class="flex">
             <a

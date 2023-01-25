@@ -71,24 +71,30 @@ export default {
 
   mounted() {
     let arr = []
-    if (this.step2.availablecars) {
-      this.step2.availablecars.forEach(function (el) {
-        if (
-          arr.indexOf(el.vehiclecategorytypeid) < 0 &&
-          el.availablemessage != 'Not available due to incomplete rates.'
-        ) {
-          arr.push(el.vehiclecategorytypeid)
-        }
-      })
+    if (this.step2.error) {
+      console.log('error')
     }
-    this.categories = arr
-    this.$emit('results-mounted')
-    this.$refs.searchResults.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'nearest',
-    })
-    this.ecommView(this.step2.availablecars)
+    console.log(this.step2)
+    if (!this.step2.error) {
+      if (this.step2.availablecars) {
+        this.step2.availablecars.forEach(function (el) {
+          if (
+            arr.indexOf(el.vehiclecategorytypeid) < 0 &&
+            el.availablemessage != 'Not available due to incomplete rates.'
+          ) {
+            arr.push(el.vehiclecategorytypeid)
+          }
+        })
+      }
+      this.categories = arr
+      this.$emit('results-mounted')
+      this.$refs.searchResults.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest',
+      })
+      this.ecommView(this.step2.availablecars)
+    }
   },
 
   methods: {

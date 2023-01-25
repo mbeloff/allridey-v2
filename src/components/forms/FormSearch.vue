@@ -163,13 +163,21 @@
         </div>
         <div class="flex flex-col sm:flex-row justify-between gap-2">
           <!-- // ? agent code input -->
-          <!-- <div class="flex flex-col group">
-              <label for="agentcode" class="my-label has-icon opacity-60">Agent Code</label>
-              <div class="flex flex-row place-items-center">
-                <i class="form-i fal fa-user-headset fa-fw"></i>
-                <input type="text" v-if="step1" name="agentcode" id="agentcode" class="my-input" v-model="this.form.agentcode" placeholder="(agent use only)">
-              </div>
-            </div> -->
+          <div class="flex flex-col group">
+            <label for="agentcode" class="my-label has-icon">Agency Code</label>
+            <div class="flex flex-row place-items-center">
+              <i class="form-i fal fa-user-headset fa-fw"></i>
+              <input
+                v-if="step1"
+                id="agentcode"
+                v-model="form.agentcode"
+                type="text"
+                name="agentcode"
+                class="my-input"
+                placeholder="agent use only"
+              />
+            </div>
+          </div>
           <div class="text-right flex-grow">
             <button class="btn btn-primary ml-7 mt-4" @click="getStep2()">
               SEARCH <i class="text-gray-200 fal fa-search"></i>
@@ -449,16 +457,22 @@ export default {
       var params = JSON.stringify(this.form)
       Mixins.methods.apiCall(params).then((res) => {
         this.$store.dispatch('step2', res)
-        if (res.availablecars.find((el) => el.available) == undefined) {
-          this.$emit('errs', [''])
+        if (!res.error) {
+          if (res.availablecars.find((el) => el.available) == undefined) {
+            this.$emit('errs', [''])
+          }
+
+          if (res.locationfees.find((el) => el.availablemessage)) {
+            let locationerror = res.locationfees.find(
+              (el) => el.availablemessage
+            ).availablemessage
+            if (locationerror) {
+              this.$emit('errs', [locationerror])
+            }
+          }
+        } else {
+          this.$emit('errs', [res.error])
         }
-        
-        // let locationerror = res.locationfees.find(
-        //   (el) => el.availablemessage
-        // ).availablemessage
-        // if (locationerror) {
-        //   this.$emit('errs', [locationerror])
-        // }
 
         this.$router.push({
           name: 'Results',

@@ -162,6 +162,9 @@ export default {
         refno: '',
         optionalfees: [],
         agentcode: '',
+        agentname: '',
+        agentemail: '',
+        agentrefno: '',
       },
     }
   },
@@ -181,6 +184,9 @@ export default {
     })
     this.parameters.agentcode = this.$store.state.searchParams.agentcode
     this.pleaseWait = false
+    if (this.parameters.agentcode) {
+      this.parameters.bookingtype = 2
+    }
   },
 
   methods: {
