@@ -3,7 +3,7 @@
     class="bg-gray-100 h-full bg-center bg-cover relative"
     :class="{ 'full-bg': step < 3 }"
   >
-    <!-- <p v-if="step < 3" class="bg-red-500 text-white font-bold">Save 50% on the daily rate. Adelaide, Brisbane, Cairns & Hobart.</p> -->
+    <p v-if="step < 3" class="bg-red-500 text-white font-bold">This Weekend Only! Save 50% on the daily rate in Queenstown</p>
     <div class="bg-cover bg-center bg-main">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">
         <booking-nav v-if="step > 2" :stage="step" />
