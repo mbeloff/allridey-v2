@@ -299,7 +299,7 @@ export default {
         type: 'string',
         mask: 'DD/MM/YYYY', // Uses 'iso' if missing
       },
-      region: '.com.au',
+      region: '.co.nz',
     }
   },
   computed: {
