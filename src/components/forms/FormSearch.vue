@@ -4,11 +4,30 @@
       class="bg-white p-2 rounded shadow-xl py-5 pr-8 w-full relative print:hidden"
     >
       <loading-overlay v-if="loading"></loading-overlay>
-      <p
-        class="font-bold text-4xl mb-4 text-left pl-6 text-yellow-400 uppercase"
-      >
-        Find a Vehicle
-      </p>
+      <div class="flex-col justify-between items-end">
+        <div class="flex flex-col flex-grow group text-left mb-2">
+          <label for="country" class="my-label has-icon">Country</label>
+          <div class="flex flex-row place-items-center">
+            <i class="form-i fal fa-map-marker fa-fw"></i>
+            <select
+              id="country"
+              v-model="region"
+              name="country"
+              class="my-input bg-white h-8 py-0"
+              @change="changeCountry($event)"
+            >
+              <option value=".com.au">Australia</option>
+              <option value=".co.nz">New Zealand</option>
+            </select>
+          </div>
+        </div>
+        <span
+          class="font-bold text-4xl mb-2 text-left pl-6 text-yellow-400 uppercase"
+        >
+          Find a Vehicle
+        </span>
+      </div>
+
       <div class="text-left">
         <div class="grid gap-2 mb-2 grid-flow-row md:grid-flow-col">
           <div class="flex flex-col gap-2">
@@ -280,6 +299,7 @@ export default {
         type: 'string',
         mask: 'DD/MM/YYYY', // Uses 'iso' if missing
       },
+      region: '.com.au',
     }
   },
   computed: {
@@ -333,9 +353,22 @@ export default {
     } else {
       this.getStep1()
     }
-  },
 
+    if (
+      window.location.hostname == ('allridey.co.nz' || 'www.allridey.co.nz')
+    ) {
+      this.region = '.co.nz'
+    }
+    if (
+      window.location.hostname == ('allridey.com.au' || 'www.allridey.com.au')
+    ) {
+      this.region = '.com.au'
+    }
+  },
   methods: {
+    changeCountry(e) {
+      window.location.replace('https://allridey' + e.target.value)
+    },
     pickuphours(id) {
       let parts = this.daterange.start.split('/')
       let newDate = new Date(parts[2], parts[1] - 1, parts[0])
