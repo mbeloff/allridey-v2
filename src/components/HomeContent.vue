@@ -87,7 +87,7 @@ export default {
         {
           title: 'Car rental. Simple',
           content:
-            'Get an instant quote and quickly book online. Cheap car and van hire in Brisbane, Cairns, Exmouth and Hobart',
+            'Get an instant quote and quickly book online. Cheap car and van hire in locations around Australia and New Zealand',
           img: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1628040145/allridey/ajddSjc',
           cols: 'md:col-span-2',
           linktext: 'Book Now',
