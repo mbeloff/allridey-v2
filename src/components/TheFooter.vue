@@ -2,16 +2,8 @@
   <div class="bg-gray-200 grid place-items-center px-2">
     <div class="flex gap-10 py-10">
       <div class="gap-2 text-sm text-left flex flex-col">
-        <router-link
-          v-for="location in locations"
-          :key="location.city"
-          class="hover:underline"
-          :to="{
-            path:
-              '/location/' + location.city.toLowerCase().replaceAll(' ', '-'),
-          }"
-          >Car Hire {{ location.city }}</router-link
-        >
+        <a href="https://allridey.com.au">Allridey Car Hire Australia</a>
+        <a href="https://allridey.co.nz">Allridey Car Hire New Zealand</a>
       </div>
       <div class="gap-2 text-sm text-left flex flex-col justify-between">
         <router-link :to="{ name: 'Contact' }"
