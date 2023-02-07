@@ -13,7 +13,7 @@
               alt="Allridey Cursive Logo"
               class="flex-grow w-32 md:w-48"
             />
-            <p class="-mt-1 text-sm font-bold text-blue-500">New Zealand</p>
+            <p class="-mt-1 text-sm font-bold text-blue-500">Australia</p>
           </router-link>
           <div class="hidden md:flex h-full w-full flex-grow items-center">
             <router-link :to="{ name: 'Search' }" class="menu-item"

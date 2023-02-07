@@ -27,7 +27,7 @@
                 >
                   <option
                     v-for="loc in $store.state.locations.filter(
-                      (el) => el.country == 'New Zealand'
+                      (el) => el.country == 'Australia'
                     )"
                     :key="loc.id"
                     :value="loc.id"
@@ -54,7 +54,7 @@
                 >
                   <option
                     v-for="loc in $store.state.locations.filter(
-                      (el) => el.country == 'New Zealand'
+                      (el) => el.country == 'Australia'
                     )"
                     :key="loc.id"
                     :value="loc.id"
@@ -500,7 +500,7 @@ export default {
     setInitialLocation(arr) {
       // Set pickup location to previously searched value, or current route location parameter
       // let defaultId = arr.find((el) => el.isdefault).id
-      let defaultId = 52
+      let defaultId = 25
       this.form.pickuplocationid = defaultId
       this.form.dropofflocationid = defaultId
       if (this.searchParams.pickuplocationid) {
