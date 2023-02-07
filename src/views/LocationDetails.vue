@@ -60,10 +60,10 @@
             </p>
           </div>
         </div>
-        <router-link
-          :to="{ name: 'Search', params: { loc: $route.params.name } }"
+        <a
+          :href="`${getLocationBaseUrl}/search/${$route.params.name}`"
           class="btn btn-primary flex-initial w-max mt-4"
-          >Book Now</router-link
+          >Book Now</a
         >
       </div>
     </div>
@@ -143,6 +143,14 @@ export default {
         })
         return id
       } else return undefined
+    },
+    getLocationBaseUrl() {
+      if (this.data.country == 'Australia') {
+        return 'https://allridey.com.au'
+      }
+      if (this.data.country == 'New Zealand') {
+        return 'https://allridey.co.nz'
+      }
     },
   },
   watch: {

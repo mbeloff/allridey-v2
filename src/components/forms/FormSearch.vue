@@ -26,7 +26,9 @@
                   class="my-input"
                 >
                   <option
-                    v-for="loc in locations"
+                    v-for="loc in $store.state.locations.filter(
+                      (el) => el.country == 'New Zealand'
+                    )"
                     :key="loc.id"
                     :value="loc.id"
                     :disabled="!loc.id"
@@ -39,7 +41,6 @@
             <div class="flex flex-col flex-grow group">
               <label for="doloc" class="my-label has-icon"
                 >Dropoff Location
-                <!-- <i class="fal fa-link fa-fw pl-1"></i> -->
               </label>
               <div class="flex flex-row place-items-center">
                 <i
@@ -52,7 +53,9 @@
                   class="my-input"
                 >
                   <option
-                    v-for="loc in locations"
+                    v-for="loc in $store.state.locations.filter(
+                      (el) => el.country == 'New Zealand'
+                    )"
                     :key="loc.id"
                     :value="loc.id"
                     :disabled="!loc.id"
@@ -491,20 +494,13 @@ export default {
     init(data) {
       this.locations = data.locations
       this.setInitialLocation(data.locations)
-      this.splitLocations(data.locations)
       this.initDates()
       this.loading = false
     },
-    // ? split locations to sort aus/nz location list
-    splitLocations(list) {
-      let arr = [...list]
-      let index = arr.indexOf(arr.find((el) => el.location == 'Auckland'))
-      arr.splice(index, 0, { location: '-----', id: null })
-      this.locations = arr
-    },
     setInitialLocation(arr) {
       // Set pickup location to previously searched value, or current route location parameter
-      let defaultId = arr.find((el) => el.isdefault).id
+      // let defaultId = arr.find((el) => el.isdefault).id
+      let defaultId = 52
       this.form.pickuplocationid = defaultId
       this.form.dropofflocationid = defaultId
       if (this.searchParams.pickuplocationid) {

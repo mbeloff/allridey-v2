@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper min-h-screen max-w-screen grid">
     <Nav v-if="$route.name != 'CheckPayment'" />
-    <div class="z-0 min-h-screen -mt-[80px] pt-[80px]">
+    <div class="z-0 min-h-screen">
       <router-view />
     </div>
 
@@ -10,19 +10,19 @@
 </template>
 
 <script setup>
-import { defineComponent, computed } from 'vue'
+import { computed } from 'vue'
 import { useHead, useSeoMeta } from '@vueuse/head'
 import Nav from './components/TheNavbar.vue'
 import Footer from './components/TheFooter.vue'
 
 useHead({
-  title: 'Cheap Car Hire Australia and New Zealand',
+  title: 'Cheap Car Hire New Zealand',
   titleTemplate: (title) => `${title} | Allridey`,
   link: [
     {
       rel: 'canonical',
       href: computed(() => {
-        return 'https://allridey.com.au/'
+        return 'https://allridey.com.nz/'
       }),
     },
   ],

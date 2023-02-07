@@ -1,31 +1,61 @@
 <template>
-  <div class="w-full h-20 shadow-lg bg-white z-10 relative print:hidden">
-    <div class="flex justify-between h-full mx-auto px-2">
-      <div class="left flex content-center items-center gap-x-4 w-full">
-        <router-link :to="{ name: 'Home' }" href="/" class="left flex">
-          <img
-            src="../assets/allridey_text_outline.svg"
-            alt="Go to Allridey homepage"
-            class="flex-grow w-32 md:w-48"
-          />
-        </router-link>
-        <div class="hidden md:flex h-full w-full flex-grow items-center">
-          <router-link :to="{ name: 'Search' }" class="menu-item"
-            >Book Now</router-link
+  <div>
+    <div class="w-full h-20 shadow-lg bg-white z-10 relative print:hidden">
+      <div class="flex justify-between h-full mx-auto px-2">
+        <div class="left flex content-center items-center gap-x-4 w-full">
+          <router-link
+            :to="{ name: 'Home' }"
+            href="/"
+            class="left flex flex-col"
           >
+            <img
+              src="../assets/allridey_text_outline.svg"
+              alt="Allridey Cursive Logo"
+              class="flex-grow w-32 md:w-48"
+            />
+            <p class="-mt-1 text-sm font-bold text-blue-500">New Zealand</p>
+          </router-link>
+          <div class="hidden md:flex h-full w-full flex-grow items-center">
+            <router-link :to="{ name: 'Search' }" class="menu-item"
+              >Book Now</router-link
+            >
 
-          <nav-item
-            class="menu-item"
-            :firstlabel="'Locations'"
-            :label="'Location'"
-            :items="split"
-            :itemlabel="'location'"
-          ></nav-item>
+            <nav-item
+              class="menu-item"
+              :firstlabel="'Locations'"
+              :label="'Location'"
+              :items="split"
+              :itemlabel="'location'"
+            ></nav-item>
 
-          <router-link :to="{ name: 'Contact' }" class="menu-item"
-            >Contact</router-link
-          >
-          <div class="flex flex-col ml-auto">
+            <router-link :to="{ name: 'Contact' }" class="menu-item"
+              >Contact</router-link
+            >
+            <div class="flex flex-col ml-auto">
+              <a
+                :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
+                class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
+                >AUS: {{ $store.state.phone }}</a
+              >
+              <a
+                :href="`tel:${$store.state.phonenz.replaceAll(' ', '')}`"
+                class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
+                >NZ: {{ $store.state.phonenz }}</a
+              >
+            </div>
+
+            <a
+              :href="$store.state.checkinurl"
+              class="ml-4 menu-item menu-button"
+              ><i class="fal fa-sign-in mr-1"></i> Check in</a
+            >
+          </div>
+        </div>
+        <div
+          class="md:hidden flex h-full place-items-center text-blue-800"
+          @click="expand = !expand"
+        >
+          <div class="flex flex-col text-sm mr-3">
             <a
               :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
               class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
@@ -38,61 +68,40 @@
             >
           </div>
 
-          <a :href="$store.state.checkinurl" class="ml-4 menu-item menu-button"
-            ><i class="fal fa-sign-in mr-1"></i> Check in</a
-          >
+          <i v-if="!expand" class="fal fa-bars fa-2x fa-fw"></i>
+          <i v-if="expand" class="fal fa-times fa-2x fa-fw"></i>
         </div>
       </div>
-      <div
-        class="md:hidden flex h-full place-items-center text-blue-800"
-        @click="expand = !expand"
-      >
-        <div class="flex flex-col text-sm mr-3">
-          <a
-            :href="`tel:${$store.state.phone.replaceAll(' ', '')}`"
-            class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
-            >AUS: {{ $store.state.phone }}</a
+      <transition name="slide">
+        <div
+          v-if="expand"
+          class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full py-2 font-bold text-sm"
+        >
+          <router-link
+            :to="{ name: 'Search' }"
+            class="hover:bg-gray-200 px-5 py-3"
+            >Book Now</router-link
           >
-          <a
-            :href="`tel:${$store.state.phonenz.replaceAll(' ', '')}`"
-            class="min-w-max font-bold text-blue-800 ml-auto hover:text-blue-600"
-            >NZ: {{ $store.state.phonenz }}</a
-          >
-        </div>
 
-        <i v-if="!expand" class="fal fa-bars fa-2x fa-fw"></i>
-        <i v-if="expand" class="fal fa-times fa-2x fa-fw"></i>
-      </div>
+          <router-link
+            :to="{ name: 'Locations' }"
+            class="hover:bg-gray-200 px-5 py-3"
+            >Locations</router-link
+          >
+
+          <router-link :to="{ name: 'Contact' }" class="menu-item"
+            >Contact</router-link
+          >
+
+          <a
+            :href="$store.state.checkinurl"
+            class="hover:bg-gray-200 px-5 py-3 menu-item menu-button max-w-max rounded-full mx-auto text-sm"
+            ><i class="fal fa-sign-in mr-1"></i> Check In</a
+          >
+          <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
+        </div>
+      </transition>
     </div>
-    <transition name="slide">
-      <div
-        v-if="expand"
-        class="absolute bg-white flex flex-col top-100 gap-2 md:hidden shadow-xl w-full py-2 font-bold text-sm"
-      >
-        <router-link
-          :to="{ name: 'Search' }"
-          class="hover:bg-gray-200 px-5 py-3"
-          >Book Now</router-link
-        >
-
-        <router-link
-          :to="{ name: 'Locations' }"
-          class="hover:bg-gray-200 px-5 py-3"
-          >Locations</router-link
-        >
-
-        <router-link :to="{ name: 'Contact' }" class="menu-item"
-          >Contact</router-link
-        >
-
-        <a
-          :href="$store.state.checkinurl"
-          class="hover:bg-gray-200 px-5 py-3 menu-item menu-button max-w-max rounded-full mx-auto text-sm"
-          ><i class="fal fa-sign-in mr-1"></i> Check In</a
-        >
-        <!-- <a href="tel:1800246869" class="font-bold text-blue-600 py-3">1800 24 68 69 </a>       -->
-      </div>
-    </transition>
   </div>
 </template>
 <script>
