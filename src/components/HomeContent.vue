@@ -65,6 +65,35 @@
       </div>
     </div>
   </div>
+  <div class="py-20 text-left grid gap-2">
+    <p>
+      Welcome to Allridey - Your Affordable Car Rental Solution in New Zealand!
+      At Allridey, we understand the importance of hassle-free and
+      budget-friendly travel. That's why we offer affordable car and van rental
+      options in Auckland, Christchurch and Queenstown to suit all your travel
+      needs. Whether you're on a business trip or exploring the stunning scenery
+      of New Zealand, we have the perfect vehicle for you at great everyday
+      prices.
+    </p>
+    <p>
+      Ensure your journey is comfortable and convenient, with our budget small
+      and mid-sized cars and 5 & 7 seater passenger vans. At Allridey, we pride
+      ourselves on great customer service and flexible options to suit your
+      budget. Our team of experts is always available to help you with any
+      questions or concerns you may have. We also offer flexible rental options,
+      including long-term rentals and one-way hires to suit your travle needs.
+    </p>
+    <p>
+      We keep our prices clear, with no hidden fees or charges - we make it
+      quick and easy to get an instant quote or book online. We believe that
+      everyone should have access to affordable car rental, so we work hard to
+      keep our prices competitive. If you're looking for budget car rental in
+      Auckland, Christchurch or Queenstown, look no further than Allridey. Book
+      your rental today and experience the beauty of New Zealand at your own
+      pace. Contact us now to find out more about our rental options and to book
+      your vehicle today!
+    </p>
+  </div>
 </template>
 
 <script>
