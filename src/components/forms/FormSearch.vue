@@ -185,7 +185,7 @@
         </div>
         <div class="flex flex-col sm:flex-row justify-between gap-2">
           <!-- // ? agent code input -->
-          <div class="flex flex-col group">
+          <!-- <div class="flex flex-col group">
             <label for="agentcode" class="my-label has-icon">Agency Code</label>
             <div class="flex flex-row place-items-center">
               <i class="form-i fal fa-user-headset fa-fw"></i>
@@ -199,7 +199,7 @@
                 placeholder="agent use only"
               />
             </div>
-          </div>
+          </div> -->
           <div class="text-right flex-grow">
             <button class="btn btn-primary ml-7 mt-4" @click="getStep2()">
               SEARCH <i class="text-gray-200 fal fa-search"></i>
@@ -224,14 +224,6 @@ export default {
   data() {
     return {
       alltimes: [
-        // '00:00',
-        // '00:30',
-        // '01:00',
-        // '01:30',
-        // '02:00',
-        // '02:30',
-        // '03:00',
-        // '03:30',
         '04:00',
         '04:30',
         '05:00',
@@ -268,9 +260,6 @@ export default {
         '21:00',
         '21:30',
         '22:00',
-        // '22:30',
-        // '23:00',
-        // '23:30',
       ],
       daterange: {},
       loading: true,
