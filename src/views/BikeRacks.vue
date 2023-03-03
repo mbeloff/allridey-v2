@@ -72,7 +72,7 @@ const bikes = [
     specs: [
       {
         label: 'Capacity',
-        value: '2-4',
+        value: '4',
       },
       {
         label: 'Max. Weight',
@@ -84,7 +84,7 @@ const bikes = [
       },
     ],
     description:
-      'Tow ball mounted folding bike rack. includes straps to securely carry up to 4 bikes, or 2 e-bikes',
+      'Folding bike rack. includes straps to securely carry up to 4 bikes.',
     img: [
       'https://res.cloudinary.com/allridey/image/upload/assets/bike-racks/4/1.jpg',
       'https://res.cloudinary.com/allridey/image/upload/assets/bike-racks/4/2.jpg',
@@ -106,8 +106,7 @@ const bikes = [
         value: '<i class="fas fa-check text-green-500"></i> (check weight)',
       },
     ],
-    description:
-      'Tow ball mounted vertical hanging bike rack to carry up to 6 bikes.',
+    description: 'Vertical hanging bike rack to carry up to 6 bikes.',
     img: [
       'https://res.cloudinary.com/allridey/image/upload/assets/bike-racks/6/1.jpg',
       'https://res.cloudinary.com/allridey/image/upload/assets/bike-racks/6/2.jpg',
