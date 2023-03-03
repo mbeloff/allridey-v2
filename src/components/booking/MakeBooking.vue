@@ -1,20 +1,24 @@
 <template>
   <div>
-    <div class="grid grid-flow-col place-items-center gap-2 mt-10">
-      <button
-        class="btn btn-primary ml-auto"
-        :class="{ 'ring-4': mode == 1 }"
-        @click="setMode(1), scroll('scrollMarker')"
-      >
-        Email Quote
-      </button>
-      <button
-        class="btn btn-primary mr-auto"
-        :class="{ 'ring-4': mode == 2 }"
-        @click="setMode(2), scroll('scrollMarker')"
-      >
-        {{ available == 1 ? 'Book Now' : 'Request Now' }}
-      </button>
+    <div
+      class="grid grid-flow-col place-items-center gap-2 mt-10 border bg-white rounded-md py-5"
+    >
+      <div class="flex gap-2">
+        <button
+          class="btn btn-primary ml-auto"
+          :class="{ 'ring-4': mode == 1 }"
+          @click="setMode(1), scroll('scrollMarker')"
+        >
+          Email Quote
+        </button>
+        <button
+          class="btn btn-primary mr-auto"
+          :class="{ 'ring-4': mode == 2 }"
+          @click="setMode(2), scroll('scrollMarker')"
+        >
+          {{ available == 1 ? 'Book Now' : 'Request Now' }}
+        </button>
+      </div>
     </div>
     <transition name="slide-down">
       <div
