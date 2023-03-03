@@ -21,14 +21,13 @@
           v-for="bike in bikes"
           class="bg-white p-2 shadow-lg rounded-lg flex flex-col justify-between"
         >
+          <keen-slider
+            :slides="bike.img"
+            class="rounded-t md:rounded-tr-none md:rounded-l"
+          ></keen-slider>
           <div>
-            <img
-              :src="bike.img[0]"
-              alt=""
-              class="rounded-lg border aspect-square object-cover"
-            />
             <p class="text-xl font-bold my-2">{{ bike.name }}</p>
-            <p class="my-5">{{ bike.description }}</p>
+            <!-- <p class="my-5">{{ bike.description }}</p> -->
           </div>
 
           <ul class="text-sm">
@@ -44,6 +43,7 @@
 </template>
 
 <script setup>
+import KeenSlider from '@/components/PhotoGallery.vue'
 const bikes = [
   {
     name: 'Bike Rack 2',
