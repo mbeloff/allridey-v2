@@ -30,6 +30,12 @@ export default createStore({
     gotBooking: false,
     hasSession: false,
     storeCardOnly: false,
+    specials: [
+      {
+        top: true,
+        message: 'Up to 50% off in Queenstown and Christchurch. Book Now!',
+      },
+    ],
   },
   mutations: {
     vault(state, payload) {

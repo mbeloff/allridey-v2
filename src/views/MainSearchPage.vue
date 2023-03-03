@@ -3,8 +3,11 @@
     class="bg-gray-100 h-full bg-center bg-cover relative"
     :class="{ 'full-bg': step < 3 }"
   >
-    <p v-if="step < 3" class="bg-red-500 text-white font-bold">
-      Up to 50% off in Queenstown and Christchurch. Book Now!
+    <p
+      v-if="step < 3 && $store.state.specials.find((el) => el.top)"
+      class="bg-red-500 text-white font-bold"
+    >
+      {{ $store.state.specials.find((el) => el.top).message }}
     </p>
     <div class="bg-cover bg-center bg-main">
       <div class="max-w-screen-lg mx-auto flex flex-col gap-10 py-10 px-2">

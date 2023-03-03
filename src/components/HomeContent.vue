@@ -81,7 +81,7 @@
       ourselves on great customer service and flexible options to suit your
       budget. Our team of experts is always available to help you with any
       questions or concerns you may have. We also offer flexible rental options,
-      including long-term rentals and one-way hires to suit your travle needs.
+      including long-term rentals and one-way hires to suit your travel needs.
     </p>
     <p>
       We keep our prices clear, with no hidden fees or charges - we make it
@@ -106,7 +106,7 @@ export default {
         {
           title: 'Sale',
           content:
-            'Book now and save 50% on the daily rate in Hobart. Pickup any time before December 1st. Limited time only',
+            'Regular Allridey Specials Online! Keep an eye on our specials page for current deals.',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',

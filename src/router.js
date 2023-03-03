@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import Search from './views/MainSearchPage.vue'
-
 import Locations from './views/LocationList.vue'
 import Location from './views/LocationDetails.vue'
 import Checkout from './views/StripeCheckout.vue'
@@ -8,6 +7,7 @@ import Privacy from './views/PrivacyPolicy.vue'
 import NotFound from './views/NotFound.vue'
 import Contact from './views/ContactPage.vue'
 import PriceBeat from './views/PriceBeat.vue'
+import BikeRacks from './views/BikeRacks.vue'
 import { trackRouter } from 'vue-gtag-next'
 const history = createWebHistory()
 
@@ -22,6 +22,7 @@ const routes = [
   { name: 'Summary', path: '/summary', component: Search },
   { name: 'PriceBeat', path: '/offers/price-beat', component: PriceBeat },
   { name: 'Locations', path: '/locations', component: Locations },
+  { name: 'BikeRacks', path: '/extras/bike-racks', component: BikeRacks },
   {
     name: 'Location',
     path: '/location/:name?',
