@@ -5,7 +5,7 @@ export default createStore({
   plugins: [createPersistedState({ storage: window.sessionStorage })],
   state: {
     phone: '+61 417 740 307',
-    phonenz: '+64 225 807 588',
+    phonenz: '+64 21 926 474',
     email: 'sales@allridey.com.au',
     checkinurl: 'https://checkin.allridey.com.au/',
     status: null,
