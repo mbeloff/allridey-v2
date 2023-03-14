@@ -65,6 +65,33 @@
       </div>
     </div>
   </div>
+  <div class="py-20 text-left grid gap-2">
+    <p>
+      Welcome to Allridey - Your Affordable Car Rental Solution in Australia! At
+      Allridey, we understand the importance of hassle-free and budget-friendly
+      travel. That's why we offer affordable car rental options in locations all
+      over the country to suit all your travel needs. Whether you're on a
+      business trip or exploring the Australia's gorgeous landscapes, we have
+      the perfect vehicle for you at great everyday prices.
+    </p>
+    <p>
+      Ensure your journey is comfortable and convenient, with our budget small
+      and mid-sized cars. At Allridey, we pride ourselves on great customer
+      service and flexible options to suit your budget. Our team of experts is
+      always available to help you with any questions or concerns you may have.
+      We also offer flexible rental options, including long-term rentals and
+      one-way hires to suit your travel needs.
+    </p>
+    <p>
+      We keep our prices clear, with no hidden fees or charges - we make it
+      quick and easy to get an instant quote or book online. We believe that
+      everyone should have access to affordable car rental, so we work hard to
+      keep our prices competitive. If you're looking for budget car rental in
+      Australia, look no further than Allridey. Book your rental today and
+      experience the beauty of Australia at your own pace. Contact us to find
+      out more about our rental options or book online today!
+    </p>
+  </div>
 </template>
 
 <script>
@@ -77,7 +104,7 @@ export default {
         {
           title: 'Sale',
           content:
-            'Book now and save 50% on the daily rate in Hobart. Pickup any time before December 1st. Limited time only',
+            'Regular Allridey Specials Online! Keep an eye on our specials page for current deals.',
           img: 'https://res.cloudinary.com/allridey/image/upload/q_auto,f_auto/c_scale,w_700/v1641269764/assets/allridey_sale',
           cols: 'md:col-span-1',
           linktext: 'Grab a Quote',
