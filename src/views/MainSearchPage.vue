@@ -178,10 +178,6 @@ export default {
     updatestep(e) {
       this.step = e
     },
-    // updateSearchResults(e, f) {
-    //   this.count++
-    //   this.$forceUpdate()
-    // },
     sendEmail(ref) {
       let params = JSON.stringify({
         method: 'sendemail',
@@ -202,22 +198,9 @@ export default {
       if (mode == 2) {
         this.step = 5
         this.$store.dispatch('vault', false)
-        if (
-          this.step3.availablecars[0].availablemessage.startsWith(
-            'Limited availability'
-          )
-        ) {
-          // this.$store.dispatch('vault', true)
-          // send to card vault entry page
-          this.$router.push({
-            name: 'Checkout',
-          })
-        } else {
-          // send to windcave payment page
-          this.$router.push({
-            name: 'Checkout',
-          })
-        }
+        this.$router.push({
+          name: 'Checkout',
+        })
       }
     },
     trackQuote() {

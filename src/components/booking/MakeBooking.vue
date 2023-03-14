@@ -205,6 +205,7 @@ export default {
     },
     submitBooking() {
       this.pleaseWait = true
+      this.parameters.bookingtype = this.mode
       Mixins.methods.apiCall(JSON.stringify(this.parameters)).then((data) => {
         this.$store.dispatch('resinfo', data)
         this.$emit('create-booking')
