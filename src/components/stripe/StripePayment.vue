@@ -64,6 +64,8 @@
 <script setup>
 import { ref, computed, watchEffect, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
 const route = useRoute()
 const props = defineProps({
   customer: {
@@ -101,9 +103,10 @@ const pk =
 const stripe = Stripe(pk)
 
 const paymentintent = ref()
-
+const onRequest =
+  store.state.step3.availablecars[0].availablemessage != 'Available for Booking'
 const paymentamount = computed(() => {
-  if (props.booking.reservationstatus == 'Reservation') {
+  if (onRequest) {
     return props.booking.balancedue
   } else {
     return 1
@@ -111,14 +114,13 @@ const paymentamount = computed(() => {
 })
 
 onBeforeMount(() => {
-  console.log(props.booking.reservationstatus)
   fetch('/.netlify/functions/stripepayment', {
     method: 'POST',
     body: JSON.stringify({
       customer: customer.value,
       amount: (paymentamount.value * 100).toFixed(0),
       currency: props.booking.currencyname,
-      isAuth: props.booking.reservationstatus == 'Reservation Request',
+      isAuth: onRequest,
     }),
   })
     .then((res) => res.text())

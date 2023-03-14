@@ -170,8 +170,8 @@ if (paymentClientSecret) {
       cardnumber: '############' + card.card.last4,
       cardexpiry: expiry,
       cardholder: cardholder.value,
-      payscenario: 2,
-      emailoption: 2,
+      payscenario: 1,
+      emailoption: 0,
     }
 
     finishTransaction(params)
