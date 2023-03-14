@@ -128,7 +128,7 @@ export default {
         {
           title: 'Our fleet',
           content:
-            "We have a range of economical cars and 8 seat vans at great daily rates. If you find a cheaper price, we'll beat it by 10%.",
+            "We have a range of economical cars and passenger vans at great daily rates. If you find a cheaper price, we'll beat it by 10%.",
           img: 'https://res.cloudinary.com/dg5ybbkbh/image/upload/q_auto,f_auto/c_scale,w_700/v1627347849/allridey/jbkad',
           cols: 'md:col-span-2',
           // linksto: "Search",
