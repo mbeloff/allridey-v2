@@ -88,7 +88,7 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: 'https://allridey.com.au/search/',
+          href: 'https://allridey.com.au/',
         },
       ],
     })
