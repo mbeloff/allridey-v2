@@ -1,21 +1,21 @@
 <template>
-  <div v-if="booking" ref="summary" class="text-left p-2">
+  <div v-if="booking" ref="summary" class="p-2 text-left">
     <loading-overlay v-if="loading" />
-    <div class="rounded w-full flex flex-col gap-3">
-      <div class="flex flex-col md:flex-row gap-3 items-start">
+    <div class="flex flex-col w-full gap-3 rounded">
+      <div class="flex flex-col items-start gap-3 md:flex-row">
         <!--LEFT SIDE -->
-        <div class="md:w-2/6 order-2 md:order-1 bg-white shadow-xl rounded">
+        <div class="order-2 bg-white rounded shadow-xl md:w-2/6 md:order-1">
           <img
             :src="booking.urlpathfordocuments + booking.vehicleimage"
             alt=""
             class="m-auto rounded-t"
           />
-          <div class="bg-white px-2 py-1 text-sm">
+          <div class="px-2 py-1 text-sm bg-white">
             <div
-              class="w-full flex gap-3 items-center text-sm text-gray-500 py-4"
+              class="flex items-center w-full gap-3 py-4 text-sm text-gray-500"
             >
-              <div class="text-right flex-grow">
-                <p class="uppercase text-sm font-bold text-gray-500 mb-1">
+              <div class="flex-grow text-right">
+                <p class="mb-1 text-sm font-bold text-gray-500 uppercase">
                   Picking Up
                 </p>
                 <ul>
@@ -29,14 +29,14 @@
                   </li>
                 </ul>
               </div>
-              <div class="flex-shrink grid place-items-center">
+              <div class="grid flex-shrink place-items-center">
                 <div class="grid grid-flow-col place-items-center">
                   <i class="fal fa-ellipsis-h mr-0.5" />
                   <i class="fal fa-arrow-right" />
                 </div>
               </div>
-              <div class="text-left flex-grow">
-                <p class="uppercase text-sm font-bold text-gray-500 mb-1">
+              <div class="flex-grow text-left">
+                <p class="mb-1 text-sm font-bold text-gray-500 uppercase">
                   Dropping Off
                 </p>
                 <ul>
@@ -77,7 +77,7 @@
               </div>
               <div class="flex justify-between">
                 <span> {{ booking.kmcharges_description }} </span
-                ><span class="font-bold ml-5">{{
+                ><span class="ml-5 font-bold">{{
                   booking.currencysymbol +
                   booking.kmcharges_totalfordailyrate.toFixed(2)
                 }}</span>
@@ -98,23 +98,25 @@
           </div>
 
           <!-- CALCULATED TOTAL -->
-          <div class="bg-blue-900 text-white px-2 rounded-b py-4">
+          <div class="px-2 py-4 text-white bg-blue-900 rounded-b">
             <div class="flex justify-end">
-              <span class="font-bold mr-2">TOTAL COST: </span>
+              <span class="mr-2 font-bold">TOTAL COST: </span>
               <span class="text-right">{{
                 booking.currencyname + ' ' + booking.currencysymbol
               }}</span>
               <span id="booktotal">{{ booking.totalcost.toFixed(2) }}</span>
             </div>
-            <div class="text-right italic text-xs">
+            <!-- <div
+              class="text-xs italic text-right"
+            >
               <span>(includes GST of: </span
               ><span> {{ booking.currencysymbol + booking.gst }})</span>
-            </div>
+            </div> -->
             <div
               v-if="payment.length != 0"
               class="flex justify-end mt-2 text-sm"
             >
-              <span class="font-bold mr-2">BALANCE DUE: </span>
+              <span class="mr-2 font-bold">BALANCE DUE: </span>
               <span class="text-right">{{
                 booking.currencyname + ' ' + booking.currencysymbol
               }}</span
@@ -124,9 +126,9 @@
         </div>
 
         <!-- RIGHT SIDE -->
-        <div class="flex flex-col md:w-4/6 flex-shrink order-1 md:order-2">
+        <div class="flex flex-col flex-shrink order-1 md:w-4/6 md:order-2">
           <div
-            class="flex flex-col shadow-xl bg-gray-200 p-5 gap-2 py-10 mb-5 rounded"
+            class="flex flex-col gap-2 p-5 py-10 mb-5 bg-gray-200 rounded shadow-xl"
           >
             <p v-if="booking.isquotation" class="text-xl font-bold">
               Thank you for requesting a quote with Allridey
@@ -174,7 +176,7 @@
                 '&res=' +
                 booking.reservationno
               "
-              class="btn btn-primary text-center mx-auto mb-2"
+              class="mx-auto mb-2 text-center btn btn-primary"
               >Convert to a Booking</a
             >
           </div>

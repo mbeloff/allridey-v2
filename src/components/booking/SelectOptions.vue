@@ -1,18 +1,18 @@
 <template>
-  <div class="rounded bg-opacity-90 w-full p-1 flex flex-col gap-5">
+  <div class="flex flex-col w-full gap-5 p-1 rounded bg-opacity-90">
     <!-- Vehicle and Trip Details -->
     <div
-      class="flex flex-col md:w-full justify-center shadow-xl shadow-black/5 bg-gray-200 rounded"
+      class="flex flex-col justify-center bg-gray-200 rounded shadow-xl md:w-full shadow-black/5"
     >
       <div class="flex-shrink pt-4">
-        <p class="text-center text-blue-700 font-bold">
+        <p class="font-bold text-center text-blue-700">
           {{ step3.availablecars[0].categoryfriendlydescription }}
         </p>
       </div>
 
-      <div class="w-full flex gap-3 items-center text-sm text-gray-500 py-4">
-        <div class="text-right flex-grow">
-          <p class="uppercase text-sm font-bold text-gray-500 mb-1">
+      <div class="flex items-center w-full gap-3 py-4 text-sm text-gray-500">
+        <div class="flex-grow text-right">
+          <p class="mb-1 text-sm font-bold text-gray-500 uppercase">
             Picking Up
           </p>
           <ul>
@@ -31,14 +31,14 @@
             </li>
           </ul>
         </div>
-        <div class="flex-shrink grid place-items-center">
+        <div class="grid flex-shrink place-items-center">
           <div class="grid grid-flow-col place-items-center">
             <i class="fal fa-ellipsis-h mr-0.5"></i>
             <i class="fal fa-arrow-right"></i>
           </div>
         </div>
-        <div class="text-left flex-grow">
-          <p class="uppercase text-sm font-bold text-gray-500 mb-1">
+        <div class="flex-grow text-left">
+          <p class="mb-1 text-sm font-bold text-gray-500 uppercase">
             Dropping Off
           </p>
           <ul>
@@ -61,15 +61,15 @@
     </div>
 
     <div
-      class="flex flex-col md:flex-row gap-5 items-start justify-items-start"
+      class="flex flex-col items-start gap-5 md:flex-row justify-items-start"
     >
       <!-- // ? LEFT SIDE -->
-      <div class="w-full md:w-2/6 text-left text-sm shadow-xl">
+      <div class="w-full text-sm text-left shadow-xl md:w-2/6">
         <!-- Vehicle Image -->
         <img
           v-if="!gallery.length"
           class="object-contain object-center mx-auto rounded"
-          :src="'https:'+step3.availablecars[0].imageurl"
+          :src="'https:' + step3.availablecars[0].imageurl"
           alt=""
         />
         <keen-slider
@@ -79,11 +79,11 @@
         ></keen-slider>
         <div class="relative">
           <loading-overlay v-if="calculating"></loading-overlay>
-          <div class="bg-white py-1">
-            <p class="font-bold px-2">Daily Rental Rate:</p>
+          <div class="py-1 bg-white">
+            <p class="px-2 font-bold">Daily Rental Rate:</p>
             <p
               v-if="step3.availablecars[0].totaldiscountamount > 0"
-              class="bg-green-500 text-white text-center"
+              class="text-center text-white bg-green-500"
             >
               discount of ${{
                 step3.availablecars[0].totaldiscountamount
@@ -99,13 +99,13 @@
                   step3.seasonalrates[0].dailyrateafterdiscount
                 }}
               </span>
-              <span class="w-14 font-bold">{{
+              <span class="font-bold w-14">{{
                 currencysymbol + step3.seasonalrates[0].ratesubtotal.toFixed(2)
               }}</span>
             </div>
 
             <!-- //? EXTRAS -->
-            <div class="mt-2 px-2">
+            <div class="px-2 mt-2">
               <div v-if="totals.mandatory.length || totals.optional.length">
                 <p class="font-bold">Fees:</p>
                 <div
@@ -114,7 +114,7 @@
                   class="flex justify-between"
                 >
                   <span>{{ fee.name }}</span
-                  ><span v-if="fee.qty > 1" class="mr-auto ml-3"
+                  ><span v-if="fee.qty > 1" class="ml-3 mr-auto"
                     >x {{ fee.qty }}</span
                   ><span class="font-bold w-14">{{
                     currencysymbol + fee.total.toFixed(2)
@@ -159,7 +159,7 @@
           <!-- // ? CALCULATED TOTAL -->
           <div
             v-if="totals.all.length > 0"
-            class="bg-blue-900 text-white px-2 py-4 rounded-b relative"
+            class="relative px-2 py-4 text-white bg-blue-900 rounded-b"
           >
             <div class="flex justify-end text-base">
               <span class="font-bold">TOTAL COST: </span>
@@ -169,23 +169,26 @@
                   .total
               }}</span>
             </div>
-            <div v-if="totals.tax[0].total" class="text-right italic text-xs">
+            <!-- <div
+              v-if="totals.tax[0].total"
+              class="text-xs italic text-right"
+            >
               <span v-for="tax in totals.tax" :key="tax.id"
                 >(includes GST of:
                 {{ ' ' + currencysymbol + totals.tax[0].total }})</span
               >
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
 
       <!-- // ? RIGHT SIDE -->
       <div
-        class="w-full md:w-4/6 bg-white shadow-xl text-left p-1 px-2 md:px-5 text-sm py-5 rounded"
+        class="w-full p-1 px-2 py-5 text-sm text-left bg-white rounded shadow-xl md:w-4/6 md:px-5"
       >
         <!-- Damage Cover -->
         <div v-if="step3.insuranceoptions.length" class="mb-4">
-          <p class="font-bold text-xl mb-4">Damage Cover:</p>
+          <p class="mb-4 text-xl font-bold">Damage Cover:</p>
           <div
             v-for="damage in step3.insuranceoptions"
             :key="damage.id"
@@ -197,16 +200,16 @@
               v-model="insurance"
               type="radio"
               :checked="damage.isdefault"
-              class="mr-1 hidden"
+              class="hidden mr-1"
               :value="damage.id"
             />
             <label :for="'damage' + damage.id" class="fee">
               <div class="flex justify-between">
-                <span class="py-1 tracking-tight flex-1">{{
+                <span class="flex-1 py-1 tracking-tight">{{
                   damage.name
                 }}</span>
                 <p class="font-bold price">
-                  <i class="fal fa-plus-circle mr-2"></i
+                  <i class="mr-2 fal fa-plus-circle"></i
                   >{{ currencysymbol + damage.fees
                   }}<span class="text-xs font-normal">/day</span>
                 </p>
@@ -223,14 +226,14 @@
         <!-- Extras -->
 
         <div v-if="optionalfees.length > 0" class="mb-4">
-          <p class="font-bold mb-4 text-xl">Extras:</p>
+          <p class="mb-4 text-xl font-bold">Extras:</p>
           <div v-for="extra in optionalfees" :key="extra.id" class="flex mb-1">
             <div
               v-if="extra.sel && extra.qtyapply"
-              class="flex flex-col justify-around items-center w-8"
+              class="flex flex-col items-center justify-around w-8"
             >
               <i
-                class="grid place-items-center fal fa-plus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid w-6 h-5 py-1 text-center text-white bg-blue-900 rounded place-items-center fal fa-plus fa-fw"
                 @click="incQty(extra)"
               ></i>
               <input
@@ -240,7 +243,7 @@
                 class="w-6 text-center"
               />
               <i
-                class="grid place-items-center fal fa-minus fa-fw py-1 w-6 h-5 text-center rounded bg-blue-900 text-white"
+                class="grid w-6 h-5 py-1 text-center text-white bg-blue-900 rounded place-items-center fal fa-minus fa-fw"
                 @click="decQty(extra)"
               ></i>
             </div>
@@ -252,16 +255,16 @@
                 :id="'extra' + extra.id"
                 v-model="extra.sel"
                 type="checkbox"
-                class="mr-1 hidden"
+                class="hidden mr-1"
                 :disabled="shuttleDisabled(extra.id)"
               />
               <label :for="'extra' + extra.id" class="fee">
                 <div class="flex justify-between">
-                  <span class="py-1 tracking-tight flex-1"
+                  <span class="flex-1 py-1 tracking-tight"
                     >{{ extra.name }}
                     <span v-if="shuttleDisabled(extra.id)"
                       ><i
-                        class="fal fa-lock-alt opacity-70 text-xs ml-1"
+                        class="ml-1 text-xs fal fa-lock-alt opacity-70"
                       ></i></span
                   ></span>
 
@@ -270,7 +273,7 @@
                   </p>
                   <div v-else class="font-bold price">
                     <span
-                      ><i class="fal fa-plus-circle mr-2"></i
+                      ><i class="mr-2 fal fa-plus-circle"></i
                       >{{ currencysymbol + extra.fees * extra.qty }}</span
                     >
                     <span
@@ -298,7 +301,7 @@
         </div>
 
         <!-- Kilometres -->
-        <p class="font-bold mb-4 text-xl">Kilometre Inclusions:</p>
+        <p class="mb-4 text-xl font-bold">Kilometre Inclusions:</p>
         <div class="mb-4">
           <div
             v-for="km in step3.kmcharges"
@@ -312,16 +315,16 @@
                 v-model="extrakmsid"
                 type="radio"
                 :checked="km.isdefault"
-                class="mr-1 hidden"
+                class="hidden mr-1"
                 :value="km.id"
               />
-              <label :for="'km' + km.id" class="fee w-full">
+              <label :for="'km' + km.id" class="w-full fee">
                 <div class="flex">
-                  <span class="py-1 tracking-tight flex-1">{{
+                  <span class="flex-1 py-1 tracking-tight">{{
                     km.description
                   }}</span>
                   <span class="price"
-                    ><i class="fal fa-plus-circle mr-2"></i
+                    ><i class="mr-2 fal fa-plus-circle"></i
                     >{{ currencysymbol + km.totalamount }}</span
                   >
                 </div>
@@ -480,7 +483,7 @@ export default {
   methods: {
     getGallery() {
       let catid = this.step3.availablecars[0].vehiclecategoryid
-      let baseimg = 'https:'+this.step3.availablecars[0].imageurl
+      let baseimg = 'https:' + this.step3.availablecars[0].imageurl
       // let host = import.meta.env.VITE_HOST
       let baseurl = 'https://res.cloudinary.com/allridey/image/upload/'
       let transform = 'f_auto,q_auto/c_fill,h_295,w_563/'
