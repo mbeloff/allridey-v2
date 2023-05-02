@@ -31,10 +31,10 @@ export default createStore({
     hasSession: false,
     storeCardOnly: false,
     specials: [
-      {
-        top: true,
-        message: 'SALE! Up to 50% off. Book Now!',
-      },
+      // {
+      //   top: true,
+      //   message: 'SALE! Up to 50% off. Book Now!',
+      // },
     ],
   },
   mutations: {
